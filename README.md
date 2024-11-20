@@ -9,9 +9,9 @@ The task is to fork an existing git repository containing source code for a game
 ## Prerequisites
 Please ensure you have the following prerequisites:
 - A Java 21 JDK with JavaFX included, such as [Azul Zulu](https://www.azul.com/downloads/?version=java-21-lts&package=jdk-fx#zulu).
-- Apache Maven or an IDE that comes bundled with it such as IntelliJ IDEA.
 
 The following tools may also be of use:
+- Apache Maven or an IDE that comes bundled with it such as IntelliJ IDEA.
 - git
 
 ## Source Code
@@ -27,7 +27,14 @@ If you don't have git, click on the code button on the GitHub page, then click o
 ### From a CLI
 While in the source code folder:
 ```shell
+# Unix/Windows with Maven installed
 mvn clean compile exec:java
+
+# Unix without Maven
+./mvnw clean compile exec:java
+
+# Windows without Maven
+mvnw.cmd clean compile exec:java
 ```
 
 ### From IntelliJ IDEA CE
