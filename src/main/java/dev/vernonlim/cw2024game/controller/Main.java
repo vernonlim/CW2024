@@ -1,4 +1,4 @@
-package com.example.demo.controller;
+package dev.vernonlim.cw2024game.controller;
 
 import java.lang.reflect.InvocationTargetException;
 

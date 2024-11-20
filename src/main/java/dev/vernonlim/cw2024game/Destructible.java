@@ -1,4 +1,4 @@
-package com.example.demo;
+package dev.vernonlim.cw2024game;
 
 public interface Destructible {
 

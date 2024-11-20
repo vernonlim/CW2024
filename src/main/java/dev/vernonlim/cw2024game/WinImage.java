@@ -1,11 +1,11 @@
-package com.example.demo;
+package dev.vernonlim.cw2024game;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class WinImage extends ImageView {
 	
-	private static final String IMAGE_NAME = "/com/example/demo/images/youwin.png";
+	private static final String IMAGE_NAME = "/dev/vernonlim/cw2024game/images/youwin.png";
 	private static final int HEIGHT = 500;
 	private static final int WIDTH = 600;
 	

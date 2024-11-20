@@ -1,8 +1,8 @@
-module com.example.demo {
+module dev.vernonlim.cw2024game {
     requires javafx.controls;
     requires javafx.fxml;
 
 
-    opens com.example.demo to javafx.fxml;
-    exports com.example.demo.controller;
+    opens dev.vernonlim.cw2024game to javafx.fxml;
+    exports dev.vernonlim.cw2024game.controller;
 }

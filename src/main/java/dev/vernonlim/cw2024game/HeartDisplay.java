@@ -1,4 +1,4 @@
-package com.example.demo;
+package dev.vernonlim.cw2024game;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -6,7 +6,7 @@ import javafx.scene.layout.HBox;
 
 public class HeartDisplay {
 	
-	private static final String HEART_IMAGE_NAME = "/com/example/demo/images/heart.png";
+	private static final String HEART_IMAGE_NAME = "/dev/vernonlim/cw2024game/images/heart.png";
 	private static final int HEART_HEIGHT = 50;
 	private static final int INDEX_OF_FIRST_ITEM = 0;
 	private HBox container;
