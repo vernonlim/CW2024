@@ -1,8 +1,8 @@
 
 { pkgs ? import <nixpkgs> {} }:
   pkgs.mkShell {
-    nativeBuildInputs = with pkgs; [
-      maven
-      zulu
+    nativeBuildInputs = [
+      pkgs.maven
+      (pkgs.zulu.override { enableJavaFX = true; })
     ];
 }
