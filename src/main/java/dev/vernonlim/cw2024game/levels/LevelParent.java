@@ -1,9 +1,15 @@
-package dev.vernonlim.cw2024game;
+package dev.vernonlim.cw2024game.levels;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import dev.vernonlim.cw2024game.ActiveActorDestructible;
+import dev.vernonlim.cw2024game.FighterPlane;
+import dev.vernonlim.cw2024game.LevelView;
+import dev.vernonlim.cw2024game.UserPlane;
+import dev.vernonlim.cw2024game.controller.Controller;
 import javafx.animation.*;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -11,8 +17,7 @@ import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.util.Duration;
 
-public abstract class LevelParent extends Observable {
-
+public abstract class LevelParent {
     private static final double SCREEN_HEIGHT_ADJUSTMENT = 150;
     private static final int MILLISECOND_DELAY = 50;
     private final double screenHeight;
@@ -33,7 +38,9 @@ public abstract class LevelParent extends Observable {
     private int currentNumberOfEnemies;
     private final LevelView levelView;
 
-    public LevelParent(String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
+    private final Controller controller;
+
+    public LevelParent(Controller controller, String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
         this.root = new Group();
         this.scene = new Scene(root, screenWidth, screenHeight);
         this.timeline = new Timeline();
@@ -51,6 +58,8 @@ public abstract class LevelParent extends Observable {
         this.currentNumberOfEnemies = 0;
         initializeTimeline();
         friendlyUnits.add(user);
+
+        this.controller = controller;
     }
 
     protected abstract void initializeFriendlyUnits();
@@ -74,8 +83,10 @@ public abstract class LevelParent extends Observable {
     }
 
     public void goToNextLevel(String levelName) {
-        setChanged();
-        notifyObservers(levelName);
+        timeline.pause();
+        Platform.runLater(() -> {
+            controller.goToLevel(levelName);
+        });
     }
 
     private void updateScene() {

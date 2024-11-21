@@ -12,7 +12,7 @@ public class ShieldImage extends ImageView {
         this.setLayoutX(xPosition);
         this.setLayoutY(yPosition);
         //this.setImage(new Image(IMAGE_NAME));
-        this.setImage(new Image(getClass().getResource("/dev/vernonlim/cw2024game/images/shield.jpg").toExternalForm()));
+        this.setImage(new Image(getClass().getResource("/dev/vernonlim/cw2024game/" + IMAGE_NAME).toExternalForm()));
         this.setVisible(false);
         this.setFitHeight(SHIELD_SIZE);
         this.setFitWidth(SHIELD_SIZE);
