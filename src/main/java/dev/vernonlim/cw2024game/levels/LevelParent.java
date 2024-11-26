@@ -19,7 +19,8 @@ import javafx.util.Duration;
 
 public abstract class LevelParent {
     private static final double SCREEN_HEIGHT_ADJUSTMENT = 150;
-    private static final int MILLISECOND_DELAY = 50;
+    private static final int TICK_RATE = 60;
+    private static final int TARGET_FPS = 60;
     private final double screenHeight;
     private final double screenWidth;
     private final double enemyMaximumYPosition;
@@ -40,10 +41,12 @@ public abstract class LevelParent {
 
     private final Controller controller;
 
+    private long lastUpdate;
+
     public LevelParent(Controller controller, String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
         this.root = new Group();
         this.scene = new Scene(root, screenWidth, screenHeight);
-        this.timeline = new Timeline();
+        this.timeline = new Timeline(TARGET_FPS);
         this.user = new UserPlane(playerInitialHealth);
         this.friendlyUnits = new ArrayList<>();
         this.enemyUnits = new ArrayList<>();
@@ -56,6 +59,7 @@ public abstract class LevelParent {
         this.enemyMaximumYPosition = screenHeight - SCREEN_HEIGHT_ADJUSTMENT;
         this.levelView = instantiateLevelView();
         this.currentNumberOfEnemies = 0;
+        this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
         initializeTimeline();
         friendlyUnits.add(user);
 
@@ -90,8 +94,10 @@ public abstract class LevelParent {
     }
 
     private void updateScene() {
+        double deltaTime = System.currentTimeMillis() - lastUpdate;
+
         spawnEnemyUnits();
-        updateActors();
+        updateActors(deltaTime);
         generateEnemyFire();
         updateNumberOfEnemies();
         handleEnemyPenetration();
@@ -102,11 +108,13 @@ public abstract class LevelParent {
         updateKillCount();
         updateLevelView();
         checkIfGameOver();
+
+        this.lastUpdate = System.currentTimeMillis();
     }
 
     private void initializeTimeline() {
         timeline.setCycleCount(Timeline.INDEFINITE);
-        KeyFrame gameLoop = new KeyFrame(Duration.millis(MILLISECOND_DELAY), e -> updateScene());
+        KeyFrame gameLoop = new KeyFrame(Duration.millis(1000f / TICK_RATE), e -> updateScene());
         timeline.getKeyFrames().add(gameLoop);
     }
 
@@ -148,11 +156,11 @@ public abstract class LevelParent {
         }
     }
 
-    private void updateActors() {
-        friendlyUnits.forEach(plane -> plane.updateActor());
-        enemyUnits.forEach(enemy -> enemy.updateActor());
-        userProjectiles.forEach(projectile -> projectile.updateActor());
-        enemyProjectiles.forEach(projectile -> projectile.updateActor());
+    private void updateActors(double deltaTime) {
+        friendlyUnits.forEach(plane -> plane.updateActor(deltaTime));
+        enemyUnits.forEach(enemy -> enemy.updateActor(deltaTime));
+        userProjectiles.forEach(projectile -> projectile.updateActor(deltaTime));
+        enemyProjectiles.forEach(projectile -> projectile.updateActor(deltaTime));
     }
 
     private void removeAllDestroyedActors() {

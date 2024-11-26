@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game;
 
 public class BossProjectile extends Projectile {
-
     private static final String IMAGE_NAME = "fireball.png";
     private static final int IMAGE_HEIGHT = 75;
     private static final int HORIZONTAL_VELOCITY = -15;
@@ -12,13 +11,12 @@ public class BossProjectile extends Projectile {
     }
 
     @Override
-    public void updatePosition() {
-        moveHorizontally(HORIZONTAL_VELOCITY);
+    public void updatePosition(double deltaTime) {
+        moveHorizontally(HORIZONTAL_VELOCITY * (deltaTime / 50.0f));
     }
 
     @Override
-    public void updateActor() {
-        updatePosition();
+    public void updateActor(double deltaTime) {
+        updatePosition(deltaTime);
     }
-
 }

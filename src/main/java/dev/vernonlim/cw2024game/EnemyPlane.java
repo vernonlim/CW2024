@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game;
 
 public class EnemyPlane extends FighterPlane {
-
     private static final String IMAGE_NAME = "enemyplane.png";
     private static final int IMAGE_HEIGHT = 150;
     private static final int HORIZONTAL_VELOCITY = -6;
@@ -15,8 +14,8 @@ public class EnemyPlane extends FighterPlane {
     }
 
     @Override
-    public void updatePosition() {
-        moveHorizontally(HORIZONTAL_VELOCITY);
+    public void updatePosition(double deltaTime) {
+        moveHorizontally(HORIZONTAL_VELOCITY * (deltaTime / 50.0f));
     }
 
     @Override
@@ -30,8 +29,7 @@ public class EnemyPlane extends FighterPlane {
     }
 
     @Override
-    public void updateActor() {
-        updatePosition();
+    public void updateActor(double deltaTime) {
+        updatePosition(deltaTime);
     }
-
 }

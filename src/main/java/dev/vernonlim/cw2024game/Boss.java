@@ -3,7 +3,6 @@ package dev.vernonlim.cw2024game;
 import java.util.*;
 
 public class Boss extends FighterPlane {
-
     private static final String IMAGE_NAME = "bossplane.png";
     private static final double INITIAL_X_POSITION = 1000.0;
     private static final double INITIAL_Y_POSITION = 400;
@@ -36,9 +35,9 @@ public class Boss extends FighterPlane {
     }
 
     @Override
-    public void updatePosition() {
+    public void updatePosition(double deltaTime) {
         double initialTranslateY = getTranslateY();
-        moveVertically(getNextMove());
+        moveVertically(getNextMove() * (deltaTime / 50.0f));
         double currentPosition = getLayoutY() + getTranslateY();
         if (currentPosition < Y_POSITION_UPPER_BOUND || currentPosition > Y_POSITION_LOWER_BOUND) {
             setTranslateY(initialTranslateY);
@@ -46,8 +45,8 @@ public class Boss extends FighterPlane {
     }
 
     @Override
-    public void updateActor() {
-        updatePosition();
+    public void updateActor(double deltaTime) {
+        updatePosition(deltaTime);
         updateShield();
     }
 

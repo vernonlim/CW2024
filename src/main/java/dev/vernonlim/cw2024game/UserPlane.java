@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game;
 
 public class UserPlane extends FighterPlane {
-
     private static final String IMAGE_NAME = "userplane.png";
     private static final double Y_UPPER_BOUND = -40;
     private static final double Y_LOWER_BOUND = 600.0;
@@ -20,10 +19,10 @@ public class UserPlane extends FighterPlane {
     }
 
     @Override
-    public void updatePosition() {
+    public void updatePosition(double deltaTime) {
         if (isMoving()) {
             double initialTranslateY = getTranslateY();
-            this.moveVertically(VERTICAL_VELOCITY * velocityMultiplier);
+            this.moveVertically(VERTICAL_VELOCITY * velocityMultiplier * (deltaTime / 50.0f));
             double newPosition = getLayoutY() + getTranslateY();
             if (newPosition < Y_UPPER_BOUND || newPosition > Y_LOWER_BOUND) {
                 this.setTranslateY(initialTranslateY);
@@ -32,8 +31,8 @@ public class UserPlane extends FighterPlane {
     }
 
     @Override
-    public void updateActor() {
-        updatePosition();
+    public void updateActor(double deltaTime) {
+        updatePosition(deltaTime);
     }
 
     @Override
@@ -64,5 +63,4 @@ public class UserPlane extends FighterPlane {
     public void incrementKillCount() {
         numberOfKills++;
     }
-
 }

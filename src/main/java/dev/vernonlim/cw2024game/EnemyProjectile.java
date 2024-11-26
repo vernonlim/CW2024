@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game;
 
 public class EnemyProjectile extends Projectile {
-
     private static final String IMAGE_NAME = "enemyFire.png";
     private static final int IMAGE_HEIGHT = 50;
     private static final int HORIZONTAL_VELOCITY = -10;
@@ -11,14 +10,12 @@ public class EnemyProjectile extends Projectile {
     }
 
     @Override
-    public void updatePosition() {
+    public void updatePosition(double deltaTime) {
         moveHorizontally(HORIZONTAL_VELOCITY);
     }
 
     @Override
-    public void updateActor() {
-        updatePosition();
+    public void updateActor(double deltaTime) {
+        updatePosition(deltaTime);
     }
-
-
 }

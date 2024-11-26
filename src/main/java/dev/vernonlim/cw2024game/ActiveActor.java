@@ -3,7 +3,6 @@ package dev.vernonlim.cw2024game;
 import javafx.scene.image.*;
 
 public abstract class ActiveActor extends ImageView {
-
     private static final String IMAGE_LOCATION = "/dev/vernonlim/cw2024game/images/";
 
     public ActiveActor(String imageName, int imageHeight, double initialXPos, double initialYPos) {
@@ -15,7 +14,9 @@ public abstract class ActiveActor extends ImageView {
         this.setPreserveRatio(true);
     }
 
-    public abstract void updatePosition();
+    public abstract void updatePosition(double deltaTime);
+
+    public abstract void updateActor(double deltaTime);
 
     protected void moveHorizontally(double horizontalMove) {
         this.setTranslateX(getTranslateX() + horizontalMove);
@@ -24,5 +25,4 @@ public abstract class ActiveActor extends ImageView {
     protected void moveVertically(double verticalMove) {
         this.setTranslateY(getTranslateY() + verticalMove);
     }
-
 }

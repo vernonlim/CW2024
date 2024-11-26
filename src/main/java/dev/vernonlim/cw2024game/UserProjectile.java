@@ -11,13 +11,13 @@ public class UserProjectile extends Projectile {
     }
 
     @Override
-    public void updatePosition() {
-        moveHorizontally(HORIZONTAL_VELOCITY);
+    public void updatePosition(double deltaTime) {
+        moveHorizontally(HORIZONTAL_VELOCITY * (deltaTime / 50.0f));
     }
 
     @Override
-    public void updateActor() {
-        updatePosition();
+    public void updateActor(double deltaTime) {
+        updatePosition(deltaTime);
     }
 
 }
