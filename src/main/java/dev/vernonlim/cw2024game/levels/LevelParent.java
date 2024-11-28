@@ -21,7 +21,7 @@ import javafx.util.Duration;
 
 public abstract class LevelParent {
     private static final double SCREEN_HEIGHT_ADJUSTMENT = 150;
-    private static final int FRAME_RATE = 240;
+    private static final int FRAME_RATE = 5000;
     private final double screenHeight;
     private final double screenWidth;
     private final double enemyMaximumYPosition;
@@ -69,17 +69,8 @@ public abstract class LevelParent {
         this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
         initializeTimeline();
+        initializeListeners();
         friendlyUnits.add(user);
-
-        upPressed.addListener((observable, wasPressed, nowPressed) -> {
-            user.shouldMoveUp = nowPressed;
-        });
-        downPressed.addListener((observable, wasPressed, nowPressed) -> {
-            user.shouldMoveDown = nowPressed;
-        });
-        spacePressed.addListener((observable, wasPressed, nowPressed) -> {
-            user.shouldFire = nowPressed;
-        });
 
         this.controller = controller;
     }
@@ -125,6 +116,7 @@ public abstract class LevelParent {
         generateEnemyFire(currentTime);
         generateUserFire(currentTime);
 
+        // these should be updated ASAP, so they don't need time information
         updateNumberOfEnemies();
         handleEnemyPenetration();
         handleUserProjectileCollisions();
@@ -140,6 +132,18 @@ public abstract class LevelParent {
         timeline.setCycleCount(Timeline.INDEFINITE);
         KeyFrame gameLoop = new KeyFrame(Duration.millis(1000f / FRAME_RATE), e -> updateScene());
         timeline.getKeyFrames().add(gameLoop);
+    }
+
+    private void initializeListeners() {
+        upPressed.addListener((observable, wasPressed, nowPressed) -> {
+            user.shouldMoveUp = nowPressed;
+        });
+        downPressed.addListener((observable, wasPressed, nowPressed) -> {
+            user.shouldMoveDown = nowPressed;
+        });
+        spacePressed.addListener((observable, wasPressed, nowPressed) -> {
+            user.shouldFire = nowPressed;
+        });
     }
 
     private void initializeBackground() {

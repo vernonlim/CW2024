@@ -44,6 +44,7 @@ public class UserPlane extends FighterPlane {
     public ActiveActorDestructible fireProjectile(double currentTime) {
         if (shouldFire && (currentTime - lastFireTime) > (1000.0f / FIRE_RATE)) {
             lastFireTime = currentTime;
+
             return new UserProjectile(PROJECTILE_X_POSITION, getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
         }
 
