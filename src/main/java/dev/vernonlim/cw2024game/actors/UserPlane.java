@@ -1,5 +1,7 @@
 package dev.vernonlim.cw2024game.actors;
 
+import dev.vernonlim.cw2024game.managers.InputManager;
+
 public class UserPlane extends FighterPlane {
     private static final String IMAGE_NAME = "userplane.png";
     private static final double Y_UPPER_BOUND = 0;
@@ -18,17 +20,21 @@ public class UserPlane extends FighterPlane {
     private double horizontalVelocityMultiplier;
     private int numberOfKills;
 
-    public boolean shouldMoveUp;
-    public boolean shouldMoveDown;
-    public boolean shouldMoveLeft;
-    public boolean shouldMoveRight;
-    public boolean shouldFire;
-    public boolean shouldFocus;
+    InputManager inputManager;
 
-    public UserPlane(int initialHealth) {
+    private int lastVerticalMultipler;
+    private int lastHorizontalMultiplier;
+
+    public UserPlane(int initialHealth, InputManager inputManager) {
         super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, initialHealth);
+
+        this.inputManager = inputManager;
+
         verticalVelocityMultiplier = 0;
         horizontalVelocityMultiplier = 0;
+
+        lastVerticalMultipler = -1;
+        lastHorizontalMultiplier = -1;
     }
 
     @Override
@@ -50,40 +56,32 @@ public class UserPlane extends FighterPlane {
 
     @Override
     public void updateActor(double deltaTime, double currentTime) {
+        boolean down = inputManager.isDownPressed();
+        boolean up = inputManager.isUpPressed();
+        boolean left = inputManager.isLeftPressed();
+        boolean right = inputManager.isRightPressed();
+        boolean focus = inputManager.isFocusPressed();
+
         // null cancelling movement
-        if (shouldMoveUp && shouldMoveDown) {
-            if (verticalVelocityMultiplier < 0) {
-                shouldMoveUp = false;
-                verticalVelocityMultiplier = 1;
-            } else if (verticalVelocityMultiplier > 0) {
-                shouldMoveDown = false;
-                verticalVelocityMultiplier = -1;
-            } else {
-                shouldMoveUp = false;
-                verticalVelocityMultiplier = 1;
-            }
-        } else if (shouldMoveUp) {
+        if (down && up) {
+            verticalVelocityMultiplier = -lastVerticalMultipler;
+        } else if (inputManager.isUpPressed()) {
+            lastVerticalMultipler = -1;
             verticalVelocityMultiplier = -1;
-        } else if (shouldMoveDown) {
+        } else if (down) {
+            lastVerticalMultipler = 1;
             verticalVelocityMultiplier = 1;
         } else {
             verticalVelocityMultiplier = 0;
         }
         
-        if (shouldMoveLeft && shouldMoveRight) {
-            if (horizontalVelocityMultiplier < 0) {
-                shouldMoveLeft = false;
-                horizontalVelocityMultiplier = 1;
-            } else if (horizontalVelocityMultiplier > 0) {
-                shouldMoveRight = false;
-                horizontalVelocityMultiplier = -1;
-            } else {
-                shouldMoveLeft = false;
-                horizontalVelocityMultiplier = 1;
-            }
-        } else if (shouldMoveLeft) {
+        if (left && right) {
+            horizontalVelocityMultiplier = -lastHorizontalMultiplier;
+        } else if (left) {
+            lastHorizontalMultiplier = -1;
             horizontalVelocityMultiplier = -1;
-        } else if (shouldMoveRight) {
+        } else if (right) {
+            lastHorizontalMultiplier = 1;
             horizontalVelocityMultiplier = 1;
         } else {
             horizontalVelocityMultiplier = 0;
@@ -91,7 +89,7 @@ public class UserPlane extends FighterPlane {
 
         fireRate = 10.0f;
 
-        if (shouldFocus) {
+        if (focus) {
             verticalVelocityMultiplier *= 0.6;
             horizontalVelocityMultiplier *= 0.6;
             fireRate *= 2.0;
@@ -102,7 +100,7 @@ public class UserPlane extends FighterPlane {
 
     @Override
     public ActiveActorDestructible fireProjectile(double currentTime) {
-        if (shouldFire && (currentTime - lastFireTime) > (1000.0f / fireRate)) {
+        if (inputManager.isFirePressed() && (currentTime - lastFireTime) > (1000.0f / fireRate)) {
             lastFireTime = currentTime;
 
             return new UserProjectile(PROJECTILE_X_POSITION + getTranslateX(), getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));

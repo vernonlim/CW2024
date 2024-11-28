@@ -7,6 +7,7 @@ import dev.vernonlim.cw2024game.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.actors.FighterPlane;
 import dev.vernonlim.cw2024game.actors.UserPlane;
 import dev.vernonlim.cw2024game.controller.Controller;
+import dev.vernonlim.cw2024game.managers.InputManager;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -41,16 +42,10 @@ public abstract class LevelParent {
     private final LevelView levelView;
 
     private final Controller controller;
+    private final InputManager inputManager;
 
     private double lastUpdate;
     protected double lastEnemySpawnAttempt;
-
-    public BooleanProperty upPressed = new SimpleBooleanProperty();
-    public BooleanProperty downPressed = new SimpleBooleanProperty();
-    public BooleanProperty leftPressed = new SimpleBooleanProperty();
-    public BooleanProperty rightPressed = new SimpleBooleanProperty();
-    public BooleanProperty spacePressed = new SimpleBooleanProperty();
-    public BooleanProperty shiftPressed = new SimpleBooleanProperty();
 
     public LevelParent(Controller controller, String backgroundImagePath, double screenHeight, double screenWidth, int playerInitialHealth) {
         this.root = new Pane();
@@ -67,10 +62,12 @@ public abstract class LevelParent {
         // Keeps the "camera" of sorts fixed in place
         this.scene = new Scene(new Group(stackPane));
 
+        this.inputManager = new InputManager(scene);
+
         SceneSizeChangeListener.letterbox(scene, stackPane, screenWidth, screenHeight);
 
         this.timeline = new Timeline(FRAME_RATE);
-        this.user = new UserPlane(playerInitialHealth);
+        this.user = new UserPlane(playerInitialHealth, inputManager);
         this.background = new ImageView(new Image(Controller.fetchResourcePath(backgroundImagePath)));
 
         this.friendlyUnits = new ArrayList<>();
@@ -86,7 +83,6 @@ public abstract class LevelParent {
         this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
         initializeTimeline();
-        initializeListeners();
         friendlyUnits.add(user);
 
         this.controller = controller;
@@ -102,7 +98,6 @@ public abstract class LevelParent {
 
     public Scene initializeScene() {
         initializeBackground();
-        initializeControls();
         initializeFriendlyUnits();
         levelView.showInitialImages();
         return scene;
@@ -149,57 +144,11 @@ public abstract class LevelParent {
         timeline.getKeyFrames().add(gameLoop);
     }
 
-    private void initializeListeners() {
-        upPressed.addListener((observable, wasPressed, nowPressed) -> {
-            user.shouldMoveUp = nowPressed;
-        });
-        downPressed.addListener((observable, wasPressed, nowPressed) -> {
-            user.shouldMoveDown = nowPressed;
-        });
-        leftPressed.addListener((observable, wasPressed, nowPressed) -> {
-            user.shouldMoveLeft = nowPressed;
-        });
-        rightPressed.addListener((observable, wasPressed, nowPressed) -> {
-            user.shouldMoveRight = nowPressed;
-        });
-        spacePressed.addListener((observable, wasPressed, nowPressed) -> {
-            user.shouldFire = nowPressed;
-        });
-        shiftPressed.addListener((observable, wasPressed, nowPressed) -> {
-            user.shouldFocus = nowPressed;
-        });
-    }
-
     private void initializeBackground() {
         background.setFocusTraversable(true);
         background.setFitHeight(screenHeight);
         background.setFitWidth(screenWidth);
         root.getChildren().add(background);
-    }
-
-    private void initializeControls() {
-        background.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent e) {
-                KeyCode kc = e.getCode();
-                if (kc == KeyCode.UP) upPressed.set(true);
-                if (kc == KeyCode.DOWN) downPressed.set(true);
-                if (kc == KeyCode.LEFT) leftPressed.set(true);
-                if (kc == KeyCode.RIGHT) rightPressed.set(true);
-                if (kc == KeyCode.SPACE || kc == KeyCode.Z) spacePressed.set(true);
-                if (kc == KeyCode.SHIFT) shiftPressed.set(true);
-            }
-        });
-        background.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent e) {
-                KeyCode kc = e.getCode();
-                if (kc == KeyCode.UP) upPressed.set(false);
-                if (kc == KeyCode.DOWN) downPressed.set(false);
-                if (kc == KeyCode.LEFT) leftPressed.set(false);
-                if (kc == KeyCode.RIGHT) rightPressed.set(false);
-                if (kc == KeyCode.SPACE || kc == KeyCode.Z) spacePressed.set(false);
-                if (kc == KeyCode.SHIFT) shiftPressed.set(false);
-            }
-        });
     }
 
     private void generateUserFire(double currentTime) {
