@@ -50,7 +50,7 @@ public abstract class LevelParent {
         this.scene = new Scene(root, screenWidth, screenHeight);
         this.timeline = new Timeline(TARGET_FPS);
         this.user = new UserPlane(playerInitialHealth);
-        this.background = new ImageView(new Image(Controller.tryFetchResourcePath(backgroundImageName)));
+        this.background = new ImageView(new Image(Controller.fetchResourcePath(backgroundImageName)));
 
         this.friendlyUnits = new ArrayList<>();
         this.enemyUnits = new ArrayList<>();

@@ -6,7 +6,7 @@ import dev.vernonlim.cw2024game.LevelView;
 import dev.vernonlim.cw2024game.controller.Controller;
 
 public class LevelOne extends LevelParent {
-    private static final String BACKGROUND_IMAGE_NAME = "/dev/vernonlim/cw2024game/images/background1.jpg";
+    private static final String BACKGROUND_IMAGE_NAME = "/images/background1.jpg";
     private static final String NEXT_LEVEL = "LEVEL_TWO";
     private static final int TOTAL_ENEMIES = 5;
     private static final int KILLS_TO_ADVANCE = 10;

@@ -1,6 +1,5 @@
 package dev.vernonlim.cw2024game.controller;
 
-import java.io.InputStream;
 import java.lang.reflect.Constructor;
 import java.net.URL;
 import java.util.Map;
@@ -12,7 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import javafx.scene.image.*;
 import dev.vernonlim.cw2024game.levels.*;
 
 public class Controller {
@@ -52,7 +50,7 @@ public class Controller {
         alert.showAndWait().ifPresent(response -> Platform.exit());
     }
 
-    public static String tryFetchResourcePath(String path) {
+    public static String fetchResourcePath(String path) {
         if (path == null) {
             triggerAlertAndExit("Tried to find an image with no name");
         }

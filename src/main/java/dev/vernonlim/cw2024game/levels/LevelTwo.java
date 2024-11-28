@@ -6,7 +6,7 @@ import dev.vernonlim.cw2024game.LevelViewLevelTwo;
 import dev.vernonlim.cw2024game.controller.Controller;
 
 public class LevelTwo extends LevelParent {
-    private static final String BACKGROUND_IMAGE_NAME = "/dev/vernonlim/cw2024game/images/background2.jpg";
+    private static final String BACKGROUND_IMAGE_NAME = "/images/background2.jpg";
     private static final int PLAYER_INITIAL_HEALTH = 5;
     private final Boss boss;
     private LevelViewLevelTwo levelView;
