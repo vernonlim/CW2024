@@ -1,6 +1,8 @@
 package dev.vernonlim.cw2024game.controller;
 
+import java.io.InputStream;
 import java.lang.reflect.Constructor;
+import java.net.URL;
 import java.util.Map;
 
 import static java.util.Map.entry;
@@ -10,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
+import javafx.scene.image.*;
 import dev.vernonlim.cw2024game.levels.*;
 
 public class Controller {
@@ -38,10 +41,30 @@ public class Controller {
             stage.setScene(scene);
             myLevel.startGame();
         } catch (Exception e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setContentText("Failed to load Level: " + levelName
+            triggerAlertAndExit("Failed to load Level: " + levelName
                     + "\nAdditional information: " + e.getMessage());
-            alert.showAndWait().ifPresent(response -> Platform.exit());
         }
+    }
+
+    public static void triggerAlertAndExit(String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait().ifPresent(response -> Platform.exit());
+    }
+
+    public static String tryFetchResourcePath(String path) {
+        if (path == null) {
+            triggerAlertAndExit("Tried to find an image with no name");
+        }
+
+        // if triggerAlertAndExit() works properly, path will not
+        // be null here because the program has exited
+        URL resourcePath = Controller.class.getResource(path);
+        if (resourcePath == null) {
+            triggerAlertAndExit("Tried to load image which doesn't exist: " + path);
+        }
+
+        // similar here
+        return resourcePath.toExternalForm();
     }
 }

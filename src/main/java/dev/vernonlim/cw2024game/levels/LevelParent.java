@@ -26,9 +26,9 @@ public abstract class LevelParent {
     private final double enemyMaximumYPosition;
 
     private final Group root;
+    private final Scene scene;
     private final Timeline timeline;
     private final UserPlane user;
-    private final Scene scene;
     private final ImageView background;
 
     private final List<ActiveActorDestructible> friendlyUnits;
@@ -50,12 +50,13 @@ public abstract class LevelParent {
         this.scene = new Scene(root, screenWidth, screenHeight);
         this.timeline = new Timeline(TARGET_FPS);
         this.user = new UserPlane(playerInitialHealth);
+        this.background = new ImageView(new Image(Controller.tryFetchResourcePath(backgroundImageName)));
+
         this.friendlyUnits = new ArrayList<>();
         this.enemyUnits = new ArrayList<>();
         this.userProjectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
 
-        this.background = new ImageView(new Image(getClass().getResource(backgroundImageName).toExternalForm()));
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
         this.enemyMaximumYPosition = screenHeight - SCREEN_HEIGHT_ADJUSTMENT;

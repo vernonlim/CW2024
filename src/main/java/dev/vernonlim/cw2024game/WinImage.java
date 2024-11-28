@@ -4,7 +4,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class WinImage extends ImageView {
-
     private static final String IMAGE_NAME = "/dev/vernonlim/cw2024game/images/youwin.png";
     private static final int HEIGHT = 500;
     private static final int WIDTH = 600;
@@ -21,5 +20,4 @@ public class WinImage extends ImageView {
     public void showWinImage() {
         this.setVisible(true);
     }
-
 }

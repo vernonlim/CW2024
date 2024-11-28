@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game;
 
 public class UserProjectile extends Projectile {
-
     private static final String IMAGE_NAME = "userfire.png";
     private static final int IMAGE_HEIGHT = 125;
     private static final int HORIZONTAL_VELOCITY = 15;
@@ -19,5 +18,4 @@ public class UserProjectile extends Projectile {
     public void updateActor(double deltaTime) {
         updatePosition(deltaTime);
     }
-
 }
