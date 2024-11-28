@@ -10,6 +10,8 @@ import dev.vernonlim.cw2024game.UserPlane;
 import dev.vernonlim.cw2024game.controller.Controller;
 import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -19,8 +21,7 @@ import javafx.util.Duration;
 
 public abstract class LevelParent {
     private static final double SCREEN_HEIGHT_ADJUSTMENT = 150;
-    private static final int TICK_RATE = 60;
-    private static final int TARGET_FPS = 60;
+    private static final int FRAME_RATE = 240;
     private final double screenHeight;
     private final double screenWidth;
     private final double enemyMaximumYPosition;
@@ -42,13 +43,16 @@ public abstract class LevelParent {
     private final Controller controller;
 
     private double lastUpdate;
-    protected double timeSinceLastEnemySpawn;
-    private double timeSinceLastEnemyFire;
+    protected double lastEnemySpawnAttempt;
+
+    public BooleanProperty upPressed = new SimpleBooleanProperty();
+    public BooleanProperty downPressed = new SimpleBooleanProperty();
+    public BooleanProperty spacePressed = new SimpleBooleanProperty();
 
     public LevelParent(Controller controller, String backgroundImagePath, double screenHeight, double screenWidth, int playerInitialHealth) {
         this.root = new Group();
         this.scene = new Scene(root, screenWidth, screenHeight);
-        this.timeline = new Timeline(TARGET_FPS);
+        this.timeline = new Timeline(FRAME_RATE);
         this.user = new UserPlane(playerInitialHealth);
         this.background = new ImageView(new Image(Controller.fetchResourcePath(backgroundImagePath)));
 
@@ -63,10 +67,19 @@ public abstract class LevelParent {
         this.levelView = instantiateLevelView();
         this.currentNumberOfEnemies = 0;
         this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
-        this.timeSinceLastEnemySpawn = System.currentTimeMillis(); // same
-        this.timeSinceLastEnemyFire = System.currentTimeMillis();
+        this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
         initializeTimeline();
         friendlyUnits.add(user);
+
+        upPressed.addListener((observable, wasPressed, nowPressed) -> {
+            user.shouldMoveUp = nowPressed;
+        });
+        downPressed.addListener((observable, wasPressed, nowPressed) -> {
+            user.shouldMoveDown = nowPressed;
+        });
+        spacePressed.addListener((observable, wasPressed, nowPressed) -> {
+            user.shouldFire = nowPressed;
+        });
 
         this.controller = controller;
     }
@@ -75,7 +88,7 @@ public abstract class LevelParent {
 
     protected abstract void checkIfGameOver();
 
-    protected abstract void spawnEnemyUnits(double deltaTime);
+    protected abstract void spawnEnemyUnits(double currentTime);
 
     protected abstract LevelView instantiateLevelView();
 
@@ -100,14 +113,18 @@ public abstract class LevelParent {
     }
 
     private void updateScene() {
-        double deltaTime = System.currentTimeMillis() - lastUpdate;
+        double currentTime = System.currentTimeMillis();
+        double deltaTime = currentTime - lastUpdate;
+        lastUpdate = currentTime;
 
-        // should only update once in a while
-        spawnEnemyUnits(deltaTime);
+        // uses deltaTime to scale movement
         updateActors(deltaTime);
-        generateEnemyFire(deltaTime);
 
-        // should update as often as possible
+        // uses currentTime to determine if some event should trigger
+        spawnEnemyUnits(currentTime);
+        generateEnemyFire(currentTime);
+        generateUserFire(currentTime);
+
         updateNumberOfEnemies();
         handleEnemyPenetration();
         handleUserProjectileCollisions();
@@ -117,13 +134,11 @@ public abstract class LevelParent {
         updateKillCount();
         updateLevelView();
         checkIfGameOver();
-
-        this.lastUpdate = System.currentTimeMillis();
     }
 
     private void initializeTimeline() {
         timeline.setCycleCount(Timeline.INDEFINITE);
-        KeyFrame gameLoop = new KeyFrame(Duration.millis(1000f / TICK_RATE), e -> updateScene());
+        KeyFrame gameLoop = new KeyFrame(Duration.millis(1000f / FRAME_RATE), e -> updateScene());
         timeline.getKeyFrames().add(gameLoop);
     }
 
@@ -138,33 +153,32 @@ public abstract class LevelParent {
         background.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 KeyCode kc = e.getCode();
-                if (kc == KeyCode.UP) user.moveUp();
-                if (kc == KeyCode.DOWN) user.moveDown();
-                if (kc == KeyCode.SPACE) fireProjectile();
+                if (kc == KeyCode.UP) upPressed.set(true);
+                if (kc == KeyCode.DOWN) downPressed.set(true);
+                if (kc == KeyCode.SPACE) spacePressed.set(true);
             }
         });
         background.setOnKeyReleased(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 KeyCode kc = e.getCode();
-                if (kc == KeyCode.UP || kc == KeyCode.DOWN) user.stop();
+                if (kc == KeyCode.UP) upPressed.set(false);
+                if (kc == KeyCode.DOWN) downPressed.set(false);
+                if (kc == KeyCode.SPACE) spacePressed.set(false);
             }
         });
     }
 
-    private void fireProjectile() {
-        ActiveActorDestructible projectile = user.fireProjectile();
-        root.getChildren().add(projectile);
-        userProjectiles.add(projectile);
+    private void generateUserFire(double currentTime) {
+        ActiveActorDestructible projectile = user.fireProjectile(currentTime);
+
+        if (projectile != null) {
+            root.getChildren().add(projectile);
+            userProjectiles.add(projectile);
+        }
     }
 
-    private void generateEnemyFire(double deltaTime) {
-        timeSinceLastEnemyFire += deltaTime;
-
-        if (timeSinceLastEnemyFire > 50.0f) {
-            enemyUnits.forEach(enemy -> spawnEnemyProjectile(((FighterPlane) enemy).fireProjectile()));
-
-            timeSinceLastEnemyFire = 0.0f;
-        }
+    private void generateEnemyFire(double currentTime) {
+        enemyUnits.forEach(enemy -> spawnEnemyProjectile(((FighterPlane) enemy).fireProjectile(currentTime)));
     }
 
     private void spawnEnemyProjectile(ActiveActorDestructible projectile) {

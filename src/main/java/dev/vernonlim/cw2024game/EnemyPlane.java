@@ -19,12 +19,19 @@ public class EnemyPlane extends FighterPlane {
     }
 
     @Override
-    public ActiveActorDestructible fireProjectile() {
-        if (Math.random() < FIRE_RATE) {
-            double projectileXPosition = getProjectileXPosition(PROJECTILE_X_POSITION_OFFSET);
-            double projectileYPostion = getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET);
-            return new EnemyProjectile(projectileXPosition, projectileYPostion);
+    public ActiveActorDestructible fireProjectile(double currentTime) {
+        if ((currentTime - lastFireTime) > 50.0f) {
+            lastFireTime = currentTime;
+
+            boolean shouldFire = Math.random() < FIRE_RATE;
+
+            if (shouldFire) {
+                double projectileXPosition = getProjectileXPosition(PROJECTILE_X_POSITION_OFFSET);
+                double projectileYPosition = getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET);
+                return new EnemyProjectile(projectileXPosition, projectileYPosition);
+            }
         }
+
         return null;
     }
 

@@ -51,8 +51,8 @@ public class Boss extends FighterPlane {
     }
 
     @Override
-    public ActiveActorDestructible fireProjectile() {
-        return bossFiresInCurrentFrame() ? new BossProjectile(getProjectileInitialPosition()) : null;
+    public ActiveActorDestructible fireProjectile(double currentTime) {
+        return bossFiresInCurrentFrame(currentTime) ? new BossProjectile(getProjectileInitialPosition()) : null;
     }
 
     @Override
@@ -91,8 +91,13 @@ public class Boss extends FighterPlane {
         return currentMove;
     }
 
-    private boolean bossFiresInCurrentFrame() {
-        return Math.random() < BOSS_FIRE_RATE;
+    private boolean bossFiresInCurrentFrame(double currentTime) {
+        if ((currentTime - lastFireTime) > 50.0f) {
+            lastFireTime = currentTime;
+            return Math.random() < BOSS_FIRE_RATE;
+        }
+
+        return false;
     }
 
     private double getProjectileInitialPosition() {
