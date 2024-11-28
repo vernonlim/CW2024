@@ -48,6 +48,7 @@ public abstract class LevelParent {
     public BooleanProperty leftPressed = new SimpleBooleanProperty();
     public BooleanProperty rightPressed = new SimpleBooleanProperty();
     public BooleanProperty spacePressed = new SimpleBooleanProperty();
+    public BooleanProperty shiftPressed = new SimpleBooleanProperty();
 
     public LevelParent(Controller controller, String backgroundImagePath, double screenHeight, double screenWidth, int playerInitialHealth) {
         // To make this resizeable
@@ -165,6 +166,9 @@ public abstract class LevelParent {
         spacePressed.addListener((observable, wasPressed, nowPressed) -> {
             user.shouldFire = nowPressed;
         });
+        shiftPressed.addListener((observable, wasPressed, nowPressed) -> {
+            user.shouldFocus = nowPressed;
+        });
     }
 
     private void initializeBackground() {
@@ -183,6 +187,7 @@ public abstract class LevelParent {
                 if (kc == KeyCode.LEFT) leftPressed.set(true);
                 if (kc == KeyCode.RIGHT) rightPressed.set(true);
                 if (kc == KeyCode.SPACE || kc == KeyCode.Z) spacePressed.set(true);
+                if (kc == KeyCode.SHIFT) shiftPressed.set(true);
             }
         });
         background.setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -192,8 +197,8 @@ public abstract class LevelParent {
                 if (kc == KeyCode.DOWN) downPressed.set(false);
                 if (kc == KeyCode.LEFT) leftPressed.set(false);
                 if (kc == KeyCode.RIGHT) rightPressed.set(false);
-                if (kc == KeyCode.SPACE) spacePressed.set(false);
                 if (kc == KeyCode.SPACE || kc == KeyCode.Z) spacePressed.set(false);
+                if (kc == KeyCode.SHIFT) shiftPressed.set(false);
             }
         });
     }
