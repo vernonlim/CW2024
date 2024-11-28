@@ -33,5 +33,4 @@ public abstract class FighterPlane extends ActiveActorDestructible {
     public int getHealth() {
         return health;
     }
-
 }

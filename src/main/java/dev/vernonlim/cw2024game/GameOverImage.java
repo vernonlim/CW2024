@@ -4,7 +4,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class GameOverImage extends ImageView {
-
     private static final String IMAGE_NAME = "/dev/vernonlim/cw2024game/images/gameover.png";
 
     public GameOverImage(double xPosition, double yPosition) {
@@ -13,5 +12,4 @@ public class GameOverImage extends ImageView {
         setLayoutX(xPosition);
         setLayoutY(yPosition);
     }
-
 }
