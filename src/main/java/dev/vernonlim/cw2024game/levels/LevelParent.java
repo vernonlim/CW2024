@@ -41,8 +41,9 @@ public abstract class LevelParent {
 
     private final Controller controller;
 
-    private long lastUpdate;
-    protected long timeSinceLastEnemySpawn;
+    private double lastUpdate;
+    protected double timeSinceLastEnemySpawn;
+    private double timeSinceLastEnemyFire;
 
     public LevelParent(Controller controller, String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
         this.root = new Group();
@@ -62,6 +63,7 @@ public abstract class LevelParent {
         this.currentNumberOfEnemies = 0;
         this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
         this.timeSinceLastEnemySpawn = System.currentTimeMillis(); // same
+        this.timeSinceLastEnemyFire = System.currentTimeMillis();
         initializeTimeline();
         friendlyUnits.add(user);
 
@@ -100,7 +102,7 @@ public abstract class LevelParent {
 
         spawnEnemyUnits(deltaTime);
         updateActors(deltaTime);
-        generateEnemyFire();
+        generateEnemyFire(deltaTime);
         updateNumberOfEnemies();
         handleEnemyPenetration();
         handleUserProjectileCollisions();
@@ -147,8 +149,14 @@ public abstract class LevelParent {
         userProjectiles.add(projectile);
     }
 
-    private void generateEnemyFire() {
-        enemyUnits.forEach(enemy -> spawnEnemyProjectile(((FighterPlane) enemy).fireProjectile()));
+    private void generateEnemyFire(double deltaTime) {
+        timeSinceLastEnemyFire += deltaTime;
+
+        if (timeSinceLastEnemyFire > 50.0f) {
+            enemyUnits.forEach(enemy -> spawnEnemyProjectile(((FighterPlane) enemy).fireProjectile()));
+
+            timeSinceLastEnemyFire = 0.0f;
+        }
     }
 
     private void spawnEnemyProjectile(ActiveActorDestructible projectile) {
