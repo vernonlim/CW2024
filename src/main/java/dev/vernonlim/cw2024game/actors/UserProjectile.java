@@ -1,11 +1,11 @@
-package dev.vernonlim.cw2024game;
+package dev.vernonlim.cw2024game.actors;
 
-public class EnemyProjectile extends Projectile {
-    private static final String IMAGE_NAME = "enemyFire.png";
-    private static final int IMAGE_HEIGHT = 32;
-    private static final int HORIZONTAL_VELOCITY = -10;
+public class UserProjectile extends Projectile {
+    private static final String IMAGE_NAME = "userfire.png";
+    private static final int IMAGE_HEIGHT = 12;
+    private static final int HORIZONTAL_VELOCITY = 100;
 
-    public EnemyProjectile(double initialXPos, double initialYPos) {
+    public UserProjectile(double initialXPos, double initialYPos) {
         super(IMAGE_NAME, IMAGE_HEIGHT, initialXPos, initialYPos);
     }
 

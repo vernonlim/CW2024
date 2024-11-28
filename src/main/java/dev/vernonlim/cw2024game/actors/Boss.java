@@ -1,4 +1,6 @@
-package dev.vernonlim.cw2024game;
+package dev.vernonlim.cw2024game.actors;
+
+import dev.vernonlim.cw2024game.levels.LevelViewLevelTwo;
 
 import java.util.*;
 

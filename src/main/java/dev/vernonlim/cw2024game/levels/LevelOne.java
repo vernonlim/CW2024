@@ -1,8 +1,7 @@
 package dev.vernonlim.cw2024game.levels;
 
-import dev.vernonlim.cw2024game.ActiveActorDestructible;
-import dev.vernonlim.cw2024game.EnemyPlane;
-import dev.vernonlim.cw2024game.LevelView;
+import dev.vernonlim.cw2024game.actors.ActiveActorDestructible;
+import dev.vernonlim.cw2024game.actors.EnemyPlane;
 import dev.vernonlim.cw2024game.controller.Controller;
 
 public class LevelOne extends LevelParent {

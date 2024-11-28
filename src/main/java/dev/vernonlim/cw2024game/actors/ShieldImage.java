@@ -1,4 +1,4 @@
-package dev.vernonlim.cw2024game;
+package dev.vernonlim.cw2024game.actors;
 
 import dev.vernonlim.cw2024game.controller.Controller;
 import javafx.scene.image.Image;

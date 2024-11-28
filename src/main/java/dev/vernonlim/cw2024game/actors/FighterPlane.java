@@ -1,4 +1,4 @@
-package dev.vernonlim.cw2024game;
+package dev.vernonlim.cw2024game.actors;
 
 public abstract class FighterPlane extends ActiveActorDestructible {
     private int health;

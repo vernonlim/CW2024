@@ -1,4 +1,4 @@
-package dev.vernonlim.cw2024game;
+package dev.vernonlim.cw2024game.actors;
 
 public class EnemyPlane extends FighterPlane {
     private static final String IMAGE_NAME = "enemyplane.png";

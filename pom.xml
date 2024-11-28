@@ -12,7 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.version>5.9.2</junit.version>
-        <exec.mainClass>dev.vernonlim.cw2024game.controller.Main</exec.mainClass>
+        <exec.mainClass>dev.vernonlim.cw2024game.Main</exec.mainClass>
     </properties>
 
     <dependencies>
@@ -60,7 +60,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>dev.vernonlim.cw2024game/dev.vernonlim.cw2024game.controller.Main</mainClass>
+                            <mainClass>dev.vernonlim.cw2024game/dev.vernonlim.cw2024game.Main</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

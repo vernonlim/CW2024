@@ -1,8 +1,6 @@
 package dev.vernonlim.cw2024game.levels;
 
-import dev.vernonlim.cw2024game.Boss;
-import dev.vernonlim.cw2024game.LevelView;
-import dev.vernonlim.cw2024game.LevelViewLevelTwo;
+import dev.vernonlim.cw2024game.actors.Boss;
 import dev.vernonlim.cw2024game.controller.Controller;
 
 public class LevelTwo extends LevelParent {

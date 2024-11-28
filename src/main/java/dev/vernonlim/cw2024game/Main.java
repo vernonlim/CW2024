@@ -1,7 +1,6 @@
-package dev.vernonlim.cw2024game.controller;
+package dev.vernonlim.cw2024game;
 
-import java.lang.reflect.InvocationTargetException;
-
+import dev.vernonlim.cw2024game.controller.Controller;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

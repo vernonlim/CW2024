@@ -1,10 +1,13 @@
-package dev.vernonlim.cw2024game.controller;
+package dev.vernonlim.cw2024game.levels;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Scale;
+import javafx.scene.transform.Translate;
 
 // Credit:
 // https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
@@ -40,5 +43,15 @@ public class SceneSizeChangeListener implements ChangeListener<Number> {
 
         contentPane.setPrefWidth(newWidth / scaleFactor);
         contentPane.setPrefHeight(newHeight / scaleFactor);
+    }
+
+    // Credit:
+    // https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
+    public static void letterbox(Scene scene, Pane contentPane, double initWidth, double initHeight) {
+        final double ratio = initWidth / initHeight;
+
+        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
+        scene.widthProperty().addListener(sizeListener);
+        scene.heightProperty().addListener(sizeListener);
     }
 }

@@ -3,9 +3,10 @@ package dev.vernonlim.cw2024game.levels;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import dev.vernonlim.cw2024game.*;
+import dev.vernonlim.cw2024game.actors.ActiveActorDestructible;
+import dev.vernonlim.cw2024game.actors.FighterPlane;
+import dev.vernonlim.cw2024game.actors.UserPlane;
 import dev.vernonlim.cw2024game.controller.Controller;
-import dev.vernonlim.cw2024game.controller.SceneSizeChangeListener;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -16,6 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 public abstract class LevelParent {
@@ -24,7 +26,7 @@ public abstract class LevelParent {
     private final double screenWidth;
     private final double enemyMaximumYPosition;
 
-    private final Group root;
+    private final Pane root;
     private final Scene scene;
     private final Timeline timeline;
     private final UserPlane user;
@@ -51,14 +53,21 @@ public abstract class LevelParent {
     public BooleanProperty shiftPressed = new SimpleBooleanProperty();
 
     public LevelParent(Controller controller, String backgroundImagePath, double screenHeight, double screenWidth, int playerInitialHealth) {
-        // To make this resizeable
-        Pane pane = new Pane();
-        pane.setStyle("-fx-background-color: black;");
+        this.root = new Pane();
 
-        this.root = new Group(pane);
-        this.scene = new Scene(root, screenWidth, screenHeight);
+        // VERY important - limits the size of the Pane Node used for drawing
+        // This allows the StackPane to properly align it
+        root.setMaxHeight(screenHeight);
+        root.setMaxWidth(screenWidth);
 
-        letterbox(scene, pane, screenWidth, screenHeight);
+        // To align the root pane above
+        StackPane stackPane = new StackPane(root);
+        stackPane.setStyle("-fx-background-color: black;");
+
+        // Keeps the "camera" of sorts fixed in place
+        this.scene = new Scene(new Group(stackPane));
+
+        SceneSizeChangeListener.letterbox(scene, stackPane, screenWidth, screenHeight);
 
         this.timeline = new Timeline(FRAME_RATE);
         this.user = new UserPlane(playerInitialHealth);
@@ -81,16 +90,6 @@ public abstract class LevelParent {
         friendlyUnits.add(user);
 
         this.controller = controller;
-    }
-
-    // Credit:
-    // https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
-    private void letterbox(Scene scene, Pane contentPane, double initWidth, double initHeight) {
-        final double ratio = initWidth / initHeight;
-
-        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
-        scene.widthProperty().addListener(sizeListener);
-        scene.heightProperty().addListener(sizeListener);
     }
 
     protected abstract void initializeFriendlyUnits();
@@ -305,7 +304,7 @@ public abstract class LevelParent {
         return user;
     }
 
-    protected Group getRoot() {
+    protected Pane getRoot() {
         return root;
     }
 
