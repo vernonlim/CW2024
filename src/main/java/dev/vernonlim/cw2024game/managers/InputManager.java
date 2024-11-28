@@ -12,7 +12,7 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 public class InputManager {
-    public final Map<KeyCode, BooleanProperty> keysPressed = Map.ofEntries(
+    private final Map<KeyCode, BooleanProperty> keysPressed = Map.ofEntries(
             entry(KeyCode.UP, new SimpleBooleanProperty()),
             entry(KeyCode.DOWN, new SimpleBooleanProperty()),
             entry(KeyCode.LEFT, new SimpleBooleanProperty()),
