@@ -12,8 +12,6 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 public class InputManager {
-    private final Scene scene;
-
     public final Map<KeyCode, BooleanProperty> keysPressed = Map.ofEntries(
             entry(KeyCode.UP, new SimpleBooleanProperty()),
             entry(KeyCode.DOWN, new SimpleBooleanProperty()),
@@ -29,8 +27,6 @@ public class InputManager {
     );
 
     public InputManager(Scene scene) {
-        this.scene = scene;
-
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 BooleanProperty prop = keysPressed.get(e.getCode());
