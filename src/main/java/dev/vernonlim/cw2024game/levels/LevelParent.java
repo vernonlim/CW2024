@@ -45,6 +45,8 @@ public abstract class LevelParent {
 
     public BooleanProperty upPressed = new SimpleBooleanProperty();
     public BooleanProperty downPressed = new SimpleBooleanProperty();
+    public BooleanProperty leftPressed = new SimpleBooleanProperty();
+    public BooleanProperty rightPressed = new SimpleBooleanProperty();
     public BooleanProperty spacePressed = new SimpleBooleanProperty();
 
     public LevelParent(Controller controller, String backgroundImagePath, double screenHeight, double screenWidth, int playerInitialHealth) {
@@ -154,6 +156,12 @@ public abstract class LevelParent {
         downPressed.addListener((observable, wasPressed, nowPressed) -> {
             user.shouldMoveDown = nowPressed;
         });
+        leftPressed.addListener((observable, wasPressed, nowPressed) -> {
+            user.shouldMoveLeft = nowPressed;
+        });
+        rightPressed.addListener((observable, wasPressed, nowPressed) -> {
+            user.shouldMoveRight = nowPressed;
+        });
         spacePressed.addListener((observable, wasPressed, nowPressed) -> {
             user.shouldFire = nowPressed;
         });
@@ -172,7 +180,9 @@ public abstract class LevelParent {
                 KeyCode kc = e.getCode();
                 if (kc == KeyCode.UP) upPressed.set(true);
                 if (kc == KeyCode.DOWN) downPressed.set(true);
-                if (kc == KeyCode.SPACE) spacePressed.set(true);
+                if (kc == KeyCode.LEFT) leftPressed.set(true);
+                if (kc == KeyCode.RIGHT) rightPressed.set(true);
+                if (kc == KeyCode.SPACE || kc == KeyCode.Z) spacePressed.set(true);
             }
         });
         background.setOnKeyReleased(new EventHandler<KeyEvent>() {
@@ -180,7 +190,10 @@ public abstract class LevelParent {
                 KeyCode kc = e.getCode();
                 if (kc == KeyCode.UP) upPressed.set(false);
                 if (kc == KeyCode.DOWN) downPressed.set(false);
+                if (kc == KeyCode.LEFT) leftPressed.set(false);
+                if (kc == KeyCode.RIGHT) rightPressed.set(false);
                 if (kc == KeyCode.SPACE) spacePressed.set(false);
+                if (kc == KeyCode.SPACE || kc == KeyCode.Z) spacePressed.set(false);
             }
         });
     }

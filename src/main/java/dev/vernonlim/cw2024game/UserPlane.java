@@ -4,38 +4,89 @@ public class UserPlane extends FighterPlane {
     private static final String IMAGE_NAME = "userplane.png";
     private static final double Y_UPPER_BOUND = 0;
     private static final double Y_LOWER_BOUND = 680;
+    private static final double X_LEFT_BOUND = 0;
+    private static final double X_LOWER_BOUND = 1128;
     private static final double INITIAL_X_POSITION = 5.0;
     private static final double INITIAL_Y_POSITION = 300.0;
     private static final int IMAGE_HEIGHT = 40;
     private static final int VERTICAL_VELOCITY = 16;
-    private static final int PROJECTILE_X_POSITION = 110;
+    private static final int HORIZONTAL_VELOCITY = 16;
+    private static final int PROJECTILE_X_POSITION = 154;
     private static final int PROJECTILE_Y_POSITION_OFFSET = 20;
     private static final double FIRE_RATE = 10.0f;
-    private int velocityMultiplier;
+    private int verticalVelocityMultiplier;
+    private int horizontalVelocityMultiplier;
     private int numberOfKills;
 
     public boolean shouldMoveUp;
     public boolean shouldMoveDown;
+    public boolean shouldMoveLeft;
+    public boolean shouldMoveRight;
     public boolean shouldFire;
 
     public UserPlane(int initialHealth) {
         super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, initialHealth);
-        velocityMultiplier = 0;
+        verticalVelocityMultiplier = 0;
+        horizontalVelocityMultiplier = 0;
     }
 
     @Override
     public void updatePosition(double deltaTime) {
         double initialTranslateY = getTranslateY();
-        this.moveVertically(VERTICAL_VELOCITY * velocityMultiplier * (deltaTime / 50.0f));
-        double newPosition = getLayoutY() + getTranslateY();
-        if (newPosition < Y_UPPER_BOUND || newPosition > Y_LOWER_BOUND) {
+        this.moveVertically(VERTICAL_VELOCITY * verticalVelocityMultiplier * (deltaTime / 50.0f));
+        double newPositionY = getLayoutY() + getTranslateY();
+        if (newPositionY < Y_UPPER_BOUND || newPositionY > Y_LOWER_BOUND) {
             this.setTranslateY(initialTranslateY);
+        }
+
+        double initialTranslateX = getTranslateX();
+        this.moveHorizontally(HORIZONTAL_VELOCITY * horizontalVelocityMultiplier * (deltaTime / 50.0f));
+        double newPositionX = getLayoutX() + getTranslateX();
+        if (newPositionX < X_LEFT_BOUND || newPositionX > X_LOWER_BOUND) {
+            this.setTranslateX(initialTranslateX);
         }
     }
 
     @Override
     public void updateActor(double deltaTime, double currentTime) {
-        velocityMultiplier = shouldMoveUp ? -1 : (shouldMoveDown ? 1 : 0);
+        // null cancelling movement
+        if (shouldMoveUp && shouldMoveDown) {
+            if (verticalVelocityMultiplier < 0) {
+                shouldMoveUp = false;
+                verticalVelocityMultiplier = 1;
+            } else if (verticalVelocityMultiplier > 0) {
+                shouldMoveDown = false;
+                verticalVelocityMultiplier = -1;
+            } else {
+                shouldMoveUp = false;
+                verticalVelocityMultiplier = 1;
+            }
+        } else if (shouldMoveUp) {
+            verticalVelocityMultiplier = -1;
+        } else if (shouldMoveDown) {
+            verticalVelocityMultiplier = 1;
+        } else {
+            verticalVelocityMultiplier = 0;
+        }
+        
+        if (shouldMoveLeft && shouldMoveRight) {
+            if (horizontalVelocityMultiplier < 0) {
+                shouldMoveLeft = false;
+                horizontalVelocityMultiplier = 1;
+            } else if (horizontalVelocityMultiplier > 0) {
+                shouldMoveRight = false;
+                horizontalVelocityMultiplier = -1;
+            } else {
+                shouldMoveLeft = false;
+                horizontalVelocityMultiplier = 1;
+            }
+        } else if (shouldMoveLeft) {
+            horizontalVelocityMultiplier = -1;
+        } else if (shouldMoveRight) {
+            horizontalVelocityMultiplier = 1;
+        } else {
+            horizontalVelocityMultiplier = 0;
+        }
 
         updatePosition(deltaTime);
     }
@@ -45,7 +96,7 @@ public class UserPlane extends FighterPlane {
         if (shouldFire && (currentTime - lastFireTime) > (1000.0f / FIRE_RATE)) {
             lastFireTime = currentTime;
 
-            return new UserProjectile(PROJECTILE_X_POSITION, getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
+            return new UserProjectile(PROJECTILE_X_POSITION + getTranslateX(), getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
         }
 
         return null;
