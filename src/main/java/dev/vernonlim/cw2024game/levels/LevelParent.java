@@ -108,10 +108,8 @@ public abstract class LevelParent {
         double deltaTime = currentTime - lastUpdate;
         lastUpdate = currentTime;
 
-        // uses deltaTime to scale movement
-        updateActors(deltaTime);
-
-        // uses currentTime to determine if some event should trigger
+        // uses deltaTime to scale movement, currentTime to determine if some event should trigger
+        updateActors(deltaTime, currentTime);
         spawnEnemyUnits(currentTime);
         generateEnemyFire(currentTime);
         generateUserFire(currentTime);
@@ -192,11 +190,11 @@ public abstract class LevelParent {
         }
     }
 
-    private void updateActors(double deltaTime) {
-        friendlyUnits.forEach(plane -> plane.updateActor(deltaTime));
-        enemyUnits.forEach(enemy -> enemy.updateActor(deltaTime));
-        userProjectiles.forEach(projectile -> projectile.updateActor(deltaTime));
-        enemyProjectiles.forEach(projectile -> projectile.updateActor(deltaTime));
+    private void updateActors(double deltaTime, double currentTime) {
+        friendlyUnits.forEach(plane -> plane.updateActor(deltaTime, currentTime));
+        enemyUnits.forEach(enemy -> enemy.updateActor(deltaTime, currentTime));
+        userProjectiles.forEach(projectile -> projectile.updateActor(deltaTime, currentTime));
+        enemyProjectiles.forEach(projectile -> projectile.updateActor(deltaTime, currentTime));
     }
 
     private void removeAllDestroyedActors() {

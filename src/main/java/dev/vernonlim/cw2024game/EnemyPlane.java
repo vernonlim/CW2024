@@ -2,7 +2,7 @@ package dev.vernonlim.cw2024game;
 
 public class EnemyPlane extends FighterPlane {
     private static final String IMAGE_NAME = "enemyplane.png";
-    private static final int IMAGE_HEIGHT = 150;
+    private static final int IMAGE_HEIGHT = 54;
     private static final int HORIZONTAL_VELOCITY = -6;
     private static final double PROJECTILE_X_POSITION_OFFSET = -100.0;
     private static final double PROJECTILE_Y_POSITION_OFFSET = 50.0;
@@ -36,7 +36,7 @@ public class EnemyPlane extends FighterPlane {
     }
 
     @Override
-    public void updateActor(double deltaTime) {
+    public void updateActor(double deltaTime, double currentTime) {
         updatePosition(deltaTime);
     }
 }

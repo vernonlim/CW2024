@@ -16,7 +16,7 @@ public class BossProjectile extends Projectile {
     }
 
     @Override
-    public void updateActor(double deltaTime) {
+    public void updateActor(double deltaTime, double currentTime) {
         updatePosition(deltaTime);
     }
 }
