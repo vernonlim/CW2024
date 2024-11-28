@@ -100,14 +100,17 @@ public abstract class LevelParent {
     private void updateScene() {
         double deltaTime = System.currentTimeMillis() - lastUpdate;
 
+        // should only update once in a while
         spawnEnemyUnits(deltaTime);
         updateActors(deltaTime);
         generateEnemyFire(deltaTime);
+
+        // should update as often as possible
         updateNumberOfEnemies();
         handleEnemyPenetration();
         handleUserProjectileCollisions();
         handleEnemyProjectileCollisions();
-        handlePlaneCollisions();
+        handlePlaneCollisions(); // TODO: fix collision damage happening every frame
         removeAllDestroyedActors();
         updateKillCount();
         updateLevelView();
