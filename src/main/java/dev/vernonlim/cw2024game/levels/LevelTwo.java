@@ -31,7 +31,7 @@ public class LevelTwo extends LevelParent {
     }
 
     @Override
-    protected void spawnEnemyUnits() {
+    protected void spawnEnemyUnits(double deltaTime) {
         if (getCurrentNumberOfEnemies() == 0) {
             addEnemyUnit(boss);
         }

@@ -42,6 +42,7 @@ public abstract class LevelParent {
     private final Controller controller;
 
     private long lastUpdate;
+    protected long timeSinceLastEnemySpawn;
 
     public LevelParent(Controller controller, String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
         this.root = new Group();
@@ -60,6 +61,7 @@ public abstract class LevelParent {
         this.levelView = instantiateLevelView();
         this.currentNumberOfEnemies = 0;
         this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
+        this.timeSinceLastEnemySpawn = System.currentTimeMillis(); // same
         initializeTimeline();
         friendlyUnits.add(user);
 
@@ -70,7 +72,7 @@ public abstract class LevelParent {
 
     protected abstract void checkIfGameOver();
 
-    protected abstract void spawnEnemyUnits();
+    protected abstract void spawnEnemyUnits(double deltaTime);
 
     protected abstract LevelView instantiateLevelView();
 
@@ -96,7 +98,7 @@ public abstract class LevelParent {
     private void updateScene() {
         double deltaTime = System.currentTimeMillis() - lastUpdate;
 
-        spawnEnemyUnits();
+        spawnEnemyUnits(deltaTime);
         updateActors(deltaTime);
         generateEnemyFire();
         updateNumberOfEnemies();
