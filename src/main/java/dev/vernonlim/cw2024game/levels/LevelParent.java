@@ -45,12 +45,12 @@ public abstract class LevelParent {
     protected double timeSinceLastEnemySpawn;
     private double timeSinceLastEnemyFire;
 
-    public LevelParent(Controller controller, String backgroundImageName, double screenHeight, double screenWidth, int playerInitialHealth) {
+    public LevelParent(Controller controller, String backgroundImagePath, double screenHeight, double screenWidth, int playerInitialHealth) {
         this.root = new Group();
         this.scene = new Scene(root, screenWidth, screenHeight);
         this.timeline = new Timeline(TARGET_FPS);
         this.user = new UserPlane(playerInitialHealth);
-        this.background = new ImageView(new Image(Controller.fetchResourcePath(backgroundImageName)));
+        this.background = new ImageView(new Image(Controller.fetchResourcePath(backgroundImagePath)));
 
         this.friendlyUnits = new ArrayList<>();
         this.enemyUnits = new ArrayList<>();
