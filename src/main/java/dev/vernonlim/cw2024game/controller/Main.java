@@ -13,7 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         stage.setTitle(TITLE);
-        stage.setResizable(false);
+        stage.setResizable(true);
         stage.setHeight(SCREEN_HEIGHT);
         stage.setWidth(SCREEN_WIDTH);
         Controller myController = new Controller(stage);

@@ -15,8 +15,8 @@ public class Boss extends FighterPlane {
     private static final int MOVE_FREQUENCY_PER_CYCLE = 5;
     private static final int ZERO = 0;
     private static final double MAX_TIME_WITH_SAME_MOVE = 10 * 50.0f;
-    private static final int Y_POSITION_UPPER_BOUND = -100;
-    private static final int Y_POSITION_LOWER_BOUND = 475;
+    private static final int Y_POSITION_UPPER_BOUND = 0;
+    private static final int Y_POSITION_LOWER_BOUND = 720-56;
     private static final double MAX_TIME_WITH_SHIELD = 500 * 50.0f;
     private final List<Integer> movePattern;
     private boolean isShielded;
@@ -24,8 +24,9 @@ public class Boss extends FighterPlane {
     private int indexOfCurrentMove;
     private double lastShieldActivation;
     private double timeWithShieldActivated;
+    private LevelViewLevelTwo levelView;
 
-    public Boss() {
+    public Boss(LevelViewLevelTwo levelView) {
         super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, HEALTH);
         movePattern = new ArrayList<>();
         timeMovingInSameDirection = 0;
@@ -34,6 +35,8 @@ public class Boss extends FighterPlane {
         lastShieldActivation = -99999;
         isShielded = false;
         initializeMovePattern();
+
+        this.levelView = levelView;
     }
 
     @Override
@@ -131,11 +134,12 @@ public class Boss extends FighterPlane {
 
     private void activateShield() {
         isShielded = true;
+        levelView.showShield();
     }
 
     private void deactivateShield() {
         isShielded = false;
         timeWithShieldActivated = 0;
+        levelView.hideShield();
     }
-
 }

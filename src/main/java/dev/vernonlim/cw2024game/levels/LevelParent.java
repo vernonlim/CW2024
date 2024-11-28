@@ -8,6 +8,7 @@ import dev.vernonlim.cw2024game.FighterPlane;
 import dev.vernonlim.cw2024game.LevelView;
 import dev.vernonlim.cw2024game.UserPlane;
 import dev.vernonlim.cw2024game.controller.Controller;
+import dev.vernonlim.cw2024game.controller.SceneSizeChangeListener;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
@@ -17,10 +18,10 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
 import javafx.scene.input.*;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 public abstract class LevelParent {
-    private static final double SCREEN_HEIGHT_ADJUSTMENT = 150;
     private static final int FRAME_RATE = 5000;
     private final double screenHeight;
     private final double screenWidth;
@@ -50,8 +51,16 @@ public abstract class LevelParent {
     public BooleanProperty spacePressed = new SimpleBooleanProperty();
 
     public LevelParent(Controller controller, String backgroundImagePath, double screenHeight, double screenWidth, int playerInitialHealth) {
-        this.root = new Group();
+
+        // To make this resizeable
+        Pane pane = new Pane();
+        pane.setStyle("-fx-background-color: black;");
+
+        this.root = new Group(pane);
         this.scene = new Scene(root, screenWidth, screenHeight);
+
+        letterbox(scene, pane);
+
         this.timeline = new Timeline(FRAME_RATE);
         this.user = new UserPlane(playerInitialHealth);
         this.background = new ImageView(new Image(Controller.fetchResourcePath(backgroundImagePath)));
@@ -63,7 +72,7 @@ public abstract class LevelParent {
 
         this.screenHeight = screenHeight;
         this.screenWidth = screenWidth;
-        this.enemyMaximumYPosition = screenHeight - SCREEN_HEIGHT_ADJUSTMENT;
+        this.enemyMaximumYPosition = screenHeight - 108;
         this.levelView = instantiateLevelView();
         this.currentNumberOfEnemies = 0;
         this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
@@ -73,6 +82,18 @@ public abstract class LevelParent {
         friendlyUnits.add(user);
 
         this.controller = controller;
+    }
+
+    // Credit:
+    // https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
+    private void letterbox(Scene scene, Pane contentPane) {
+        final double initWidth = scene.getWidth();
+        final double initHeight = scene.getHeight();
+        final double ratio = initWidth / initHeight;
+
+        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
+        scene.widthProperty().addListener(sizeListener);
+        scene.heightProperty().addListener(sizeListener);
     }
 
     protected abstract void initializeFriendlyUnits();
