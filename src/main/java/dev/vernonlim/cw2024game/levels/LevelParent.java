@@ -81,6 +81,7 @@ public abstract class LevelParent {
 
     public Scene initializeScene() {
         initializeBackground();
+        initializeControls();
         initializeFriendlyUnits();
         levelView.showHeartDisplay();
         return scene;
@@ -130,6 +131,10 @@ public abstract class LevelParent {
         background.setFocusTraversable(true);
         background.setFitHeight(screenHeight);
         background.setFitWidth(screenWidth);
+        root.getChildren().add(background);
+    }
+
+    private void initializeControls() {
         background.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 KeyCode kc = e.getCode();
@@ -144,7 +149,6 @@ public abstract class LevelParent {
                 if (kc == KeyCode.UP || kc == KeyCode.DOWN) user.stop();
             }
         });
-        root.getChildren().add(background);
     }
 
     private void fireProjectile() {
