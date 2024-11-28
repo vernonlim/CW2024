@@ -2,13 +2,16 @@ package dev.vernonlim.cw2024game;
 
 public abstract class FighterPlane extends ActiveActorDestructible {
     private int health;
+    protected double lastFireTime;
 
     public FighterPlane(String imageName, int imageHeight, double initialXPos, double initialYPos, int health) {
         super(imageName, imageHeight, initialXPos, initialYPos);
         this.health = health;
+
+        this.lastFireTime = -99999;
     }
 
-    public abstract ActiveActorDestructible fireProjectile();
+    public abstract ActiveActorDestructible fireProjectile(double currentTime);
 
     @Override
     public void takeDamage() {
