@@ -21,6 +21,10 @@ public class LevelView {
         this.gameOverImage = new GameOverImage(LOSS_SCREEN_X_POSITION, LOSS_SCREEN_Y_POSITION);
     }
 
+    public void showInitialImages() {
+        showHeartDisplay();
+    }
+
     public void showHeartDisplay() {
         root.getChildren().add(heartDisplay.getContainer());
     }

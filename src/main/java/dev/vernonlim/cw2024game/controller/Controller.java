@@ -14,6 +14,9 @@ import javafx.stage.Stage;
 import dev.vernonlim.cw2024game.levels.*;
 
 public class Controller {
+    private final int screenWidth;
+    private final int screenHeight;
+
     private static final Map<String, Class<? extends LevelParent>> levels = Map.ofEntries(
             entry("LEVEL_ONE", LevelOne.class),
             entry("LEVEL_TWO", LevelTwo.class)
@@ -21,8 +24,10 @@ public class Controller {
 
     private final Stage stage;
 
-    public Controller(Stage stage) {
+    public Controller(Stage stage, int screenWidth, int screenHeight) {
         this.stage = stage;
+        this.screenWidth = screenWidth;
+        this.screenHeight = screenHeight;
     }
 
     public void launchGame() {
@@ -34,7 +39,7 @@ public class Controller {
         try {
             Class<? extends LevelParent> level = levels.get(levelName);
             Constructor<?> constructor = level.getConstructor(Controller.class, double.class, double.class);
-            LevelParent myLevel = (LevelParent) constructor.newInstance(this, stage.getHeight(), stage.getWidth());
+            LevelParent myLevel = (LevelParent) constructor.newInstance(this, screenHeight, screenWidth);
             Scene scene = myLevel.initializeScene();
             stage.setScene(scene);
             myLevel.startGame();

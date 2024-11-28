@@ -3,10 +3,7 @@ package dev.vernonlim.cw2024game.levels;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import dev.vernonlim.cw2024game.ActiveActorDestructible;
-import dev.vernonlim.cw2024game.FighterPlane;
-import dev.vernonlim.cw2024game.LevelView;
-import dev.vernonlim.cw2024game.UserPlane;
+import dev.vernonlim.cw2024game.*;
 import dev.vernonlim.cw2024game.controller.Controller;
 import dev.vernonlim.cw2024game.controller.SceneSizeChangeListener;
 import javafx.animation.*;
@@ -51,7 +48,6 @@ public abstract class LevelParent {
     public BooleanProperty spacePressed = new SimpleBooleanProperty();
 
     public LevelParent(Controller controller, String backgroundImagePath, double screenHeight, double screenWidth, int playerInitialHealth) {
-
         // To make this resizeable
         Pane pane = new Pane();
         pane.setStyle("-fx-background-color: black;");
@@ -59,7 +55,7 @@ public abstract class LevelParent {
         this.root = new Group(pane);
         this.scene = new Scene(root, screenWidth, screenHeight);
 
-        letterbox(scene, pane);
+        letterbox(scene, pane, screenWidth, screenHeight);
 
         this.timeline = new Timeline(FRAME_RATE);
         this.user = new UserPlane(playerInitialHealth);
@@ -86,9 +82,7 @@ public abstract class LevelParent {
 
     // Credit:
     // https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
-    private void letterbox(Scene scene, Pane contentPane) {
-        final double initWidth = scene.getWidth();
-        final double initHeight = scene.getHeight();
+    private void letterbox(Scene scene, Pane contentPane, double initWidth, double initHeight) {
         final double ratio = initWidth / initHeight;
 
         SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
@@ -108,7 +102,7 @@ public abstract class LevelParent {
         initializeBackground();
         initializeControls();
         initializeFriendlyUnits();
-        levelView.showHeartDisplay();
+        levelView.showInitialImages();
         return scene;
     }
 

@@ -1,5 +1,6 @@
 package dev.vernonlim.cw2024game;
 
+import dev.vernonlim.cw2024game.controller.Controller;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -10,8 +11,7 @@ public class ShieldImage extends ImageView {
     public ShieldImage(double xPosition, double yPosition) {
         this.setLayoutX(xPosition);
         this.setLayoutY(yPosition);
-        //this.setImage(new Image(IMAGE_NAME));
-        this.setImage(new Image(getClass().getResource(IMAGE_NAME).toExternalForm()));
+        this.setImage(new Image(Controller.fetchResourcePath(IMAGE_NAME)));
         this.setVisible(false);
         this.setFitHeight(SHIELD_SIZE);
         this.setFitWidth(SHIELD_SIZE);
