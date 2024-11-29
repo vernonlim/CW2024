@@ -23,6 +23,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import javax.swing.Timer;
 
 public abstract class LevelParent implements Screen {
     private static final int FRAME_RATE = 120;
@@ -48,6 +49,9 @@ public abstract class LevelParent implements Screen {
 
     private double lastUpdate;
     protected double lastEnemySpawnAttempt;
+
+    protected Timer timer;
+    protected double virtualTime;
 
     public LevelParent(Controller controller, AssetLoader loader, String backgroundImagePath, int playerInitialHealth) {
         // initializing the main nodes
@@ -105,12 +109,22 @@ public abstract class LevelParent implements Screen {
         this.currentNumberOfEnemies = 0;
 
         this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
+        this.virtualTime = 0;
+        this.timer = createTimer();
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
 
         this.user = new UserPlane(root, loader, projectileListener, input, playerInitialHealth);
         friendlyUnits.add(user);
 
         initializeTimeline();
+    }
+
+    private Timer createTimer() {
+        Timer timer = new Timer(1, (ae) -> {
+            virtualTime += 1;
+        });
+        timer.start();
+        return timer;
     }
     
     public Scene getScene() {
@@ -134,7 +148,7 @@ public abstract class LevelParent implements Screen {
     }
 
     private void updateScene() {
-        double currentTime = System.currentTimeMillis();
+        double currentTime = virtualTime;
         double deltaTime = currentTime - lastUpdate;
         lastUpdate = currentTime;
 
