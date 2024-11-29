@@ -5,6 +5,7 @@ import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.EnemyPlane;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.overlays.Overlay;
+import javafx.scene.layout.Pane;
 
 public class LevelOne extends LevelParent {
     private static final String BACKGROUND_IMAGE_NAME = "/images/background1.jpg";
@@ -49,8 +50,8 @@ public class LevelOne extends LevelParent {
     }
 
     @Override
-    protected Overlay instantiateLevelView() {
-        return new Overlay(getRoot(), PLAYER_INITIAL_HEALTH);
+    protected Overlay instantiateOverlay(Pane root) {
+        return new Overlay(root, PLAYER_INITIAL_HEALTH);
     }
 
     private boolean userHasReachedKillTarget() {

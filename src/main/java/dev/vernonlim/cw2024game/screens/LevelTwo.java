@@ -3,6 +3,7 @@ package dev.vernonlim.cw2024game.screens;
 import dev.vernonlim.cw2024game.elements.actors.Boss;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.overlays.Overlay;
+import javafx.scene.layout.Pane;
 
 public class LevelTwo extends LevelParent {
     private static final String BACKGROUND_IMAGE_NAME = "/images/background2.jpg";
@@ -37,7 +38,7 @@ public class LevelTwo extends LevelParent {
     }
 
     @Override
-    protected Overlay instantiateLevelView() {
-        return new Overlay(getRoot(), PLAYER_INITIAL_HEALTH);
+    protected Overlay instantiateOverlay(Pane root) {
+        return new Overlay(root, PLAYER_INITIAL_HEALTH);
     }
 }

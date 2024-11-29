@@ -47,6 +47,7 @@ public abstract class LevelParent {
     protected double lastEnemySpawnAttempt;
 
     public LevelParent(Controller controller, String backgroundImagePath, int playerInitialHealth) {
+
         this.root = new Pane();
 
         // VERY important - limits the size of the Pane Node used for drawing
@@ -89,7 +90,7 @@ public abstract class LevelParent {
         this.enemyProjectiles = new ArrayList<>();
 
         this.enemyMaximumYPosition = Main.SCREEN_HEIGHT - 108;
-        this.overlay = instantiateLevelView();
+        this.overlay = instantiateOverlay(stackPane);
         this.currentNumberOfEnemies = 0;
         this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
@@ -107,7 +108,7 @@ public abstract class LevelParent {
 
     protected abstract void spawnEnemyUnits(double currentTime);
 
-    protected abstract Overlay instantiateLevelView();
+    protected abstract Overlay instantiateOverlay(Pane root);
 
     public Scene initializeScene() {
         initializeBackground();
