@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static java.util.Map.entry;
 
-public class Input {
+public class InputManager {
     private final Map<Action, BooleanProperty> actionsTriggered = Map.ofEntries(
             entry(Action.UP, new SimpleBooleanProperty()),
             entry(Action.DOWN, new SimpleBooleanProperty()),
@@ -36,7 +36,7 @@ public class Input {
             entry(KeyCode.D, Action.RIGHT)
     );
 
-    public Input(Scene scene) {
+    public InputManager(Scene scene) {
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
                 Action action = keyBindings.get(e.getCode());

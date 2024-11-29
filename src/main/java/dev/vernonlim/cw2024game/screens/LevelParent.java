@@ -4,7 +4,6 @@ import java.util.*;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
-import dev.vernonlim.cw2024game.assets.UpFrontAssetLoader;
 import dev.vernonlim.cw2024game.elements.Background;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
@@ -14,7 +13,7 @@ import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.elements.actors.UserProjectile;
 import dev.vernonlim.cw2024game.elements.factories.ActorFactory;
-import dev.vernonlim.cw2024game.input.Input;
+import dev.vernonlim.cw2024game.input.InputManager;
 import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.animation.*;
 import javafx.application.Platform;
@@ -48,7 +47,7 @@ public abstract class LevelParent implements Screen {
     private final GameplayOverlay gameplayOverlay;
 
     private final Controller controller;
-    private final Input input;
+    private final InputManager inputManager;
     protected final AssetLoader loader;
     protected final ProjectileListener projectileListener;
     protected final ActorFactory actorFactory;
@@ -88,7 +87,7 @@ public abstract class LevelParent implements Screen {
         SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 
         // initializing handlers
-        this.input = new Input(scene);
+        this.inputManager = new InputManager(scene);
         this.controller = controller;
         this.loader = loader;
 
@@ -106,7 +105,7 @@ public abstract class LevelParent implements Screen {
             }
         };
 
-        this.actorFactory = new ActorFactory(root, loader, input, projectileListener);
+        this.actorFactory = new ActorFactory(root, loader, inputManager, projectileListener);
 
         // activity
         this.timeline = new Timeline(FRAME_RATE);
@@ -182,12 +181,10 @@ public abstract class LevelParent implements Screen {
         // these should be updated ASAP, so they don't need time information
         updateNumberOfEnemies();
         handleEnemyPenetration();
-        handleUserProjectileCollisions();
-        handleEnemyProjectileCollisions();
-        handlePlaneCollisions(); // TODO: fix collision damage happening every frame
+        handleAllCollisions();
         removeAllDestroyedActors();
         updateKillCount();
-        updateLevelView();
+        updateOverlays();
         checkIfGameOver();
     }
 
@@ -217,15 +214,9 @@ public abstract class LevelParent implements Screen {
         actors.removeAll(destroyedActors);
     }
 
-    private void handlePlaneCollisions() {
+    private void handleAllCollisions() {
         handleCollisions(friendlyUnits, enemyUnits);
-    }
-
-    private void handleUserProjectileCollisions() {
         handleCollisions(userProjectiles, enemyUnits);
-    }
-
-    private void handleEnemyProjectileCollisions() {
         handleCollisions(enemyProjectiles, friendlyUnits);
     }
 
@@ -249,7 +240,7 @@ public abstract class LevelParent implements Screen {
         }
     }
 
-    private void updateLevelView() {
+    private void updateOverlays() {
         gameplayOverlay.removeHearts(user.getHealth());
     }
 

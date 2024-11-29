@@ -3,7 +3,7 @@ package dev.vernonlim.cw2024game.elements.actors;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.factories.ActorFactory;
-import dev.vernonlim.cw2024game.input.Input;
+import dev.vernonlim.cw2024game.input.InputManager;
 import dev.vernonlim.cw2024game.Main;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -19,7 +19,7 @@ public class UserPlane extends FighterPlane {
     private double horizontalVelocityMultiplier;
     private int numberOfKills;
 
-    private final Input input;
+    private final InputManager inputManager;
 
     private int lastVerticalMultipler;
     private int lastHorizontalMultiplier;
@@ -29,13 +29,13 @@ public class UserPlane extends FighterPlane {
     private double leftBound;
     private double rightBound;
 
-    public UserPlane(ActorFactory actorFactory, Pane root, AssetLoader loader, ProjectileListener projectileListener, Input input, int initialHealth) {
+    public UserPlane(ActorFactory actorFactory, Pane root, AssetLoader loader, ProjectileListener projectileListener, InputManager inputManager, int initialHealth) {
         super(actorFactory, root, loader, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, initialHealth);
 
         setXFromLeft(5);
         setY(Main.SCREEN_HEIGHT / 2.0f);
 
-        this.input = input;
+        this.inputManager = inputManager;
 
         verticalVelocityMultiplier = 0;
         horizontalVelocityMultiplier = 0;
@@ -63,16 +63,16 @@ public class UserPlane extends FighterPlane {
 
     @Override
     public void updateActor(double deltaTime, double currentTime) {
-        boolean down = input.isDownPressed();
-        boolean up = input.isUpPressed();
-        boolean left = input.isLeftPressed();
-        boolean right = input.isRightPressed();
-        boolean focus = input.isFocusPressed();
+        boolean down = inputManager.isDownPressed();
+        boolean up = inputManager.isUpPressed();
+        boolean left = inputManager.isLeftPressed();
+        boolean right = inputManager.isRightPressed();
+        boolean focus = inputManager.isFocusPressed();
 
         // null cancelling movement
         if (down && up) {
             verticalVelocityMultiplier = -lastVerticalMultipler;
-        } else if (input.isUpPressed()) {
+        } else if (inputManager.isUpPressed()) {
             lastVerticalMultipler = -1;
             verticalVelocityMultiplier = -1;
         } else if (down) {
@@ -102,7 +102,7 @@ public class UserPlane extends FighterPlane {
             fireRate *= 2.0;
         }
 
-        if (input.isFirePressed() && (currentTime - lastFireTime) > (1000.0f / fireRate)) {
+        if (inputManager.isFirePressed() && (currentTime - lastFireTime) > (1000.0f / fireRate)) {
             lastFireTime = currentTime;
 
             fireProjectile();

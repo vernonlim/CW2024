@@ -3,24 +3,24 @@ package dev.vernonlim.cw2024game.elements.factories;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.actors.*;
-import dev.vernonlim.cw2024game.input.Input;
+import dev.vernonlim.cw2024game.input.InputManager;
 import javafx.scene.layout.Pane;
 
 public class ActorFactory {
     private final Pane root;
     private final AssetLoader loader;
-    private final Input input;
+    private final InputManager inputManager;
     private final ProjectileListener projectileListener;
 
-    public ActorFactory(Pane root, AssetLoader loader, Input input, ProjectileListener projectileListener) {
+    public ActorFactory(Pane root, AssetLoader loader, InputManager inputManager, ProjectileListener projectileListener) {
         this.root = root;
         this.loader = loader;
-        this.input = input;
+        this.inputManager = inputManager;
         this.projectileListener = projectileListener;
     }
 
     public UserPlane createUserPlane(int initialHealth) {
-        return new UserPlane(this, root, loader, projectileListener, input, initialHealth);
+        return new UserPlane(this, root, loader, projectileListener, inputManager, initialHealth);
     }
 
     public EnemyPlane createEnemyPlane(double initialXPos, double initialYPos) {
