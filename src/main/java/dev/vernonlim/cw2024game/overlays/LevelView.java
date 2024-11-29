@@ -1,9 +1,9 @@
-package dev.vernonlim.cw2024game.levels;
+package dev.vernonlim.cw2024game.overlays;
 
-import dev.vernonlim.cw2024game.actors.GameOverImage;
-import dev.vernonlim.cw2024game.actors.HeartDisplay;
-import dev.vernonlim.cw2024game.actors.WinImage;
-import javafx.scene.Group;
+import dev.vernonlim.cw2024game.elements.Element;
+import dev.vernonlim.cw2024game.elements.GameOverImage;
+import dev.vernonlim.cw2024game.elements.HeartDisplay;
+import dev.vernonlim.cw2024game.elements.WinImage;
 import javafx.scene.layout.Pane;
 
 public class LevelView {
@@ -15,14 +15,14 @@ public class LevelView {
     private static final int LOSS_SCREEN_Y_POSITION = -375;
     private final Pane root;
     private final WinImage winImage;
-    private final GameOverImage gameOverImage;
+    private final Element gameOverImage;
     private final HeartDisplay heartDisplay;
 
     public LevelView(Pane root, int heartsToDisplay) {
         this.root = root;
-        this.heartDisplay = new HeartDisplay(HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
-        this.winImage = new WinImage(WIN_IMAGE_X_POSITION, WIN_IMAGE_Y_POSITION);
-        this.gameOverImage = new GameOverImage(LOSS_SCREEN_X_POSITION, LOSS_SCREEN_Y_POSITION);
+        this.heartDisplay = new HeartDisplay(root, HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
+        this.winImage = new WinImage(root, WIN_IMAGE_X_POSITION, WIN_IMAGE_Y_POSITION);
+        this.gameOverImage = new GameOverImage(root, LOSS_SCREEN_X_POSITION, LOSS_SCREEN_Y_POSITION);
     }
 
     public void showInitialImages() {
@@ -30,20 +30,20 @@ public class LevelView {
     }
 
     public void showHeartDisplay() {
-        root.getChildren().add(heartDisplay.getContainer());
+        heartDisplay.show();
     }
 
     public void showWinImage() {
-        root.getChildren().add(winImage);
-        winImage.showWinImage();
+        winImage.show();
     }
 
     public void showGameOverImage() {
-        root.getChildren().add(gameOverImage);
+        gameOverImage.show();
     }
 
     public void removeHearts(int heartsRemaining) {
-        int currentNumberOfHearts = heartDisplay.getContainer().getChildren().size();
+        int currentNumberOfHearts = heartDisplay.getHeartCount();
+
         for (int i = 0; i < currentNumberOfHearts - heartsRemaining; i++) {
             heartDisplay.removeHeart();
         }

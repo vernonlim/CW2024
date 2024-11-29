@@ -1,11 +1,13 @@
-package dev.vernonlim.cw2024game.actors;
+package dev.vernonlim.cw2024game.elements.actors;
+
+import javafx.scene.layout.Pane;
 
 public abstract class FighterPlane extends ActiveActorDestructible {
     private int health;
     protected double lastFireTime;
 
-    public FighterPlane(String imageName, int imageHeight, double initialXPos, double initialYPos, int health) {
-        super(imageName, imageHeight, initialXPos, initialYPos);
+    public FighterPlane(Pane root, String imageName, int imageHeight, int health) {
+        super(root, imageName, imageHeight);
         this.health = health;
 
         this.lastFireTime = -99999;
@@ -19,14 +21,6 @@ public abstract class FighterPlane extends ActiveActorDestructible {
         if (healthAtZero()) {
             this.destroy();
         }
-    }
-
-    protected double getProjectileXPosition(double xPositionOffset) {
-        return getLayoutX() + getTranslateX() + xPositionOffset;
-    }
-
-    protected double getProjectileYPosition(double yPositionOffset) {
-        return getLayoutY() + getTranslateY() + yPositionOffset;
     }
 
     private boolean healthAtZero() {

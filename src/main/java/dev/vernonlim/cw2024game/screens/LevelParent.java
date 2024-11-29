@@ -1,30 +1,27 @@
-package dev.vernonlim.cw2024game.levels;
+package dev.vernonlim.cw2024game.screens;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
-import dev.vernonlim.cw2024game.actors.ActiveActorDestructible;
-import dev.vernonlim.cw2024game.actors.FighterPlane;
-import dev.vernonlim.cw2024game.actors.UserPlane;
-import dev.vernonlim.cw2024game.controller.Controller;
-import dev.vernonlim.cw2024game.managers.InputManager;
+import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.elements.Element;
+import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
+import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
+import dev.vernonlim.cw2024game.elements.actors.UserPlane;
+import dev.vernonlim.cw2024game.Controller;
+import dev.vernonlim.cw2024game.InputManager;
+import dev.vernonlim.cw2024game.overlays.LevelView;
 import javafx.animation.*;
 import javafx.application.Platform;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.*;
-import javafx.scene.input.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 public abstract class LevelParent {
-    private static final int FRAME_RATE = 5000;
-    private final double screenHeight;
-    private final double screenWidth;
+    private static final int FRAME_RATE = 1000;
     private final double enemyMaximumYPosition;
 
     private final Pane root;
@@ -47,13 +44,15 @@ public abstract class LevelParent {
     private double lastUpdate;
     protected double lastEnemySpawnAttempt;
 
-    public LevelParent(Controller controller, String backgroundImagePath, double screenHeight, double screenWidth, int playerInitialHealth) {
+    public LevelParent(Controller controller, String backgroundImagePath, int playerInitialHealth) {
         this.root = new Pane();
 
         // VERY important - limits the size of the Pane Node used for drawing
         // This allows the StackPane to properly align it
-        root.setMaxHeight(screenHeight);
-        root.setMaxWidth(screenWidth);
+        root.setMaxHeight(Main.SCREEN_HEIGHT);
+        root.setMaxWidth(Main.SCREEN_WIDTH);
+
+//        root.setClip(new Rectangle(screenWidth, screenHeight));
 
         // To align the root pane above
         StackPane stackPane = new StackPane(root);
@@ -64,10 +63,10 @@ public abstract class LevelParent {
 
         this.inputManager = new InputManager(scene);
 
-        SceneSizeChangeListener.letterbox(scene, stackPane, screenWidth, screenHeight);
+        SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 
-        this.timeline = new Timeline(FRAME_RATE);
-        this.user = new UserPlane(playerInitialHealth, inputManager);
+        this.timeline = new Timeline(60);
+        this.user = new UserPlane(root, playerInitialHealth, inputManager);
         this.background = new ImageView(new Image(Controller.fetchResourcePath(backgroundImagePath)));
 
         this.friendlyUnits = new ArrayList<>();
@@ -75,9 +74,7 @@ public abstract class LevelParent {
         this.userProjectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
 
-        this.screenHeight = screenHeight;
-        this.screenWidth = screenWidth;
-        this.enemyMaximumYPosition = screenHeight - 108;
+        this.enemyMaximumYPosition = Main.SCREEN_HEIGHT - 108;
         this.levelView = instantiateLevelView();
         this.currentNumberOfEnemies = 0;
         this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
@@ -146,8 +143,8 @@ public abstract class LevelParent {
 
     private void initializeBackground() {
         background.setFocusTraversable(true);
-        background.setFitHeight(screenHeight);
-        background.setFitWidth(screenWidth);
+        background.setFitHeight(Main.SCREEN_HEIGHT);
+        background.setFitWidth(Main.SCREEN_WIDTH);
         root.getChildren().add(background);
     }
 
@@ -155,7 +152,7 @@ public abstract class LevelParent {
         ActiveActorDestructible projectile = user.fireProjectile(currentTime);
 
         if (projectile != null) {
-            root.getChildren().add(projectile);
+            projectile.show();
             userProjectiles.add(projectile);
         }
     }
@@ -166,7 +163,7 @@ public abstract class LevelParent {
 
     private void spawnEnemyProjectile(ActiveActorDestructible projectile) {
         if (projectile != null) {
-            root.getChildren().add(projectile);
+            projectile.show();
             enemyProjectiles.add(projectile);
         }
     }
@@ -186,9 +183,8 @@ public abstract class LevelParent {
     }
 
     private void removeDestroyedActors(List<ActiveActorDestructible> actors) {
-        List<ActiveActorDestructible> destroyedActors = actors.stream().filter(actor -> actor.isDestroyed())
-                .collect(Collectors.toList());
-        root.getChildren().removeAll(destroyedActors);
+        List<ActiveActorDestructible> destroyedActors = actors.stream().filter(ActiveActorDestructible::isDestroyed).toList();
+        destroyedActors.forEach(Element::hide);
         actors.removeAll(destroyedActors);
     }
 
@@ -236,7 +232,7 @@ public abstract class LevelParent {
     }
 
     private boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
-        return Math.abs(enemy.getTranslateX()) > screenWidth;
+        return Math.abs(enemy.getX()) > Main.SCREEN_WIDTH;
     }
 
     protected void winGame() {
@@ -262,16 +258,12 @@ public abstract class LevelParent {
     }
 
     protected void addEnemyUnit(ActiveActorDestructible enemy) {
+        enemy.show();
         enemyUnits.add(enemy);
-        root.getChildren().add(enemy);
     }
 
     protected double getEnemyMaximumYPosition() {
         return enemyMaximumYPosition;
-    }
-
-    protected double getScreenWidth() {
-        return screenWidth;
     }
 
     protected boolean userIsDestroyed() {

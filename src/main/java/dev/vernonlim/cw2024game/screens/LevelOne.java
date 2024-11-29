@@ -1,8 +1,10 @@
-package dev.vernonlim.cw2024game.levels;
+package dev.vernonlim.cw2024game.screens;
 
-import dev.vernonlim.cw2024game.actors.ActiveActorDestructible;
-import dev.vernonlim.cw2024game.actors.EnemyPlane;
-import dev.vernonlim.cw2024game.controller.Controller;
+import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
+import dev.vernonlim.cw2024game.elements.actors.EnemyPlane;
+import dev.vernonlim.cw2024game.Controller;
+import dev.vernonlim.cw2024game.overlays.LevelView;
 
 public class LevelOne extends LevelParent {
     private static final String BACKGROUND_IMAGE_NAME = "/images/background1.jpg";
@@ -12,8 +14,8 @@ public class LevelOne extends LevelParent {
     private static final double ENEMY_SPAWN_PROBABILITY = .20;
     private static final int PLAYER_INITIAL_HEALTH = 5;
 
-    public LevelOne(Controller controller, double screenHeight, double screenWidth) {
-        super(controller, BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
+    public LevelOne(Controller controller) {
+        super(controller, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
     }
 
     @Override
@@ -27,7 +29,7 @@ public class LevelOne extends LevelParent {
 
     @Override
     protected void initializeFriendlyUnits() {
-        getRoot().getChildren().add(getUser());
+        getUser().show();
     }
 
     @Override
@@ -39,7 +41,7 @@ public class LevelOne extends LevelParent {
             for (int i = 0; i < TOTAL_ENEMIES - currentNumberOfEnemies; i++) {
                 if (Math.random() < ENEMY_SPAWN_PROBABILITY) {
                     double newEnemyInitialYPosition = Math.random() * getEnemyMaximumYPosition() + 54;
-                    ActiveActorDestructible newEnemy = new EnemyPlane(getScreenWidth(), newEnemyInitialYPosition);
+                    ActiveActorDestructible newEnemy = new EnemyPlane(getRoot(), Main.SCREEN_WIDTH, newEnemyInitialYPosition);
                     addEnemyUnit(newEnemy);
                 }
             }

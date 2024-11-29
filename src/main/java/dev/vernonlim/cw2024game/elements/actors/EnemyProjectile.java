@@ -1,12 +1,17 @@
-package dev.vernonlim.cw2024game.actors;
+package dev.vernonlim.cw2024game.elements.actors;
+
+import javafx.scene.layout.Pane;
 
 public class EnemyProjectile extends Projectile {
     private static final String IMAGE_NAME = "enemyFire.png";
     private static final int IMAGE_HEIGHT = 32;
     private static final int HORIZONTAL_VELOCITY = -10;
 
-    public EnemyProjectile(double initialXPos, double initialYPos) {
-        super(IMAGE_NAME, IMAGE_HEIGHT, initialXPos, initialYPos);
+    public EnemyProjectile(Pane root, double initialXPos, double initialYPos) {
+        super(root, IMAGE_NAME, IMAGE_HEIGHT, initialXPos, initialYPos);
+
+        // to be in front of the enemy plane
+        moveHorizontally(-getHalfWidth());
     }
 
     @Override
@@ -16,6 +21,8 @@ public class EnemyProjectile extends Projectile {
 
     @Override
     public void updateActor(double deltaTime, double currentTime) {
+        super.updateActor(deltaTime, currentTime);
+
         updatePosition(deltaTime);
     }
 }
