@@ -4,12 +4,14 @@ import java.util.*;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.Element;
+import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
+import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.input.Input;
-import dev.vernonlim.cw2024game.overlays.LevelView;
+import dev.vernonlim.cw2024game.overlays.Overlay;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -20,7 +22,7 @@ import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 public abstract class LevelParent {
-    private static final int FRAME_RATE = 1000;
+    private static final int FRAME_RATE = 120;
     private final double enemyMaximumYPosition;
 
     private final Pane root;
@@ -35,10 +37,12 @@ public abstract class LevelParent {
     private final List<ActiveActorDestructible> enemyProjectiles;
 
     private int currentNumberOfEnemies;
-    private final LevelView levelView;
+    private final Overlay overlay;
 
     private final Controller controller;
     private final Input input;
+    protected final ProjectileListener friendlyProjectileListener;
+    protected final ProjectileListener enemyProjectileListener;
 
     private double lastUpdate;
     protected double lastEnemySpawnAttempt;
@@ -62,10 +66,25 @@ public abstract class LevelParent {
 
         this.input = new Input(scene);
 
+        this.friendlyProjectileListener = new ProjectileListener() {
+            @Override
+            public void onFire(Projectile projectile) {
+                projectile.show();
+                userProjectiles.add(projectile);
+            }
+        };
+
+        this.enemyProjectileListener = new ProjectileListener() {
+            @Override
+            public void onFire(Projectile projectile) {
+                projectile.show();
+                enemyProjectiles.add(projectile);
+            }
+        };
+
         SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 
-        this.timeline = new Timeline(60);
-        this.user = new UserPlane(root, playerInitialHealth, input);
+        this.timeline = new Timeline(FRAME_RATE);
         this.background = new ImageView(new Image(Controller.fetchResourcePath(backgroundImagePath)));
 
         this.friendlyUnits = new ArrayList<>();
@@ -74,11 +93,13 @@ public abstract class LevelParent {
         this.enemyProjectiles = new ArrayList<>();
 
         this.enemyMaximumYPosition = Main.SCREEN_HEIGHT - 108;
-        this.levelView = instantiateLevelView();
+        this.overlay = instantiateLevelView();
         this.currentNumberOfEnemies = 0;
         this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
         initializeTimeline();
+
+        this.user = new UserPlane(root, friendlyProjectileListener, input, playerInitialHealth);
         friendlyUnits.add(user);
 
         this.controller = controller;
@@ -90,12 +111,12 @@ public abstract class LevelParent {
 
     protected abstract void spawnEnemyUnits(double currentTime);
 
-    protected abstract LevelView instantiateLevelView();
+    protected abstract Overlay instantiateLevelView();
 
     public Scene initializeScene() {
         initializeBackground();
         initializeFriendlyUnits();
-        levelView.showInitialImages();
+        overlay.showInitialImages();
         return scene;
     }
 
@@ -117,10 +138,8 @@ public abstract class LevelParent {
         lastUpdate = currentTime;
 
         // uses deltaTime to scale movement, currentTime to determine if some event should trigger
-        updateActors(deltaTime, currentTime);
+        updateActors(deltaTime, currentTime); // also spawns projectiles
         spawnEnemyUnits(currentTime);
-        generateEnemyFire(currentTime);
-        generateUserFire(currentTime);
 
         // these should be updated ASAP, so they don't need time information
         updateNumberOfEnemies();
@@ -147,31 +166,11 @@ public abstract class LevelParent {
         root.getChildren().add(background);
     }
 
-    private void generateUserFire(double currentTime) {
-        ActiveActorDestructible projectile = user.fireProjectile(currentTime);
-
-        if (projectile != null) {
-            projectile.show();
-            userProjectiles.add(projectile);
-        }
-    }
-
-    private void generateEnemyFire(double currentTime) {
-        enemyUnits.forEach(enemy -> spawnEnemyProjectile(((FighterPlane) enemy).fireProjectile(currentTime)));
-    }
-
-    private void spawnEnemyProjectile(ActiveActorDestructible projectile) {
-        if (projectile != null) {
-            projectile.show();
-            enemyProjectiles.add(projectile);
-        }
-    }
-
     private void updateActors(double deltaTime, double currentTime) {
-        friendlyUnits.forEach(plane -> plane.updateActor(deltaTime, currentTime));
-        enemyUnits.forEach(enemy -> enemy.updateActor(deltaTime, currentTime));
         userProjectiles.forEach(projectile -> projectile.updateActor(deltaTime, currentTime));
         enemyProjectiles.forEach(projectile -> projectile.updateActor(deltaTime, currentTime));
+        friendlyUnits.forEach(plane -> plane.updateActor(deltaTime, currentTime));
+        enemyUnits.forEach(enemy -> enemy.updateActor(deltaTime, currentTime));
     }
 
     private void removeAllDestroyedActors() {
@@ -221,7 +220,7 @@ public abstract class LevelParent {
     }
 
     private void updateLevelView() {
-        levelView.removeHearts(user.getHealth());
+        overlay.removeHearts(user.getHealth());
     }
 
     private void updateKillCount() {
@@ -236,12 +235,12 @@ public abstract class LevelParent {
 
     protected void winGame() {
         timeline.stop();
-        levelView.showWinImage();
+        overlay.showWinImage();
     }
 
     protected void loseGame() {
         timeline.stop();
-        levelView.showGameOverImage();
+        overlay.showGameOverImage();
     }
 
     protected UserPlane getUser() {

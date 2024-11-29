@@ -1,19 +1,28 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
+import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import javafx.scene.layout.Pane;
 
 public abstract class FighterPlane extends ActiveActorDestructible {
     private int health;
     protected double lastFireTime;
 
-    public FighterPlane(Pane root, String imageName, int imageHeight, int health) {
+    private ProjectileListener projectileListener;
+
+    public FighterPlane(Pane root, ProjectileListener projectileListener, String imageName, int imageHeight, int health) {
         super(root, imageName, imageHeight);
         this.health = health;
+
+        this.projectileListener = projectileListener;
 
         this.lastFireTime = -99999;
     }
 
-    public abstract ActiveActorDestructible fireProjectile(double currentTime);
+    public void fireProjectile() {
+        projectileListener.onFire(createProjectile());
+    }
+
+    public abstract Projectile createProjectile();
 
     @Override
     public void takeDamage() {

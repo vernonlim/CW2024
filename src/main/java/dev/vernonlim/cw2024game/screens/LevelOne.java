@@ -4,7 +4,7 @@ import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.EnemyPlane;
 import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.overlays.LevelView;
+import dev.vernonlim.cw2024game.overlays.Overlay;
 
 public class LevelOne extends LevelParent {
     private static final String BACKGROUND_IMAGE_NAME = "/images/background1.jpg";
@@ -41,7 +41,7 @@ public class LevelOne extends LevelParent {
             for (int i = 0; i < TOTAL_ENEMIES - currentNumberOfEnemies; i++) {
                 if (Math.random() < ENEMY_SPAWN_PROBABILITY) {
                     double newEnemyInitialYPosition = Math.random() * getEnemyMaximumYPosition() + 54;
-                    ActiveActorDestructible newEnemy = new EnemyPlane(getRoot(), Main.SCREEN_WIDTH, newEnemyInitialYPosition);
+                    ActiveActorDestructible newEnemy = new EnemyPlane(getRoot(), enemyProjectileListener, Main.SCREEN_WIDTH, newEnemyInitialYPosition);
                     addEnemyUnit(newEnemy);
                 }
             }
@@ -49,8 +49,8 @@ public class LevelOne extends LevelParent {
     }
 
     @Override
-    protected LevelView instantiateLevelView() {
-        return new LevelView(getRoot(), PLAYER_INITIAL_HEALTH);
+    protected Overlay instantiateLevelView() {
+        return new Overlay(getRoot(), PLAYER_INITIAL_HEALTH);
     }
 
     private boolean userHasReachedKillTarget() {

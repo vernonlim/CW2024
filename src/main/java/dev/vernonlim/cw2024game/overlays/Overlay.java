@@ -6,7 +6,7 @@ import dev.vernonlim.cw2024game.elements.HeartDisplay;
 import dev.vernonlim.cw2024game.elements.WinImage;
 import javafx.scene.layout.Pane;
 
-public class LevelView {
+public class Overlay {
     private static final double HEART_DISPLAY_X_POSITION = 5;
     private static final double HEART_DISPLAY_Y_POSITION = 25;
     private static final int WIN_IMAGE_X_POSITION = 355;
@@ -18,7 +18,7 @@ public class LevelView {
     private final Element gameOverImage;
     private final HeartDisplay heartDisplay;
 
-    public LevelView(Pane root, int heartsToDisplay) {
+    public Overlay(Pane root, int heartsToDisplay) {
         this.root = root;
         this.heartDisplay = new HeartDisplay(root, HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
         this.winImage = new WinImage(root, WIN_IMAGE_X_POSITION, WIN_IMAGE_Y_POSITION);
