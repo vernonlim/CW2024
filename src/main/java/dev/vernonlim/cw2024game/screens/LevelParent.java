@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
 import dev.vernonlim.cw2024game.elements.actors.UserPlane;
@@ -65,7 +66,7 @@ public abstract class LevelParent {
         SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 
         this.timeline = new Timeline(60);
-        this.user = new UserPlane(playerInitialHealth, inputManager);
+        this.user = new UserPlane(root, playerInitialHealth, inputManager);
         this.background = new ImageView(new Image(Controller.fetchResourcePath(backgroundImagePath)));
 
         this.friendlyUnits = new ArrayList<>();
@@ -151,7 +152,7 @@ public abstract class LevelParent {
         ActiveActorDestructible projectile = user.fireProjectile(currentTime);
 
         if (projectile != null) {
-            root.getChildren().add(projectile);
+            projectile.show();
             userProjectiles.add(projectile);
         }
     }
@@ -162,7 +163,7 @@ public abstract class LevelParent {
 
     private void spawnEnemyProjectile(ActiveActorDestructible projectile) {
         if (projectile != null) {
-            root.getChildren().add(projectile);
+            projectile.show();
             enemyProjectiles.add(projectile);
         }
     }
@@ -182,9 +183,8 @@ public abstract class LevelParent {
     }
 
     private void removeDestroyedActors(List<ActiveActorDestructible> actors) {
-        List<ActiveActorDestructible> destroyedActors = actors.stream().filter(actor -> actor.isDestroyed())
-                .collect(Collectors.toList());
-        root.getChildren().removeAll(destroyedActors);
+        List<ActiveActorDestructible> destroyedActors = actors.stream().filter(ActiveActorDestructible::isDestroyed).toList();
+        destroyedActors.forEach(Element::hide);
         actors.removeAll(destroyedActors);
     }
 
@@ -258,8 +258,8 @@ public abstract class LevelParent {
     }
 
     protected void addEnemyUnit(ActiveActorDestructible enemy) {
+        enemy.show();
         enemyUnits.add(enemy);
-        root.getChildren().add(enemy);
     }
 
     protected double getEnemyMaximumYPosition() {

@@ -8,7 +8,7 @@ public class GameOverImage extends ImageElement {
     public GameOverImage(Pane root, double xPosition, double yPosition) {
         super(root, IMAGE_NAME);
 
-        this.view.setLayoutX(xPosition);
-        this.view.setLayoutY(yPosition);
+        view.setLayoutX(xPosition);
+        view.setLayoutY(yPosition);
     }
 }

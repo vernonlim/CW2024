@@ -1,5 +1,7 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
+import javafx.scene.layout.Pane;
+
 public class EnemyPlane extends FighterPlane {
     private static final String IMAGE_NAME = "enemyplane.png";
     private static final int IMAGE_HEIGHT = 54;
@@ -9,8 +11,8 @@ public class EnemyPlane extends FighterPlane {
     private static final int INITIAL_HEALTH = 1;
     private static final double FIRE_RATE = 0.01;
 
-    public EnemyPlane(double initialXPos, double initialYPos) {
-        super(IMAGE_NAME, IMAGE_HEIGHT, initialXPos, initialYPos, INITIAL_HEALTH);
+    public EnemyPlane(Pane root, double initialXPos, double initialYPos) {
+        super(root, IMAGE_NAME, IMAGE_HEIGHT, initialXPos, initialYPos, INITIAL_HEALTH);
     }
 
     @Override
@@ -28,7 +30,7 @@ public class EnemyPlane extends FighterPlane {
             if (shouldFire) {
                 double projectileXPosition = getProjectileXPosition(PROJECTILE_X_POSITION_OFFSET);
                 double projectileYPosition = getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET);
-                return new EnemyProjectile(projectileXPosition, projectileYPosition);
+                return new EnemyProjectile(root, projectileXPosition, projectileYPosition);
             }
         }
 

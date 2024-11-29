@@ -2,6 +2,7 @@ package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.overlays.LevelViewLevelTwo;
+import javafx.scene.layout.Pane;
 
 import java.util.*;
 
@@ -29,9 +30,9 @@ public class Boss extends FighterPlane {
     private double timeWithShieldActivated;
     private LevelViewLevelTwo levelView;
 
-    public Boss(LevelViewLevelTwo levelView) {
-        super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, HEALTH);
-        System.out.println(this.getLayoutBounds().getWidth());
+    public Boss(Pane root, LevelViewLevelTwo levelView) {
+        super(root, IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, HEALTH);
+        System.out.println(view.getLayoutBounds().getWidth());
         movePattern = new ArrayList<>();
         timeMovingInSameDirection = 0;
         indexOfCurrentMove = 0;
@@ -45,11 +46,11 @@ public class Boss extends FighterPlane {
 
     @Override
     public void updatePosition(double deltaTime) {
-        double initialTranslateY = getTranslateY();
+        double initialTranslateY = view.getTranslateY();
         moveVertically(getNextMove(deltaTime) * (deltaTime / 50.0f));
-        double currentPosition = getLayoutY() + getTranslateY();
+        double currentPosition = view.getLayoutY() + view.getTranslateY();
         if (currentPosition < Y_POSITION_UPPER_BOUND || currentPosition > Y_POSITION_LOWER_BOUND) {
-            setTranslateY(initialTranslateY);
+            view.setTranslateY(initialTranslateY);
         }
     }
 
@@ -61,7 +62,7 @@ public class Boss extends FighterPlane {
 
     @Override
     public ActiveActorDestructible fireProjectile(double currentTime) {
-        return bossFiresInCurrentFrame(currentTime) ? new BossProjectile(getProjectileInitialPosition()) : null;
+        return bossFiresInCurrentFrame(currentTime) ? new BossProjectile(root, getProjectileInitialPosition()) : null;
     }
 
     @Override
@@ -119,7 +120,7 @@ public class Boss extends FighterPlane {
     }
 
     private double getProjectileInitialPosition() {
-        return getLayoutY() + getTranslateY() + PROJECTILE_Y_POSITION_OFFSET;
+        return view.getLayoutY() + view.getTranslateY() + PROJECTILE_Y_POSITION_OFFSET;
     }
 
     private boolean shieldShouldBeActivated(double currentTime) {

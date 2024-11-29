@@ -4,6 +4,7 @@ import dev.vernonlim.cw2024game.elements.actors.Boss;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.overlays.LevelView;
 import dev.vernonlim.cw2024game.overlays.LevelViewLevelTwo;
+import javafx.scene.layout.Pane;
 
 public class LevelTwo extends LevelParent {
     private static final String BACKGROUND_IMAGE_NAME = "/images/background2.jpg";
@@ -13,12 +14,13 @@ public class LevelTwo extends LevelParent {
 
     public LevelTwo(Controller controller) {
         super(controller, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
-        boss = new Boss(levelView);
+
+        boss = new Boss(getRoot(), levelView);
     }
 
     @Override
     protected void initializeFriendlyUnits() {
-        getRoot().getChildren().add(getUser());
+        getUser().show();
     }
 
     @Override

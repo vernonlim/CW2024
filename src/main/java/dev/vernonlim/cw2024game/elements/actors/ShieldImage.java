@@ -1,27 +1,21 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Controller;
+import dev.vernonlim.cw2024game.elements.ImageElement;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
-public class ShieldImage extends ImageView {
+public class ShieldImage extends ImageElement {
     private static final String IMAGE_NAME = "/images/shield.png";
     private static final int SHIELD_SIZE = 68;
 
-    public ShieldImage(double xPosition, double yPosition) {
-        this.setLayoutX(xPosition);
-        this.setLayoutY(yPosition);
-        this.setImage(new Image(Controller.fetchResourcePath(IMAGE_NAME)));
-        this.setVisible(false);
-        this.setFitHeight(SHIELD_SIZE);
-        this.setFitWidth(SHIELD_SIZE);
-    }
+    public ShieldImage(Pane root, double xPosition, double yPosition) {
+        super(root, IMAGE_NAME);
 
-    public void showShield() {
-        this.setVisible(true);
-    }
-
-    public void hideShield() {
-        this.setVisible(false);
+        view.setLayoutX(xPosition);
+        view.setLayoutY(yPosition);
+        view.setFitHeight(SHIELD_SIZE);
+        view.setFitWidth(SHIELD_SIZE);
     }
 }

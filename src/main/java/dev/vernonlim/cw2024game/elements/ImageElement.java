@@ -14,7 +14,7 @@ public abstract class ImageElement extends Element {
     public ImageElement(Pane root, String imagePath) {
         super(root);
 
-        this.view = new ImageView(new Image(Controller.fetchResourcePath(imagePath)));
-        this.node = view;
+        view = new ImageView(new Image(Controller.fetchResourcePath(imagePath)));
+        node = view;
     }
 }

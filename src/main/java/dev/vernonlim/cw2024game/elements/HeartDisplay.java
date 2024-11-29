@@ -5,46 +5,43 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
+import java.util.ArrayList;
+
 public class HeartDisplay extends PaneElement {
-    private static final String HEART_IMAGE_NAME = "/images/heart.png";
-    private static final int HEART_HEIGHT = 50;
+    private final ArrayList<Heart> hearts = new ArrayList<Heart>();
     private final double containerXPosition;
     private final double containerYPosition;
-    private final int numberOfHeartsToDisplay;
 
     public HeartDisplay(Pane root, double xPosition, double yPosition, int heartsToDisplay) {
         super(root);
 
-        this.containerXPosition = xPosition;
-        this.containerYPosition = yPosition;
-        this.numberOfHeartsToDisplay = heartsToDisplay;
+        containerXPosition = xPosition;
+        containerYPosition = yPosition;
         initializeContainer();
-        initializeHearts();
+        initializeHearts(heartsToDisplay);
     }
 
     private void initializeContainer() {
-        this.container = new HBox();
-        this.node = container;
-        this.container.setLayoutX(containerXPosition);
-        this.container.setLayoutY(containerYPosition);
+        container = new HBox();
+        node = container;
+        container.setLayoutX(containerXPosition);
+        container.setLayoutY(containerYPosition);
     }
 
-    private void initializeHearts() {
-        for (int i = 0; i < numberOfHeartsToDisplay; i++) {
-            ImageView heart = new ImageView(new Image(getClass().getResource(HEART_IMAGE_NAME).toExternalForm()));
+    private void initializeHearts(int heartCount) {
+        for (int i = 0; i < heartCount; i++) {
+            Heart heart = new Heart(container);
+            heart.show();
 
-            heart.setFitHeight(HEART_HEIGHT);
-            heart.setPreserveRatio(true);
-            this.container.getChildren().add(heart);
+            hearts.add(heart);
         }
     }
 
     public int getHeartCount() {
-        return container.getChildren().size();
+        return hearts.size();
     }
 
     public void removeHeart() {
-        if (!this.container.getChildren().isEmpty())
-            this.container.getChildren().removeFirst();
+        hearts.removeLast().hide();
     }
 }

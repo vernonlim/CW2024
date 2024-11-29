@@ -43,6 +43,7 @@ public class LevelView {
 
     public void removeHearts(int heartsRemaining) {
         int currentNumberOfHearts = heartDisplay.getHeartCount();
+
         for (int i = 0; i < currentNumberOfHearts - heartsRemaining; i++) {
             heartDisplay.removeHeart();
         }

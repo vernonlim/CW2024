@@ -10,9 +10,9 @@ public class WinImage extends ImageElement {
     public WinImage(Pane root, double xPosition, double yPosition) {
         super(root, IMAGE_PATH);
 
-        this.view.setFitHeight(HEIGHT);
-        this.view.setFitWidth(WIDTH);
-        this.view.setLayoutX(xPosition);
-        this.view.setLayoutY(yPosition);
+        view.setFitHeight(HEIGHT);
+        view.setFitWidth(WIDTH);
+        view.setLayoutX(xPosition);
+        view.setLayoutY(yPosition);
     }
 }

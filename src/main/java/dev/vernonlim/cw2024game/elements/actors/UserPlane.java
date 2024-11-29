@@ -1,6 +1,7 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.InputManager;
+import javafx.scene.layout.Pane;
 
 public class UserPlane extends FighterPlane {
     private static final String IMAGE_NAME = "userplane.png";
@@ -25,8 +26,8 @@ public class UserPlane extends FighterPlane {
     private int lastVerticalMultipler;
     private int lastHorizontalMultiplier;
 
-    public UserPlane(int initialHealth, InputManager inputManager) {
-        super(IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, initialHealth);
+    public UserPlane(Pane root, int initialHealth, InputManager inputManager) {
+        super(root, IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, initialHealth);
 
         this.inputManager = inputManager;
 
@@ -39,18 +40,18 @@ public class UserPlane extends FighterPlane {
 
     @Override
     public void updatePosition(double deltaTime) {
-        double initialTranslateY = getTranslateY();
+        double initialTranslateY = view.getTranslateY();
         this.moveVertically(VERTICAL_VELOCITY * verticalVelocityMultiplier * (deltaTime / 50.0f));
-        double newPositionY = getLayoutY() + getTranslateY();
+        double newPositionY = view.getLayoutY() + view.getTranslateY();
         if (newPositionY < Y_UPPER_BOUND || newPositionY > Y_LOWER_BOUND) {
-            this.setTranslateY(initialTranslateY);
+            view.setTranslateY(initialTranslateY);
         }
 
-        double initialTranslateX = getTranslateX();
+        double initialTranslateX = view.getTranslateX();
         this.moveHorizontally(HORIZONTAL_VELOCITY * horizontalVelocityMultiplier * (deltaTime / 50.0f));
-        double newPositionX = getLayoutX() + getTranslateX();
+        double newPositionX = view.getLayoutX() + view.getTranslateX();
         if (newPositionX < X_LEFT_BOUND || newPositionX > X_LOWER_BOUND) {
-            this.setTranslateX(initialTranslateX);
+            view.setTranslateX(initialTranslateX);
         }
     }
 
@@ -103,7 +104,7 @@ public class UserPlane extends FighterPlane {
         if (inputManager.isFirePressed() && (currentTime - lastFireTime) > (1000.0f / fireRate)) {
             lastFireTime = currentTime;
 
-            return new UserProjectile(PROJECTILE_X_POSITION + getTranslateX(), getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
+            return new UserProjectile(root, PROJECTILE_X_POSITION + view.getTranslateX(), getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
         }
 
         return null;
