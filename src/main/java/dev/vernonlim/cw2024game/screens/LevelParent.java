@@ -13,6 +13,7 @@ import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.elements.actors.UserProjectile;
+import dev.vernonlim.cw2024game.elements.factories.ActorFactory;
 import dev.vernonlim.cw2024game.input.Input;
 import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.animation.*;
@@ -50,6 +51,7 @@ public abstract class LevelParent implements Screen {
     private final Input input;
     protected final AssetLoader loader;
     protected final ProjectileListener projectileListener;
+    protected final ActorFactory actorFactory;
 
     private double lastUpdate;
     protected double lastEnemySpawnAttempt;
@@ -104,6 +106,8 @@ public abstract class LevelParent implements Screen {
             }
         };
 
+        this.actorFactory = new ActorFactory(root, loader, input, projectileListener);
+
         // activity
         this.timeline = new Timeline(FRAME_RATE);
 
@@ -119,7 +123,7 @@ public abstract class LevelParent implements Screen {
         this.timer = createTimer();
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
 
-        this.user = new UserPlane(root, loader, projectileListener, input, playerInitialHealth);
+        this.user = actorFactory.createUserPlane(playerInitialHealth);
         friendlyUnits.add(user);
 
         initializeTimeline();
@@ -129,6 +133,7 @@ public abstract class LevelParent implements Screen {
             public void handle(WindowEvent event) {
                 try {
                     timer.stop();
+                    Thread.sleep(50);
                     Platform.exit();
                 } catch (Exception e) {
                     e.printStackTrace();

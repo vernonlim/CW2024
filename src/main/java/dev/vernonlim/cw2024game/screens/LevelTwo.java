@@ -15,7 +15,7 @@ public class LevelTwo extends LevelParent {
     public LevelTwo(Stage stage, Controller controller, AssetLoader loader) {
         super(stage, controller, loader, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
 
-        boss = new Boss(root, loader, projectileListener);
+        boss = actorFactory.createBoss();
     }
 
     @Override

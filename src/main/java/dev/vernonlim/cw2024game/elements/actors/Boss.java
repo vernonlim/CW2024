@@ -3,6 +3,7 @@ package dev.vernonlim.cw2024game.elements.actors;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
+import dev.vernonlim.cw2024game.elements.factories.ActorFactory;
 import javafx.scene.layout.Pane;
 
 import java.util.*;
@@ -30,8 +31,8 @@ public class Boss extends FighterPlane {
     private double upperBound;
     private double lowerBound;
 
-    public Boss(Pane root, AssetLoader loader, ProjectileListener projectileListener) {
-        super(root, loader, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, HEALTH);
+    public Boss(ActorFactory actorFactory, Pane root, AssetLoader loader, ProjectileListener projectileListener) {
+        super(actorFactory, root, loader, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, HEALTH);
 
         setXFromRight(5.0f);
         setY(Main.SCREEN_HEIGHT / 2.0f);
@@ -69,7 +70,7 @@ public class Boss extends FighterPlane {
 
     @Override
     public Projectile createProjectile() {
-        return new BossProjectile(root, loader, getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
+        return actorFactory.createBossProjectile(getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
     }
 
     @Override

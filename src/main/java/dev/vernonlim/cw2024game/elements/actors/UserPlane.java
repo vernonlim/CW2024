@@ -2,6 +2,7 @@ package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
+import dev.vernonlim.cw2024game.elements.factories.ActorFactory;
 import dev.vernonlim.cw2024game.input.Input;
 import dev.vernonlim.cw2024game.Main;
 import javafx.geometry.BoundingBox;
@@ -18,7 +19,7 @@ public class UserPlane extends FighterPlane {
     private double horizontalVelocityMultiplier;
     private int numberOfKills;
 
-    Input input;
+    private final Input input;
 
     private int lastVerticalMultipler;
     private int lastHorizontalMultiplier;
@@ -28,8 +29,8 @@ public class UserPlane extends FighterPlane {
     private double leftBound;
     private double rightBound;
 
-    public UserPlane(Pane root, AssetLoader loader, ProjectileListener projectileListener, Input input, int initialHealth) {
-        super(root, loader, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, initialHealth);
+    public UserPlane(ActorFactory actorFactory, Pane root, AssetLoader loader, ProjectileListener projectileListener, Input input, int initialHealth) {
+        super(actorFactory, root, loader, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, initialHealth);
 
         setXFromLeft(5);
         setY(Main.SCREEN_HEIGHT / 2.0f);
@@ -112,7 +113,7 @@ public class UserPlane extends FighterPlane {
 
     @Override
     public Projectile createProjectile() {
-        return new UserProjectile(root, loader, getX() + getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
+        return actorFactory.createUserProjectile(getX() + getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
     }
 
     @Override
