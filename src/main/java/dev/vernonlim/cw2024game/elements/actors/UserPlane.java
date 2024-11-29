@@ -1,5 +1,6 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
+import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.input.Input;
 import dev.vernonlim.cw2024game.Main;
 import javafx.scene.layout.Pane;
@@ -24,8 +25,8 @@ public class UserPlane extends FighterPlane {
     private double leftBound;
     private double rightBound;
 
-    public UserPlane(Pane root, int initialHealth, Input input) {
-        super(root, IMAGE_NAME, IMAGE_HEIGHT, initialHealth);
+    public UserPlane(Pane root, ProjectileListener projectileListener, Input input, int initialHealth) {
+        super(root, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, initialHealth);
 
         setXFromLeft(5);
         setY(Main.SCREEN_HEIGHT / 2.0f);
@@ -97,18 +98,18 @@ public class UserPlane extends FighterPlane {
             fireRate *= 2.0;
         }
 
+        if (input.isFirePressed() && (currentTime - lastFireTime) > (1000.0f / fireRate)) {
+            lastFireTime = currentTime;
+
+            fireProjectile();
+        }
+
         updatePosition(deltaTime);
     }
 
     @Override
-    public ActiveActorDestructible fireProjectile(double currentTime) {
-        if (input.isFirePressed() && (currentTime - lastFireTime) > (1000.0f / fireRate)) {
-            lastFireTime = currentTime;
-
-            return new UserProjectile(root, getX() + getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
-        }
-
-        return null;
+    public Projectile createProjectile() {
+        return new UserProjectile(root, getX() + getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
     }
 
     public int getNumberOfKills() {

@@ -1,7 +1,7 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
-import dev.vernonlim.cw2024game.overlays.LevelView;
+import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import javafx.scene.layout.Pane;
 
 import java.util.*;
@@ -23,15 +23,14 @@ public class Boss extends FighterPlane {
     private int indexOfCurrentMove;
     private double lastShieldActivation;
     private double timeWithShieldActivated;
-    private LevelView levelView;
 
     private ShieldImage shieldImage;
 
     private double upperBound;
     private double lowerBound;
 
-    public Boss(Pane root, LevelView levelView) {
-        super(root, IMAGE_NAME, IMAGE_HEIGHT, HEALTH);
+    public Boss(Pane root, ProjectileListener projectileListener) {
+        super(root, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, HEALTH);
 
         setXFromRight(5.0f);
         setY(Main.SCREEN_HEIGHT / 2.0f);
@@ -48,8 +47,6 @@ public class Boss extends FighterPlane {
         initializeMovePattern();
 
         this.shieldImage = new ShieldImage(root);
-
-        this.levelView = levelView;
     }
 
     @Override
@@ -63,13 +60,15 @@ public class Boss extends FighterPlane {
     public void updateActor(double deltaTime, double currentTime) {
         updatePosition(deltaTime);
         updateShield(deltaTime, currentTime);
+
+        if (bossFiresInCurrentFrame(currentTime)) {
+            fireProjectile();
+        }
     }
 
     @Override
-    public ActiveActorDestructible fireProjectile(double currentTime) {
-        return bossFiresInCurrentFrame(currentTime)
-                ? new BossProjectile(root, getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET)
-                : null;
+    public Projectile createProjectile() {
+        return new BossProjectile(root, getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
     }
 
     @Override

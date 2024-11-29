@@ -1,5 +1,6 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
+import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import javafx.scene.layout.Pane;
 
 public class EnemyPlane extends FighterPlane {
@@ -10,8 +11,8 @@ public class EnemyPlane extends FighterPlane {
     private static final double FIRE_RATE = 0.01;
     private static final double PROJECTILE_Y_OFFSET = 7.0f;
 
-    public EnemyPlane(Pane root, double initialXPos, double initialYPos) {
-        super(root, IMAGE_NAME, IMAGE_HEIGHT, INITIAL_HEALTH);
+    public EnemyPlane(Pane root, ProjectileListener projectileListener, double initialXPos, double initialYPos) {
+        super(root, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, INITIAL_HEALTH);
 
         setPosition(initialXPos, initialYPos);
     }
@@ -22,22 +23,22 @@ public class EnemyPlane extends FighterPlane {
     }
 
     @Override
-    public ActiveActorDestructible fireProjectile(double currentTime) {
+    public void updateActor(double deltaTime, double currentTime) {
+        updatePosition(deltaTime);
+
         if ((currentTime - lastFireTime) > 50.0f) {
             lastFireTime = currentTime;
 
             boolean shouldFire = Math.random() < FIRE_RATE;
 
             if (shouldFire) {
-                return new EnemyProjectile(root, getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
+                fireProjectile();
             }
         }
-
-        return null;
     }
 
     @Override
-    public void updateActor(double deltaTime, double currentTime) {
-        updatePosition(deltaTime);
+    public Projectile createProjectile() {
+        return new EnemyProjectile(root, getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
     }
 }
