@@ -2,7 +2,7 @@ package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.elements.actors.Boss;
 import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.overlays.Overlay;
+import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.scene.layout.Pane;
 
 public class LevelTwo extends LevelParent {
@@ -13,17 +13,12 @@ public class LevelTwo extends LevelParent {
     public LevelTwo(Controller controller) {
         super(controller, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
 
-        boss = new Boss(getRoot(), projectileListener);
-    }
-
-    @Override
-    protected void initializeFriendlyUnits() {
-        getUser().show();
+        boss = new Boss(root, projectileListener);
     }
 
     @Override
     protected void checkIfGameOver() {
-        if (userIsDestroyed()) {
+        if (user.isDestroyed()) {
             loseGame();
         } else if (boss.isDestroyed()) {
             winGame();
@@ -35,10 +30,5 @@ public class LevelTwo extends LevelParent {
         if (getCurrentNumberOfEnemies() == 0) {
             addEnemyUnit(boss);
         }
-    }
-
-    @Override
-    protected Overlay instantiateOverlay(Pane root) {
-        return new Overlay(root, PLAYER_INITIAL_HEALTH);
     }
 }

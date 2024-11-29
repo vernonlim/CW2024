@@ -46,7 +46,7 @@ public class UserPlane extends FighterPlane {
         leftBound = getHalfWidth();
         rightBound = Main.SCREEN_WIDTH - getHalfWidth();
 
-        System.out.println(upperBound);
+        show();
     }
 
     @Override

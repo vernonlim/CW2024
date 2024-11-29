@@ -4,7 +4,7 @@ import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.EnemyPlane;
 import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.overlays.Overlay;
+import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.scene.layout.Pane;
 
 public class LevelOne extends LevelParent {
@@ -21,16 +21,11 @@ public class LevelOne extends LevelParent {
 
     @Override
     protected void checkIfGameOver() {
-        if (userIsDestroyed()) {
+        if (user.isDestroyed()) {
             loseGame();
         } else if (userHasReachedKillTarget()) {
             goToNextLevel(NEXT_LEVEL);
         }
-    }
-
-    @Override
-    protected void initializeFriendlyUnits() {
-        getUser().show();
     }
 
     @Override
@@ -41,20 +36,16 @@ public class LevelOne extends LevelParent {
             int currentNumberOfEnemies = getCurrentNumberOfEnemies();
             for (int i = 0; i < TOTAL_ENEMIES - currentNumberOfEnemies; i++) {
                 if (Math.random() < ENEMY_SPAWN_PROBABILITY) {
-                    double newEnemyInitialYPosition = Math.random() * getEnemyMaximumYPosition() + 54;
-                    ActiveActorDestructible newEnemy = new EnemyPlane(getRoot(), projectileListener, Main.SCREEN_WIDTH, newEnemyInitialYPosition);
-                    addEnemyUnit(newEnemy);
+                    ActiveActorDestructible enemy = new EnemyPlane(root, projectileListener, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT / 2);
+                    double enemyYPosition = Math.random() * (Main.SCREEN_HEIGHT - enemy.getHeight()) + enemy.getHalfHeight();
+                    enemy.setY(enemyYPosition);
+                    addEnemyUnit(enemy);
                 }
             }
         }
     }
 
-    @Override
-    protected Overlay instantiateOverlay(Pane root) {
-        return new Overlay(root, PLAYER_INITIAL_HEALTH);
-    }
-
     private boolean userHasReachedKillTarget() {
-        return getUser().getNumberOfKills() >= KILLS_TO_ADVANCE;
+        return user.getNumberOfKills() >= KILLS_TO_ADVANCE;
     }
 }

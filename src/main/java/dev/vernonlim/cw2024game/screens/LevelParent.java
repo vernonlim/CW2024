@@ -3,6 +3,7 @@ package dev.vernonlim.cw2024game.screens;
 import java.util.*;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.elements.Background;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
@@ -11,25 +12,24 @@ import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.elements.actors.UserProjectile;
 import dev.vernonlim.cw2024game.input.Input;
-import dev.vernonlim.cw2024game.overlays.Overlay;
+import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.animation.*;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.*;
+import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 public abstract class LevelParent {
     private static final int FRAME_RATE = 120;
-    private final double enemyMaximumYPosition;
 
-    private final Pane root;
-    private final Scene scene;
+    protected final Pane root;
+    public final Scene scene;
     private final Timeline timeline;
-    private final UserPlane user;
-    private final ImageView background;
+    protected final UserPlane user;
+    private final Background background;
 
     private final List<ActiveActorDestructible> friendlyUnits;
     private final List<ActiveActorDestructible> enemyUnits;
@@ -37,7 +37,7 @@ public abstract class LevelParent {
     private final List<ActiveActorDestructible> enemyProjectiles;
 
     private int currentNumberOfEnemies;
-    private final Overlay overlay;
+    private final GameplayOverlay gameplayOverlay;
 
     private final Controller controller;
     private final Input input;
@@ -47,14 +47,14 @@ public abstract class LevelParent {
     protected double lastEnemySpawnAttempt;
 
     public LevelParent(Controller controller, String backgroundImagePath, int playerInitialHealth) {
+        // initializing the main nodes
         this.root = new Pane();
 
         // VERY important - limits the size of the Pane Node used for drawing
         // This allows the StackPane to properly align it
         root.setMaxHeight(Main.SCREEN_HEIGHT);
         root.setMaxWidth(Main.SCREEN_WIDTH);
-
-//        root.setClip(new Rectangle(screenWidth, screenHeight));
+        root.setClip(new Rectangle(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT));
 
         // To align the root pane above
         StackPane stackPane = new StackPane(root);
@@ -63,8 +63,20 @@ public abstract class LevelParent {
         // Keeps the "camera" of sorts fixed in place
         this.scene = new Scene(new Group(stackPane));
 
-        this.input = new Input(scene);
+        // background
+        this.background = new Background(root, backgroundImagePath);
 
+        // the overlay on top
+        this.gameplayOverlay = new GameplayOverlay(stackPane, playerInitialHealth);
+
+        // letterboxing
+        SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+
+        // initializing handlers
+        this.input = new Input(scene);
+        this.controller = controller;
+
+        // what to do with projectiles?
         this.projectileListener = new ProjectileListener() {
             @Override
             public void onFire(Projectile projectile) {
@@ -78,43 +90,28 @@ public abstract class LevelParent {
             }
         };
 
-        this.overlay = instantiateOverlay(stackPane);
-        SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-
+        // activity
         this.timeline = new Timeline(FRAME_RATE);
-        this.background = new ImageView(new Image(Controller.fetchResourcePath(backgroundImagePath)));
 
         this.friendlyUnits = new ArrayList<>();
         this.enemyUnits = new ArrayList<>();
         this.userProjectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
 
-        this.enemyMaximumYPosition = Main.SCREEN_HEIGHT - 108;
         this.currentNumberOfEnemies = 0;
+
         this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
-        initializeTimeline();
 
         this.user = new UserPlane(root, projectileListener, input, playerInitialHealth);
         friendlyUnits.add(user);
 
-        this.controller = controller;
+        initializeTimeline();
     }
-
-    protected abstract void initializeFriendlyUnits();
 
     protected abstract void checkIfGameOver();
 
     protected abstract void spawnEnemyUnits(double currentTime);
-
-    protected abstract Overlay instantiateOverlay(Pane root);
-
-    public Scene initializeScene() {
-        initializeBackground();
-        initializeFriendlyUnits();
-        overlay.showInitialImages();
-        return scene;
-    }
 
     public void startGame() {
         background.requestFocus();
@@ -153,13 +150,6 @@ public abstract class LevelParent {
         timeline.setCycleCount(Timeline.INDEFINITE);
         KeyFrame gameLoop = new KeyFrame(Duration.millis(1000f / FRAME_RATE), e -> updateScene());
         timeline.getKeyFrames().add(gameLoop);
-    }
-
-    private void initializeBackground() {
-        background.setFocusTraversable(true);
-        background.setFitHeight(Main.SCREEN_HEIGHT);
-        background.setFitWidth(Main.SCREEN_WIDTH);
-        root.getChildren().add(background);
     }
 
     private void updateActors(double deltaTime, double currentTime) {
@@ -215,7 +205,7 @@ public abstract class LevelParent {
     }
 
     private void updateLevelView() {
-        overlay.removeHearts(user.getHealth());
+        gameplayOverlay.removeHearts(user.getHealth());
     }
 
     private void updateKillCount() {
@@ -225,25 +215,17 @@ public abstract class LevelParent {
     }
 
     private boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
-        return Math.abs(enemy.getX()) > Main.SCREEN_WIDTH;
+        return enemy.getX() < 0;
     }
 
     protected void winGame() {
         timeline.stop();
-        overlay.showWinImage();
+        gameplayOverlay.showWinImage();
     }
 
     protected void loseGame() {
         timeline.stop();
-        overlay.showGameOverImage();
-    }
-
-    protected UserPlane getUser() {
-        return user;
-    }
-
-    protected Pane getRoot() {
-        return root;
+        gameplayOverlay.showGameOverImage();
     }
 
     protected int getCurrentNumberOfEnemies() {
@@ -253,14 +235,6 @@ public abstract class LevelParent {
     protected void addEnemyUnit(ActiveActorDestructible enemy) {
         enemy.show();
         enemyUnits.add(enemy);
-    }
-
-    protected double getEnemyMaximumYPosition() {
-        return enemyMaximumYPosition;
-    }
-
-    protected boolean userIsDestroyed() {
-        return user.isDestroyed();
     }
 
     private void updateNumberOfEnemies() {

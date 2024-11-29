@@ -35,8 +35,7 @@ public class Controller {
             Class<? extends LevelParent> level = levels.get(levelName);
             Constructor<?> constructor = level.getConstructor(Controller.class);
             LevelParent myLevel = (LevelParent) constructor.newInstance(this);
-            Scene scene = myLevel.initializeScene();
-            stage.setScene(scene);
+            stage.setScene(myLevel.scene);
             myLevel.startGame();
         } catch (Exception e) {
             triggerAlertAndExit("Failed to load Level: " + levelName

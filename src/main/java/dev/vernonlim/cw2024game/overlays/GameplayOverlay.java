@@ -7,7 +7,7 @@ import dev.vernonlim.cw2024game.elements.HeartDisplay;
 import dev.vernonlim.cw2024game.elements.WinImage;
 import javafx.scene.layout.Pane;
 
-public class Overlay extends Element {
+public class GameplayOverlay extends Element {
     private static final double HEART_DISPLAY_X_POSITION = 5;
     private static final double HEART_DISPLAY_Y_POSITION = 25;
     private static final int WIN_IMAGE_X_POSITION = 355;
@@ -19,7 +19,7 @@ public class Overlay extends Element {
     private final HeartDisplay heartDisplay;
     public final Pane pane;
 
-    public Overlay(Pane root, int heartsToDisplay) {
+    public GameplayOverlay(Pane root, int heartsToDisplay) {
         super(root);
 
         this.pane = new Pane();
@@ -32,15 +32,9 @@ public class Overlay extends Element {
         this.winImage = new WinImage(pane, WIN_IMAGE_X_POSITION, WIN_IMAGE_Y_POSITION);
         this.gameOverImage = new GameOverImage(pane, LOSS_SCREEN_X_POSITION, LOSS_SCREEN_Y_POSITION);
 
-        show();
-    }
-
-    public void showInitialImages() {
-        showHeartDisplay();
-    }
-
-    public void showHeartDisplay() {
         heartDisplay.show();
+
+        show();
     }
 
     public void showWinImage() {
