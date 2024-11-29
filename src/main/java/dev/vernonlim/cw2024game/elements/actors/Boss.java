@@ -89,7 +89,7 @@ public class Boss extends FighterPlane {
     }
 
     private void updateShield(double deltaTime, double currentTime) {
-        shieldImage.setPosition(getX() - getHalfHeight(), getY() - getHalfWidth());
+        shieldImage.setPosition(getX() - getHalfWidth(), getY() - getHalfHeight());
 
         if (isShielded) {
             timeWithShieldActivated += deltaTime;

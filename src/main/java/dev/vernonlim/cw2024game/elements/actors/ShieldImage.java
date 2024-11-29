@@ -12,6 +12,9 @@ public class ShieldImage extends ImageElement {
 
     public ShieldImage(Pane root) {
         super(root, IMAGE_NAME);
+
+        view.setFitHeight(SHIELD_SIZE);
+        view.setFitWidth(SHIELD_SIZE);
     }
 
     public ShieldImage(Pane root, double xPosition, double yPosition) {

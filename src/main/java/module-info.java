@@ -12,4 +12,6 @@ module dev.vernonlim.cw2024game {
     opens dev.vernonlim.cw2024game.overlays to javafx.fxml;
     opens dev.vernonlim.cw2024game.elements.elements to javafx.fxml;
     opens dev.vernonlim.cw2024game.elements to javafx.fxml;
+    exports dev.vernonlim.cw2024game.input;
+    opens dev.vernonlim.cw2024game.input to javafx.fxml;
 }
