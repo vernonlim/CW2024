@@ -1,6 +1,6 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
-import dev.vernonlim.cw2024game.InputManager;
+import dev.vernonlim.cw2024game.input.Input;
 import dev.vernonlim.cw2024game.Main;
 import javafx.scene.layout.Pane;
 
@@ -14,7 +14,7 @@ public class UserPlane extends FighterPlane {
     private double horizontalVelocityMultiplier;
     private int numberOfKills;
 
-    InputManager inputManager;
+    Input input;
 
     private int lastVerticalMultipler;
     private int lastHorizontalMultiplier;
@@ -24,13 +24,13 @@ public class UserPlane extends FighterPlane {
     private double leftBound;
     private double rightBound;
 
-    public UserPlane(Pane root, int initialHealth, InputManager inputManager) {
+    public UserPlane(Pane root, int initialHealth, Input input) {
         super(root, IMAGE_NAME, IMAGE_HEIGHT, initialHealth);
 
         setXFromLeft(5);
         setY(Main.SCREEN_HEIGHT / 2.0f);
 
-        this.inputManager = inputManager;
+        this.input = input;
 
         verticalVelocityMultiplier = 0;
         horizontalVelocityMultiplier = 0;
@@ -58,16 +58,16 @@ public class UserPlane extends FighterPlane {
 
     @Override
     public void updateActor(double deltaTime, double currentTime) {
-        boolean down = inputManager.isDownPressed();
-        boolean up = inputManager.isUpPressed();
-        boolean left = inputManager.isLeftPressed();
-        boolean right = inputManager.isRightPressed();
-        boolean focus = inputManager.isFocusPressed();
+        boolean down = input.isDownPressed();
+        boolean up = input.isUpPressed();
+        boolean left = input.isLeftPressed();
+        boolean right = input.isRightPressed();
+        boolean focus = input.isFocusPressed();
 
         // null cancelling movement
         if (down && up) {
             verticalVelocityMultiplier = -lastVerticalMultipler;
-        } else if (inputManager.isUpPressed()) {
+        } else if (input.isUpPressed()) {
             lastVerticalMultipler = -1;
             verticalVelocityMultiplier = -1;
         } else if (down) {
@@ -102,7 +102,7 @@ public class UserPlane extends FighterPlane {
 
     @Override
     public ActiveActorDestructible fireProjectile(double currentTime) {
-        if (inputManager.isFirePressed() && (currentTime - lastFireTime) > (1000.0f / fireRate)) {
+        if (input.isFirePressed() && (currentTime - lastFireTime) > (1000.0f / fireRate)) {
             lastFireTime = currentTime;
 
             return new UserProjectile(root, getX() + getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);

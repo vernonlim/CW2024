@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game.screens;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.Element;
@@ -9,7 +8,7 @@ import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
 import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.InputManager;
+import dev.vernonlim.cw2024game.input.Input;
 import dev.vernonlim.cw2024game.overlays.LevelView;
 import javafx.animation.*;
 import javafx.application.Platform;
@@ -39,7 +38,7 @@ public abstract class LevelParent {
     private final LevelView levelView;
 
     private final Controller controller;
-    private final InputManager inputManager;
+    private final Input input;
 
     private double lastUpdate;
     protected double lastEnemySpawnAttempt;
@@ -61,12 +60,12 @@ public abstract class LevelParent {
         // Keeps the "camera" of sorts fixed in place
         this.scene = new Scene(new Group(stackPane));
 
-        this.inputManager = new InputManager(scene);
+        this.input = new Input(scene);
 
         SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 
         this.timeline = new Timeline(60);
-        this.user = new UserPlane(root, playerInitialHealth, inputManager);
+        this.user = new UserPlane(root, playerInitialHealth, input);
         this.background = new ImageView(new Image(Controller.fetchResourcePath(backgroundImagePath)));
 
         this.friendlyUnits = new ArrayList<>();
