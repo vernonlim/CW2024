@@ -10,6 +10,10 @@ public class ShieldImage extends ImageElement {
     private static final String IMAGE_NAME = "/images/shield.png";
     private static final int SHIELD_SIZE = 68;
 
+    public ShieldImage(Pane root) {
+        super(root, IMAGE_NAME);
+    }
+
     public ShieldImage(Pane root, double xPosition, double yPosition) {
         super(root, IMAGE_NAME);
 

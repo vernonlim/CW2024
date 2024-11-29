@@ -6,8 +6,8 @@ public abstract class FighterPlane extends ActiveActorDestructible {
     private int health;
     protected double lastFireTime;
 
-    public FighterPlane(Pane root, String imageName, int imageHeight, double initialXPos, double initialYPos, int health) {
-        super(root, imageName, imageHeight, initialXPos, initialYPos);
+    public FighterPlane(Pane root, String imageName, int imageHeight, int health) {
+        super(root, imageName, imageHeight);
         this.health = health;
 
         this.lastFireTime = -99999;
@@ -21,14 +21,6 @@ public abstract class FighterPlane extends ActiveActorDestructible {
         if (healthAtZero()) {
             this.destroy();
         }
-    }
-
-    protected double getProjectileXPosition(double xPositionOffset) {
-        return view.getLayoutX() + view.getTranslateX() + xPositionOffset;
-    }
-
-    protected double getProjectileYPosition(double yPositionOffset) {
-        return view.getLayoutY() + view.getTranslateY() + yPositionOffset;
     }
 
     private boolean healthAtZero() {

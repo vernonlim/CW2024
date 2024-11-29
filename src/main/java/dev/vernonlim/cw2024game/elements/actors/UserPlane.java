@@ -1,21 +1,14 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.InputManager;
+import dev.vernonlim.cw2024game.Main;
 import javafx.scene.layout.Pane;
 
 public class UserPlane extends FighterPlane {
     private static final String IMAGE_NAME = "userplane.png";
-    private static final double Y_UPPER_BOUND = 0;
-    private static final double Y_LOWER_BOUND = 680;
-    private static final double X_LEFT_BOUND = 0;
-    private static final double X_LOWER_BOUND = 1128;
-    private static final double INITIAL_X_POSITION = 5.0;
-    private static final double INITIAL_Y_POSITION = 300.0;
     private static final int IMAGE_HEIGHT = 40;
-    private static final int VERTICAL_VELOCITY = 24;
-    private static final int HORIZONTAL_VELOCITY = 24;
-    private static final int PROJECTILE_X_POSITION = 154;
-    private static final int PROJECTILE_Y_POSITION_OFFSET = 20;
+    private static final double SPEED = 24.0f;
+    private static final double PROJECTILE_Y_OFFSET = 7.0f;
     private double fireRate = 10.0f;
     private double verticalVelocityMultiplier;
     private double horizontalVelocityMultiplier;
@@ -26,8 +19,16 @@ public class UserPlane extends FighterPlane {
     private int lastVerticalMultipler;
     private int lastHorizontalMultiplier;
 
+    private double upperBound;
+    private double lowerBound;
+    private double leftBound;
+    private double rightBound;
+
     public UserPlane(Pane root, int initialHealth, InputManager inputManager) {
-        super(root, IMAGE_NAME, IMAGE_HEIGHT, INITIAL_X_POSITION, INITIAL_Y_POSITION, initialHealth);
+        super(root, IMAGE_NAME, IMAGE_HEIGHT, initialHealth);
+
+        setXFromLeft(5);
+        setY(Main.SCREEN_HEIGHT / 2.0f);
 
         this.inputManager = inputManager;
 
@@ -36,23 +37,23 @@ public class UserPlane extends FighterPlane {
 
         lastVerticalMultipler = -1;
         lastHorizontalMultiplier = -1;
+
+        upperBound = getHalfHeight();
+        lowerBound = Main.SCREEN_HEIGHT - getHalfHeight();
+        leftBound = getHalfWidth();
+        rightBound = Main.SCREEN_WIDTH - getHalfWidth();
+
+        System.out.println(upperBound);
     }
 
     @Override
     public void updatePosition(double deltaTime) {
-        double initialTranslateY = view.getTranslateY();
-        this.moveVertically(VERTICAL_VELOCITY * verticalVelocityMultiplier * (deltaTime / 50.0f));
-        double newPositionY = view.getLayoutY() + view.getTranslateY();
-        if (newPositionY < Y_UPPER_BOUND || newPositionY > Y_LOWER_BOUND) {
-            view.setTranslateY(initialTranslateY);
-        }
+        move(
+                SPEED * horizontalVelocityMultiplier * (deltaTime / 50.0f),
+                SPEED * verticalVelocityMultiplier * (deltaTime / 50.0f)
+        );
 
-        double initialTranslateX = view.getTranslateX();
-        this.moveHorizontally(HORIZONTAL_VELOCITY * horizontalVelocityMultiplier * (deltaTime / 50.0f));
-        double newPositionX = view.getLayoutX() + view.getTranslateX();
-        if (newPositionX < X_LEFT_BOUND || newPositionX > X_LOWER_BOUND) {
-            view.setTranslateX(initialTranslateX);
-        }
+        ensureInBounds();
     }
 
     @Override
@@ -104,7 +105,7 @@ public class UserPlane extends FighterPlane {
         if (inputManager.isFirePressed() && (currentTime - lastFireTime) > (1000.0f / fireRate)) {
             lastFireTime = currentTime;
 
-            return new UserProjectile(root, PROJECTILE_X_POSITION + view.getTranslateX(), getProjectileYPosition(PROJECTILE_Y_POSITION_OFFSET));
+            return new UserProjectile(root, getX() + getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
         }
 
         return null;

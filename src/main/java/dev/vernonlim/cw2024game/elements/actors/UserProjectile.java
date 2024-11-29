@@ -9,6 +9,9 @@ public class UserProjectile extends Projectile {
 
     public UserProjectile(Pane root, double initialXPos, double initialYPos) {
         super(root, IMAGE_NAME, IMAGE_HEIGHT, initialXPos, initialYPos);
+
+        // the projectile has to be in front of the firer
+        moveHorizontally(getHalfWidth());
     }
 
     @Override

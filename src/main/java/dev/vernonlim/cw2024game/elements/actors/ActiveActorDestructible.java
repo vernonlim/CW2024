@@ -5,8 +5,8 @@ import javafx.scene.layout.Pane;
 public abstract class ActiveActorDestructible extends ActiveActor implements Destructible {
     private boolean isDestroyed;
 
-    public ActiveActorDestructible(Pane root, String imageName, int imageHeight, double initialXPos, double initialYPos) {
-        super(root, imageName, imageHeight, initialXPos, initialYPos);
+    public ActiveActorDestructible(Pane root, String imageName, int imageHeight) {
+        super(root, imageName, imageHeight);
         isDestroyed = false;
     }
 

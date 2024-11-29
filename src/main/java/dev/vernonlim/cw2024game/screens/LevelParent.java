@@ -232,7 +232,7 @@ public abstract class LevelParent {
     }
 
     private boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
-        return Math.abs(enemy.getTranslateX()) > Main.SCREEN_WIDTH;
+        return Math.abs(enemy.getX()) > Main.SCREEN_WIDTH;
     }
 
     protected void winGame() {

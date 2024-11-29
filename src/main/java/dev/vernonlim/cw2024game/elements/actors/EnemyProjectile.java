@@ -9,6 +9,9 @@ public class EnemyProjectile extends Projectile {
 
     public EnemyProjectile(Pane root, double initialXPos, double initialYPos) {
         super(root, IMAGE_NAME, IMAGE_HEIGHT, initialXPos, initialYPos);
+
+        // to be in front of the enemy plane
+        moveHorizontally(-getHalfWidth());
     }
 
     @Override
