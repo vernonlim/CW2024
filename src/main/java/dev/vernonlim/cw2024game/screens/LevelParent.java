@@ -22,11 +22,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-public abstract class LevelParent {
+public abstract class LevelParent implements Screen {
     private static final int FRAME_RATE = 120;
 
     protected final Pane root;
-    public final Scene scene;
+    protected final Scene scene;
     private final Timeline timeline;
     protected final UserPlane user;
     private final Background background;
@@ -108,12 +108,16 @@ public abstract class LevelParent {
 
         initializeTimeline();
     }
+    
+    public Scene getScene() {
+        return scene;
+    }
 
     protected abstract void checkIfGameOver();
 
     protected abstract void spawnEnemyUnits(double currentTime);
 
-    public void startGame() {
+    public void start() {
         background.requestFocus();
         timeline.play();
     }

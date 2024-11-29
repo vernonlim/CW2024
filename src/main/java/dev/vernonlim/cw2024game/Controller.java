@@ -14,11 +14,6 @@ import javafx.stage.Stage;
 import dev.vernonlim.cw2024game.screens.*;
 
 public class Controller {
-    private static final Map<String, Class<? extends LevelParent>> levels = Map.ofEntries(
-            entry("LEVEL_ONE", LevelOne.class),
-            entry("LEVEL_TWO", LevelTwo.class)
-    );
-
     private final Stage stage;
 
     public Controller(Stage stage) {
@@ -31,16 +26,22 @@ public class Controller {
     }
 
     public void goToLevel(String levelName) {
-        try {
-            Class<? extends LevelParent> level = levels.get(levelName);
-            Constructor<?> constructor = level.getConstructor(Controller.class);
-            LevelParent myLevel = (LevelParent) constructor.newInstance(this);
-            stage.setScene(myLevel.scene);
-            myLevel.startGame();
-        } catch (Exception e) {
-            triggerAlertAndExit("Failed to load Level: " + levelName
-                    + "\nAdditional information: " + e.getMessage());
+        Screen screen = null;
+        switch (levelName) {
+            case "LEVEL_ONE":
+                screen = new LevelOne(this);
+                break;
+            case "LEVEL_TWO":
+                screen = new LevelTwo(this);
+                break;
+            default:
+                triggerAlertAndExit("Couldn't load Level: " + levelName);
         }
+
+        // Only null if the system if exiting
+        Scene scene = screen.getScene();
+        stage.setScene(scene);
+        screen.start();
     }
 
     public static void triggerAlertAndExit(String message) {
