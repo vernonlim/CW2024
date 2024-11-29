@@ -9,4 +9,14 @@ public abstract class Projectile extends ActiveActorDestructible {
     public void takeDamage() {
         this.destroy();
     }
+
+    @Override
+    public void updateActor(double deltaTime, double currentTime) {
+        double xPosition = getLayoutX() + getTranslateX();
+
+        // The inaccuracy with the right side doesn't matter
+        if (xPosition < 0 || xPosition > 1280) {
+            destroy();
+        }
+    }
 }

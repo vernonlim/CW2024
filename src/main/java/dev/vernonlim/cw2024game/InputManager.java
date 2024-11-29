@@ -1,4 +1,4 @@
-package dev.vernonlim.cw2024game.managers;
+package dev.vernonlim.cw2024game;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;

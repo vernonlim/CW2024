@@ -1,7 +1,9 @@
-package dev.vernonlim.cw2024game.levels;
+package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.actors.Boss;
-import dev.vernonlim.cw2024game.controller.Controller;
+import dev.vernonlim.cw2024game.Controller;
+import dev.vernonlim.cw2024game.overlays.LevelView;
+import dev.vernonlim.cw2024game.overlays.LevelViewLevelTwo;
 
 public class LevelTwo extends LevelParent {
     private static final String BACKGROUND_IMAGE_NAME = "/images/background2.jpg";
@@ -9,8 +11,8 @@ public class LevelTwo extends LevelParent {
     private final Boss boss;
     private LevelViewLevelTwo levelView;
 
-    public LevelTwo(Controller controller, double screenHeight, double screenWidth) {
-        super(controller, BACKGROUND_IMAGE_NAME, screenHeight, screenWidth, PLAYER_INITIAL_HEALTH);
+    public LevelTwo(Controller controller) {
+        super(controller, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
         boss = new Boss(levelView);
     }
 

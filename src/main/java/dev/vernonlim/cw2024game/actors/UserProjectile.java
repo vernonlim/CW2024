@@ -16,6 +16,8 @@ public class UserProjectile extends Projectile {
 
     @Override
     public void updateActor(double deltaTime, double currentTime) {
+        super.updateActor(deltaTime, currentTime);
+
         updatePosition(deltaTime);
     }
 }

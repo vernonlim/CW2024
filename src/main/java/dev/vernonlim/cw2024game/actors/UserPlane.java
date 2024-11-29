@@ -1,6 +1,6 @@
 package dev.vernonlim.cw2024game.actors;
 
-import dev.vernonlim.cw2024game.managers.InputManager;
+import dev.vernonlim.cw2024game.InputManager;
 
 public class UserPlane extends FighterPlane {
     private static final String IMAGE_NAME = "userplane.png";

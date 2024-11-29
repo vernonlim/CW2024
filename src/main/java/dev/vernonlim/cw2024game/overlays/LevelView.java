@@ -1,9 +1,8 @@
-package dev.vernonlim.cw2024game.levels;
+package dev.vernonlim.cw2024game.overlays;
 
-import dev.vernonlim.cw2024game.actors.GameOverImage;
-import dev.vernonlim.cw2024game.actors.HeartDisplay;
-import dev.vernonlim.cw2024game.actors.WinImage;
-import javafx.scene.Group;
+import dev.vernonlim.cw2024game.overlays.elements.GameOverImage;
+import dev.vernonlim.cw2024game.overlays.elements.HeartDisplay;
+import dev.vernonlim.cw2024game.overlays.elements.WinImage;
 import javafx.scene.layout.Pane;
 
 public class LevelView {
