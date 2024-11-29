@@ -17,17 +17,21 @@ import dev.vernonlim.cw2024game.input.Input;
 import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.animation.*;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 import javax.swing.Timer;
 
 public abstract class LevelParent implements Screen {
     private static final int FRAME_RATE = 120;
 
+    private Stage stage; // this is just here for stopping the timer thread...
     protected final Pane root;
     protected final Scene scene;
     private final Timeline timeline;
@@ -53,7 +57,9 @@ public abstract class LevelParent implements Screen {
     protected Timer timer;
     protected double virtualTime;
 
-    public LevelParent(Controller controller, AssetLoader loader, String backgroundImagePath, int playerInitialHealth) {
+    public LevelParent(Stage stage, Controller controller, AssetLoader loader, String backgroundImagePath, int playerInitialHealth) {
+        this.stage = stage;
+
         // initializing the main nodes
         this.root = new Pane();
 
@@ -117,6 +123,18 @@ public abstract class LevelParent implements Screen {
         friendlyUnits.add(user);
 
         initializeTimeline();
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                try {
+                    timer.stop();
+                    Platform.exit();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     private Timer createTimer() {
@@ -126,7 +144,7 @@ public abstract class LevelParent implements Screen {
         timer.start();
         return timer;
     }
-    
+
     public Scene getScene() {
         return scene;
     }

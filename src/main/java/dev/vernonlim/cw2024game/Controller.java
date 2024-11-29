@@ -32,10 +32,10 @@ public class Controller {
         Screen screen = null;
         switch (levelName) {
             case "LEVEL_ONE":
-                screen = new LevelOne(this, loader);
+                screen = new LevelOne(stage, this, loader);
                 break;
             case "LEVEL_TWO":
-                screen = new LevelTwo(this, loader);
+                screen = new LevelTwo(stage, this, loader);
                 break;
             default:
                 triggerAlertAndExit("Couldn't load Level: " + levelName);

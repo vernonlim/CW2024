@@ -7,6 +7,7 @@ import dev.vernonlim.cw2024game.elements.actors.EnemyPlane;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class LevelOne extends LevelParent {
     private static final String BACKGROUND_IMAGE_NAME = "background1";
@@ -16,8 +17,8 @@ public class LevelOne extends LevelParent {
     private static final double ENEMY_SPAWN_PROBABILITY = .20;
     private static final int PLAYER_INITIAL_HEALTH = 5;
 
-    public LevelOne(Controller controller, AssetLoader loader) {
-        super(controller, loader, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
+    public LevelOne(Stage stage, Controller controller, AssetLoader loader) {
+        super(stage, controller, loader, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
     }
 
     @Override

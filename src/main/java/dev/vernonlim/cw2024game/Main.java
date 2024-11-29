@@ -4,7 +4,10 @@ import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.assets.CachedAssetLoader;
 import dev.vernonlim.cw2024game.assets.UpFrontAssetLoader;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
     public static final int SCREEN_WIDTH = 1300;

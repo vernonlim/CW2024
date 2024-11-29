@@ -5,14 +5,15 @@ import dev.vernonlim.cw2024game.elements.actors.Boss;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 public class LevelTwo extends LevelParent {
     private static final String BACKGROUND_IMAGE_NAME = "background2";
     private static final int PLAYER_INITIAL_HEALTH = 5;
     private final Boss boss;
 
-    public LevelTwo(Controller controller, AssetLoader loader) {
-        super(controller, loader, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
+    public LevelTwo(Stage stage, Controller controller, AssetLoader loader) {
+        super(stage, controller, loader, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
 
         boss = new Boss(root, loader, projectileListener);
     }
