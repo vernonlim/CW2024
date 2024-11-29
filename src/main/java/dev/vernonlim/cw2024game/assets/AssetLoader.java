@@ -1,9 +1,11 @@
 package dev.vernonlim.cw2024game.assets;
 
-import java.util.Map;
-import static java.util.Map.entry;
-import javafx.scene.image.*;
+import javafx.scene.image.Image;
 import javafx.scene.media.Media;
+
+import java.util.Map;
+
+import static java.util.Map.entry;
 
 public abstract class AssetLoader {
     protected static final Map<String, String> imagePaths = Map.ofEntries(
@@ -28,5 +30,6 @@ public abstract class AssetLoader {
     );
 
     public abstract Image loadImage(String name);
+
     public abstract Media loadSound(String name);
 }

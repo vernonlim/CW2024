@@ -1,11 +1,9 @@
 package dev.vernonlim.cw2024game.elements;
 
-import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.Main;
 import javafx.geometry.Bounds;
-import javafx.scene.layout.Pane;
-import javafx.scene.image.*;
 import javafx.scene.Node;
+import javafx.scene.layout.Pane;
 
 public abstract class Element {
     protected Pane root;
@@ -30,14 +28,6 @@ public abstract class Element {
         root.getChildren().remove(node);
     }
 
-    public void setX(double xPos) {
-        node.setLayoutX(xPos - getWidth() / 2);
-    }
-
-    public void setY(double yPos) {
-        node.setLayoutY(yPos - getHeight() / 2);
-    }
-
     public void setPosition(double xPos, double yPos) {
         setX(xPos);
         setY(yPos);
@@ -51,8 +41,16 @@ public abstract class Element {
         return node.getBoundsInParent().getCenterX();
     }
 
+    public void setX(double xPos) {
+        node.setLayoutX(xPos - getWidth() / 2);
+    }
+
     public double getY() {
         return node.getBoundsInParent().getCenterY();
+    }
+
+    public void setY(double yPos) {
+        node.setLayoutY(yPos - getHeight() / 2);
     }
 
     public double getWidth() {

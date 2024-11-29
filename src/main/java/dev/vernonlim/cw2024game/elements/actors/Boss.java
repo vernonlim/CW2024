@@ -6,7 +6,9 @@ import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.factories.ActorFactory;
 import javafx.scene.layout.Pane;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class Boss extends FighterPlane {
     private static final String IMAGE_NAME = "bossplane";
@@ -20,16 +22,14 @@ public class Boss extends FighterPlane {
     private static final double MAX_TIME_WITH_SHIELD = 500 * 50.0f;
     private static final double PROJECTILE_Y_OFFSET = 0.0f;
     private final List<Integer> movePattern;
+    private final ShieldImage shieldImage;
+    private final double upperBound;
+    private final double lowerBound;
     private boolean isShielded;
     private double timeMovingInSameDirection;
     private int indexOfCurrentMove;
     private double lastShieldActivation;
     private double timeWithShieldActivated;
-
-    private ShieldImage shieldImage;
-
-    private double upperBound;
-    private double lowerBound;
 
     public Boss(ActorFactory actorFactory, Pane root, AssetLoader loader, ProjectileListener projectileListener) {
         super(actorFactory, root, loader, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, HEALTH);

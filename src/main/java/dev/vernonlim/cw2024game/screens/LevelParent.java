@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game.screens;
 
-import java.util.*;
-
+import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Background;
@@ -10,32 +9,41 @@ import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.UserPlane;
-import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.elements.actors.UserProjectile;
 import dev.vernonlim.cw2024game.elements.factories.ActorFactory;
 import dev.vernonlim.cw2024game.input.InputManager;
 import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
-import javafx.animation.*;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
-import javax.swing.Timer;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class LevelParent implements Screen {
     private static final int FRAME_RATE = 120;
 
-    private Stage stage; // this is just here for stopping the timer thread...
     protected final Pane root;
     protected final Scene scene;
-    private final Timeline timeline;
     protected final UserPlane user;
+    protected final AssetLoader loader;
+    protected final ProjectileListener projectileListener;
+    protected final ActorFactory actorFactory;
+    private final Controller controller;
+    private final InputManager inputManager;
+    private final Stage stage; // this is just here for stopping the timer thread...
+
+    private final Timeline timeline;
     private final Background background;
 
     private final List<ActiveActorDestructible> friendlyUnits;
@@ -43,20 +51,14 @@ public abstract class LevelParent implements Screen {
     private final List<ActiveActorDestructible> userProjectiles;
     private final List<ActiveActorDestructible> enemyProjectiles;
 
-    private int currentNumberOfEnemies;
     private final GameplayOverlay gameplayOverlay;
-
-    private final Controller controller;
-    private final InputManager inputManager;
-    protected final AssetLoader loader;
-    protected final ProjectileListener projectileListener;
-    protected final ActorFactory actorFactory;
 
     private double lastUpdate;
     protected double lastEnemySpawnAttempt;
-
     protected Timer timer;
     protected double virtualTime;
+
+    private int currentNumberOfEnemies;
 
     public LevelParent(Stage stage, Controller controller, AssetLoader loader, String backgroundImagePath, int playerInitialHealth) {
         this.stage = stage;

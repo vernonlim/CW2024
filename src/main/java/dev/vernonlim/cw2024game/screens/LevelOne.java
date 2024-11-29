@@ -1,12 +1,9 @@
 package dev.vernonlim.cw2024game.screens;
 
+import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
-import dev.vernonlim.cw2024game.elements.actors.EnemyPlane;
-import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 public class LevelOne extends LevelParent {

@@ -1,10 +1,10 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
+import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.factories.ActorFactory;
 import dev.vernonlim.cw2024game.input.InputManager;
-import dev.vernonlim.cw2024game.Main;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;
@@ -14,20 +14,17 @@ public class UserPlane extends FighterPlane {
     private static final int IMAGE_HEIGHT = 40;
     private static final double SPEED = 24.0f;
     private static final double PROJECTILE_Y_OFFSET = 7.0f;
+    private final InputManager inputManager;
+    private final double upperBound;
+    private final double lowerBound;
+    private final double leftBound;
+    private final double rightBound;
     private double fireRate = 10.0f;
     private double verticalVelocityMultiplier;
     private double horizontalVelocityMultiplier;
     private int numberOfKills;
-
-    private final InputManager inputManager;
-
     private int lastVerticalMultipler;
     private int lastHorizontalMultiplier;
-
-    private double upperBound;
-    private double lowerBound;
-    private double leftBound;
-    private double rightBound;
 
     public UserPlane(ActorFactory actorFactory, Pane root, AssetLoader loader, ProjectileListener projectileListener, InputManager inputManager, int initialHealth) {
         super(actorFactory, root, loader, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, initialHealth);
@@ -81,7 +78,7 @@ public class UserPlane extends FighterPlane {
         } else {
             verticalVelocityMultiplier = 0;
         }
-        
+
         if (left && right) {
             horizontalVelocityMultiplier = -lastHorizontalMultiplier;
         } else if (left) {

@@ -15,11 +15,11 @@ public class GameplayOverlay extends Element {
     private static final int WIN_IMAGE_Y_POSITION = 175;
     private static final int LOSS_SCREEN_X_POSITION = -160;
     private static final int LOSS_SCREEN_Y_POSITION = -375;
+    public final Pane pane;
     private final WinImage winImage;
     private final Element gameOverImage;
     private final HeartDisplay heartDisplay;
     private final AssetLoader loader;
-    public final Pane pane;
 
     public GameplayOverlay(Pane root, AssetLoader loader, int heartsToDisplay) {
         super(root);

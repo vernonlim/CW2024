@@ -23,6 +23,16 @@ public class SceneSizeChangeListener implements ChangeListener<Number> {
         this.contentPane = contentPane;
     }
 
+    // Credit:
+    // https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
+    public static void letterbox(Scene scene, Pane contentPane, double initWidth, double initHeight) {
+        final double ratio = initWidth / initHeight;
+
+        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
+        scene.widthProperty().addListener(sizeListener);
+        scene.heightProperty().addListener(sizeListener);
+    }
+
     @Override
     public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
         final double newWidth = scene.getWidth();
@@ -40,15 +50,5 @@ public class SceneSizeChangeListener implements ChangeListener<Number> {
 
         contentPane.setPrefWidth(newWidth / scaleFactor);
         contentPane.setPrefHeight(newHeight / scaleFactor);
-    }
-
-    // Credit:
-    // https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
-    public static void letterbox(Scene scene, Pane contentPane, double initWidth, double initHeight) {
-        final double ratio = initWidth / initHeight;
-
-        SceneSizeChangeListener sizeListener = new SceneSizeChangeListener(scene, ratio, initHeight, initWidth, contentPane);
-        scene.widthProperty().addListener(sizeListener);
-        scene.heightProperty().addListener(sizeListener);
     }
 }

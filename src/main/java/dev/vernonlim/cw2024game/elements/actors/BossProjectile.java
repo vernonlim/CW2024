@@ -1,7 +1,7 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
-import javafx.scene.layout.Pane;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
+import javafx.scene.layout.Pane;
 
 public class BossProjectile extends Projectile {
     private static final String IMAGE_NAME = "fireball";

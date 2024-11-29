@@ -1,13 +1,12 @@
 package dev.vernonlim.cw2024game.assets;
 
+import dev.vernonlim.cw2024game.Controller;
+import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import static java.util.Map.entry;
-
-import dev.vernonlim.cw2024game.Controller;
-import javafx.scene.image.*;
-import javafx.scene.media.Media;
 
 public class UpFrontAssetLoader extends AssetLoader {
     private final Map<String, Image> images;

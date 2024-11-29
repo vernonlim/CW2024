@@ -1,18 +1,14 @@
 package dev.vernonlim.cw2024game;
 
-import java.lang.reflect.Constructor;
-import java.net.URL;
-import java.util.Map;
-
-import static java.util.Map.entry;
-
 import dev.vernonlim.cw2024game.assets.AssetLoader;
+import dev.vernonlim.cw2024game.screens.LevelOne;
+import dev.vernonlim.cw2024game.screens.LevelTwo;
+import dev.vernonlim.cw2024game.screens.Screen;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
-import dev.vernonlim.cw2024game.screens.*;
 
 public class Controller {
     private final Stage stage;
@@ -21,6 +17,12 @@ public class Controller {
     public Controller(Stage stage, AssetLoader loader) {
         this.stage = stage;
         this.loader = loader;
+    }
+
+    public static void triggerAlertAndExit(String message) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setContentText(message);
+        alert.showAndWait().ifPresent(response -> Platform.exit());
     }
 
     public void launchGame() {
@@ -45,11 +47,5 @@ public class Controller {
         Scene scene = screen.getScene();
         stage.setScene(scene);
         screen.start();
-    }
-
-    public static void triggerAlertAndExit(String message) {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setContentText(message);
-        alert.showAndWait().ifPresent(response -> Platform.exit());
     }
 }
