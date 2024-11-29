@@ -1,19 +1,20 @@
 package dev.vernonlim.cw2024game.screens;
 
+import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.Boss;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.scene.layout.Pane;
 
 public class LevelTwo extends LevelParent {
-    private static final String BACKGROUND_IMAGE_NAME = "/images/background2.jpg";
+    private static final String BACKGROUND_IMAGE_NAME = "background2";
     private static final int PLAYER_INITIAL_HEALTH = 5;
     private final Boss boss;
 
-    public LevelTwo(Controller controller) {
-        super(controller, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
+    public LevelTwo(Controller controller, AssetLoader loader) {
+        super(controller, loader, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
 
-        boss = new Boss(root, projectileListener);
+        boss = new Boss(root, loader, projectileListener);
     }
 
     @Override

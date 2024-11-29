@@ -1,13 +1,14 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import javafx.scene.layout.Pane;
 
 import java.util.*;
 
 public class Boss extends FighterPlane {
-    private static final String IMAGE_NAME = "bossplane.png";
+    private static final String IMAGE_NAME = "bossplane";
     private static final double BOSS_FIRE_RATE = .04;
     private static final double BOSS_SHIELD_PROBABILITY = 0.002;
     private static final int IMAGE_HEIGHT = 56;
@@ -29,8 +30,8 @@ public class Boss extends FighterPlane {
     private double upperBound;
     private double lowerBound;
 
-    public Boss(Pane root, ProjectileListener projectileListener) {
-        super(root, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, HEALTH);
+    public Boss(Pane root, AssetLoader loader, ProjectileListener projectileListener) {
+        super(root, loader, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, HEALTH);
 
         setXFromRight(5.0f);
         setY(Main.SCREEN_HEIGHT / 2.0f);
@@ -46,7 +47,7 @@ public class Boss extends FighterPlane {
         isShielded = false;
         initializeMovePattern();
 
-        this.shieldImage = new ShieldImage(root);
+        this.shieldImage = new ShieldImage(root, loader);
     }
 
     @Override
@@ -68,7 +69,7 @@ public class Boss extends FighterPlane {
 
     @Override
     public Projectile createProjectile() {
-        return new BossProjectile(root, getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
+        return new BossProjectile(root, loader, getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
     }
 
     @Override
