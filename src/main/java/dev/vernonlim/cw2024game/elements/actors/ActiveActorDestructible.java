@@ -1,5 +1,6 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
+import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;
 
 public abstract class ActiveActorDestructible extends ActiveActor implements Destructible {
@@ -24,5 +25,14 @@ public abstract class ActiveActorDestructible extends ActiveActor implements Des
 
     public boolean isDestroyed() {
         return isDestroyed;
+    }
+
+    public void collideWith(ActiveActorDestructible other) {
+        takeDamage();
+        other.takeDamage();
+    }
+
+    public Bounds getCollisionBounds() {
+        return getBoundsInParent();
     }
 }

@@ -3,6 +3,8 @@ package dev.vernonlim.cw2024game.elements.actors;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.input.Input;
 import dev.vernonlim.cw2024game.Main;
+import javafx.geometry.BoundingBox;
+import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;
 
 public class UserPlane extends FighterPlane {
@@ -110,6 +112,11 @@ public class UserPlane extends FighterPlane {
     @Override
     public Projectile createProjectile() {
         return new UserProjectile(root, getX() + getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
+    }
+
+    @Override
+    public Bounds getCollisionBounds() {
+        return new BoundingBox(getX() - getHalfHeight(), getY() - getHalfHeight(), getHeight(), getHeight());
     }
 
     public int getNumberOfKills() {

@@ -12,7 +12,7 @@ public class LevelTwo extends LevelParent {
     public LevelTwo(Controller controller) {
         super(controller, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
 
-        boss = new Boss(getRoot(), enemyProjectileListener);
+        boss = new Boss(getRoot(), projectileListener);
     }
 
     @Override

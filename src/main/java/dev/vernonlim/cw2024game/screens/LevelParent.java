@@ -6,10 +6,10 @@ import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
-import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.Controller;
+import dev.vernonlim.cw2024game.elements.actors.UserProjectile;
 import dev.vernonlim.cw2024game.input.Input;
 import dev.vernonlim.cw2024game.overlays.Overlay;
 import javafx.animation.*;
@@ -41,8 +41,7 @@ public abstract class LevelParent {
 
     private final Controller controller;
     private final Input input;
-    protected final ProjectileListener friendlyProjectileListener;
-    protected final ProjectileListener enemyProjectileListener;
+    protected final ProjectileListener projectileListener;
 
     private double lastUpdate;
     protected double lastEnemySpawnAttempt;
@@ -66,19 +65,16 @@ public abstract class LevelParent {
 
         this.input = new Input(scene);
 
-        this.friendlyProjectileListener = new ProjectileListener() {
+        this.projectileListener = new ProjectileListener() {
             @Override
             public void onFire(Projectile projectile) {
                 projectile.show();
-                userProjectiles.add(projectile);
-            }
-        };
 
-        this.enemyProjectileListener = new ProjectileListener() {
-            @Override
-            public void onFire(Projectile projectile) {
-                projectile.show();
-                enemyProjectiles.add(projectile);
+                if (projectile instanceof UserProjectile) {
+                    userProjectiles.add(projectile);
+                } else {
+                    enemyProjectiles.add(projectile);
+                }
             }
         };
 
@@ -99,7 +95,7 @@ public abstract class LevelParent {
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
         initializeTimeline();
 
-        this.user = new UserPlane(root, friendlyProjectileListener, input, playerInitialHealth);
+        this.user = new UserPlane(root, projectileListener, input, playerInitialHealth);
         friendlyUnits.add(user);
 
         this.controller = controller;
@@ -202,9 +198,8 @@ public abstract class LevelParent {
                                   List<ActiveActorDestructible> actors2) {
         for (ActiveActorDestructible actor : actors2) {
             for (ActiveActorDestructible otherActor : actors1) {
-                if (actor.getBoundsInParent().intersects(otherActor.getBoundsInParent())) {
-                    actor.takeDamage();
-                    otherActor.takeDamage();
+                if (actor.getCollisionBounds().intersects(otherActor.getCollisionBounds())) {
+                    actor.collideWith(otherActor);
                 }
             }
         }
@@ -271,5 +266,4 @@ public abstract class LevelParent {
     private void updateNumberOfEnemies() {
         currentNumberOfEnemies = enemyUnits.size();
     }
-
 }
