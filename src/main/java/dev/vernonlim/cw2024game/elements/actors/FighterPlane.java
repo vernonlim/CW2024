@@ -1,5 +1,6 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
+import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import javafx.scene.layout.Pane;
 
@@ -9,8 +10,8 @@ public abstract class FighterPlane extends ActiveActorDestructible {
 
     private ProjectileListener projectileListener;
 
-    public FighterPlane(Pane root, ProjectileListener projectileListener, String imageName, int imageHeight, int health) {
-        super(root, imageName, imageHeight);
+    public FighterPlane(Pane root, AssetLoader loader, ProjectileListener projectileListener, String imageName, int imageHeight, int health) {
+        super(root, loader, imageName, imageHeight);
         this.health = health;
 
         this.projectileListener = projectileListener;

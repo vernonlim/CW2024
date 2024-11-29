@@ -2,6 +2,7 @@ module dev.vernonlim.cw2024game {
     requires javafx.controls;
     requires javafx.fxml;
     requires javafx.graphics;
+    requires javafx.media;
 
     opens dev.vernonlim.cw2024game to javafx.fxml;
     opens dev.vernonlim.cw2024game.screens to javafx.fxml;

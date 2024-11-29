@@ -1,11 +1,12 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.assets.AssetLoader;
 import javafx.scene.layout.Pane;
 
 public abstract class Projectile extends ActiveActorDestructible {
-    public Projectile(Pane root, String imageName, int imageHeight, double initialXPos, double initialYPos) {
-        super(root, imageName, imageHeight);
+    public Projectile(Pane root, AssetLoader loader, String imageName, int imageHeight, double initialXPos, double initialYPos) {
+        super(root, loader, imageName, imageHeight);
 
         setPosition(initialXPos, initialYPos);
     }

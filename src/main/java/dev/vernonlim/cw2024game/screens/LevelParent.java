@@ -3,6 +3,8 @@ package dev.vernonlim.cw2024game.screens;
 import java.util.*;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.assets.AssetLoader;
+import dev.vernonlim.cw2024game.assets.UpFrontAssetLoader;
 import dev.vernonlim.cw2024game.elements.Background;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
@@ -41,12 +43,13 @@ public abstract class LevelParent implements Screen {
 
     private final Controller controller;
     private final Input input;
+    protected final AssetLoader loader;
     protected final ProjectileListener projectileListener;
 
     private double lastUpdate;
     protected double lastEnemySpawnAttempt;
 
-    public LevelParent(Controller controller, String backgroundImagePath, int playerInitialHealth) {
+    public LevelParent(Controller controller, AssetLoader loader, String backgroundImagePath, int playerInitialHealth) {
         // initializing the main nodes
         this.root = new Pane();
 
@@ -64,10 +67,10 @@ public abstract class LevelParent implements Screen {
         this.scene = new Scene(new Group(stackPane));
 
         // background
-        this.background = new Background(root, backgroundImagePath);
+        this.background = new Background(root, loader, backgroundImagePath);
 
         // the overlay on top
-        this.gameplayOverlay = new GameplayOverlay(stackPane, playerInitialHealth);
+        this.gameplayOverlay = new GameplayOverlay(stackPane, loader, playerInitialHealth);
 
         // letterboxing
         SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
@@ -75,6 +78,7 @@ public abstract class LevelParent implements Screen {
         // initializing handlers
         this.input = new Input(scene);
         this.controller = controller;
+        this.loader = loader;
 
         // what to do with projectiles?
         this.projectileListener = new ProjectileListener() {
@@ -103,7 +107,7 @@ public abstract class LevelParent implements Screen {
         this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
 
-        this.user = new UserPlane(root, projectileListener, input, playerInitialHealth);
+        this.user = new UserPlane(root, loader, projectileListener, input, playerInitialHealth);
         friendlyUnits.add(user);
 
         initializeTimeline();

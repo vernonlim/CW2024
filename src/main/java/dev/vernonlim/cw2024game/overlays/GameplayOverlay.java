@@ -1,6 +1,7 @@
 package dev.vernonlim.cw2024game.overlays;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.GameOverImage;
 import dev.vernonlim.cw2024game.elements.HeartDisplay;
@@ -17,10 +18,12 @@ public class GameplayOverlay extends Element {
     private final WinImage winImage;
     private final Element gameOverImage;
     private final HeartDisplay heartDisplay;
+    private final AssetLoader loader;
     public final Pane pane;
 
-    public GameplayOverlay(Pane root, int heartsToDisplay) {
+    public GameplayOverlay(Pane root, AssetLoader loader, int heartsToDisplay) {
         super(root);
+        this.loader = loader;
 
         this.pane = new Pane();
         this.node = pane;
@@ -28,9 +31,9 @@ public class GameplayOverlay extends Element {
         pane.setMaxHeight(Main.SCREEN_HEIGHT);
         pane.setMaxWidth(Main.SCREEN_WIDTH);
 
-        this.heartDisplay = new HeartDisplay(pane, HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
-        this.winImage = new WinImage(pane, WIN_IMAGE_X_POSITION, WIN_IMAGE_Y_POSITION);
-        this.gameOverImage = new GameOverImage(pane, LOSS_SCREEN_X_POSITION, LOSS_SCREEN_Y_POSITION);
+        this.heartDisplay = new HeartDisplay(pane, loader, HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
+        this.winImage = new WinImage(pane, loader, WIN_IMAGE_X_POSITION, WIN_IMAGE_Y_POSITION);
+        this.gameOverImage = new GameOverImage(pane, loader, LOSS_SCREEN_X_POSITION, LOSS_SCREEN_Y_POSITION);
 
         heartDisplay.show();
 

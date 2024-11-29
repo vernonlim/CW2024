@@ -1,5 +1,8 @@
 package dev.vernonlim.cw2024game;
 
+import dev.vernonlim.cw2024game.assets.AssetLoader;
+import dev.vernonlim.cw2024game.assets.CachedAssetLoader;
+import dev.vernonlim.cw2024game.assets.UpFrontAssetLoader;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -14,7 +17,11 @@ public class Main extends Application {
         stage.setResizable(true);
         stage.setHeight(SCREEN_HEIGHT);
         stage.setWidth(SCREEN_WIDTH);
-        Controller myController = new Controller(stage);
+
+//        AssetLoader loader = new UpFrontAssetLoader();
+        AssetLoader loader = new CachedAssetLoader();
+
+        Controller myController = new Controller(stage, loader);
         myController.launchGame();
     }
 

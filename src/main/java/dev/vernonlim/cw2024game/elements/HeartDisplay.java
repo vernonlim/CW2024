@@ -1,5 +1,6 @@
 package dev.vernonlim.cw2024game.elements;
 
+import dev.vernonlim.cw2024game.assets.AssetLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -12,8 +13,11 @@ public class HeartDisplay extends PaneElement {
     private final double containerXPosition;
     private final double containerYPosition;
 
-    public HeartDisplay(Pane root, double xPosition, double yPosition, int heartsToDisplay) {
+    protected final AssetLoader loader;
+
+    public HeartDisplay(Pane root, AssetLoader loader, double xPosition, double yPosition, int heartsToDisplay) {
         super(root);
+        this.loader = loader;
 
         containerXPosition = xPosition;
         containerYPosition = yPosition;
@@ -30,7 +34,7 @@ public class HeartDisplay extends PaneElement {
 
     private void initializeHearts(int heartCount) {
         for (int i = 0; i < heartCount; i++) {
-            Heart heart = new Heart(container);
+            Heart heart = new Heart(container, loader);
             heart.show();
 
             hearts.add(heart);
