@@ -4,9 +4,9 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import dev.vernonlim.cw2024game.Main;
-import dev.vernonlim.cw2024game.actors.ActiveActorDestructible;
-import dev.vernonlim.cw2024game.actors.FighterPlane;
-import dev.vernonlim.cw2024game.actors.UserPlane;
+import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
+import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
+import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.InputManager;
 import dev.vernonlim.cw2024game.overlays.LevelView;

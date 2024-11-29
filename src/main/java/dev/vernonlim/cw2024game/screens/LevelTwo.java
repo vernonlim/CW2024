@@ -1,6 +1,6 @@
 package dev.vernonlim.cw2024game.screens;
 
-import dev.vernonlim.cw2024game.actors.Boss;
+import dev.vernonlim.cw2024game.elements.actors.Boss;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.overlays.LevelView;
 import dev.vernonlim.cw2024game.overlays.LevelViewLevelTwo;

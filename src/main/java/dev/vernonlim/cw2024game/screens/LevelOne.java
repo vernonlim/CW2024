@@ -1,8 +1,8 @@
 package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.Main;
-import dev.vernonlim.cw2024game.actors.ActiveActorDestructible;
-import dev.vernonlim.cw2024game.actors.EnemyPlane;
+import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
+import dev.vernonlim.cw2024game.elements.actors.EnemyPlane;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.overlays.LevelView;
 

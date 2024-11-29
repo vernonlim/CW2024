@@ -1,4 +1,4 @@
-package dev.vernonlim.cw2024game.actors;
+package dev.vernonlim.cw2024game.elements.actors;
 
 public abstract class Projectile extends ActiveActorDestructible {
     public Projectile(String imageName, int imageHeight, double initialXPos, double initialYPos) {

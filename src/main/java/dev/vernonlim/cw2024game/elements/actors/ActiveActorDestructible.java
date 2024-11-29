@@ -1,4 +1,4 @@
-package dev.vernonlim.cw2024game.actors;
+package dev.vernonlim.cw2024game.elements.actors;
 
 public abstract class ActiveActorDestructible extends ActiveActor implements Destructible {
     private boolean isDestroyed;

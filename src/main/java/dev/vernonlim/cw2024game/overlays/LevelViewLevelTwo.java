@@ -1,6 +1,6 @@
 package dev.vernonlim.cw2024game.overlays;
 
-import dev.vernonlim.cw2024game.actors.ShieldImage;
+import dev.vernonlim.cw2024game.elements.actors.ShieldImage;
 import javafx.scene.layout.Pane;
 
 public class LevelViewLevelTwo extends LevelView {

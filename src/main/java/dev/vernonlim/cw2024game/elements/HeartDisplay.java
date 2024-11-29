@@ -1,19 +1,20 @@
-package dev.vernonlim.cw2024game.overlays.elements;
+package dev.vernonlim.cw2024game.elements;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 
-public class HeartDisplay {
+public class HeartDisplay extends PaneElement {
     private static final String HEART_IMAGE_NAME = "/images/heart.png";
     private static final int HEART_HEIGHT = 50;
-    private static final int INDEX_OF_FIRST_ITEM = 0;
-    private HBox container;
     private final double containerXPosition;
     private final double containerYPosition;
     private final int numberOfHeartsToDisplay;
 
-    public HeartDisplay(double xPosition, double yPosition, int heartsToDisplay) {
+    public HeartDisplay(Pane root, double xPosition, double yPosition, int heartsToDisplay) {
+        super(root);
+
         this.containerXPosition = xPosition;
         this.containerYPosition = yPosition;
         this.numberOfHeartsToDisplay = heartsToDisplay;
@@ -22,9 +23,10 @@ public class HeartDisplay {
     }
 
     private void initializeContainer() {
-        container = new HBox();
-        container.setLayoutX(containerXPosition);
-        container.setLayoutY(containerYPosition);
+        this.container = new HBox();
+        this.node = container;
+        this.container.setLayoutX(containerXPosition);
+        this.container.setLayoutY(containerYPosition);
     }
 
     private void initializeHearts() {
@@ -33,16 +35,16 @@ public class HeartDisplay {
 
             heart.setFitHeight(HEART_HEIGHT);
             heart.setPreserveRatio(true);
-            container.getChildren().add(heart);
+            this.container.getChildren().add(heart);
         }
     }
 
-    public void removeHeart() {
-        if (!container.getChildren().isEmpty())
-            container.getChildren().remove(INDEX_OF_FIRST_ITEM);
+    public int getHeartCount() {
+        return container.getChildren().size();
     }
 
-    public HBox getContainer() {
-        return container;
+    public void removeHeart() {
+        if (!this.container.getChildren().isEmpty())
+            this.container.getChildren().removeFirst();
     }
 }
