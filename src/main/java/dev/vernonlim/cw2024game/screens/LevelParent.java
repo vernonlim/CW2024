@@ -10,7 +10,7 @@ import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.elements.actors.UserProjectile;
-import dev.vernonlim.cw2024game.elements.factories.ActorFactory;
+import dev.vernonlim.cw2024game.elements.factories.ElementFactory;
 import dev.vernonlim.cw2024game.managers.CollisionManager;
 import dev.vernonlim.cw2024game.managers.DamageCollisionManager;
 import dev.vernonlim.cw2024game.managers.InputManager;
@@ -40,7 +40,7 @@ public abstract class LevelParent implements Screen {
     protected final UserPlane user;
     protected final AssetLoader loader;
     protected final ProjectileListener projectileListener;
-    protected final ActorFactory actorFactory;
+    protected final ElementFactory elementFactory;
     private final Controller controller;
     private final InputManager inputManager;
     private final CollisionManager collisionManager;
@@ -82,12 +82,6 @@ public abstract class LevelParent implements Screen {
         // Keeps the "camera" of sorts fixed in place
         this.scene = new Scene(new Group(stackPane));
 
-        // background
-        this.background = new Background(root, loader, backgroundImagePath);
-
-        // the overlay on top
-        this.gameplayOverlay = new GameplayOverlay(stackPane, loader, playerInitialHealth);
-
         // letterboxing
         SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 
@@ -111,7 +105,13 @@ public abstract class LevelParent implements Screen {
             }
         };
 
-        this.actorFactory = new ActorFactory(root, loader, inputManager, projectileListener);
+        this.elementFactory = new ElementFactory(root, loader, inputManager, projectileListener);
+
+        // background
+        this.background = elementFactory.createBackground(backgroundImagePath);
+
+        // the overlay on top
+        this.gameplayOverlay = elementFactory.withNewRoot(stackPane).createGameplayOverlay(playerInitialHealth);
 
         // activity
         this.timeline = new Timeline(FRAME_RATE);
@@ -128,7 +128,7 @@ public abstract class LevelParent implements Screen {
         this.timer = createTimer();
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
 
-        this.user = actorFactory.createUserPlane(playerInitialHealth);
+        this.user = elementFactory.createUserPlane(playerInitialHealth);
         friendlyUnits.add(user);
 
         initializeTimeline();
@@ -138,7 +138,7 @@ public abstract class LevelParent implements Screen {
             public void handle(WindowEvent event) {
                 try {
                     timer.stop();
-                    Thread.sleep(50);
+                    Thread.sleep(100);
                     Platform.exit();
                 } catch (Exception e) {
                     e.printStackTrace();
