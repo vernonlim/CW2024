@@ -13,10 +13,6 @@ public class UserPlane extends FighterPlane {
     private static final double SPEED = 24.0f;
     private static final double PROJECTILE_Y_OFFSET = 7.0f;
     private final InputManager inputManager;
-    private final double upperBound;
-    private final double lowerBound;
-    private final double leftBound;
-    private final double rightBound;
     private double fireRate = 10.0f;
     private double verticalVelocityMultiplier;
     private double horizontalVelocityMultiplier;
@@ -37,11 +33,6 @@ public class UserPlane extends FighterPlane {
 
         lastVerticalMultipler = -1;
         lastHorizontalMultiplier = -1;
-
-        upperBound = getHalfHeight();
-        lowerBound = Main.SCREEN_HEIGHT - getHalfHeight();
-        leftBound = getHalfWidth();
-        rightBound = Main.SCREEN_WIDTH - getHalfWidth();
 
         show();
     }

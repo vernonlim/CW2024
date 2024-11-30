@@ -21,8 +21,6 @@ public class Boss extends FighterPlane {
     private static final double PROJECTILE_Y_OFFSET = 0.0f;
     private final List<Integer> movePattern;
     private final ShieldImage shieldImage;
-    private final double upperBound;
-    private final double lowerBound;
     private boolean isShielded;
     private double timeMovingInSameDirection;
     private int indexOfCurrentMove;
@@ -34,9 +32,6 @@ public class Boss extends FighterPlane {
 
         setXFromRight(5.0f);
         setY(Main.SCREEN_HEIGHT / 2.0f);
-
-        upperBound = getHalfHeight();
-        lowerBound = Main.SCREEN_HEIGHT - getHalfHeight();
 
         movePattern = new ArrayList<>();
         timeMovingInSameDirection = 0;
