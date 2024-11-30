@@ -2,6 +2,7 @@ package dev.vernonlim.cw2024game.assets;
 
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
+import javafx.scene.media.AudioClip;
 
 import java.util.Map;
 
@@ -25,11 +26,11 @@ abstract class CW2024AssetLoader implements AssetLoader {
     );
 
     protected static final Map<String, String> soundPaths = Map.ofEntries(
-            entry("gunshot", "/audio/gunshot.mp3"),
-            entry("error", "/audio/error.mp3")
+            entry("gunshot", "/audio/gunshot.wav"),
+            entry("error", "/audio/error.wav")
     );
 
     public abstract Image loadImage(String name);
 
-    public abstract Media loadSound(String name);
+    public abstract AudioClip loadSound(String name);
 }

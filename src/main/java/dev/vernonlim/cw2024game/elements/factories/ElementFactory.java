@@ -9,6 +9,8 @@ import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.AudioClip;
 
 public class ElementFactory {
     private Pane root;
@@ -39,7 +41,9 @@ public class ElementFactory {
         ImageView imageView = makeView("userplane");
         imageView.setFitHeight(40);
 
-        return new UserPlane(this, root, projectileListener, inputManager, imageView, initialHealth);
+        AudioClip fireSound = loader.loadSound("gunshot");
+
+        return new UserPlane(this, root, projectileListener, inputManager, imageView, fireSound, initialHealth);
     }
 
     public EnemyPlane createEnemyPlane(double initialXPos, double initialYPos) {

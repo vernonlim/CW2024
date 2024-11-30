@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class LevelParent implements Screen {
-    private static final int FRAME_RATE = 120;
+    private static final int FRAME_RATE = 480;
 
     protected final Pane root;
     protected final Scene scene;

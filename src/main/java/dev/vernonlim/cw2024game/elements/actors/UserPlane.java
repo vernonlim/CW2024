@@ -8,6 +8,8 @@ import dev.vernonlim.cw2024game.managers.InputManager;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.AudioClip;
 
 public class UserPlane extends FighterPlane {
     private static final double SPEED = 24.0f;
@@ -20,8 +22,13 @@ public class UserPlane extends FighterPlane {
     private int lastVerticalMultipler;
     private int lastHorizontalMultiplier;
 
-    public UserPlane(ElementFactory elementFactory, Pane root, ProjectileListener projectileListener, InputManager inputManager, ImageView imageView, int initialHealth) {
+    private AudioClip fireSound;
+
+    public UserPlane(ElementFactory elementFactory, Pane root, ProjectileListener projectileListener, InputManager inputManager, ImageView imageView, AudioClip fireSound, int initialHealth) {
         super(elementFactory, root, projectileListener, imageView, initialHealth);
+
+        this.fireSound = fireSound;
+        fireSound.setVolume(0.4);
 
         setXFromLeft(5);
         setY(Main.SCREEN_HEIGHT / 2.0f);
@@ -95,6 +102,13 @@ public class UserPlane extends FighterPlane {
         }
 
         updatePosition(deltaTime);
+    }
+
+    @Override
+    public void fireProjectile() {
+        super.fireProjectile();
+
+        fireSound.play();
     }
 
     @Override

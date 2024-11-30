@@ -4,5 +4,6 @@
     nativeBuildInputs = [
       pkgs.maven
       (pkgs.zulu.override { enableJavaFX = true; })
+      pkgs.ffmpeg
     ];
 }

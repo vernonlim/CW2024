@@ -3,14 +3,16 @@ package dev.vernonlim.cw2024game.assets;
 import dev.vernonlim.cw2024game.Controller;
 import javafx.scene.image.Image;
 import javafx.scene.media.Media;
+import javafx.scene.media.AudioClip;
 
+import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UpFrontAssetLoader extends CW2024AssetLoader {
     private final Map<String, Image> images;
-    private final Map<String, Media> sounds;
+    private final Map<String, AudioClip> sounds;
 
     public UpFrontAssetLoader() {
         images = new HashMap<>(imagePaths.size());
@@ -34,7 +36,7 @@ public class UpFrontAssetLoader extends CW2024AssetLoader {
             if (resourcePath == null) {
                 Controller.triggerAlertAndExit("Sound " + name + " doesn't exist at path " + path + ".");
             } else {
-                sounds.put(name, new Media(resourcePath.toExternalForm()));
+                sounds.put(name, new AudioClip(resourcePath.toString()));
             }
         }
     }
@@ -50,8 +52,8 @@ public class UpFrontAssetLoader extends CW2024AssetLoader {
     }
 
     @Override
-    public Media loadSound(String name) {
-        Media sound = sounds.get(name);
+    public AudioClip loadSound(String name) {
+        AudioClip sound = sounds.get(name);
         if (sound == null) {
             return sounds.get("error");
         }
