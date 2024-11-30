@@ -1,4 +1,4 @@
-package dev.vernonlim.cw2024game.input;
+package dev.vernonlim.cw2024game.managers;
 
 public enum Action {
     UP,

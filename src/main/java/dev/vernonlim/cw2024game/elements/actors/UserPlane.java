@@ -4,7 +4,7 @@ import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.factories.ActorFactory;
-import dev.vernonlim.cw2024game.input.InputManager;
+import dev.vernonlim.cw2024game.managers.InputManager;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;

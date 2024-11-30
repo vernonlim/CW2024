@@ -28,11 +28,6 @@ public abstract class ActiveActorDestructible extends ActiveActor implements Des
         this.isDestroyed = isDestroyed;
     }
 
-    public void collideWith(ActiveActorDestructible other) {
-        takeDamage();
-        other.takeDamage();
-    }
-
     public Bounds getCollisionBounds() {
         return getBoundsInParent();
     }

@@ -11,7 +11,9 @@ import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.elements.actors.UserProjectile;
 import dev.vernonlim.cw2024game.elements.factories.ActorFactory;
-import dev.vernonlim.cw2024game.input.InputManager;
+import dev.vernonlim.cw2024game.managers.CollisionManager;
+import dev.vernonlim.cw2024game.managers.DamageCollisionManager;
+import dev.vernonlim.cw2024game.managers.InputManager;
 import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -41,6 +43,7 @@ public abstract class LevelParent implements Screen {
     protected final ActorFactory actorFactory;
     private final Controller controller;
     private final InputManager inputManager;
+    private final CollisionManager collisionManager;
     private final Stage stage; // this is just here for stopping the timer thread...
 
     private final Timeline timeline;
@@ -92,6 +95,7 @@ public abstract class LevelParent implements Screen {
         this.inputManager = new InputManager(scene);
         this.controller = controller;
         this.loader = loader;
+        this.collisionManager = new DamageCollisionManager();
 
         // what to do with projectiles?
         this.projectileListener = new ProjectileListener() {
@@ -217,20 +221,9 @@ public abstract class LevelParent implements Screen {
     }
 
     private void handleAllCollisions() {
-        handleCollisions(friendlyUnits, enemyUnits);
-        handleCollisions(userProjectiles, enemyUnits);
-        handleCollisions(enemyProjectiles, friendlyUnits);
-    }
-
-    private void handleCollisions(List<ActiveActorDestructible> actors1,
-                                  List<ActiveActorDestructible> actors2) {
-        for (ActiveActorDestructible actor : actors2) {
-            for (ActiveActorDestructible otherActor : actors1) {
-                if (actor.getCollisionBounds().intersects(otherActor.getCollisionBounds())) {
-                    actor.collideWith(otherActor);
-                }
-            }
-        }
+        collisionManager.handleCollisions(friendlyUnits, enemyUnits);
+        collisionManager.handleCollisions(userProjectiles, enemyUnits);
+        collisionManager.handleCollisions(enemyProjectiles, friendlyUnits);
     }
 
     private void handleEnemyPenetration() {

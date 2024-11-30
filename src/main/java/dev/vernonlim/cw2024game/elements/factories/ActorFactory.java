@@ -3,7 +3,7 @@ package dev.vernonlim.cw2024game.elements.factories;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.actors.*;
-import dev.vernonlim.cw2024game.input.InputManager;
+import dev.vernonlim.cw2024game.managers.InputManager;
 import javafx.scene.layout.Pane;
 
 public class ActorFactory {
