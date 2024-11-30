@@ -8,7 +8,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UpFrontAssetLoader extends AssetLoader {
+public class UpFrontAssetLoader extends CW2024AssetLoader {
     private final Map<String, Image> images;
     private final Map<String, Media> sounds;
 

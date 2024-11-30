@@ -13,11 +13,6 @@ public abstract class Element {
         this.root = root;
     }
 
-    public Element(Pane root, Node node) {
-        this.root = root;
-        this.node = node;
-    }
-
     public void show() {
         if (!root.getChildren().contains(node)) {
             root.getChildren().add(node);

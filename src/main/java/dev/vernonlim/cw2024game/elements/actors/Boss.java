@@ -1,20 +1,18 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
-import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
-import dev.vernonlim.cw2024game.elements.factories.ActorFactory;
+import dev.vernonlim.cw2024game.elements.factories.ElementFactory;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import javafx.scene.image.ImageView;
 import java.util.List;
 
 public class Boss extends FighterPlane {
-    private static final String IMAGE_NAME = "bossplane";
     private static final double BOSS_FIRE_RATE = .04;
     private static final double BOSS_SHIELD_PROBABILITY = 0.002;
-    private static final int IMAGE_HEIGHT = 56;
     private static final int VERTICAL_VELOCITY = 8;
     private static final int HEALTH = 100;
     private static final int MOVE_FREQUENCY_PER_CYCLE = 5;
@@ -31,8 +29,8 @@ public class Boss extends FighterPlane {
     private double lastShieldActivation;
     private double timeWithShieldActivated;
 
-    public Boss(ActorFactory actorFactory, Pane root, AssetLoader loader, ProjectileListener projectileListener) {
-        super(actorFactory, root, loader, projectileListener, IMAGE_NAME, IMAGE_HEIGHT, HEALTH);
+    public Boss(ElementFactory elementFactory, Pane root, ProjectileListener projectileListener, ImageView imageView) {
+        super(elementFactory, root, projectileListener, imageView, HEALTH);
 
         setXFromRight(5.0f);
         setY(Main.SCREEN_HEIGHT / 2.0f);
@@ -48,7 +46,7 @@ public class Boss extends FighterPlane {
         isShielded = false;
         initializeMovePattern();
 
-        this.shieldImage = new ShieldImage(root, loader);
+        this.shieldImage = elementFactory.createShieldImage();
     }
 
     @Override
@@ -70,7 +68,7 @@ public class Boss extends FighterPlane {
 
     @Override
     public Projectile createProjectile() {
-        return actorFactory.createBossProjectile(getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
+        return elementFactory.createBossProjectile(getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
     }
 
     @Override
