@@ -2,7 +2,7 @@ package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
-import dev.vernonlim.cw2024game.elements.factories.ElementFactory;
+import dev.vernonlim.cw2024game.factories.ElementFactory;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;

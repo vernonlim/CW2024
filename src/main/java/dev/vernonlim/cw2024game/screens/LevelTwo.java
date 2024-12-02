@@ -3,6 +3,7 @@ package dev.vernonlim.cw2024game.screens;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.Boss;
+import dev.vernonlim.cw2024game.managers.KeybindStore;
 import javafx.stage.Stage;
 
 public class LevelTwo extends LevelParent {
@@ -10,8 +11,8 @@ public class LevelTwo extends LevelParent {
     private static final int PLAYER_INITIAL_HEALTH = 5;
     private final Boss boss;
 
-    public LevelTwo(Stage stage, Controller controller, AssetLoader loader) {
-        super(stage, controller, loader, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
+    public LevelTwo(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds) {
+        super(stage, controller, loader, keybinds, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
 
         boss = elementFactory.createBoss();
     }

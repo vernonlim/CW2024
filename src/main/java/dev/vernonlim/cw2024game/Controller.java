@@ -1,6 +1,7 @@
 package dev.vernonlim.cw2024game;
 
 import dev.vernonlim.cw2024game.assets.AssetLoader;
+import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.screens.LevelOne;
 import dev.vernonlim.cw2024game.screens.LevelTwo;
 import dev.vernonlim.cw2024game.screens.Screen;
@@ -13,10 +14,12 @@ import javafx.stage.Stage;
 public class Controller {
     private final Stage stage;
     private final AssetLoader loader;
+    private final KeybindStore keybinds;
 
-    public Controller(Stage stage, AssetLoader loader) {
+    public Controller(Stage stage, AssetLoader loader, KeybindStore keybinds) {
         this.stage = stage;
         this.loader = loader;
+        this.keybinds = keybinds;
     }
 
     public static void triggerAlertAndExit(String message) {
@@ -34,10 +37,10 @@ public class Controller {
         Screen screen = null;
         switch (levelName) {
             case "LEVEL_ONE":
-                screen = new LevelOne(stage, this, loader);
+                screen = new LevelOne(stage, this, loader, keybinds);
                 break;
             case "LEVEL_TWO":
-                screen = new LevelTwo(stage, this, loader);
+                screen = new LevelTwo(stage, this, loader, keybinds);
                 break;
             default:
                 triggerAlertAndExit("Couldn't load Level: " + levelName);

@@ -3,12 +3,11 @@ package dev.vernonlim.cw2024game.elements.actors;
 import dev.vernonlim.cw2024game.Main;
 import javafx.scene.image.ImageView;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
-import dev.vernonlim.cw2024game.elements.factories.ElementFactory;
+import dev.vernonlim.cw2024game.factories.ElementFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;
-import javafx.scene.media.Media;
 import javafx.scene.media.AudioClip;
 
 public class UserPlane extends FighterPlane {

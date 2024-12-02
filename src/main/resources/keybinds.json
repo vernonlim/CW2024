@@ -1,0 +1,13 @@
+{
+  "UP": "UP",
+  "DOWN": "DOWN",
+  "LEFT": "LEFT",
+  "RIGHT": "RIGHT",
+  "SPACE": "FIRE",
+  "SHIFT": "FOCUS",
+  "Z": "FIRE",
+  "W": "UP",
+  "A": "LEFT",
+  "S": "DOWN",
+  "D": "RIGHT"
+}

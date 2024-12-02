@@ -10,10 +10,11 @@ import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.elements.actors.UserProjectile;
-import dev.vernonlim.cw2024game.elements.factories.ElementFactory;
+import dev.vernonlim.cw2024game.factories.ElementFactory;
 import dev.vernonlim.cw2024game.managers.CollisionManager;
 import dev.vernonlim.cw2024game.managers.DamageCollisionManager;
 import dev.vernonlim.cw2024game.managers.InputManager;
+import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -63,7 +64,7 @@ public abstract class LevelParent implements Screen {
 
     private int currentNumberOfEnemies;
 
-    public LevelParent(Stage stage, Controller controller, AssetLoader loader, String backgroundImagePath, int playerInitialHealth) {
+    public LevelParent(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, int playerInitialHealth) {
         this.stage = stage;
 
         // initializing the main nodes
@@ -86,7 +87,7 @@ public abstract class LevelParent implements Screen {
         SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 
         // initializing handlers
-        this.inputManager = new InputManager(scene);
+        this.inputManager = new InputManager(scene, keybinds);
         this.controller = controller;
         this.loader = loader;
         this.collisionManager = new DamageCollisionManager();

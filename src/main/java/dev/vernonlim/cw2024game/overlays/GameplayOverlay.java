@@ -1,12 +1,10 @@
 package dev.vernonlim.cw2024game.overlays;
 
 import dev.vernonlim.cw2024game.Main;
-import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Element;
-import dev.vernonlim.cw2024game.elements.GameOverImage;
 import dev.vernonlim.cw2024game.elements.HeartDisplay;
 import dev.vernonlim.cw2024game.elements.WinImage;
-import dev.vernonlim.cw2024game.elements.factories.ElementFactory;
+import dev.vernonlim.cw2024game.factories.ElementFactory;
 import javafx.scene.layout.Pane;
 
 public class GameplayOverlay extends Element {

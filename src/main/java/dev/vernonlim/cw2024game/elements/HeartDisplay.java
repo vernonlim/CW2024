@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game.elements;
 
-import dev.vernonlim.cw2024game.assets.AssetLoader;
-import dev.vernonlim.cw2024game.elements.factories.ElementFactory;
+import dev.vernonlim.cw2024game.factories.ElementFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 

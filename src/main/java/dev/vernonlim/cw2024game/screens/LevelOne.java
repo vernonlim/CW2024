@@ -4,6 +4,7 @@ import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
+import dev.vernonlim.cw2024game.managers.KeybindStore;
 import javafx.stage.Stage;
 
 public class LevelOne extends LevelParent {
@@ -14,8 +15,8 @@ public class LevelOne extends LevelParent {
     private static final double ENEMY_SPAWN_PROBABILITY = .20;
     private static final int PLAYER_INITIAL_HEALTH = 5;
 
-    public LevelOne(Stage stage, Controller controller, AssetLoader loader) {
-        super(stage, controller, loader, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
+    public LevelOne(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds) {
+        super(stage, controller, loader, keybinds, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
     }
 
     @Override

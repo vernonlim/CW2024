@@ -1,4 +1,4 @@
-package dev.vernonlim.cw2024game.elements.factories;
+package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
@@ -9,7 +9,6 @@ import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.media.Media;
 import javafx.scene.media.AudioClip;
 
 public class ElementFactory {
