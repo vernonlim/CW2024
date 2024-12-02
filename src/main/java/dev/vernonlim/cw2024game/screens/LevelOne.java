@@ -1,7 +1,7 @@
 package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.ScreenList;
+import dev.vernonlim.cw2024game.ScreenCode;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
@@ -9,14 +9,14 @@ import dev.vernonlim.cw2024game.managers.KeybindStore;
 import javafx.stage.Stage;
 
 public class LevelOne extends LevelParent {
-    private static final ScreenList NEXT_LEVEL = ScreenList.TWO;
+    private static final ScreenCode NEXT_LEVEL = ScreenCode.LEVEL_TWO;
     private static final int TOTAL_ENEMIES = 5;
     private static final int KILLS_TO_ADVANCE = 10;
     private static final double ENEMY_SPAWN_PROBABILITY = .20;
     private static final int PLAYER_INITIAL_HEALTH = 5;
 
-    public LevelOne(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImageName, int playerInitialHealth) {
-        super(stage, controller, loader, keybinds, backgroundImageName, playerInitialHealth);
+    public LevelOne(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImageName, ScreenCode currentScreen, int playerInitialHealth) {
+        super(stage, controller, loader, keybinds, backgroundImageName, currentScreen, playerInitialHealth);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class LevelOne extends LevelParent {
         if (user.isDestroyed()) {
             loseGame();
         } else if (userHasReachedKillTarget()) {
-            goToNextLevel(NEXT_LEVEL);
+            goToScreen(NEXT_LEVEL);
         }
     }
 

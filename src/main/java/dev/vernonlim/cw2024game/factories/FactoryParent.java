@@ -5,11 +5,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public abstract class SharedFactoryImpl {
+public abstract class FactoryParent {
     protected Pane root;
     protected final AssetLoader loader;
 
-    public SharedFactoryImpl(Pane root, AssetLoader loader) {
+    public FactoryParent(Pane root, AssetLoader loader) {
         this.root = root;
         this.loader = loader;
     }

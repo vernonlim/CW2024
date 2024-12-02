@@ -98,6 +98,7 @@ public class UserPlane extends FighterPlane {
             lastFireTime = currentTime;
 
             fireProjectile();
+            super.updateActor(deltaTime, currentTime);
         }
 
         updatePosition(deltaTime);

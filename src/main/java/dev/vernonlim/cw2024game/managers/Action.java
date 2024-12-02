@@ -7,4 +7,5 @@ public enum Action {
     RIGHT,
     FIRE,
     FOCUS,
+    PAUSE,
 }

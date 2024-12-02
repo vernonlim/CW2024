@@ -22,7 +22,8 @@ abstract class CW2024AssetLoader implements AssetLoader {
             entry("gameover", "/images/gameover.png"),
             entry("heart", "/images/heart.png"),
             entry("youwin", "/images/youwin.png"),
-            entry("notfound", "/images/notfound.png")
+            entry("notfound", "/images/notfound.png"),
+            entry("menuarrow", "/images/menuarrow.png")
     );
 
     protected static final Map<String, String> soundPaths = Map.ofEntries(

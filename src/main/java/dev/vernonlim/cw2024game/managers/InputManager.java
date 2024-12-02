@@ -51,4 +51,8 @@ public class InputManager {
     public boolean isFocusPressed() {
         return keybindStore.getActionStatus(Action.FOCUS);
     }
+
+    public boolean isPausePressed() {
+        return keybindStore.getActionStatus(Action.PAUSE);
+    }
 }

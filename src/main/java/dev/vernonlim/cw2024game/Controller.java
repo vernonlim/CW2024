@@ -4,7 +4,6 @@ import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.factories.ScreenFactoryImpl;
 import dev.vernonlim.cw2024game.factories.interfaces.ScreenFactory;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
-import dev.vernonlim.cw2024game.screens.LevelParent;
 import dev.vernonlim.cw2024game.screens.Screen;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -29,11 +28,11 @@ public class Controller {
 
     public void launchGame() {
         stage.show();
-        goToLevel(ScreenList.ONE);
+        goToScreen(ScreenCode.MAIN_MENU);
     }
 
-    public void goToLevel(ScreenList level) {
-        Screen screen = screenFactory.createScreen(level);
+    public void goToScreen(ScreenCode screenCode) {
+        Screen screen = screenFactory.createScreen(screenCode);
 
         // Only null if the system if exiting
         Scene scene = screen.getScene();

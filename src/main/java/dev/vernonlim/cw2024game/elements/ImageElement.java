@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public abstract class ImageElement extends Element {
+public class ImageElement extends Element {
     protected ImageView view;
 
     public ImageElement(Pane root, ImageView imageView) {
