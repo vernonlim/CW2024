@@ -8,7 +8,7 @@ public class UserProjectile extends Projectile {
     private static final int HORIZONTAL_VELOCITY = 100;
 
     public UserProjectile(Pane root, ImageView imageView) {
-        super(root, imageView);
+        super(root, imageView, 1);
 
         // the projectile has to be in front of the firer
         moveHorizontally(getHalfWidth());

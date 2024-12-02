@@ -6,12 +6,16 @@ import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 
 public abstract class Projectile extends ActiveActorDestructible {
-    public Projectile(Pane root, ImageView imageView) {
+    public final int damage;
+
+    public Projectile(Pane root, ImageView imageView, int damage) {
         super(root, imageView);
+
+        this.damage = damage;
     }
 
     @Override
-    public void takeDamage() {
+    public void takeDamage(int damage) {
         this.destroy();
     }
 

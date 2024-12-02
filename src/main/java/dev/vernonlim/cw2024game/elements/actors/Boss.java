@@ -76,9 +76,9 @@ public class Boss extends FighterPlane {
     }
 
     @Override
-    public void takeDamage() {
+    public void takeDamage(int damage) {
         if (!isShielded) {
-            super.takeDamage();
+            super.takeDamage(damage);
         }
     }
 

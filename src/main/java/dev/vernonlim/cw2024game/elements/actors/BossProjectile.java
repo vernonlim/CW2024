@@ -8,7 +8,7 @@ public class BossProjectile extends Projectile {
     private static final int HORIZONTAL_VELOCITY = -15;
 
     public BossProjectile(Pane root, ImageView imageView) {
-        super(root, imageView);
+        super(root, imageView, 1);
     }
 
     @Override

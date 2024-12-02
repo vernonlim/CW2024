@@ -38,15 +38,15 @@ public abstract class FighterPlane extends ActiveActorDestructible {
     public abstract Projectile createProjectile();
 
     @Override
-    public void takeDamage() {
-        health--;
-        if (healthAtZero()) {
+    public void takeDamage(int damage) {
+        health -= damage;
+        if (healthBelowZero()) {
             this.destroy();
         }
     }
 
-    private boolean healthAtZero() {
-        return health == 0;
+    private boolean healthBelowZero() {
+        return health <= 0;
     }
 
     public int getHealth() {

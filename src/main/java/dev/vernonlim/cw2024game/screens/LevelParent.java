@@ -210,7 +210,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
     private void handleEnemyPenetration() {
         for (ActiveActorDestructible enemy : enemyUnits) {
             if (enemyHasPenetratedDefenses(enemy)) {
-                user.takeDamage();
+                user.takeDamage(1);
                 enemy.destroy();
             }
         }

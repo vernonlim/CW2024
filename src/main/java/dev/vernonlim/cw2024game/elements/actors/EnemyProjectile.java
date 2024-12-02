@@ -8,7 +8,7 @@ public class EnemyProjectile extends Projectile {
     private static final int HORIZONTAL_VELOCITY = -10;
 
     public EnemyProjectile(Pane root, ImageView imageView) {
-        super(root, imageView);
+        super(root, imageView, 1);
 
         // to be in front of the enemy plane
         moveHorizontally(-getHalfWidth());
