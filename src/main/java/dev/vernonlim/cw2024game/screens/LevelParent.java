@@ -3,14 +3,17 @@ package dev.vernonlim.cw2024game.screens;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
-import dev.vernonlim.cw2024game.elements.Background;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.elements.actors.UserProjectile;
-import dev.vernonlim.cw2024game.factories.ElementFactory;
+import dev.vernonlim.cw2024game.factories.*;
+import dev.vernonlim.cw2024game.factories.interfaces.ActorFactory;
+import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
+import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
+import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import dev.vernonlim.cw2024game.managers.CollisionManager;
 import dev.vernonlim.cw2024game.managers.DamageCollisionManager;
 import dev.vernonlim.cw2024game.managers.InputManager;
@@ -41,14 +44,19 @@ public abstract class LevelParent implements Screen {
     protected final UserPlane user;
     protected final AssetLoader loader;
     protected final ProjectileListener projectileListener;
+
     protected final ElementFactory elementFactory;
+    protected final ProjectileFactory projectileFactory;
+    protected final ActorFactory actorFactory;
+    protected final OverlayFactory overlayFactory;
+
     private final Controller controller;
     private final InputManager inputManager;
     private final CollisionManager collisionManager;
     private final Stage stage; // this is just here for stopping the timer thread...
 
     private final Timeline timeline;
-    private final Background background;
+    private final Element background;
 
     private final List<ActiveActorDestructible> friendlyUnits;
     private final List<ActiveActorDestructible> enemyUnits;
@@ -106,13 +114,16 @@ public abstract class LevelParent implements Screen {
             }
         };
 
-        this.elementFactory = new ElementFactory(root, loader, inputManager, projectileListener);
+        this.elementFactory = new ElementFactoryImpl(root, loader);
+        this.projectileFactory = new ProjectileFactoryImpl(root, loader);
+        this.actorFactory = new ActorFactoryImpl(root, loader, inputManager, projectileFactory, projectileListener, elementFactory);
+        this.overlayFactory = new OverlayFactoryImpl(stackPane, loader);
 
         // background
         this.background = elementFactory.createBackground(backgroundImagePath);
 
         // the overlay on top
-        this.gameplayOverlay = elementFactory.withNewRoot(stackPane).createGameplayOverlay(playerInitialHealth);
+        this.gameplayOverlay = overlayFactory.createGameplayOverlay(playerInitialHealth);
 
         // activity
         this.timeline = new Timeline(FRAME_RATE);
@@ -124,12 +135,12 @@ public abstract class LevelParent implements Screen {
 
         this.currentNumberOfEnemies = 0;
 
-        this.lastUpdate = System.currentTimeMillis(); // mostly arbitrary time at the start
+        this.lastUpdate = 0; // mostly arbitrary time at the start
         this.virtualTime = 0;
         this.timer = createTimer();
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
 
-        this.user = elementFactory.createUserPlane(playerInitialHealth);
+        this.user = actorFactory.createUserPlane(playerInitialHealth);
         friendlyUnits.add(user);
 
         initializeTimeline();
@@ -165,7 +176,7 @@ public abstract class LevelParent implements Screen {
     protected abstract void spawnEnemyUnits(double currentTime);
 
     public void start() {
-        background.requestFocus();
+        background.node.requestFocus();
         timeline.play();
     }
 

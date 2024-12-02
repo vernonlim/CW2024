@@ -1,9 +1,9 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.image.ImageView;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
-import dev.vernonlim.cw2024game.factories.ElementFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
@@ -23,8 +23,8 @@ public class UserPlane extends FighterPlane {
 
     private AudioClip fireSound;
 
-    public UserPlane(ElementFactory elementFactory, Pane root, ProjectileListener projectileListener, InputManager inputManager, ImageView imageView, AudioClip fireSound, int initialHealth) {
-        super(elementFactory, root, projectileListener, imageView, initialHealth);
+    public UserPlane(ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, InputManager inputManager, ImageView imageView, AudioClip fireSound, int initialHealth) {
+        super(projectileFactory, root, projectileListener, imageView, initialHealth);
 
         this.fireSound = fireSound;
         fireSound.setVolume(0.4);
@@ -112,7 +112,7 @@ public class UserPlane extends FighterPlane {
 
     @Override
     public Projectile createProjectile() {
-        return elementFactory.createUserProjectile(getX() + getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
+        return projectileFactory.createUserProjectile(getX() + getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
-import dev.vernonlim.cw2024game.factories.ElementFactory;
+import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 
@@ -11,8 +11,8 @@ public class EnemyPlane extends FighterPlane {
     private static final double FIRE_RATE = 0.01;
     private static final double PROJECTILE_Y_OFFSET = 7.0f;
 
-    public EnemyPlane(ElementFactory elementFactory, Pane root, ProjectileListener projectileListener, ImageView imageView) {
-        super(elementFactory, root, projectileListener, imageView, INITIAL_HEALTH);
+    public EnemyPlane(ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView) {
+        super(projectileFactory, root, projectileListener, imageView, INITIAL_HEALTH);
     }
 
     @Override
@@ -37,6 +37,6 @@ public class EnemyPlane extends FighterPlane {
 
     @Override
     public Projectile createProjectile() {
-        return elementFactory.createEnemyProjectile(getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
+        return projectileFactory.createEnemyProjectile(getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
     }
 }

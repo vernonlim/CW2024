@@ -11,8 +11,4 @@ public class Background extends ImageElement {
 
         show();
     }
-
-    public void requestFocus() {
-        view.requestFocus();
-    }
 }
