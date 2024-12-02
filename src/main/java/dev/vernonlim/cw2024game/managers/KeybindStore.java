@@ -79,13 +79,8 @@ public class KeybindStore {
                 entry(KeyCode.DOWN, Action.DOWN),
                 entry(KeyCode.LEFT, Action.LEFT),
                 entry(KeyCode.RIGHT, Action.RIGHT),
-                entry(KeyCode.SPACE, Action.FIRE),
                 entry(KeyCode.SHIFT, Action.FOCUS),
-                entry(KeyCode.Z, Action.FIRE),
-                entry(KeyCode.W, Action.UP),
-                entry(KeyCode.A, Action.LEFT),
-                entry(KeyCode.S, Action.DOWN),
-                entry(KeyCode.D, Action.RIGHT)
+                entry(KeyCode.Z, Action.FIRE)
         );
     }
 }
