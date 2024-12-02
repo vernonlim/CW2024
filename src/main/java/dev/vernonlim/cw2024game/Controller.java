@@ -14,14 +14,10 @@ import javafx.stage.Stage;
 
 public class Controller {
     private final Stage stage;
-    private final AssetLoader loader;
-    private final KeybindStore keybinds;
     private final ScreenFactory screenFactory;
 
     public Controller(Stage stage, AssetLoader loader, KeybindStore keybinds) {
         this.stage = stage;
-        this.loader = loader;
-        this.keybinds = keybinds;
         this.screenFactory = new ScreenFactoryImpl(stage, this, loader, keybinds);
     }
 
