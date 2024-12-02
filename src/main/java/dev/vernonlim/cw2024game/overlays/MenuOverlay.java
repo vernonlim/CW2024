@@ -37,7 +37,7 @@ public abstract class MenuOverlay extends Element {
     protected double lastUpdate;
     protected double lastMovementUpdate;
 
-    protected double leftPercent;
+    protected double rightPercent;
 
     public MenuOverlay(Controller controller, OverlayFactory overlayFactory, Pane root, InputManager input, ScreenChangeHandler screenChangeHandler) {
         super(root);
@@ -50,7 +50,7 @@ public abstract class MenuOverlay extends Element {
 
         this.startIndex = 3;
         this.currentButton = 0;
-        this.leftPercent = 40.0f;
+        this.rightPercent = 40.0f;
         this.totalRows = 8;
 
         this.gridPane = new GridPane();
@@ -64,14 +64,14 @@ public abstract class MenuOverlay extends Element {
         gridPane.setMaxHeight(Main.SCREEN_HEIGHT);
         gridPane.setMinWidth(Main.SCREEN_WIDTH);
         gridPane.setMinHeight(Main.SCREEN_HEIGHT);
-        gridPane.setGridLinesVisible(true);
+//        gridPane.setGridLinesVisible(true);
 
         ColumnConstraints colConst = new ColumnConstraints();
-        colConst.setPercentWidth(100.0f - leftPercent);
+        colConst.setPercentWidth(100.0f - rightPercent);
         gridPane.getColumnConstraints().add(colConst);
 
         ColumnConstraints colConst2 = new ColumnConstraints();
-        colConst2.setPercentWidth(leftPercent);
+        colConst2.setPercentWidth(rightPercent);
         gridPane.getColumnConstraints().add(colConst2);
 
         for (int i = 0; i < totalRows; i++) {
@@ -113,7 +113,7 @@ public abstract class MenuOverlay extends Element {
     }
 
     protected void updateInput(double currentTime) {
-        boolean triggered = input.isFirePressed();
+        boolean triggered = input.isConfirmPressed();
         boolean down = input.isDownPressed();
         boolean up = input.isUpPressed();
 
@@ -137,7 +137,7 @@ public abstract class MenuOverlay extends Element {
     protected int mod(int num, int n) {
         if (num < 0) {
             int remainder = (-num) % n;
-            return n - remainder - 1;
+            return n - remainder;
         } else {
             return num % n;
         }
@@ -150,7 +150,7 @@ public abstract class MenuOverlay extends Element {
     }
 
     protected double getXLeftAt(int row) {
-        double width = Main.SCREEN_WIDTH * ((100 - leftPercent) / 100.0f);
+        double width = Main.SCREEN_WIDTH * ((100 - rightPercent) / 100.0f);
 
         return width - menuArrow.getHalfWidth();
     }

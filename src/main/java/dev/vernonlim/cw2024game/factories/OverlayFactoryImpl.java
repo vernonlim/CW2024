@@ -82,10 +82,10 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
         return new PauseOverlay(controller, this, root, input, screenChangeHandler, currentScreen);
     }
 
-    public TextBox createTextBox(String content, ClickListener clickListener) {
+    public TextBox createTextBox(String content, ClickListener clickListener, double rightPercent, int rows) {
         Text text = new Text(content);
         text.setFont(Font.font(50));
 
-        return new TextBox(root, text, clickListener);
+        return new TextBox(root, text, clickListener, rightPercent, rows);
     }
 }

@@ -20,5 +20,5 @@ public interface OverlayFactory {
     Element createMenuArrow();
     MenuOverlay createMenuOverlay(ScreenChangeHandler screenChangeHandler);
     MenuOverlay createPauseOverlay(ScreenChangeHandler screenChangeHandler, ScreenCode currentScreen);
-    TextBox createTextBox(String content, ClickListener clickListener);
+    TextBox createTextBox(String content, ClickListener clickListener, double rightPercent, int rows);
 }

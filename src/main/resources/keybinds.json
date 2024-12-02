@@ -10,5 +10,6 @@
   "A": "LEFT",
   "S": "DOWN",
   "D": "RIGHT",
-  "ESCAPE": "PAUSE"
+  "ESCAPE": "PAUSE",
+  "C": "CONFIRM"
 }

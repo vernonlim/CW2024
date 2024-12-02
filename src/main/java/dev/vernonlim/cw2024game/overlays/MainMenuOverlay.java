@@ -18,21 +18,21 @@ public class MainMenuOverlay extends MenuOverlay {
             public void onClick() {
                 screenChangeHandler.changeScreen(ScreenCode.LEVEL_ONE);
             }
-        });
+        }, rightPercent, totalRows);
 
         TextBox levelOne = gridElementFactory.createTextBox("Level One", new ClickListener() {
             @Override
             public void onClick() {
                 screenChangeHandler.changeScreen(ScreenCode.LEVEL_ONE);
             }
-        });
+        }, rightPercent, totalRows);
 
         TextBox levelTwo = gridElementFactory.createTextBox("Level Two", new ClickListener() {
             @Override
             public void onClick() {
                 screenChangeHandler.changeScreen(ScreenCode.LEVEL_TWO);
             }
-        });
+        }, rightPercent, totalRows);
 
         addButton(startGame);
         addButton(levelOne);

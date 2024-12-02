@@ -55,6 +55,8 @@ public abstract class LevelParent extends ScreenParent implements Screen {
     protected boolean paused;
     protected double lastPaused;
 
+    protected boolean won;
+
     public LevelParent(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen, int playerInitialHealth) {
         super(controller, loader, keybinds, backgroundImagePath, currentScreen);
 
@@ -138,6 +140,13 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         lastUpdate = currentTime;
 
         double realCurrentTime = System.currentTimeMillis();
+
+        if (won) {
+            pauseOverlay.update(realCurrentTime);
+
+            return;
+        }
+
         if (inputManager.isPausePressed() && realCurrentTime - lastPaused > 200.0f) {
             lastPaused = realCurrentTime;
 
@@ -148,6 +157,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
                 pauseOverlay.show();
             } else {
                 timer.start();
+                pauseOverlay.hide();
             }
         }
 
@@ -221,12 +231,14 @@ public abstract class LevelParent extends ScreenParent implements Screen {
     }
 
     protected void winGame() {
-        timeline.stop();
         gameplayOverlay.showWinImage();
+        pauseOverlay.show();
+        paused = true;
+        won = true;
     }
 
     protected void loseGame() {
-        timeline.stop();
+        timer.stop();
         gameplayOverlay.showGameOverImage();
     }
 

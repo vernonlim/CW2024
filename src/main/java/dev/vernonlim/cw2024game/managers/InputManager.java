@@ -55,4 +55,8 @@ public class InputManager {
     public boolean isPausePressed() {
         return keybindStore.getActionStatus(Action.PAUSE);
     }
+
+    public boolean isConfirmPressed() {
+        return keybindStore.getActionStatus(Action.CONFIRM);
+    }
 }

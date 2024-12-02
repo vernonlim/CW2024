@@ -8,4 +8,5 @@ public enum Action {
     FIRE,
     FOCUS,
     PAUSE,
+    CONFIRM,
 }

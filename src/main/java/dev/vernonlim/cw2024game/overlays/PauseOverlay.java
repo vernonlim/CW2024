@@ -18,14 +18,14 @@ public class PauseOverlay extends MenuOverlay {
             public void onClick() {
                 screenChangeHandler.changeScreen(ScreenCode.MAIN_MENU);
             }
-        });
+        }, rightPercent, totalRows);
 
         TextBox retry = gridElementFactory.createTextBox("Retry Level", new ClickListener() {
             @Override
             public void onClick() {
                 screenChangeHandler.changeScreen(currentScreen);
             }
-        });
+        }, rightPercent, totalRows);
 
         addButton(backToMenu);
         addButton(retry);
