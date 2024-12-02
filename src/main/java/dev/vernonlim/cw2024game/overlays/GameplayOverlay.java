@@ -12,10 +12,6 @@ import javafx.scene.layout.Pane;
 public class GameplayOverlay extends Element {
     private static final double HEART_DISPLAY_X_POSITION = 5;
     private static final double HEART_DISPLAY_Y_POSITION = 25;
-    private static final int WIN_IMAGE_X_POSITION = 355;
-    private static final int WIN_IMAGE_Y_POSITION = 175;
-    private static final int LOSS_SCREEN_X_POSITION = -160;
-    private static final int LOSS_SCREEN_Y_POSITION = -375;
     public final Pane pane;
     private final WinImage winImage;
     private final Element gameOverImage;
@@ -34,8 +30,8 @@ public class GameplayOverlay extends Element {
         this.overlayElementFactory = elementFactory.withNewRoot(pane);
 
         this.heartDisplay = overlayElementFactory.createHeartDisplay(HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
-        this.winImage = overlayElementFactory.createWinImage(WIN_IMAGE_X_POSITION, WIN_IMAGE_Y_POSITION);
-        this.gameOverImage = overlayElementFactory.createGameOverImage(LOSS_SCREEN_X_POSITION, LOSS_SCREEN_Y_POSITION);
+        this.winImage = overlayElementFactory.createWinImage(Main.SCREEN_WIDTH / 2.0f, Main.SCREEN_HEIGHT / 2.0f);
+        this.gameOverImage = overlayElementFactory.createGameOverImage(Main.SCREEN_WIDTH / 2.0f, Main.SCREEN_HEIGHT / 2.0f);
 
         heartDisplay.show();
 
