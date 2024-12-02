@@ -10,6 +10,7 @@ public abstract class FighterPlane extends ActiveActorDestructible {
     private final ProjectileListener projectileListener;
     protected double lastFireTime;
     private int health;
+    protected boolean shouldFire;
 
     public FighterPlane(ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView, int health) {
         super(root, imageView);
@@ -18,11 +19,20 @@ public abstract class FighterPlane extends ActiveActorDestructible {
         this.projectileListener = projectileListener;
         this.projectileFactory = projectileFactory;
 
-        this.lastFireTime = -99999;
+        this.lastFireTime = 0;
+        this.shouldFire = false;
+    }
+
+    @Override
+    public void updateActor(double deltaTime, double currentTime) {
+        if (shouldFire) {
+            projectileListener.onFire(createProjectile());
+            shouldFire = false;
+        }
     }
 
     public void fireProjectile() {
-        projectileListener.onFire(createProjectile());
+        this.shouldFire = true;
     }
 
     public abstract Projectile createProjectile();

@@ -9,5 +9,6 @@
   "W": "UP",
   "A": "LEFT",
   "S": "DOWN",
-  "D": "RIGHT"
+  "D": "RIGHT",
+  "ESCAPE": "PAUSE"
 }

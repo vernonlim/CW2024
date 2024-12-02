@@ -11,7 +11,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.scene.layout.Pane;
 
-public class ActorFactoryImpl extends SharedFactoryImpl implements ActorFactory {
+public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
     protected InputManager inputManager;
     protected ProjectileListener projectileListener;
     protected ProjectileFactory projectileFactory;

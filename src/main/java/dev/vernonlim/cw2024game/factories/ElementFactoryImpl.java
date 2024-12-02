@@ -8,7 +8,7 @@ import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 
-public class ElementFactoryImpl extends SharedFactoryImpl implements ElementFactory {
+public class ElementFactoryImpl extends FactoryParent implements ElementFactory {
     public ElementFactoryImpl(Pane root, AssetLoader loader) {
         super(root, loader);
     }

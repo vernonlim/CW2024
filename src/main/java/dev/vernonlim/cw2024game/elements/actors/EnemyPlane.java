@@ -22,6 +22,8 @@ public class EnemyPlane extends FighterPlane {
 
     @Override
     public void updateActor(double deltaTime, double currentTime) {
+        super.updateActor(deltaTime, currentTime);
+
         updatePosition(deltaTime);
 
         if ((currentTime - lastFireTime) > 50.0f) {
