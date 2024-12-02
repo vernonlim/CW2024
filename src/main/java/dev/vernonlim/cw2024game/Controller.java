@@ -1,9 +1,10 @@
 package dev.vernonlim.cw2024game;
 
 import dev.vernonlim.cw2024game.assets.AssetLoader;
+import dev.vernonlim.cw2024game.factories.ScreenFactoryImpl;
+import dev.vernonlim.cw2024game.factories.interfaces.ScreenFactory;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
-import dev.vernonlim.cw2024game.screens.LevelOne;
-import dev.vernonlim.cw2024game.screens.LevelTwo;
+import dev.vernonlim.cw2024game.screens.LevelParent;
 import dev.vernonlim.cw2024game.screens.Screen;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -15,11 +16,13 @@ public class Controller {
     private final Stage stage;
     private final AssetLoader loader;
     private final KeybindStore keybinds;
+    private final ScreenFactory screenFactory;
 
     public Controller(Stage stage, AssetLoader loader, KeybindStore keybinds) {
         this.stage = stage;
         this.loader = loader;
         this.keybinds = keybinds;
+        this.screenFactory = new ScreenFactoryImpl(stage, this, loader, keybinds);
     }
 
     public static void triggerAlertAndExit(String message) {
@@ -30,21 +33,11 @@ public class Controller {
 
     public void launchGame() {
         stage.show();
-        goToLevel(Level.ONE);
+        goToLevel(ScreenList.ONE);
     }
 
-    public void goToLevel(Level level) {
-        Screen screen = null;
-        switch (level) {
-            case Level.ONE:
-                screen = new LevelOne(stage, this, loader, keybinds);
-                break;
-            case Level.TWO:
-                screen = new LevelTwo(stage, this, loader, keybinds);
-                break;
-            default:
-                triggerAlertAndExit("Couldn't load Level: " + level);
-        }
+    public void goToLevel(ScreenList level) {
+        Screen screen = screenFactory.createScreen(level);
 
         // Only null if the system if exiting
         Scene scene = screen.getScene();

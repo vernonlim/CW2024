@@ -8,12 +8,10 @@ import dev.vernonlim.cw2024game.managers.KeybindStore;
 import javafx.stage.Stage;
 
 public class LevelTwo extends LevelParent {
-    private static final String BACKGROUND_IMAGE_NAME = "background2";
-    private static final int PLAYER_INITIAL_HEALTH = 5;
     private final FighterPlane boss;
 
-    public LevelTwo(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds) {
-        super(stage, controller, loader, keybinds, BACKGROUND_IMAGE_NAME, PLAYER_INITIAL_HEALTH);
+    public LevelTwo(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImageName, int playerInitialHealth) {
+        super(stage, controller, loader, keybinds, backgroundImageName, playerInitialHealth);
 
         boss = actorFactory.createBoss();
     }
