@@ -7,7 +7,7 @@ import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public class OverlayFactoryImpl extends AbstractFactoryImpl implements OverlayFactory {
+public class OverlayFactoryImpl extends SharedFactoryImpl implements OverlayFactory {
     public OverlayFactoryImpl(Pane root, AssetLoader loader) {
         super(root, loader);
     }

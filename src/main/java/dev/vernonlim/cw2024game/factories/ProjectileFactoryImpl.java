@@ -9,7 +9,7 @@ import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
-public class ProjectileFactoryImpl extends AbstractFactoryImpl implements ProjectileFactory {
+public class ProjectileFactoryImpl extends SharedFactoryImpl implements ProjectileFactory {
     public ProjectileFactoryImpl(Pane root, AssetLoader loader) {
         super(root, loader);
     }
