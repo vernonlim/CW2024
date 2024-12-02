@@ -1,6 +1,7 @@
 package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.Controller;
+import dev.vernonlim.cw2024game.Level;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
@@ -9,7 +10,7 @@ import javafx.stage.Stage;
 
 public class LevelOne extends LevelParent {
     private static final String BACKGROUND_IMAGE_NAME = "background1";
-    private static final String NEXT_LEVEL = "LEVEL_TWO";
+    private static final Level NEXT_LEVEL = Level.TWO;
     private static final int TOTAL_ENEMIES = 5;
     private static final int KILLS_TO_ADVANCE = 10;
     private static final double ENEMY_SPAWN_PROBABILITY = .20;

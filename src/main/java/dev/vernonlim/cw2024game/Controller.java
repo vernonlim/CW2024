@@ -30,20 +30,20 @@ public class Controller {
 
     public void launchGame() {
         stage.show();
-        goToLevel("LEVEL_ONE");
+        goToLevel(Level.ONE);
     }
 
-    public void goToLevel(String levelName) {
+    public void goToLevel(Level level) {
         Screen screen = null;
-        switch (levelName) {
-            case "LEVEL_ONE":
+        switch (level) {
+            case Level.ONE:
                 screen = new LevelOne(stage, this, loader, keybinds);
                 break;
-            case "LEVEL_TWO":
+            case Level.TWO:
                 screen = new LevelTwo(stage, this, loader, keybinds);
                 break;
             default:
-                triggerAlertAndExit("Couldn't load Level: " + levelName);
+                triggerAlertAndExit("Couldn't load Level: " + level);
         }
 
         // Only null if the system if exiting

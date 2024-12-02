@@ -1,6 +1,7 @@
 package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.Controller;
+import dev.vernonlim.cw2024game.Level;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Element;
@@ -180,10 +181,10 @@ public abstract class LevelParent implements Screen {
         timeline.play();
     }
 
-    public void goToNextLevel(String levelName) {
+    public void goToNextLevel(Level level) {
         timeline.pause();
         Platform.runLater(() -> {
-            controller.goToLevel(levelName);
+            controller.goToLevel(level);
         });
     }
 
