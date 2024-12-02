@@ -6,8 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 public abstract class Element {
-    protected Pane root;
-    protected Node node;
+    public Pane root;
+    public Node node;
 
     public Element(Pane root) {
         this.root = root;
@@ -65,11 +65,11 @@ public abstract class Element {
     }
 
     protected void moveHorizontally(double horizontalMove) {
-        node.setLayoutX(node.getLayoutX() + horizontalMove);
+        setX(getX() + horizontalMove);
     }
 
     protected void moveVertically(double verticalMove) {
-        node.setLayoutY(node.getLayoutY() + verticalMove);
+        setY(getY() + verticalMove);
     }
 
     protected void move(double horizontalMove, double verticalMove) {

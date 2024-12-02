@@ -1,26 +1,27 @@
 package dev.vernonlim.cw2024game.elements;
 
-import dev.vernonlim.cw2024game.factories.ElementFactory;
+import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
 public class HeartDisplay extends PaneElement {
-    private final ElementFactory elementFactory;
-    private final ArrayList<Heart> hearts = new ArrayList<Heart>();
+    private final OverlayFactory heartFactory;
+    private final ArrayList<Element> hearts = new ArrayList<>();
     private final double containerXPosition;
     private final double containerYPosition;
 
-    public HeartDisplay(ElementFactory elementFactory, Pane root, double xPosition, double yPosition, int heartsToDisplay) {
+    public HeartDisplay(OverlayFactory overlayFactory, Pane root, double xPosition, double yPosition, int heartsToDisplay) {
         super(root);
 
-        this.elementFactory = elementFactory;
+        initializeContainer();
+
+        this.heartFactory = overlayFactory.withNewRoot(container);
 
         containerXPosition = xPosition;
         containerYPosition = yPosition;
 
-        initializeContainer();
         initializeHearts(heartsToDisplay);
     }
 
@@ -33,7 +34,7 @@ public class HeartDisplay extends PaneElement {
 
     private void initializeHearts(int heartCount) {
         for (int i = 0; i < heartCount; i++) {
-            Heart heart = elementFactory.createHeart(container);
+            Element heart = heartFactory.createHeart();
 
             heart.show();
 

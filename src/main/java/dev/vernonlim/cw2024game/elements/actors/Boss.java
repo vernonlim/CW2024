@@ -1,8 +1,10 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
-import dev.vernonlim.cw2024game.factories.ElementFactory;
+import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
+import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
@@ -20,15 +22,19 @@ public class Boss extends FighterPlane {
     private static final double MAX_TIME_WITH_SHIELD = 500 * 50.0f;
     private static final double PROJECTILE_Y_OFFSET = 0.0f;
     private final List<Integer> movePattern;
-    private final ShieldImage shieldImage;
+    private final Element shieldImage;
     private boolean isShielded;
     private double timeMovingInSameDirection;
     private int indexOfCurrentMove;
     private double lastShieldActivation;
     private double timeWithShieldActivated;
 
-    public Boss(ElementFactory elementFactory, Pane root, ProjectileListener projectileListener, ImageView imageView) {
-        super(elementFactory, root, projectileListener, imageView, HEALTH);
+    protected ElementFactory elementFactory;
+
+    public Boss(ElementFactory elementFactory, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView) {
+        super(projectileFactory, root, projectileListener, imageView, HEALTH);
+
+        this.elementFactory = elementFactory;
 
         setXFromRight(5.0f);
         setY(Main.SCREEN_HEIGHT / 2.0f);
@@ -63,7 +69,7 @@ public class Boss extends FighterPlane {
 
     @Override
     public Projectile createProjectile() {
-        return elementFactory.createBossProjectile(getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
+        return projectileFactory.createBossProjectile(getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
     }
 
     @Override
