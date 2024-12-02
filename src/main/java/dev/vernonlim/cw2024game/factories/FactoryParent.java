@@ -6,7 +6,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public abstract class FactoryParent {
-    protected Pane root;
+    protected final Pane root;
     protected final AssetLoader loader;
 
     public FactoryParent(Pane root, AssetLoader loader) {

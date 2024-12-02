@@ -1,6 +1,7 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.elements.ProjectileCode;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.image.ImageView;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
@@ -113,7 +114,7 @@ public class UserPlane extends FighterPlane {
 
     @Override
     public Projectile createProjectile() {
-        return projectileFactory.createUserProjectile(getX() + getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
+        return projectileFactory.createProjectile(ProjectileCode.USER, getX() + getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
     }
 
     @Override

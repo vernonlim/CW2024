@@ -74,7 +74,7 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
         return new ImageElement(root, imageView);
     }
 
-    public MenuOverlay createMenuOverlay(ScreenChangeHandler screenChangeHandler) {
+    public MenuOverlay createMainMenuOverlay(ScreenChangeHandler screenChangeHandler) {
         return new MainMenuOverlay(controller, this, root, input, screenChangeHandler);
     }
 

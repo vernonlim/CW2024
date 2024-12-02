@@ -2,6 +2,7 @@ package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.Element;
+import dev.vernonlim.cw2024game.elements.ProjectileCode;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
@@ -71,7 +72,7 @@ public class Boss extends FighterPlane {
 
     @Override
     public Projectile createProjectile() {
-        return projectileFactory.createBossProjectile(getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
+        return projectileFactory.createProjectile(ProjectileCode.BOSS,getX() - getHalfWidth(), getY() + PROJECTILE_Y_OFFSET);
     }
 
     @Override

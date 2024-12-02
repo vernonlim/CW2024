@@ -5,7 +5,6 @@ import dev.vernonlim.cw2024game.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.overlays.MenuOverlay;
-import javafx.application.Platform;
 
 public class MainMenu extends ScreenParent implements Screen {
     protected final MenuOverlay menuOverlay;
@@ -15,7 +14,7 @@ public class MainMenu extends ScreenParent implements Screen {
     public MainMenu(Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen) {
         super(controller, loader, keybinds, backgroundImagePath, currentScreen);
 
-        this.menuOverlay = overlayFactory.createMenuOverlay(new ScreenChangeHandler() {
+        this.menuOverlay = overlayFactory.createMainMenuOverlay(new ScreenChangeHandler() {
             @Override
             public void changeScreen(ScreenCode code) {
                 goToScreen(code);
