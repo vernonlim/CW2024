@@ -15,12 +15,14 @@ public abstract class ActiveActorDestructible extends ActiveActor implements Des
 
     protected ActorStrategy actorStrategy;
 
-    public ActiveActorDestructible(Pane root, ImageView imageView, double speed, boolean alwaysInBounds) {
+    public ActiveActorDestructible(ActorStrategy actorStrategy, Pane root, ImageView imageView, double speed, boolean alwaysInBounds) {
         super(root, imageView);
         isDestroyed = false;
 
         this.speed = speed;
         this.alwaysInBounds = alwaysInBounds;
+
+        this.actorStrategy = actorStrategy;
     }
 
     @Override

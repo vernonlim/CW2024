@@ -7,6 +7,8 @@ import dev.vernonlim.cw2024game.elements.actors.BossProjectile;
 import dev.vernonlim.cw2024game.elements.actors.EnemyProjectile;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.UserProjectile;
+import dev.vernonlim.cw2024game.elements.strategies.ActorStrategy;
+import dev.vernonlim.cw2024game.elements.strategies.LinearProjectileStrategy;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -32,7 +34,9 @@ public class ProjectileFactoryImpl extends FactoryParent implements ProjectileFa
         ImageView imageView = makeView(imageName);
         imageView.setFitHeight(12);
 
-        UserProjectile projectile = new UserProjectile(root, imageView, velocity);
+        ActorStrategy actorStrategy = new LinearProjectileStrategy(velocity);
+
+        UserProjectile projectile = new UserProjectile(actorStrategy, root, imageView);
         projectile.setPosition(initialXPos, initialYPos);
 
         return projectile;
@@ -42,7 +46,9 @@ public class ProjectileFactoryImpl extends FactoryParent implements ProjectileFa
         ImageView imageView = makeView("enemyFire");
         imageView.setFitHeight(34);
 
-        EnemyProjectile projectile = new EnemyProjectile(root, imageView);
+        ActorStrategy actorStrategy = new LinearProjectileStrategy(new Vector(-1, 0));
+
+        EnemyProjectile projectile = new EnemyProjectile(actorStrategy, root, imageView);
         projectile.setPosition(initialXPos, initialYPos);
 
         return projectile;
@@ -52,7 +58,9 @@ public class ProjectileFactoryImpl extends FactoryParent implements ProjectileFa
         ImageView imageView = makeView("fireball");
         imageView.setFitHeight(75);
 
-        BossProjectile projectile = new BossProjectile(root, imageView);
+        ActorStrategy actorStrategy = new LinearProjectileStrategy(new Vector(-1, 0));
+
+        BossProjectile projectile = new BossProjectile(actorStrategy, root, imageView);
         projectile.setPosition(initialXPos, initialYPos);
 
         return projectile;

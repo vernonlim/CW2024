@@ -7,8 +7,7 @@ import dev.vernonlim.cw2024game.elements.actors.ActiveActor;
 public class EnemyPlaneStrategy extends PlaneStrategyImpl implements PlaneStrategy {
     private static final double FIRE_RATE = 0.01;
 
-    public EnemyPlaneStrategy(ActiveActor actor) {
-        super(actor);
+    public EnemyPlaneStrategy() {
     }
 
     @Override

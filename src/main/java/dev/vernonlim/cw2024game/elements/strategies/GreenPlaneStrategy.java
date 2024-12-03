@@ -1,12 +1,11 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
 import dev.vernonlim.cw2024game.elements.ProjectileCode;
-import dev.vernonlim.cw2024game.elements.actors.ActiveActor;
 import dev.vernonlim.cw2024game.managers.InputManager;
 
-public class UserPlane2Strategy extends UserPlaneStrategy implements PlaneStrategy {
-    public UserPlane2Strategy(ActiveActor actor, InputManager input) {
-        super(actor, input);
+public class GreenPlaneStrategy extends UserPlaneStrategy implements PlaneStrategy {
+    public GreenPlaneStrategy(InputManager input) {
+        super(input);
     }
 
     @Override

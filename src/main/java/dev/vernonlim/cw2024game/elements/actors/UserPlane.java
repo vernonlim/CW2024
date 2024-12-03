@@ -2,9 +2,7 @@ package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.ProjectileCode;
-import dev.vernonlim.cw2024game.elements.Vector;
 import dev.vernonlim.cw2024game.elements.strategies.PlaneStrategy;
-import dev.vernonlim.cw2024game.elements.strategies.UserPlaneStrategy;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.image.ImageView;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
@@ -24,8 +22,8 @@ public abstract class UserPlane extends FighterPlane {
 
     protected AudioClip fireSound;
 
-    public UserPlane(ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, InputManager input, ImageView imageView, AudioClip fireSound, int initialHealth, double speed, double projectileYOffset) {
-        super(projectileFactory, root, projectileListener, imageView, initialHealth, speed, projectileYOffset, FACING_RIGHT, ALWAYS_IN_BOUNDS);
+    public UserPlane(PlaneStrategy planeStrategy, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, InputManager input, ImageView imageView, AudioClip fireSound, int initialHealth, double speed, double projectileYOffset) {
+        super(planeStrategy, projectileFactory, root, projectileListener, imageView, initialHealth, speed, projectileYOffset, FACING_RIGHT, ALWAYS_IN_BOUNDS);
 
         this.fireSound = fireSound;
         fireSound.setVolume(0.4);
@@ -35,12 +33,8 @@ public abstract class UserPlane extends FighterPlane {
 
         this.input = input;
 
-        initializeStrategy();
-
         show();
     }
-
-    protected abstract void initializeStrategy();
 
     @Override
     public void fireProjectile(ProjectileCode code) {

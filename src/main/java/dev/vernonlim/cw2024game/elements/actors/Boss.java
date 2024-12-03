@@ -27,12 +27,10 @@ public class Boss extends FighterPlane {
 
     protected BossStrategy bossStrategy;
 
-    public Boss(ElementFactory elementFactory, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView) {
-        super(projectileFactory, root, projectileListener, imageView, HEALTH, SPEED, PROJECTILE_Y_OFFSET, FACING_RIGHT, ALWAYS_IN_BOUNDS);
+    public Boss(BossStrategy bossStrategy, ElementFactory elementFactory, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView) {
+        super(bossStrategy, projectileFactory, root, projectileListener, imageView, HEALTH, SPEED, PROJECTILE_Y_OFFSET, FACING_RIGHT, ALWAYS_IN_BOUNDS);
 
-        this.bossStrategy = new BossStrategyImpl(this);
-        this.planeStrategy = bossStrategy;
-        this.actorStrategy = planeStrategy;
+        this.bossStrategy = bossStrategy;
 
         setXFromRight(5.0f);
         setY(Main.SCREEN_HEIGHT / 2.0f);

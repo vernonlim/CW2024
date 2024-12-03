@@ -3,6 +3,7 @@ package dev.vernonlim.cw2024game.factories;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.actors.*;
+import dev.vernonlim.cw2024game.elements.strategies.*;
 import dev.vernonlim.cw2024game.factories.interfaces.ActorFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
@@ -41,7 +42,9 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
 
         AudioClip fireSound = loader.loadSound("gunshot");
 
-        return new RegularPlane(projectileFactory, root, projectileListener, inputManager, imageView, fireSound, initialHealth, 24.0f, 7.0f);
+        PlaneStrategy planeStrategy = new RegularPlaneStrategy(inputManager);
+
+        return new RegularPlane(planeStrategy, projectileFactory, root, projectileListener, inputManager, imageView, fireSound, initialHealth, 24.0f, 7.0f);
     }
 
     private UserPlane createGreenPlane() {
@@ -52,14 +55,18 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
 
         AudioClip fireSound = loader.loadSound("laser");
 
-        return new GreenPlane(projectileFactory, root, projectileListener, inputManager, imageView, fireSound, initialHealth, 30.0f, 7.0f);
+        PlaneStrategy planeStrategy = new GreenPlaneStrategy(inputManager);
+
+        return new GreenPlane(planeStrategy, projectileFactory, root, projectileListener, inputManager, imageView, fireSound, initialHealth, 30.0f, 7.0f);
     }
 
     public FighterPlane createEnemyPlane(double initialXPos, double initialYPos) {
         ImageView imageView = makeView("enemyplane");
         imageView.setFitHeight(54);
 
-        EnemyPlane plane = new EnemyPlane(projectileFactory, root, projectileListener, imageView);
+        PlaneStrategy planeStrategy = new EnemyPlaneStrategy();
+
+        EnemyPlane plane = new EnemyPlane(planeStrategy, projectileFactory, root, projectileListener, imageView);
         plane.setPosition(initialXPos, initialYPos);
 
         return plane;
@@ -69,6 +76,8 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         ImageView imageView = makeView("bossplane");
         imageView.setFitHeight(56);
 
-        return new Boss(elementFactory, projectileFactory, root, projectileListener, imageView);
+        BossStrategy bossStrategy = new BossStrategyImpl();
+
+        return new Boss(bossStrategy, elementFactory, projectileFactory, root, projectileListener, imageView);
     }
 }

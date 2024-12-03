@@ -2,13 +2,11 @@ package dev.vernonlim.cw2024game.elements.strategies;
 
 import dev.vernonlim.cw2024game.elements.actors.ActiveActor;
 
-public abstract class ActorAwareStrategy implements PlaneStrategy {
-    protected ActiveActor actor;
+public abstract class StrategyParent implements PlaneStrategy {
     protected double deltaTime;
     protected double currentTime;
 
-    public ActorAwareStrategy(ActiveActor actor) {
-        this.actor = actor;
+    public StrategyParent() {
         this.deltaTime = 0;
         this.currentTime = 0;
     }

@@ -22,9 +22,7 @@ public class BossStrategyImpl extends PlaneStrategyImpl implements BossStrategy 
     private double timeWithShieldActivated;
     private boolean isShielded;
 
-    public BossStrategyImpl(ActiveActor actor) {
-        super(actor);
-
+    public BossStrategyImpl() {
         movePattern = new ArrayList<>();
         timeMovingInSameDirection = 0;
         indexOfCurrentMove = 0;

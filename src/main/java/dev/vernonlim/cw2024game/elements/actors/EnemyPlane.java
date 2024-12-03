@@ -16,10 +16,7 @@ public class EnemyPlane extends FighterPlane {
     private static final boolean FACING_RIGHT = false;
     private static final boolean ALWAYS_IN_BOUNDS = false;
 
-    public EnemyPlane(ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView) {
-        super(projectileFactory, root, projectileListener, imageView, INITIAL_HEALTH, SPEED, PROJECTILE_Y_OFFSET, FACING_RIGHT, ALWAYS_IN_BOUNDS);
-
-        this.planeStrategy = new EnemyPlaneStrategy(this);
-        this.actorStrategy = planeStrategy;
+    public EnemyPlane(PlaneStrategy planeStrategy, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView) {
+        super(planeStrategy, projectileFactory, root, projectileListener, imageView, INITIAL_HEALTH, SPEED, PROJECTILE_Y_OFFSET, FACING_RIGHT, ALWAYS_IN_BOUNDS);
     }
 }

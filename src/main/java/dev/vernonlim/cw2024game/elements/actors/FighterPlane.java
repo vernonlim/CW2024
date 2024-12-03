@@ -3,6 +3,7 @@ package dev.vernonlim.cw2024game.elements.actors;
 import dev.vernonlim.cw2024game.elements.ProjectileCode;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.Vector;
+import dev.vernonlim.cw2024game.elements.strategies.ActorStrategy;
 import dev.vernonlim.cw2024game.elements.strategies.PlaneStrategy;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.image.ImageView;
@@ -18,8 +19,8 @@ public abstract class FighterPlane extends ActiveActorDestructible {
 
     protected PlaneStrategy planeStrategy;
 
-    public FighterPlane(ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView, int health, double speed, double projectileYOffset, boolean facingRight, boolean alwaysInBounds) {
-        super(root, imageView, speed, alwaysInBounds);
+    public FighterPlane(PlaneStrategy planeStrategy, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView, int health, double speed, double projectileYOffset, boolean facingRight, boolean alwaysInBounds) {
+        super(planeStrategy, root, imageView, speed, alwaysInBounds);
 
         this.health = health;
 
@@ -28,6 +29,8 @@ public abstract class FighterPlane extends ActiveActorDestructible {
 
         this.projectileYOffset = projectileYOffset;
         this.facingRight = facingRight;
+
+        this.planeStrategy = planeStrategy;
     }
 
     @Override
