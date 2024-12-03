@@ -45,7 +45,7 @@ public abstract class FighterPlane extends ActiveActorDestructible {
         }
     }
 
-    private boolean healthBelowZero() {
+    public boolean healthBelowZero() {
         return health <= 0;
     }
 

@@ -64,36 +64,36 @@ public abstract class Element {
         return getHeight() / 2;
     }
 
-    protected void moveHorizontally(double horizontalMove) {
+    public void moveHorizontally(double horizontalMove) {
         setX(getX() + horizontalMove);
     }
 
-    protected void moveVertically(double verticalMove) {
+    public void moveVertically(double verticalMove) {
         setY(getY() + verticalMove);
     }
 
-    protected void move(double horizontalMove, double verticalMove) {
+    public void move(double horizontalMove, double verticalMove) {
         moveHorizontally(horizontalMove);
         moveVertically(verticalMove);
     }
 
-    protected void setXFromLeft(double xOffset) {
+    public void setXFromLeft(double xOffset) {
         setX(xOffset + getHalfWidth());
     }
 
-    protected void setXFromRight(double xOffset) {
+    public void setXFromRight(double xOffset) {
         setX(Main.SCREEN_WIDTH - (getHalfWidth() + xOffset));
     }
 
-    protected void setYFromTop(double yOffset) {
+    public void setYFromTop(double yOffset) {
         setY(yOffset + getHalfHeight());
     }
 
-    protected void setYFromBottom(double yOffset) {
+    public void setYFromBottom(double yOffset) {
         setY(Main.SCREEN_HEIGHT - (yOffset + getHalfHeight()));
     }
 
-    protected void ensureInBounds() {
+    public void ensureInBounds() {
         double upperBound = getHalfHeight();
         double lowerBound = Main.SCREEN_HEIGHT - getHalfHeight();
         double leftBound = getHalfWidth();

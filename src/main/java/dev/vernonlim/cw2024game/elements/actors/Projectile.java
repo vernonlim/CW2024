@@ -21,10 +21,10 @@ public abstract class Projectile extends ActiveActorDestructible {
 
     @Override
     public void updateActor(double deltaTime, double currentTime) {
-        double xPosition = view.getBoundsInParent().getCenterX();
+        double x = getX();
+        double y = getY();
 
-        // The inaccuracy with the right side doesn't matter
-        if (xPosition < 0 || xPosition > Main.SCREEN_WIDTH) {
+        if (x < 0 || x > Main.SCREEN_WIDTH || y < 0 || y > Main.SCREEN_HEIGHT) {
             destroy();
         }
     }
