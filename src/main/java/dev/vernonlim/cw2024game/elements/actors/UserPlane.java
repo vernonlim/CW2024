@@ -22,6 +22,10 @@ public abstract class UserPlane extends FighterPlane {
 
     protected AudioClip fireSound;
 
+    protected int damageToTake;
+    protected double lastDamage;
+    protected boolean takeDamage;
+
     public UserPlane(PlaneStrategy planeStrategy, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, InputManager input, ImageView imageView, AudioClip fireSound, int initialHealth, double speed, double projectileYOffset) {
         super(planeStrategy, projectileFactory, root, projectileListener, imageView, initialHealth, speed, projectileYOffset, FACING_RIGHT, ALWAYS_IN_BOUNDS);
 
@@ -33,7 +37,31 @@ public abstract class UserPlane extends FighterPlane {
 
         this.input = input;
 
+        this.damageToTake = 1;
+        this.lastDamage = 0;
+
         show();
+    }
+
+    @Override
+    public void updateActor(double deltaTime, double currentTime) {
+        super.updateActor(deltaTime, currentTime);
+
+        if (takeDamage) {
+            if (currentTime - lastDamage > 500.0f) {
+                lastDamage = currentTime;
+
+                super.takeDamage(damageToTake);
+            }
+
+            takeDamage = false;
+        }
+    }
+
+    @Override
+    public void takeDamage(int damage) {
+        takeDamage = true;
+        damageToTake = damage;
     }
 
     @Override
