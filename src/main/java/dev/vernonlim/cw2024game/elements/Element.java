@@ -23,9 +23,17 @@ public abstract class Element {
         root.getChildren().remove(node);
     }
 
-    public void setPosition(double xPos, double yPos) {
-        setX(xPos);
-        setY(yPos);
+    public void setPosition(Vector vector) {
+        setPosition(vector.x, vector.y);
+    }
+
+    public void setPosition(double x, double y) {
+        setX(x);
+        setY(y);
+    }
+
+    public Vector getPosition() {
+        return new Vector(getX(), getY());
     }
 
     public Bounds getBoundsInParent() {
@@ -72,9 +80,13 @@ public abstract class Element {
         setY(getY() + verticalMove);
     }
 
-    public void move(double horizontalMove, double verticalMove) {
-        moveHorizontally(horizontalMove);
-        moveVertically(verticalMove);
+    public void move(Vector vector) {
+        move(vector.x, vector.y);
+    }
+
+    public void move(double x, double y) {
+        moveHorizontally(x);
+        moveVertically(y);
     }
 
     public void setXFromLeft(double xOffset) {
@@ -85,34 +97,15 @@ public abstract class Element {
         setX(Main.SCREEN_WIDTH - (getHalfWidth() + xOffset));
     }
 
-    public void setYFromTop(double yOffset) {
-        setY(yOffset + getHalfHeight());
-    }
-
-    public void setYFromBottom(double yOffset) {
-        setY(Main.SCREEN_HEIGHT - (yOffset + getHalfHeight()));
-    }
-
     public void ensureInBounds() {
         double upperBound = getHalfHeight();
         double lowerBound = Main.SCREEN_HEIGHT - getHalfHeight();
         double leftBound = getHalfWidth();
         double rightBound = Main.SCREEN_WIDTH - getHalfWidth();
 
-        double x = getX();
-        double y = getY();
+        Vector position = getPosition();
+        position.ensureInBounds(leftBound, rightBound, upperBound, lowerBound);
 
-        if (x < leftBound) {
-            setX(leftBound);
-        }
-        if (x > rightBound) {
-            setX(rightBound);
-        }
-        if (y < upperBound) {
-            setY(upperBound);
-        }
-        if (y > lowerBound) {
-            setY(lowerBound);
-        }
+        setPosition(position);
     }
 }
