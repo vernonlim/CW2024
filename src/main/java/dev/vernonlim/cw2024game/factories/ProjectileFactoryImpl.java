@@ -21,8 +21,8 @@ public class ProjectileFactoryImpl extends FactoryParent implements ProjectileFa
             case ProjectileCode.USER -> createUserProjectile("userfire", initialXPos, initialYPos, new Vector(1, 0));
             case ProjectileCode.USER_ROUND -> createUserProjectile("circlebullet", initialXPos, initialYPos, new Vector(1, 0));
             case ProjectileCode.USER_ROUND_GREEN -> createUserProjectile("circlebulletgreen", initialXPos, initialYPos, new Vector(1, 0));
-            case ProjectileCode.USER_ROUND_UP -> createUserProjectile("circlebullet", initialXPos, initialYPos, new Vector(1, 0.5));
-            case ProjectileCode.USER_ROUND_DOWN -> createUserProjectile("circlebullet", initialXPos, initialYPos, new Vector(1, -0.5));
+            case ProjectileCode.USER_ROUND_UP -> createUserProjectile("circlebullet", initialXPos, initialYPos, new Vector(1, 0.3));
+            case ProjectileCode.USER_ROUND_DOWN -> createUserProjectile("circlebullet", initialXPos, initialYPos, new Vector(1, -0.3));
             case ProjectileCode.ENEMY -> createEnemyProjectile(initialXPos, initialYPos);
             case ProjectileCode.BOSS -> createBossProjectile(initialXPos, initialYPos);
         };
