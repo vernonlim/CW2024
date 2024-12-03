@@ -10,7 +10,7 @@ import javafx.scene.image.ImageView;
 public class BossProjectile extends Projectile {
     private static final int HORIZONTAL_VELOCITY = 15;
 
-    public BossProjectile(ActorStrategy actorStrategy, Pane root, ImageView imageView) {
-        super(actorStrategy, root, imageView, 1, HORIZONTAL_VELOCITY);
+    public BossProjectile(ActorStrategy actorStrategy, Pane root, ImageView imageView, int damage) {
+        super(actorStrategy, root, imageView, damage, HORIZONTAL_VELOCITY);
     }
 }

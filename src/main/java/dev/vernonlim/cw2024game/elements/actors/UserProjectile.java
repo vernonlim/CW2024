@@ -10,8 +10,8 @@ import javafx.scene.image.ImageView;
 public class UserProjectile extends Projectile {
     private static final int HORIZONTAL_VELOCITY = 100;
 
-    public UserProjectile(ActorStrategy actorStrategy, Pane root, ImageView imageView) {
-        super(actorStrategy, root, imageView, 1, HORIZONTAL_VELOCITY);
+    public UserProjectile(ActorStrategy actorStrategy, Pane root, ImageView imageView, int damage) {
+        super(actorStrategy, root, imageView, damage, HORIZONTAL_VELOCITY);
 
         // the projectile has to be in front of the firer
         moveHorizontally(getHalfWidth());

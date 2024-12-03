@@ -10,8 +10,8 @@ import javafx.scene.image.ImageView;
 public class EnemyProjectile extends Projectile {
     private static final int HORIZONTAL_VELOCITY = 10;
 
-    public EnemyProjectile(ActorStrategy actorStrategy, Pane root, ImageView imageView) {
-        super(actorStrategy, root, imageView, 1, HORIZONTAL_VELOCITY);
+    public EnemyProjectile(ActorStrategy actorStrategy, Pane root, ImageView imageView, int damage) {
+        super(actorStrategy, root, imageView, damage, HORIZONTAL_VELOCITY);
 
         // to be in front of the enemy plane
         moveHorizontally(-getHalfWidth());
