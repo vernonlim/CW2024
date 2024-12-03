@@ -16,7 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 
 public class Boss extends FighterPlane {
-    private static final int HEALTH = 100;
+    private static final int HEALTH = 1000;
     private static final double SPEED = 8.0f;
     private static final double PROJECTILE_Y_OFFSET = 0.0f;
     private static final boolean FACING_RIGHT = false;

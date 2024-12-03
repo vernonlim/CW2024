@@ -10,7 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 
 public class EnemyPlane extends FighterPlane {
-    private static final int INITIAL_HEALTH = 1;
+    private static final int INITIAL_HEALTH = 10;
     private static final double SPEED = 5.0f;
     private static final double PROJECTILE_Y_OFFSET = 7.0f;
     private static final boolean FACING_RIGHT = false;

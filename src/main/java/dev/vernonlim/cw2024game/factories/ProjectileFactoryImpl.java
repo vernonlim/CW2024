@@ -20,11 +20,11 @@ public class ProjectileFactoryImpl extends FactoryParent implements ProjectileFa
 
     public Projectile createProjectile(ProjectileCode code, double initialXPos, double initialYPos) {
         return switch (code) {
-            case ProjectileCode.USER -> createUserProjectile("userfire", initialXPos, initialYPos, 1, new Vector(1, 0));
-            case ProjectileCode.USER_ROUND -> createUserProjectile("circlebullet", initialXPos, initialYPos, 1, new Vector(1, 0));
-            case ProjectileCode.USER_ROUND_GREEN -> createUserProjectile("circlebulletgreen", initialXPos, initialYPos, 1, new Vector(1, 0));
-            case ProjectileCode.USER_ROUND_UP -> createUserProjectile("circlebullet", initialXPos, initialYPos, 1, new Vector(1, 0.3));
-            case ProjectileCode.USER_ROUND_DOWN -> createUserProjectile("circlebullet", initialXPos, initialYPos, 1, new Vector(1, -0.3));
+            case ProjectileCode.USER -> createUserProjectile("userfire", initialXPos, initialYPos, 10, new Vector(1, 0));
+            case ProjectileCode.USER_ROUND -> createUserProjectile("circlebullet", initialXPos, initialYPos, 5, new Vector(1, 0));
+            case ProjectileCode.USER_ROUND_GREEN -> createUserProjectile("circlebulletgreen", initialXPos, initialYPos, 10, new Vector(1, 0));
+            case ProjectileCode.USER_ROUND_UP -> createUserProjectile("circlebullet", initialXPos, initialYPos, 5, new Vector(1, 0.3));
+            case ProjectileCode.USER_ROUND_DOWN -> createUserProjectile("circlebullet", initialXPos, initialYPos, 5, new Vector(1, -0.3));
             case ProjectileCode.ENEMY -> createEnemyProjectile(initialXPos, initialYPos, 1);
             case ProjectileCode.BOSS -> createBossProjectile(initialXPos, initialYPos, 1);
         };
