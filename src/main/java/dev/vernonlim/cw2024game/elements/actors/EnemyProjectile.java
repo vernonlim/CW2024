@@ -15,14 +15,9 @@ public class EnemyProjectile extends Projectile {
     }
 
     @Override
-    public void updatePosition(double deltaTime) {
-        moveHorizontally(HORIZONTAL_VELOCITY * (deltaTime / 50.0f));
-    }
-
-    @Override
     public void updateActor(double deltaTime, double currentTime) {
         super.updateActor(deltaTime, currentTime);
 
-        updatePosition(deltaTime);
+        moveHorizontally(HORIZONTAL_VELOCITY * (deltaTime / 50.0f));
     }
 }

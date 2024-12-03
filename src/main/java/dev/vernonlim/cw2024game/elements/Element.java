@@ -23,9 +23,17 @@ public abstract class Element {
         root.getChildren().remove(node);
     }
 
-    public void setPosition(double xPos, double yPos) {
-        setX(xPos);
-        setY(yPos);
+    public void setPosition(Vector vector) {
+        setPosition(vector.x, vector.y);
+    }
+
+    public void setPosition(double x, double y) {
+        setX(x);
+        setY(y);
+    }
+
+    public Vector getPosition() {
+        return new Vector(getX(), getY());
     }
 
     public Bounds getBoundsInParent() {
@@ -64,55 +72,40 @@ public abstract class Element {
         return getHeight() / 2;
     }
 
-    protected void moveHorizontally(double horizontalMove) {
+    public void moveHorizontally(double horizontalMove) {
         setX(getX() + horizontalMove);
     }
 
-    protected void moveVertically(double verticalMove) {
+    public void moveVertically(double verticalMove) {
         setY(getY() + verticalMove);
     }
 
-    protected void move(double horizontalMove, double verticalMove) {
-        moveHorizontally(horizontalMove);
-        moveVertically(verticalMove);
+    public void move(Vector vector) {
+        move(vector.x, vector.y);
     }
 
-    protected void setXFromLeft(double xOffset) {
+    public void move(double x, double y) {
+        moveHorizontally(x);
+        moveVertically(y);
+    }
+
+    public void setXFromLeft(double xOffset) {
         setX(xOffset + getHalfWidth());
     }
 
-    protected void setXFromRight(double xOffset) {
+    public void setXFromRight(double xOffset) {
         setX(Main.SCREEN_WIDTH - (getHalfWidth() + xOffset));
     }
 
-    protected void setYFromTop(double yOffset) {
-        setY(yOffset + getHalfHeight());
-    }
-
-    protected void setYFromBottom(double yOffset) {
-        setY(Main.SCREEN_HEIGHT - (yOffset + getHalfHeight()));
-    }
-
-    protected void ensureInBounds() {
+    public void ensureInBounds() {
         double upperBound = getHalfHeight();
         double lowerBound = Main.SCREEN_HEIGHT - getHalfHeight();
         double leftBound = getHalfWidth();
         double rightBound = Main.SCREEN_WIDTH - getHalfWidth();
 
-        double x = getX();
-        double y = getY();
+        Vector position = getPosition();
+        position.ensureInBounds(leftBound, rightBound, upperBound, lowerBound);
 
-        if (x < leftBound) {
-            setX(leftBound);
-        }
-        if (x > rightBound) {
-            setX(rightBound);
-        }
-        if (y < upperBound) {
-            setY(upperBound);
-        }
-        if (y > lowerBound) {
-            setY(lowerBound);
-        }
+        setPosition(position);
     }
 }

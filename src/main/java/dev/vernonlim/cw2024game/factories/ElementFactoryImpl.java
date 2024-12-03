@@ -5,12 +5,17 @@ import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.*;
 import dev.vernonlim.cw2024game.elements.actors.*;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
+import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 
 public class ElementFactoryImpl extends FactoryParent implements ElementFactory {
     public ElementFactoryImpl(Pane root, AssetLoader loader) {
         super(root, loader);
+    }
+
+    public ElementFactory withNewRoot(Pane newRoot) {
+        return new ElementFactoryImpl(newRoot, loader);
     }
 
     public Element createShieldImage() {

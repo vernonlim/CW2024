@@ -11,7 +11,5 @@ public abstract class ActiveActor extends ImageElement {
         super(root, imageView);
     }
 
-    public abstract void updatePosition(double deltaTime);
-
     public abstract void updateActor(double deltaTime, double currentTime);
 }

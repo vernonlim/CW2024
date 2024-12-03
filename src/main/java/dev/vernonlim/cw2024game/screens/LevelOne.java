@@ -13,7 +13,6 @@ public class LevelOne extends LevelParent {
     private static final int TOTAL_ENEMIES = 5;
     private static final int KILLS_TO_ADVANCE = 10;
     private static final double ENEMY_SPAWN_PROBABILITY = .20;
-    private static final int PLAYER_INITIAL_HEALTH = 5;
 
     public LevelOne(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImageName, ScreenCode currentScreen, int playerInitialHealth) {
         super(stage, controller, loader, keybinds, backgroundImageName, currentScreen, playerInitialHealth);
