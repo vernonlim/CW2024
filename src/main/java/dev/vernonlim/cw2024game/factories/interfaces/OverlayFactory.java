@@ -19,6 +19,7 @@ public interface OverlayFactory {
     GameplayOverlay createGameplayOverlay(int heartsToDisplay);
     Element createMenuArrow();
     MenuOverlay createMainMenuOverlay(ScreenChangeHandler screenChangeHandler);
+    MenuOverlay createCharacterSelectOverlay(ScreenChangeHandler screenChangeHandler);
     MenuOverlay createPauseOverlay(ScreenChangeHandler screenChangeHandler, ScreenCode currentScreen);
     TextBox createTextBox(String content, ClickListener clickListener, double rightPercent, int rows);
 }

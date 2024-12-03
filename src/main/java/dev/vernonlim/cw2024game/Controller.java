@@ -1,6 +1,7 @@
 package dev.vernonlim.cw2024game;
 
 import dev.vernonlim.cw2024game.assets.AssetLoader;
+import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
 import dev.vernonlim.cw2024game.factories.ScreenFactoryImpl;
 import dev.vernonlim.cw2024game.factories.interfaces.ScreenFactory;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
@@ -32,7 +33,11 @@ public class Controller {
     }
 
     public void goToScreen(ScreenCode screenCode) {
-        Screen screen = screenFactory.createScreen(screenCode);
+        goToScreen(screenCode, UserPlaneCode.REGULAR_PLANE);
+    }
+
+    public void goToScreen(ScreenCode screenCode, UserPlaneCode userPlaneCode) {
+        Screen screen = screenFactory.createScreen(screenCode, userPlaneCode);
 
         // Only null if the system if exiting
         Scene scene = screen.getScene();

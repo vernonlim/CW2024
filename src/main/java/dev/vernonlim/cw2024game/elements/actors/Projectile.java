@@ -2,14 +2,15 @@ package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
+import dev.vernonlim.cw2024game.elements.Vector;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 
 public abstract class Projectile extends ActiveActorDestructible {
     public final int damage;
 
-    public Projectile(Pane root, ImageView imageView, int damage) {
-        super(root, imageView);
+    public Projectile(Pane root, ImageView imageView, int damage, double speed) {
+        super(root, imageView, speed, false);
 
         this.damage = damage;
     }
@@ -21,10 +22,11 @@ public abstract class Projectile extends ActiveActorDestructible {
 
     @Override
     public void updateActor(double deltaTime, double currentTime) {
-        double x = getX();
-        double y = getY();
+        super.updateActor(deltaTime, currentTime);
 
-        if (x < 0 || x > Main.SCREEN_WIDTH || y < 0 || y > Main.SCREEN_HEIGHT) {
+        Vector position = getPosition();
+
+        if (position.isOutside(0, Main.SCREEN_WIDTH, 0, Main.SCREEN_HEIGHT)) {
             destroy();
         }
     }

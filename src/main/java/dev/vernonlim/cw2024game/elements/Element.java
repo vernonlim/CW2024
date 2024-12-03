@@ -1,9 +1,11 @@
 package dev.vernonlim.cw2024game.elements;
 
 import dev.vernonlim.cw2024game.Main;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.transform.Transform;
 
 public abstract class Element {
     public Pane root;

@@ -5,6 +5,7 @@ import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Element;
+import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
 import dev.vernonlim.cw2024game.factories.ElementFactoryImpl;
 import dev.vernonlim.cw2024game.factories.OverlayFactoryImpl;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
@@ -79,10 +80,10 @@ public abstract class ScreenParent implements Screen {
         return scene;
     }
 
-    public void goToScreen(ScreenCode screen) {
+    public void goToScreen(ScreenCode screen, UserPlaneCode userPlaneCode) {
         timeline.pause();
         Platform.runLater(() -> {
-            controller.goToScreen(screen);
+            controller.goToScreen(screen, userPlaneCode);
         });
     }
 

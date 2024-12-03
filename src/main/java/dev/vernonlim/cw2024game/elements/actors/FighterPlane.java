@@ -9,40 +9,30 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public abstract class FighterPlane extends ActiveActorDestructible {
-    protected final double speed;
+    protected final ProjectileFactory projectileFactory;
+    protected final ProjectileListener projectileListener;
+    private int health;
+
     protected final double projectileYOffset;
     protected final boolean facingRight;
-    protected final boolean alwaysInBounds;
-    protected final ProjectileFactory projectileFactory;
-    private final ProjectileListener projectileListener;
-    private int health;
 
     protected PlaneStrategy planeStrategy;
 
     public FighterPlane(ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView, int health, double speed, double projectileYOffset, boolean facingRight, boolean alwaysInBounds) {
-        super(root, imageView);
+        super(root, imageView, speed, alwaysInBounds);
+
         this.health = health;
 
         this.projectileListener = projectileListener;
         this.projectileFactory = projectileFactory;
 
-        this.speed = speed;
         this.projectileYOffset = projectileYOffset;
         this.facingRight = facingRight;
-        this.alwaysInBounds = alwaysInBounds;
     }
 
     @Override
     public void updateActor(double deltaTime, double currentTime) {
-        planeStrategy.updateStrategyState(deltaTime, currentTime);
-
-        Vector movement = planeStrategy.getNextMovement();
-        movement.scaleBy(speed);
-        movement.scaleBy(deltaTime / 50.0f);
-        move(movement);
-        if (alwaysInBounds) {
-            ensureInBounds();
-        }
+        super.updateActor(deltaTime, currentTime);
 
         boolean shouldFire = planeStrategy.shouldFire();
         if (shouldFire) {

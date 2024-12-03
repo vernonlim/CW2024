@@ -9,6 +9,17 @@ public class Vector {
         this.y = y;
     }
 
+    public Vector copy() {
+        return new Vector(x, y);
+    }
+
+    public void normalize() {
+        double magnitude = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+
+        x /= magnitude;
+        y /= magnitude;
+    }
+
     public double getAngle() {
         return Math.atan(y / x);
     }
@@ -38,6 +49,25 @@ public class Vector {
         if (y > bottom) {
             y = bottom;
         }
+    }
+
+    public boolean isOutside(double left, double right, double top, double bottom) {
+        boolean outside = false;
+
+        if (x < left) {
+            outside = true;
+        }
+        if (x > right) {
+            outside = true;
+        }
+        if (y < top) {
+            outside = true;
+        }
+        if (y > bottom) {
+            outside = true;
+        }
+
+        return outside;
     }
 }
 

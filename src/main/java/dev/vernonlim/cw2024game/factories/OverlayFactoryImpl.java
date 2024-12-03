@@ -6,10 +6,7 @@ import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.*;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
-import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
-import dev.vernonlim.cw2024game.overlays.MainMenuOverlay;
-import dev.vernonlim.cw2024game.overlays.MenuOverlay;
-import dev.vernonlim.cw2024game.overlays.PauseOverlay;
+import dev.vernonlim.cw2024game.overlays.*;
 import dev.vernonlim.cw2024game.screens.ScreenChangeHandler;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Font;
@@ -76,6 +73,10 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
 
     public MenuOverlay createMainMenuOverlay(ScreenChangeHandler screenChangeHandler) {
         return new MainMenuOverlay(controller, this, root, input, screenChangeHandler);
+    }
+
+    public MenuOverlay createCharacterSelectOverlay(ScreenChangeHandler screenChangeHandler) {
+        return new CharacterSelectOverlay(controller, this, root, input, screenChangeHandler);
     }
 
     public MenuOverlay createPauseOverlay(ScreenChangeHandler screenChangeHandler, ScreenCode currentScreen) {

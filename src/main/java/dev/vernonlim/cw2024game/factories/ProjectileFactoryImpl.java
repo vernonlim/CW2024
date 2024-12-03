@@ -2,6 +2,7 @@ package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileCode;
+import dev.vernonlim.cw2024game.elements.Vector;
 import dev.vernonlim.cw2024game.elements.actors.BossProjectile;
 import dev.vernonlim.cw2024game.elements.actors.EnemyProjectile;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
@@ -17,17 +18,21 @@ public class ProjectileFactoryImpl extends FactoryParent implements ProjectileFa
 
     public Projectile createProjectile(ProjectileCode code, double initialXPos, double initialYPos) {
         return switch (code) {
-            case ProjectileCode.USER -> createUserProjectile(initialXPos, initialYPos);
+            case ProjectileCode.USER -> createUserProjectile("userfire", initialXPos, initialYPos, new Vector(1, 0));
+            case ProjectileCode.USER_ROUND -> createUserProjectile("circlebullet", initialXPos, initialYPos, new Vector(1, 0));
+            case ProjectileCode.USER_ROUND_GREEN -> createUserProjectile("circlebulletgreen", initialXPos, initialYPos, new Vector(1, 0));
+            case ProjectileCode.USER_ROUND_UP -> createUserProjectile("circlebullet", initialXPos, initialYPos, new Vector(1, 0.5));
+            case ProjectileCode.USER_ROUND_DOWN -> createUserProjectile("circlebullet", initialXPos, initialYPos, new Vector(1, -0.5));
             case ProjectileCode.ENEMY -> createEnemyProjectile(initialXPos, initialYPos);
             case ProjectileCode.BOSS -> createBossProjectile(initialXPos, initialYPos);
         };
     }
 
-    protected Projectile createUserProjectile(double initialXPos, double initialYPos) {
-        ImageView imageView = makeView("userfire");
+    protected Projectile createUserProjectile(String imageName, double initialXPos, double initialYPos, Vector velocity) {
+        ImageView imageView = makeView(imageName);
         imageView.setFitHeight(12);
 
-        UserProjectile projectile = new UserProjectile(root, imageView);
+        UserProjectile projectile = new UserProjectile(root, imageView, velocity);
         projectile.setPosition(initialXPos, initialYPos);
 
         return projectile;

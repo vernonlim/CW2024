@@ -3,12 +3,10 @@ package dev.vernonlim.cw2024game.factories;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
+import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
 import dev.vernonlim.cw2024game.factories.interfaces.ScreenFactory;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
-import dev.vernonlim.cw2024game.screens.LevelOne;
-import dev.vernonlim.cw2024game.screens.LevelTwo;
-import dev.vernonlim.cw2024game.screens.MainMenu;
-import dev.vernonlim.cw2024game.screens.Screen;
+import dev.vernonlim.cw2024game.screens.*;
 import javafx.stage.Stage;
 
 public class ScreenFactoryImpl implements ScreenFactory {
@@ -24,7 +22,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
         this.keybinds = keybinds;
     }
 
-    public Screen createScreen(ScreenCode screenCode) {
+    public Screen createScreen(ScreenCode screenCode, UserPlaneCode code) {
         Screen screen = null;
 
         switch (screenCode) {
@@ -33,16 +31,19 @@ public class ScreenFactoryImpl implements ScreenFactory {
                 screen = new MainMenu(controller, loader, keybinds, backgroundImageName, ScreenCode.MAIN_MENU);
                 break;
             }
+            case ScreenCode.CHARACTER_SELECT: {
+                String backgroundImageName = "background1";
+                screen = new CharacterSelect(controller, loader, keybinds, backgroundImageName, ScreenCode.CHARACTER_SELECT);
+                break;
+            }
             case ScreenCode.LEVEL_ONE: {
                 String backgroundImageName = "background1";
-                int playerInitialHealth = 5;
-                screen = new LevelOne(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_ONE, playerInitialHealth);
+                screen = new LevelOne(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_ONE, code);
                 break;
             }
             case ScreenCode.LEVEL_TWO: {
                 String backgroundImageName = "background2";
-                int playerInitialHealth = 5;
-                screen = new LevelTwo(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_TWO, playerInitialHealth);
+                screen = new LevelTwo(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_TWO, code);
                 break;
             }
         }

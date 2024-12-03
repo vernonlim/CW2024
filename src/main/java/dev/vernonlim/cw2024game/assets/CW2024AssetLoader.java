@@ -11,6 +11,7 @@ import static java.util.Map.entry;
 abstract class CW2024AssetLoader implements AssetLoader {
     protected static final Map<String, String> imagePaths = Map.ofEntries(
             entry("userplane", "/images/userplane.png"),
+            entry("userplane2", "/images/userplane2.png"),
             entry("userfire", "/images/userfire.png"),
             entry("enemyplane", "/images/enemyplane.png"),
             entry("enemyFire", "/images/enemyFire.png"),
@@ -23,11 +24,14 @@ abstract class CW2024AssetLoader implements AssetLoader {
             entry("heart", "/images/heart.png"),
             entry("youwin", "/images/youwin.png"),
             entry("notfound", "/images/notfound.png"),
+            entry("circlebullet", "/images/circlebullet.png"),
+            entry("circlebulletgreen", "/images/circlebulletgreen.png"),
             entry("menuarrow", "/images/menuarrow.png")
     );
 
     protected static final Map<String, String> soundPaths = Map.ofEntries(
             entry("gunshot", "/audio/gunshot.wav"),
+            entry("laser", "/audio/laser.wav"),
             entry("error", "/audio/error.wav")
     );
 

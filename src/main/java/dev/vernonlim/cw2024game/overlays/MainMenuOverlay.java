@@ -16,7 +16,7 @@ public class MainMenuOverlay extends MenuOverlay {
         TextBox startGame = gridElementFactory.createTextBox("Start Game", new ClickListener() {
             @Override
             public void onClick() {
-                screenChangeHandler.changeScreen(ScreenCode.LEVEL_ONE);
+                screenChangeHandler.changeScreen(ScreenCode.CHARACTER_SELECT);
             }
         }, rightPercent, totalRows);
 

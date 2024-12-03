@@ -26,13 +26,33 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         this.elementFactory = elementFactory;
     }
 
-    public UserPlane createUserPlane(int initialHealth) {
+    public UserPlane createUserPlane(UserPlaneCode code) {
+        return switch (code) {
+            case REGULAR_PLANE -> createRegularPlane();
+            case GREEN_PLANE -> createGreenPlane();
+        };
+    }
+
+    private UserPlane createRegularPlane() {
+        int initialHealth = 5;
+
         ImageView imageView = makeView("userplane");
         imageView.setFitHeight(40);
 
         AudioClip fireSound = loader.loadSound("gunshot");
 
-        return new UserPlane(projectileFactory, root, projectileListener, inputManager, imageView, fireSound, initialHealth);
+        return new RegularPlane(projectileFactory, root, projectileListener, inputManager, imageView, fireSound, initialHealth, 24.0f, 7.0f);
+    }
+
+    private UserPlane createGreenPlane() {
+        int initialHealth = 3;
+
+        ImageView imageView = makeView("userplane2");
+        imageView.setFitHeight(40);
+
+        AudioClip fireSound = loader.loadSound("laser");
+
+        return new GreenPlane(projectileFactory, root, projectileListener, inputManager, imageView, fireSound, initialHealth, 30.0f, 7.0f);
     }
 
     public FighterPlane createEnemyPlane(double initialXPos, double initialYPos) {

@@ -14,18 +14,18 @@ import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
-public class UserPlane extends FighterPlane {
-    private static final double SPEED = 24.0f;
-    private static final double PROJECTILE_Y_OFFSET = 7.0f;
+public abstract class UserPlane extends FighterPlane {
     private static final boolean FACING_RIGHT = true;
     private static final boolean ALWAYS_IN_BOUNDS = true;
 
+    protected InputManager input;
+
     protected int numberOfKills;
 
-    private AudioClip fireSound;
+    protected AudioClip fireSound;
 
-    public UserPlane(ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, InputManager input, ImageView imageView, AudioClip fireSound, int initialHealth) {
-        super(projectileFactory, root, projectileListener, imageView, initialHealth, SPEED, PROJECTILE_Y_OFFSET, FACING_RIGHT, ALWAYS_IN_BOUNDS);
+    public UserPlane(ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, InputManager input, ImageView imageView, AudioClip fireSound, int initialHealth, double speed, double projectileYOffset) {
+        super(projectileFactory, root, projectileListener, imageView, initialHealth, speed, projectileYOffset, FACING_RIGHT, ALWAYS_IN_BOUNDS);
 
         this.fireSound = fireSound;
         fireSound.setVolume(0.4);
@@ -33,10 +33,14 @@ public class UserPlane extends FighterPlane {
         setXFromLeft(5);
         setY(Main.SCREEN_HEIGHT / 2.0f);
 
-        this.planeStrategy = new UserPlaneStrategy(this, input);
+        this.input = input;
+
+        initializeStrategy();
 
         show();
     }
+
+    protected abstract void initializeStrategy();
 
     @Override
     public void fireProjectile(ProjectileCode code) {

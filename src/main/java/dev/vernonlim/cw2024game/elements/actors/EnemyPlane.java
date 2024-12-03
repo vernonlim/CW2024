@@ -20,5 +20,6 @@ public class EnemyPlane extends FighterPlane {
         super(projectileFactory, root, projectileListener, imageView, INITIAL_HEALTH, SPEED, PROJECTILE_Y_OFFSET, FACING_RIGHT, ALWAYS_IN_BOUNDS);
 
         this.planeStrategy = new EnemyPlaneStrategy(this);
+        this.actorStrategy = planeStrategy;
     }
 }

@@ -5,20 +5,15 @@ import dev.vernonlim.cw2024game.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
-import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
-import dev.vernonlim.cw2024game.elements.actors.Projectile;
-import dev.vernonlim.cw2024game.elements.actors.UserPlane;
-import dev.vernonlim.cw2024game.elements.actors.UserProjectile;
+import dev.vernonlim.cw2024game.elements.actors.*;
 import dev.vernonlim.cw2024game.factories.*;
 import dev.vernonlim.cw2024game.factories.interfaces.ActorFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import dev.vernonlim.cw2024game.managers.CollisionManager;
 import dev.vernonlim.cw2024game.managers.DamageCollisionManager;
-import dev.vernonlim.cw2024game.managers.InputManager;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import dev.vernonlim.cw2024game.overlays.MenuOverlay;
-import dev.vernonlim.cw2024game.overlays.PauseOverlay;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
@@ -36,6 +31,8 @@ public abstract class LevelParent extends ScreenParent implements Screen {
     protected final ActorFactory actorFactory;
 
     protected final CollisionManager collisionManager;
+
+    protected final UserPlaneCode userPlaneCode;
 
     private final List<ActiveActorDestructible> friendlyUnits;
     private final List<ActiveActorDestructible> enemyUnits;
@@ -57,7 +54,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
 
     protected boolean won;
 
-    public LevelParent(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen, int playerInitialHealth) {
+    public LevelParent(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
         super(controller, loader, keybinds, backgroundImagePath, currentScreen);
 
         // initializing handlers
@@ -80,22 +77,32 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         this.projectileFactory = new ProjectileFactoryImpl(root, loader);
         this.actorFactory = new ActorFactoryImpl(root, loader, inputManager, projectileFactory, projectileListener, elementFactory);
 
+        this.friendlyUnits = new ArrayList<>();
+        this.enemyUnits = new ArrayList<>();
+        this.userProjectiles = new ArrayList<>();
+        this.enemyProjectiles = new ArrayList<>();
+
+        this.userPlaneCode = userPlaneCode;
+
+        this.user = actorFactory.createUserPlane(userPlaneCode);
+        friendlyUnits.add(user);
+
         // the overlay on top
-        this.gameplayOverlay = overlayFactory.createGameplayOverlay(playerInitialHealth);
+        this.gameplayOverlay = overlayFactory.createGameplayOverlay(user.getHealth());
         this.pauseOverlay = overlayFactory.createPauseOverlay(new ScreenChangeHandler() {
             @Override
             public void changeScreen(ScreenCode code) {
-                goToScreen(code);
+                changeScreen(code, UserPlaneCode.REGULAR_PLANE);
+            }
+
+            @Override
+            public void changeScreen(ScreenCode code, UserPlaneCode unused) {
+                goToScreen(code, userPlaneCode);
             }
         }, currentScreen);
 
         this.paused = false;
         this.lastPaused = -99999;
-
-        this.friendlyUnits = new ArrayList<>();
-        this.enemyUnits = new ArrayList<>();
-        this.userProjectiles = new ArrayList<>();
-        this.enemyProjectiles = new ArrayList<>();
 
         this.currentNumberOfEnemies = 0;
 
@@ -104,8 +111,6 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         this.timer = createTimer();
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
 
-        this.user = actorFactory.createUserPlane(playerInitialHealth);
-        friendlyUnits.add(user);
 
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override

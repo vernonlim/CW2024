@@ -32,6 +32,7 @@ public class Boss extends FighterPlane {
 
         this.bossStrategy = new BossStrategyImpl(this);
         this.planeStrategy = bossStrategy;
+        this.actorStrategy = planeStrategy;
 
         setXFromRight(5.0f);
         setY(Main.SCREEN_HEIGHT / 2.0f);

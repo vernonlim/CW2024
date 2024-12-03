@@ -20,6 +20,10 @@ public class UserPlaneStrategy extends PlaneStrategyImpl implements PlaneStrateg
     protected int lastVerticalMult;
     protected int lastHorizontalMult;
 
+    protected ProjectileCode lastProjectile;
+
+    protected double movementMultiplier;
+
     public UserPlaneStrategy(ActiveActor actor, InputManager input) {
         super(actor);
 
@@ -29,6 +33,9 @@ public class UserPlaneStrategy extends PlaneStrategyImpl implements PlaneStrateg
 
         this.lastVerticalMult = 0;
         this.lastHorizontalMult = 0;
+        this.movementMultiplier = 1.0f;
+
+        lastProjectile = ProjectileCode.USER_ROUND;
     }
 
     @Override
@@ -42,9 +49,15 @@ public class UserPlaneStrategy extends PlaneStrategyImpl implements PlaneStrateg
         focus = input.isFocusPressed();
         fire = input.isFirePressed();
 
+        handleFocus();
+    }
+
+    protected void handleFocus() {
         if (focus) {
+            movementMultiplier = 0.6f;
             fireRate = baseFireRate * 2.0f;
         } else {
+            movementMultiplier = 1.0f;
             fireRate = baseFireRate;
         }
     }
@@ -79,13 +92,15 @@ public class UserPlaneStrategy extends PlaneStrategyImpl implements PlaneStrateg
             horizontalMult = 0;
         }
 
-        double angle = Math.atan2(verticalMult, horizontalMult);
-
         if (horizontalMult == 0 && verticalMult == 0) {
-            return Vector.fromMagnitudeAngle(0, angle);
+            return new Vector(0, 0);
         }
 
-        return Vector.fromMagnitudeAngle(1, angle);
+        Vector movement = new Vector(horizontalMult, verticalMult);
+        movement.normalize();
+        movement.scaleBy(movementMultiplier);
+
+        return movement;
     }
 
     @Override
@@ -100,6 +115,12 @@ public class UserPlaneStrategy extends PlaneStrategyImpl implements PlaneStrateg
 
     @Override
     public ProjectileCode getProjectileCode() {
-        return ProjectileCode.USER;
+        if (lastProjectile == ProjectileCode.USER_ROUND) {
+            lastProjectile = ProjectileCode.USER;
+            return ProjectileCode.USER;
+        } else {
+            lastProjectile = ProjectileCode.USER_ROUND;
+            return ProjectileCode.USER_ROUND;
+        }
     }
 }
