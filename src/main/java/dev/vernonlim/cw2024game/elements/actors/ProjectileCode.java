@@ -1,4 +1,4 @@
-package dev.vernonlim.cw2024game.elements;
+package dev.vernonlim.cw2024game.elements.actors;
 
 public enum ProjectileCode {
     USER,
@@ -7,5 +7,7 @@ public enum ProjectileCode {
     USER_ROUND_UP,
     USER_ROUND_DOWN,
     ENEMY,
+    ENEMY_ROUND_DOWN,
+    ENEMY_ROUND_UP,
     BOSS,
 }

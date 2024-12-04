@@ -1,10 +1,10 @@
 package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.ScreenCode;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
+import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
 import javafx.stage.Stage;
@@ -20,7 +20,7 @@ public class LevelOne extends LevelParent {
     }
 
     @Override
-    protected void checkIfGameOver() {
+    protected void checkIfGameOver(double currentTime) {
         if (user.isDestroyed()) {
             loseGame();
         } else if (userHasReachedKillTarget()) {
@@ -36,7 +36,7 @@ public class LevelOne extends LevelParent {
             int currentNumberOfEnemies = getCurrentNumberOfEnemies();
             for (int i = 0; i < TOTAL_ENEMIES - currentNumberOfEnemies; i++) {
                 if (Math.random() < ENEMY_SPAWN_PROBABILITY) {
-                    ActiveActorDestructible enemy = actorFactory.createEnemyPlane(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT / 2.0f);
+                    ActiveActorDestructible enemy = actorFactory.createEnemy(EnemyCode.ENEMY_PLANE, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT / 2.0f);
                     double enemyYPosition = Math.random() * (Main.SCREEN_HEIGHT - enemy.getHeight()) + enemy.getHalfHeight();
                     enemy.setY(enemyYPosition);
                     addEnemyUnit(enemy);

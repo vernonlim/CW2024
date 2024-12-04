@@ -2,15 +2,10 @@ package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.Element;
-import dev.vernonlim.cw2024game.elements.ProjectileCode;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
-import dev.vernonlim.cw2024game.elements.Vector;
 import dev.vernonlim.cw2024game.elements.strategies.BossStrategy;
-import dev.vernonlim.cw2024game.elements.strategies.BossStrategyImpl;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
-import javafx.geometry.Bounds;
-import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import javafx.scene.image.ImageView;

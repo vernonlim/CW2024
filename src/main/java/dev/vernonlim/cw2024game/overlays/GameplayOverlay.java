@@ -6,10 +6,9 @@ import dev.vernonlim.cw2024game.elements.HeartDisplay;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import javafx.scene.layout.Pane;
 
-public class GameplayOverlay extends Element {
+public class GameplayOverlay extends FloatingOverlay {
     private static final double HEART_DISPLAY_X_POSITION = 5;
     private static final double HEART_DISPLAY_Y_POSITION = 25;
-    public final Pane pane;
     private final Element winImage;
     private final Element gameOverImage;
     private final HeartDisplay heartDisplay;
@@ -17,12 +16,6 @@ public class GameplayOverlay extends Element {
 
     public GameplayOverlay(OverlayFactory overlayFactory, Pane root, int heartsToDisplay) {
         super(root);
-
-        this.pane = new Pane();
-        this.node = pane;
-
-        pane.setMaxHeight(Main.SCREEN_HEIGHT);
-        pane.setMaxWidth(Main.SCREEN_WIDTH);
 
         this.overlayElementFactory = overlayFactory.withNewRoot(pane);
 

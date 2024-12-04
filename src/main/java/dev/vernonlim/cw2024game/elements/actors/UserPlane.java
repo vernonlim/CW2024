@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
-import dev.vernonlim.cw2024game.elements.ProjectileCode;
 import dev.vernonlim.cw2024game.elements.strategies.PlaneStrategy;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.image.ImageView;
@@ -47,6 +46,7 @@ public abstract class UserPlane extends FighterPlane {
                 lastDamage = currentTime;
 
                 super.takeDamage(damageToTake);
+                deathSound.play();
             }
 
             takeDamage = false;
@@ -57,7 +57,6 @@ public abstract class UserPlane extends FighterPlane {
     public void takeDamage(int damage) {
         takeDamage = true;
         damageToTake = damage;
-        deathSound.play();
     }
 
     @Override

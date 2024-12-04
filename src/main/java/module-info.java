@@ -5,6 +5,7 @@ module dev.vernonlim.cw2024game {
     requires javafx.media;
     requires java.desktop;
     requires org.json;
+    requires java.logging;
 
     opens dev.vernonlim.cw2024game to javafx.fxml;
     opens dev.vernonlim.cw2024game.screens to javafx.fxml;
@@ -19,4 +20,5 @@ module dev.vernonlim.cw2024game {
     opens dev.vernonlim.cw2024game.managers to javafx.fxml;
     exports dev.vernonlim.cw2024game.elements;
     opens dev.vernonlim.cw2024game.elements.strategies to javafx.fxml;
+    exports dev.vernonlim.cw2024game.elements.actors;
 }

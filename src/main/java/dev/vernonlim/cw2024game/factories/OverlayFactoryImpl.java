@@ -1,11 +1,9 @@
 package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.ScreenCode;
+import dev.vernonlim.cw2024game.screens.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.*;
-import dev.vernonlim.cw2024game.elements.actors.ActiveActor;
-import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
@@ -91,11 +89,15 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
         return new CharacterSelectOverlay(controller, this, root, input, screenChangeHandler);
     }
 
+    public MenuOverlay createLevelSelectOverlay(UserPlaneCode userPlaneCode) {
+        return new LevelSelectOverlay(controller, this, root, input, screenChangeHandler, userPlaneCode);
+    }
+
     public MenuOverlay createPauseOverlay(ScreenCode currentScreen) {
         return new PauseOverlay(controller, this, root, input, screenChangeHandler, currentScreen);
     }
 
-    public TextBox createTextBox(String content, ScreenCode screenCode, UserPlaneCode userPlaneCode, double rightPercent, int rows) {
+    public TextBox createTextBox(String content, ScreenCode screenCode, UserPlaneCode newUserPlaneCode, double rightPercent, int rows) {
         Text text = new Text(content);
         text.setFont(Font.font(50));
 
@@ -105,7 +107,7 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
             @Override
             public void onClick() {
                 sound.play();
-                screenChangeHandler.changeScreen(screenCode, userPlaneCode);
+                screenChangeHandler.changeScreen(screenCode, newUserPlaneCode);
             }
         };
 
@@ -114,5 +116,13 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
 
     public TextBox createTextBox(String content, ScreenCode screenCode, double rightPercent, int rows) {
         return createTextBox(content, screenCode, userPlaneCode, rightPercent, rows);
+    }
+
+    public TimeDisplay createTimeDisplay(int seconds) {
+        return new TimeDisplay(root, seconds);
+    }
+
+    public TimerOverlay createTimerOverlay(int secondsRemaining) {
+        return new TimerOverlay(this, root, secondsRemaining);
     }
 }

@@ -34,6 +34,7 @@ abstract class CW2024AssetLoader implements AssetLoader {
             entry("circlebullet", "/images/circlebullet.png"),
             entry("ballofdeath", "/images/ballofdeath.png"),
             entry("circlebulletgreen", "/images/circlebulletgreen.png"),
+            entry("circlebulletblue", "/images/circlebulletblue.png"),
             entry("menuarrow", "/images/menuarrow.png")
     );
 

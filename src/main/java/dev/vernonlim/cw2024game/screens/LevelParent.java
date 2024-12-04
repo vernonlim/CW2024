@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
@@ -32,8 +31,6 @@ public abstract class LevelParent extends ScreenParent implements Screen {
 
     protected final CollisionManager collisionManager;
 
-    protected final UserPlaneCode userPlaneCode;
-
     private final List<ActiveActorDestructible> friendlyUnits;
     private final List<ActiveActorDestructible> enemyUnits;
     private final List<ActiveActorDestructible> userProjectiles;
@@ -52,12 +49,10 @@ public abstract class LevelParent extends ScreenParent implements Screen {
     protected boolean paused;
     protected double lastPaused;
 
-    protected boolean won;
+    protected boolean backToMenu;
 
     public LevelParent(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
-        super(controller, loader, keybinds, backgroundImagePath, currentScreen);
-
-        overlayFactory.changeUserPlane(userPlaneCode);
+        super(controller, loader, keybinds, backgroundImagePath, currentScreen, userPlaneCode);
 
         // initializing handlers
         this.collisionManager = new DamageCollisionManager();
@@ -68,7 +63,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
             public void onFire(Projectile projectile) {
                 projectile.show();
 
-                if (projectile instanceof UserProjectile) {
+                if (projectile.userProjectile) {
                     userProjectiles.add(projectile);
                 } else {
                     enemyProjectiles.add(projectile);
@@ -83,8 +78,6 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         this.enemyUnits = new ArrayList<>();
         this.userProjectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
-
-        this.userPlaneCode = userPlaneCode;
 
         this.user = actorFactory.createUserPlane(userPlaneCode);
         friendlyUnits.add(user);
@@ -126,7 +119,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         return timer;
     }
 
-    protected abstract void checkIfGameOver();
+    protected abstract void checkIfGameOver(double currentTime);
 
     protected abstract void spawnEnemyUnits(double currentTime);
 
@@ -138,7 +131,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
 
         double realCurrentTime = System.currentTimeMillis();
 
-        if (won) {
+        if (backToMenu) {
             pauseOverlay.update(realCurrentTime);
 
             return;
@@ -174,8 +167,8 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         handleAllCollisions();
         removeAllDestroyedActors();
         updateKillCount();
-        updateOverlays();
-        checkIfGameOver();
+        updateOverlays(currentTime);
+        checkIfGameOver(currentTime);
     }
 
     private void updateActors(double deltaTime, double currentTime) {
@@ -192,19 +185,19 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         removeDestroyedActors(enemyProjectiles);
     }
 
-    private void removeDestroyedActors(List<ActiveActorDestructible> actors) {
+    protected void removeDestroyedActors(List<ActiveActorDestructible> actors) {
         List<ActiveActorDestructible> destroyedActors = actors.stream().filter(ActiveActorDestructible::isDestroyed).toList();
         destroyedActors.forEach(Element::hide);
         actors.removeAll(destroyedActors);
     }
 
-    private void handleAllCollisions() {
+    protected void handleAllCollisions() {
         collisionManager.handleCollisions(friendlyUnits, enemyUnits);
         collisionManager.handleCollisions(userProjectiles, enemyUnits);
         collisionManager.handleCollisions(enemyProjectiles, friendlyUnits);
     }
 
-    private void handleEnemyPenetration() {
+    protected void handleEnemyPenetration() {
         for (ActiveActorDestructible enemy : enemyUnits) {
             if (enemyHasPenetratedDefenses(enemy)) {
                 user.takeDamage(1);
@@ -213,7 +206,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         }
     }
 
-    private void updateOverlays() {
+    protected void updateOverlays(double currentTime) {
         gameplayOverlay.removeHearts(user.getHealth());
     }
 
@@ -223,7 +216,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         }
     }
 
-    private boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
+    protected boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
         return enemy.getX() < 0;
     }
 
@@ -231,12 +224,14 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         gameplayOverlay.showWinImage();
         pauseOverlay.show();
         paused = true;
-        won = true;
+        backToMenu = true;
     }
 
     protected void loseGame() {
-        timer.stop();
         gameplayOverlay.showGameOverImage();
+        pauseOverlay.show();
+        paused = true;
+        backToMenu = true;
     }
 
     protected int getCurrentNumberOfEnemies() {

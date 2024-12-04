@@ -1,9 +1,7 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
-import dev.vernonlim.cw2024game.elements.ProjectileCode;
+import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
 import dev.vernonlim.cw2024game.elements.Vector;
-import dev.vernonlim.cw2024game.elements.actors.ActiveActor;
-import dev.vernonlim.cw2024game.elements.actors.Boss;
 
 import java.util.ArrayList;
 import java.util.Collections;
