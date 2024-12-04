@@ -115,4 +115,12 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
     public TextBox createTextBox(String content, ScreenCode screenCode, double rightPercent, int rows) {
         return createTextBox(content, screenCode, userPlaneCode, rightPercent, rows);
     }
+
+    public TimeDisplay createTimeDisplay(int seconds) {
+        return new TimeDisplay(root, seconds);
+    }
+
+    public TimerOverlay createTimerOverlay(int secondsRemaining) {
+        return new TimerOverlay(this, root, secondsRemaining);
+    }
 }

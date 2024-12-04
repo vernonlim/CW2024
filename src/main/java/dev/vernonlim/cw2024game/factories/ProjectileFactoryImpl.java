@@ -1,12 +1,9 @@
 package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.assets.AssetLoader;
-import dev.vernonlim.cw2024game.elements.ProjectileCode;
+import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
 import dev.vernonlim.cw2024game.elements.Vector;
-import dev.vernonlim.cw2024game.elements.actors.BossProjectile;
-import dev.vernonlim.cw2024game.elements.actors.EnemyProjectile;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
-import dev.vernonlim.cw2024game.elements.actors.UserProjectile;
 import dev.vernonlim.cw2024game.elements.strategies.ActorStrategy;
 import dev.vernonlim.cw2024game.elements.strategies.LinearProjectileStrategy;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
@@ -25,44 +22,34 @@ public class ProjectileFactoryImpl extends FactoryParent implements ProjectileFa
             case ProjectileCode.USER_ROUND_GREEN -> createUserProjectile("circlebulletgreen", initialXPos, initialYPos, 10, new Vector(1, 0));
             case ProjectileCode.USER_ROUND_UP -> createUserProjectile("circlebullet", initialXPos, initialYPos, 5, new Vector(1, 0.3));
             case ProjectileCode.USER_ROUND_DOWN -> createUserProjectile("circlebullet", initialXPos, initialYPos, 5, new Vector(1, -0.3));
-            case ProjectileCode.ENEMY -> createEnemyProjectile(initialXPos, initialYPos, 1);
+            case ProjectileCode.ENEMY -> createEnemyProjectile("enemyFire", initialXPos, initialYPos, 1, new Vector(-1, 0));
+            case ProjectileCode.ENEMY_ROUND_DOWN -> createEnemyProjectile("circlebulletblue", initialXPos, initialYPos, 1, new Vector(-1, -0.3));
+            case ProjectileCode.ENEMY_ROUND_UP -> createEnemyProjectile("circlebulletblue", initialXPos, initialYPos, 1, new Vector(-1, 0.3));
             case ProjectileCode.BOSS -> createBossProjectile(initialXPos, initialYPos, 1);
         };
     }
 
-    protected Projectile createUserProjectile(String imageName, double initialXPos, double initialYPos, int damage, Vector velocity) {
+    protected Projectile createGenericProjectile(String imageName, double fitHeight, double speed, double initialXPos, double initialYPos, int damage, Vector velocity, boolean travellingRight) {
         ImageView imageView = makeView(imageName);
-        imageView.setFitHeight(12);
+        imageView.setFitHeight(fitHeight);
 
         ActorStrategy actorStrategy = new LinearProjectileStrategy(velocity);
 
-        UserProjectile projectile = new UserProjectile(actorStrategy, root, imageView, damage);
+        Projectile projectile = new Projectile(actorStrategy, root, imageView, damage, speed, travellingRight);
         projectile.setPosition(initialXPos, initialYPos);
 
         return projectile;
     }
 
-    protected Projectile createEnemyProjectile(double initialXPos, double initialYPos, int damage) {
-        ImageView imageView = makeView("enemyFire");
-        imageView.setFitHeight(34);
+    protected Projectile createUserProjectile(String imageName, double initialXPos, double initialYPos, int damage, Vector velocity) {
+        return createGenericProjectile(imageName, 12, 100, initialXPos, initialYPos, damage, velocity, true);
+    }
 
-        ActorStrategy actorStrategy = new LinearProjectileStrategy(new Vector(-1, 0));
-
-        EnemyProjectile projectile = new EnemyProjectile(actorStrategy, root, imageView, damage);
-        projectile.setPosition(initialXPos, initialYPos);
-
-        return projectile;
+    protected Projectile createEnemyProjectile(String imageName, double initialXPos, double initialYPos, int damage, Vector velocity) {
+        return createGenericProjectile(imageName, 34, 10, initialXPos, initialYPos, damage, velocity, false);
     }
 
     protected Projectile createBossProjectile(double initialXPos, double initialYPos, int damage) {
-        ImageView imageView = makeView("fireball");
-        imageView.setFitHeight(75);
-
-        ActorStrategy actorStrategy = new LinearProjectileStrategy(new Vector(-1, 0));
-
-        BossProjectile projectile = new BossProjectile(actorStrategy, root, imageView, damage);
-        projectile.setPosition(initialXPos, initialYPos);
-
-        return projectile;
+        return createGenericProjectile("fireball", 75, 15, initialXPos, initialYPos, damage, new Vector(-1, 0), false);
     }
 }

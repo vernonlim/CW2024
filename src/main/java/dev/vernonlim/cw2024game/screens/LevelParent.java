@@ -68,7 +68,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
             public void onFire(Projectile projectile) {
                 projectile.show();
 
-                if (projectile instanceof UserProjectile) {
+                if (projectile.userProjectile) {
                     userProjectiles.add(projectile);
                 } else {
                     enemyProjectiles.add(projectile);
@@ -174,7 +174,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         handleAllCollisions();
         removeAllDestroyedActors();
         updateKillCount();
-        updateOverlays();
+        updateOverlays(currentTime);
         checkIfGameOver(currentTime);
     }
 
@@ -192,19 +192,19 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         removeDestroyedActors(enemyProjectiles);
     }
 
-    private void removeDestroyedActors(List<ActiveActorDestructible> actors) {
+    protected void removeDestroyedActors(List<ActiveActorDestructible> actors) {
         List<ActiveActorDestructible> destroyedActors = actors.stream().filter(ActiveActorDestructible::isDestroyed).toList();
         destroyedActors.forEach(Element::hide);
         actors.removeAll(destroyedActors);
     }
 
-    private void handleAllCollisions() {
+    protected void handleAllCollisions() {
         collisionManager.handleCollisions(friendlyUnits, enemyUnits);
         collisionManager.handleCollisions(userProjectiles, enemyUnits);
         collisionManager.handleCollisions(enemyProjectiles, friendlyUnits);
     }
 
-    private void handleEnemyPenetration() {
+    protected void handleEnemyPenetration() {
         for (ActiveActorDestructible enemy : enemyUnits) {
             if (enemyHasPenetratedDefenses(enemy)) {
                 user.takeDamage(1);
@@ -213,7 +213,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         }
     }
 
-    private void updateOverlays() {
+    protected void updateOverlays(double currentTime) {
         gameplayOverlay.removeHearts(user.getHealth());
     }
 
@@ -223,7 +223,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         }
     }
 
-    private boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
+    protected boolean enemyHasPenetratedDefenses(ActiveActorDestructible enemy) {
         return enemy.getX() < 0;
     }
 

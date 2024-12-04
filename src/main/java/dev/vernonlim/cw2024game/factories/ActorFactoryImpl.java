@@ -95,10 +95,11 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         AudioClip fireSound = loader.loadSound("laser");
         AudioClip deathSound = loader.loadSound("explosion");
 
-        PlaneStrategy planeStrategy = new EnemyPlaneStrategy();
-
-        EnemyPlane plane = new EnemyPlane(planeStrategy, projectileFactory, root, projectileListener, imageView, fireSound, deathSound);
+        EnemyPlane plane = new EnemyPlane(null, projectileFactory, root, projectileListener, imageView, fireSound, deathSound);
         plane.setPosition(initialXPos, initialYPos);
+
+        PlaneStrategy planeStrategy = new BlueStrategy(plane);
+        plane.setPlaneStrategy(planeStrategy);
 
         return plane;
     }

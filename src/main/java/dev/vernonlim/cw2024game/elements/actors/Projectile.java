@@ -7,13 +7,21 @@ import dev.vernonlim.cw2024game.elements.strategies.ActorStrategy;
 import javafx.scene.layout.Pane;
 import javafx.scene.image.ImageView;
 
-public abstract class Projectile extends ActiveActorDestructible {
+public class Projectile extends ActiveActorDestructible {
     public final int damage;
+    public final boolean userProjectile;
 
-    public Projectile(ActorStrategy actorStrategy, Pane root, ImageView imageView, int damage, double speed) {
+    public Projectile(ActorStrategy actorStrategy, Pane root, ImageView imageView, int damage, double speed, boolean userProjectile) {
         super(actorStrategy, root, imageView, speed, false);
 
         this.damage = damage;
+        this.userProjectile = userProjectile;
+
+        if (userProjectile) {
+            moveHorizontally(getHalfWidth());
+        } else {
+            moveHorizontally(-getHalfWidth());
+        }
     }
 
     @Override
