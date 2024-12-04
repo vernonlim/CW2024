@@ -27,10 +27,21 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         this.elementFactory = elementFactory;
     }
 
-    public UserPlane createUserPlane(UserPlaneCode code) {
-        return switch (code) {
+    @Override
+    public UserPlane createUserPlane(UserPlaneCode userPlaneCode) {
+        return switch (userPlaneCode) {
             case REGULAR_PLANE -> createRegularPlane();
             case GREEN_PLANE -> createGreenPlane();
+        };
+    }
+
+    @Override
+    public FighterPlane createEnemy(EnemyCode enemyCode, double initialXPos, double initialYPos) {
+        return switch (enemyCode) {
+            case ENEMY_PLANE -> createEnemyPlane(initialXPos, initialYPos);
+            case BOSS -> createBoss();
+            case ENEMY_BLUE -> createEnemyBlue(initialXPos, initialYPos);
+            default -> createEnemyPlane(initialXPos, initialYPos);
         };
     }
 
@@ -62,7 +73,7 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         return new GreenPlane(planeStrategy, projectileFactory, root, projectileListener, inputManager, imageView, fireSound, deathSound, initialHealth, 30.0f, 7.0f);
     }
 
-    public FighterPlane createEnemyPlane(double initialXPos, double initialYPos) {
+    private FighterPlane createEnemyPlane(double initialXPos, double initialYPos) {
         ImageView imageView = makeView("enemyplane");
         imageView.setFitHeight(54);
 
@@ -77,7 +88,22 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         return plane;
     }
 
-    public FighterPlane createBoss() {
+    private FighterPlane createEnemyBlue(double initialXPos, double initialYPos) {
+        ImageView imageView = makeView("enemyblue");
+        imageView.setFitHeight(54);
+
+        AudioClip fireSound = loader.loadSound("laser");
+        AudioClip deathSound = loader.loadSound("explosion");
+
+        PlaneStrategy planeStrategy = new EnemyPlaneStrategy();
+
+        EnemyPlane plane = new EnemyPlane(planeStrategy, projectileFactory, root, projectileListener, imageView, fireSound, deathSound);
+        plane.setPosition(initialXPos, initialYPos);
+
+        return plane;
+    }
+
+    private FighterPlane createBoss() {
         ImageView imageView = makeView("bossplane");
         imageView.setFitHeight(56);
 

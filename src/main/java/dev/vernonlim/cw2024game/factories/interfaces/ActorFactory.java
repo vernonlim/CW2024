@@ -4,6 +4,5 @@ import dev.vernonlim.cw2024game.elements.actors.*;
 
 public interface ActorFactory {
     UserPlane createUserPlane(UserPlaneCode code);
-    FighterPlane createEnemyPlane(double initialXPos, double initialYPos);
-    FighterPlane createBoss();
+    FighterPlane createEnemy(EnemyCode enemyCode, double initialXPos, double initialYPos);
 }

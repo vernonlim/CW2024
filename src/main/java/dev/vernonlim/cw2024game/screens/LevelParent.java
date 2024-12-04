@@ -126,7 +126,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         return timer;
     }
 
-    protected abstract void checkIfGameOver();
+    protected abstract void checkIfGameOver(double currentTime);
 
     protected abstract void spawnEnemyUnits(double currentTime);
 
@@ -175,7 +175,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         removeAllDestroyedActors();
         updateKillCount();
         updateOverlays();
-        checkIfGameOver();
+        checkIfGameOver(currentTime);
     }
 
     private void updateActors(double deltaTime, double currentTime) {

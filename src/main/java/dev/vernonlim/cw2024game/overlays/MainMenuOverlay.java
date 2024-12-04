@@ -19,9 +19,12 @@ public class MainMenuOverlay extends MenuOverlay {
 
         TextBox levelTwo = gridElementFactory.createTextBox("Level Two", ScreenCode.LEVEL_TWO, rightPercent, totalRows);
 
+        TextBox levelThree = gridElementFactory.createTextBox("Level Three", ScreenCode.LEVEL_THREE, rightPercent, totalRows);
+
         addButton(startGame);
         addButton(levelOne);
         addButton(levelTwo);
+        addButton(levelThree);
 
         show();
     }
