@@ -19,9 +19,12 @@ public class LevelSelectOverlay extends MenuOverlay {
 
         TextBox levelThree = gridElementFactory.createTextBox("Level Three", ScreenCode.LEVEL_THREE, userPlaneCode, rightPercent, totalRows);
 
+        TextBox levelFour = gridElementFactory.createTextBox("Level Four", ScreenCode.LEVEL_FOUR, userPlaneCode, rightPercent, totalRows);
+
         addButton(levelOne);
         addButton(levelTwo);
         addButton(levelThree);
+        addButton(levelFour);
 
         show();
     }

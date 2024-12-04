@@ -41,6 +41,7 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
             case ENEMY_PLANE -> createEnemyPlane(initialXPos, initialYPos);
             case BOSS -> createBoss();
             case ENEMY_BLUE -> createEnemyBlue(initialXPos, initialYPos);
+            case ENEMY_RED -> createEnemyRed(initialXPos, initialYPos);
             default -> createEnemyPlane(initialXPos, initialYPos);
         };
     }
@@ -74,6 +75,8 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
     }
 
     private FighterPlane createEnemyPlane(double initialXPos, double initialYPos) {
+        double speed = 5.0f;
+
         ImageView imageView = makeView("enemyplane");
         imageView.setFitHeight(54);
 
@@ -82,24 +85,43 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
 
         PlaneStrategy planeStrategy = new EnemyPlaneStrategy();
 
-        EnemyPlane plane = new EnemyPlane(planeStrategy, projectileFactory, root, projectileListener, imageView, fireSound, deathSound);
+        EnemyPlane plane = new EnemyPlane(planeStrategy, projectileFactory, root, projectileListener, imageView, speed, fireSound, deathSound);
         plane.setPosition(initialXPos, initialYPos);
 
         return plane;
     }
 
     private FighterPlane createEnemyBlue(double initialXPos, double initialYPos) {
+        double speed = 5.0f;
+
         ImageView imageView = makeView("enemyblue");
         imageView.setFitHeight(54);
 
         AudioClip fireSound = loader.loadSound("laser");
         AudioClip deathSound = loader.loadSound("explosion");
 
-        EnemyPlane plane = new EnemyPlane(null, projectileFactory, root, projectileListener, imageView, fireSound, deathSound);
+        EnemyPlane plane = new EnemyPlane(null, projectileFactory, root, projectileListener, imageView, speed, fireSound, deathSound);
         plane.setPosition(initialXPos, initialYPos);
 
         PlaneStrategy planeStrategy = new BlueStrategy(plane);
         plane.setPlaneStrategy(planeStrategy);
+
+        return plane;
+    }
+
+    private FighterPlane createEnemyRed(double initialXPos, double initialYPos) {
+        double speed = 50.0f;
+
+        ImageView imageView = makeView("enemyred");
+        imageView.setFitHeight(54);
+
+        AudioClip fireSound = loader.loadSound("laser");
+        AudioClip deathSound = loader.loadSound("explosion");
+
+        PlaneStrategy planeStrategy = new RedStrategy();
+
+        EnemyPlane plane = new EnemyPlane(planeStrategy, projectileFactory, root, projectileListener, imageView, speed, fireSound, deathSound);
+        plane.setPosition(initialXPos, initialYPos);
 
         return plane;
     }

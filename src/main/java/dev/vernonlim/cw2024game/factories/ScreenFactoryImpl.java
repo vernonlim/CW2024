@@ -56,6 +56,11 @@ public class ScreenFactoryImpl implements ScreenFactory {
                 screen = new LevelThree(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_THREE, userPlaneCode);
                 break;
             }
+            case ScreenCode.LEVEL_FOUR: {
+                String backgroundImageName = "background4";
+                screen = new LevelFour(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_THREE, userPlaneCode);
+                break;
+            }
         }
         if (screen == null) {
             Controller.triggerAlertAndExit("Missing Level!");

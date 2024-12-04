@@ -51,7 +51,7 @@ public abstract class MenuOverlay extends Element {
         this.startIndex = 3;
         this.currentButton = 0;
         this.rightPercent = 40.0f;
-        this.totalRows = 8;
+        this.totalRows = 9;
 
         this.gridPane = new GridPane();
         this.pane = new Pane(gridPane);

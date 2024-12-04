@@ -10,14 +10,18 @@ import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.overlays.TimerOverlay;
 import javafx.stage.Stage;
 
-public class LevelThree extends LevelParent {
+public class LevelFour extends LevelParent {
     protected TimerOverlay timerOverlay;
     protected final int SECONDS_REMAINING = 20;
+    protected double lastSpawnHeight;
+    protected int spawnCount;
 
-    public LevelThree(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImageName, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
+    public LevelFour(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImageName, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
         super(stage, controller, loader, keybinds, backgroundImageName, currentScreen, userPlaneCode);
 
         this.timerOverlay = overlayFactory.createTimerOverlay(SECONDS_REMAINING);
+        this.lastSpawnHeight = 0;
+        this.spawnCount = 0;
     }
 
     @Override
@@ -32,7 +36,7 @@ public class LevelThree extends LevelParent {
         if (user.isDestroyed()) {
             loseGame();
         } else if (currentTime >= SECONDS_REMAINING * 1000.0f) {
-            goToScreen(ScreenCode.LEVEL_FOUR, userPlaneCode);
+            winGame();
         }
     }
 
@@ -41,15 +45,24 @@ public class LevelThree extends LevelParent {
         if (currentTime - lastEnemySpawnAttempt > 2000.0f) {
             lastEnemySpawnAttempt = currentTime;
 
-            ActiveActorDestructible enemy1 = actorFactory.createEnemy(EnemyCode.ENEMY_BLUE, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT / 2.0f);
-            double enemyYPosition = enemy1.getHeight() + 50;
-            enemy1.setY(enemyYPosition);
-            addEnemyUnit(enemy1);
+            ActiveActorDestructible enemy = actorFactory.createEnemy(EnemyCode.ENEMY_RED, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT / 2.0f);
+            double enemyYPosition = Math.random() * (Main.SCREEN_HEIGHT - enemy.getHeight()) + enemy.getHalfHeight();
+            enemy.setY(enemyYPosition);
+            addEnemyUnit(enemy);
 
-            ActiveActorDestructible enemy2 = actorFactory.createEnemy(EnemyCode.ENEMY_BLUE, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT / 2.0f);
-            double enemyYPosition2 = Main.SCREEN_HEIGHT - enemy2.getHeight() - 50;
-            enemy2.setY(enemyYPosition2);
-            addEnemyUnit(enemy2);
+            lastSpawnHeight = enemyYPosition;
+            spawnCount = 4;
+        }
+
+        if (spawnCount >= 1) {
+            if (currentTime - lastEnemySpawnAttempt >= 200.0f) {
+                lastEnemySpawnAttempt = currentTime;
+
+                ActiveActorDestructible enemy = actorFactory.createEnemy(EnemyCode.ENEMY_RED, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT / 2.0f);
+                enemy.setY(lastSpawnHeight);
+                addEnemyUnit(enemy);
+                spawnCount--;
+            }
         }
     }
 }
