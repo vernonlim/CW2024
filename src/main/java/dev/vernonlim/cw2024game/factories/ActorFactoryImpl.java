@@ -83,9 +83,12 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
 
         AudioClip fireSound = loader.loadSound("fireball");
         AudioClip deathSound = loader.loadSound("explosion");
+        AudioClip shieldSound = loader.loadSound("metalhit");
+        AudioClip damageSound = loader.loadSound("click");
+        damageSound.setVolume(1.0);
 
         BossStrategy bossStrategy = new BossStrategyImpl();
 
-        return new Boss(bossStrategy, elementFactory, projectileFactory, root, projectileListener, imageView, fireSound, deathSound);
+        return new Boss(bossStrategy, elementFactory, projectileFactory, root, projectileListener, imageView, fireSound, deathSound, shieldSound, damageSound);
     }
 }
