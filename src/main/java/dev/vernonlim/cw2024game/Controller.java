@@ -6,6 +6,7 @@ import dev.vernonlim.cw2024game.factories.ScreenFactoryImpl;
 import dev.vernonlim.cw2024game.factories.interfaces.ScreenFactory;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.screens.Screen;
+import dev.vernonlim.cw2024game.screens.ScreenCode;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;

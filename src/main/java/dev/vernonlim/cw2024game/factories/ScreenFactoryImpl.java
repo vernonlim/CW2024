@@ -1,7 +1,7 @@
 package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.ScreenCode;
+import dev.vernonlim.cw2024game.screens.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
 import dev.vernonlim.cw2024game.factories.interfaces.ScreenFactory;
@@ -22,33 +22,38 @@ public class ScreenFactoryImpl implements ScreenFactory {
         this.keybinds = keybinds;
     }
 
-    public Screen createScreen(ScreenCode screenCode, UserPlaneCode code) {
+    public Screen createScreen(ScreenCode screenCode, UserPlaneCode userPlaneCode) {
         Screen screen = null;
 
         switch (screenCode) {
             case ScreenCode.MAIN_MENU: {
                 String backgroundImageName = "mainmenu";
-                screen = new MainMenu(controller, loader, keybinds, backgroundImageName, ScreenCode.MAIN_MENU);
+                screen = new MainMenu(controller, loader, keybinds, backgroundImageName, ScreenCode.MAIN_MENU, userPlaneCode);
                 break;
             }
             case ScreenCode.CHARACTER_SELECT: {
                 String backgroundImageName = "mainmenu";
-                screen = new CharacterSelect(controller, loader, keybinds, backgroundImageName, ScreenCode.CHARACTER_SELECT);
+                screen = new CharacterSelect(controller, loader, keybinds, backgroundImageName, ScreenCode.CHARACTER_SELECT, userPlaneCode);
+                break;
+            }
+            case ScreenCode.LEVEL_SELECT: {
+                String backgroundImageName = "mainmenu";
+                screen = new LevelSelect(controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_SELECT, userPlaneCode);
                 break;
             }
             case ScreenCode.LEVEL_ONE: {
                 String backgroundImageName = "background1";
-                screen = new LevelOne(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_ONE, code);
+                screen = new LevelOne(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_ONE, userPlaneCode);
                 break;
             }
             case ScreenCode.LEVEL_TWO: {
                 String backgroundImageName = "background2";
-                screen = new LevelTwo(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_TWO, code);
+                screen = new LevelTwo(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_TWO, userPlaneCode);
                 break;
             }
             case ScreenCode.LEVEL_THREE: {
                 String backgroundImageName = "background3";
-                screen = new LevelThree(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_THREE, code);
+                screen = new LevelThree(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_THREE, userPlaneCode);
                 break;
             }
         }

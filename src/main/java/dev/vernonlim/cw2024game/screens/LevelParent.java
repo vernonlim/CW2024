@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
@@ -32,8 +31,6 @@ public abstract class LevelParent extends ScreenParent implements Screen {
 
     protected final CollisionManager collisionManager;
 
-    protected final UserPlaneCode userPlaneCode;
-
     private final List<ActiveActorDestructible> friendlyUnits;
     private final List<ActiveActorDestructible> enemyUnits;
     private final List<ActiveActorDestructible> userProjectiles;
@@ -55,9 +52,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
     protected boolean backToMenu;
 
     public LevelParent(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
-        super(controller, loader, keybinds, backgroundImagePath, currentScreen);
-
-        overlayFactory.changeUserPlane(userPlaneCode);
+        super(controller, loader, keybinds, backgroundImagePath, currentScreen, userPlaneCode);
 
         // initializing handlers
         this.collisionManager = new DamageCollisionManager();
@@ -83,8 +78,6 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         this.enemyUnits = new ArrayList<>();
         this.userProjectiles = new ArrayList<>();
         this.enemyProjectiles = new ArrayList<>();
-
-        this.userPlaneCode = userPlaneCode;
 
         this.user = actorFactory.createUserPlane(userPlaneCode);
         friendlyUnits.add(user);

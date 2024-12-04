@@ -2,7 +2,6 @@ package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.Main;
-import dev.vernonlim.cw2024game.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
@@ -23,6 +22,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
 public abstract class ScreenParent implements Screen {
+    protected UserPlaneCode userPlaneCode;
+
     protected final ScreenCode currentScreen;
 
     protected final Pane root;
@@ -36,8 +37,9 @@ public abstract class ScreenParent implements Screen {
     protected final OverlayFactory overlayFactory;
     protected final Timeline timeline;
 
-    public ScreenParent(Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen) {
+    public ScreenParent(Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
         this.currentScreen = currentScreen;
+        this.userPlaneCode = userPlaneCode;
 
         // initializing the main nodes
         this.root = new Pane();
@@ -68,7 +70,7 @@ public abstract class ScreenParent implements Screen {
             public void changeScreen(ScreenCode code, UserPlaneCode userPlaneCode) {
                 goToScreen(code, userPlaneCode);
             }
-        }, UserPlaneCode.REGULAR_PLANE);
+        }, userPlaneCode);
 
         // background
         this.background = elementFactory.createBackground(backgroundImagePath);
