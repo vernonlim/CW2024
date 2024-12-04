@@ -52,7 +52,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
     protected boolean paused;
     protected double lastPaused;
 
-    protected boolean won;
+    protected boolean backToMenu;
 
     public LevelParent(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
         super(controller, loader, keybinds, backgroundImagePath, currentScreen);
@@ -138,7 +138,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
 
         double realCurrentTime = System.currentTimeMillis();
 
-        if (won) {
+        if (backToMenu) {
             pauseOverlay.update(realCurrentTime);
 
             return;
@@ -231,12 +231,14 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         gameplayOverlay.showWinImage();
         pauseOverlay.show();
         paused = true;
-        won = true;
+        backToMenu = true;
     }
 
     protected void loseGame() {
-        timer.stop();
         gameplayOverlay.showGameOverImage();
+        pauseOverlay.show();
+        paused = true;
+        backToMenu = true;
     }
 
     protected int getCurrentNumberOfEnemies() {
