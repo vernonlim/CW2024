@@ -30,7 +30,6 @@ public abstract class UserPlane extends FighterPlane {
         super(planeStrategy, projectileFactory, root, projectileListener, imageView, initialHealth, speed, projectileYOffset, FACING_RIGHT, ALWAYS_IN_BOUNDS);
 
         this.fireSound = fireSound;
-        fireSound.setVolume(0.4);
 
         setXFromLeft(5);
         setY(Main.SCREEN_HEIGHT / 2.0f);
