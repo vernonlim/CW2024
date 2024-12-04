@@ -36,7 +36,9 @@ public class UpFrontAssetLoader extends CW2024AssetLoader {
             if (resourcePath == null) {
                 Controller.triggerAlertAndExit("Sound " + name + " doesn't exist at path " + path + ".");
             } else {
-                sounds.put(name, new AudioClip(resourcePath.toString()));
+                AudioClip clip = new AudioClip(resourcePath.toString());
+                clip.setVolume(0.4);
+                sounds.put(name, clip);
             }
         }
     }

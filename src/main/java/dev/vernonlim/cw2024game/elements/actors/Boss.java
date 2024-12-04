@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.media.AudioClip;
 
 public class Boss extends FighterPlane {
     private static final int HEALTH = 1000;
@@ -27,8 +28,14 @@ public class Boss extends FighterPlane {
 
     protected BossStrategy bossStrategy;
 
-    public Boss(BossStrategy bossStrategy, ElementFactory elementFactory, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView) {
-        super(bossStrategy, projectileFactory, root, projectileListener, imageView, HEALTH, SPEED, PROJECTILE_Y_OFFSET, FACING_RIGHT, ALWAYS_IN_BOUNDS);
+    protected AudioClip shieldSound;
+    protected AudioClip damageSound;
+
+    public Boss(BossStrategy bossStrategy, ElementFactory elementFactory, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView, AudioClip fireSound, AudioClip deathSound, AudioClip shieldSound, AudioClip damageSound) {
+        super(bossStrategy, projectileFactory, root, projectileListener, imageView, fireSound, deathSound, HEALTH, SPEED, PROJECTILE_Y_OFFSET, FACING_RIGHT, ALWAYS_IN_BOUNDS);
+
+        this.shieldSound = shieldSound;
+        this.damageSound = damageSound;
 
         this.bossStrategy = bossStrategy;
 
@@ -62,6 +69,10 @@ public class Boss extends FighterPlane {
     public void takeDamage(int damage) {
         if (!isShielded) {
             super.takeDamage(damage);
+
+            damageSound.play();
+        } else {
+            shieldSound.play();
         }
     }
 }

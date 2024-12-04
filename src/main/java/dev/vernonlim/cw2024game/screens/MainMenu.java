@@ -9,24 +9,11 @@ import dev.vernonlim.cw2024game.overlays.MenuOverlay;
 
 public class MainMenu extends ScreenParent implements Screen {
     protected MenuOverlay menuOverlay;
-    protected final ScreenChangeHandler screenChangeHandler;
 
     protected double lastUpdate;
 
     public MainMenu(Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen) {
         super(controller, loader, keybinds, backgroundImagePath, currentScreen);
-
-        this.screenChangeHandler = new ScreenChangeHandler() {
-            @Override
-            public void changeScreen(ScreenCode code) {
-                changeScreen(code, UserPlaneCode.REGULAR_PLANE);
-            }
-
-            @Override
-            public void changeScreen(ScreenCode code, UserPlaneCode userPlaneCode) {
-                goToScreen(code, userPlaneCode);
-            }
-        };
 
         initializeMenuOverlay();
 
@@ -34,7 +21,7 @@ public class MainMenu extends ScreenParent implements Screen {
     }
 
     protected void initializeMenuOverlay() {
-        menuOverlay = overlayFactory.createMainMenuOverlay(screenChangeHandler);
+        menuOverlay = overlayFactory.createMainMenuOverlay();
     }
 
     @Override

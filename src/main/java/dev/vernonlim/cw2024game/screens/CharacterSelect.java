@@ -14,6 +14,6 @@ public class CharacterSelect extends MainMenu implements Screen {
 
     @Override
     protected void initializeMenuOverlay() {
-        menuOverlay = overlayFactory.createCharacterSelectOverlay(screenChangeHandler);
+        menuOverlay = overlayFactory.createCharacterSelectOverlay();
     }
 }

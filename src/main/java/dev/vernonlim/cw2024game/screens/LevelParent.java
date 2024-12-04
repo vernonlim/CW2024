@@ -57,6 +57,8 @@ public abstract class LevelParent extends ScreenParent implements Screen {
     public LevelParent(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
         super(controller, loader, keybinds, backgroundImagePath, currentScreen);
 
+        overlayFactory.changeUserPlane(userPlaneCode);
+
         // initializing handlers
         this.collisionManager = new DamageCollisionManager();
 
@@ -89,17 +91,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
 
         // the overlay on top
         this.gameplayOverlay = overlayFactory.createGameplayOverlay(user.getHealth());
-        this.pauseOverlay = overlayFactory.createPauseOverlay(new ScreenChangeHandler() {
-            @Override
-            public void changeScreen(ScreenCode code) {
-                changeScreen(code, UserPlaneCode.REGULAR_PLANE);
-            }
-
-            @Override
-            public void changeScreen(ScreenCode code, UserPlaneCode unused) {
-                goToScreen(code, userPlaneCode);
-            }
-        }, currentScreen);
+        this.pauseOverlay = overlayFactory.createPauseOverlay(currentScreen);
 
         this.paused = false;
         this.lastPaused = -99999;

@@ -27,12 +27,12 @@ public class ScreenFactoryImpl implements ScreenFactory {
 
         switch (screenCode) {
             case ScreenCode.MAIN_MENU: {
-                String backgroundImageName = "background1";
+                String backgroundImageName = "mainmenu";
                 screen = new MainMenu(controller, loader, keybinds, backgroundImageName, ScreenCode.MAIN_MENU);
                 break;
             }
             case ScreenCode.CHARACTER_SELECT: {
-                String backgroundImageName = "background1";
+                String backgroundImageName = "mainmenu";
                 screen = new CharacterSelect(controller, loader, keybinds, backgroundImageName, ScreenCode.CHARACTER_SELECT);
                 break;
             }

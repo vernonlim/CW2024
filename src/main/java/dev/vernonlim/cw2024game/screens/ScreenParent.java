@@ -63,7 +63,12 @@ public abstract class ScreenParent implements Screen {
         this.loader = loader;
 
         this.elementFactory = new ElementFactoryImpl(root, loader);
-        this.overlayFactory = new OverlayFactoryImpl(stackPane, loader, inputManager, controller);
+        this.overlayFactory = new OverlayFactoryImpl(stackPane, loader, inputManager, controller, new ScreenChangeHandler() {
+            @Override
+            public void changeScreen(ScreenCode code, UserPlaneCode userPlaneCode) {
+                goToScreen(code, userPlaneCode);
+            }
+        }, UserPlaneCode.REGULAR_PLANE);
 
         // background
         this.background = elementFactory.createBackground(backgroundImagePath);

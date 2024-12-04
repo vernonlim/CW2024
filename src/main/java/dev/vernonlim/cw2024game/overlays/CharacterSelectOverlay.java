@@ -14,19 +14,9 @@ public class CharacterSelectOverlay extends MenuOverlay {
     public CharacterSelectOverlay(Controller controller, OverlayFactory overlayFactory, Pane root, InputManager input, ScreenChangeHandler screenChangeHandler) {
         super(controller, overlayFactory, root, input, screenChangeHandler);
 
-        TextBox character1 = gridElementFactory.createTextBox("Regular Plane", new ClickListener() {
-            @Override
-            public void onClick() {
-                screenChangeHandler.changeScreen(ScreenCode.LEVEL_ONE, UserPlaneCode.REGULAR_PLANE);
-            }
-        }, rightPercent, totalRows);
+        TextBox character1 = gridElementFactory.createTextBox("Regular Plane", ScreenCode.LEVEL_ONE, UserPlaneCode.REGULAR_PLANE, rightPercent, totalRows);
 
-        TextBox character2 = gridElementFactory.createTextBox("Green Plane", new ClickListener() {
-            @Override
-            public void onClick() {
-                screenChangeHandler.changeScreen(ScreenCode.LEVEL_ONE, UserPlaneCode.GREEN_PLANE);
-            }
-        }, rightPercent, totalRows);
+        TextBox character2 = gridElementFactory.createTextBox("Green Plane", ScreenCode.LEVEL_ONE, UserPlaneCode.GREEN_PLANE, rightPercent, totalRows);
 
         addButton(character1);
         addButton(character2);

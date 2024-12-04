@@ -13,19 +13,9 @@ public class PauseOverlay extends MenuOverlay {
     public PauseOverlay(Controller controller, OverlayFactory overlayFactory, Pane root, InputManager input, ScreenChangeHandler screenChangeHandler, ScreenCode currentScreen) {
         super(controller, overlayFactory, root, input, screenChangeHandler);
 
-        TextBox backToMenu = gridElementFactory.createTextBox("Back to Main Menu", new ClickListener() {
-            @Override
-            public void onClick() {
-                screenChangeHandler.changeScreen(ScreenCode.MAIN_MENU);
-            }
-        }, rightPercent, totalRows);
+        TextBox backToMenu = gridElementFactory.createTextBox("Back to Main Menu", ScreenCode.MAIN_MENU, rightPercent, totalRows);
 
-        TextBox retry = gridElementFactory.createTextBox("Retry Level", new ClickListener() {
-            @Override
-            public void onClick() {
-                screenChangeHandler.changeScreen(currentScreen);
-            }
-        }, rightPercent, totalRows);
+        TextBox retry = gridElementFactory.createTextBox("Retry Level", currentScreen,  rightPercent, totalRows);
 
         addButton(backToMenu);
         addButton(retry);

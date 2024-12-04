@@ -20,17 +20,12 @@ public abstract class UserPlane extends FighterPlane {
 
     protected int numberOfKills;
 
-    protected AudioClip fireSound;
-
     protected int damageToTake;
     protected double lastDamage;
     protected boolean takeDamage;
 
-    public UserPlane(PlaneStrategy planeStrategy, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, InputManager input, ImageView imageView, AudioClip fireSound, int initialHealth, double speed, double projectileYOffset) {
-        super(planeStrategy, projectileFactory, root, projectileListener, imageView, initialHealth, speed, projectileYOffset, FACING_RIGHT, ALWAYS_IN_BOUNDS);
-
-        this.fireSound = fireSound;
-        fireSound.setVolume(0.4);
+    public UserPlane(PlaneStrategy planeStrategy, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, InputManager input, ImageView imageView, AudioClip fireSound, AudioClip damageSound, int initialHealth, double speed, double projectileYOffset) {
+        super(planeStrategy, projectileFactory, root, projectileListener, imageView, fireSound, damageSound, initialHealth, speed, projectileYOffset, FACING_RIGHT, ALWAYS_IN_BOUNDS);
 
         setXFromLeft(5);
         setY(Main.SCREEN_HEIGHT / 2.0f);
@@ -62,13 +57,12 @@ public abstract class UserPlane extends FighterPlane {
     public void takeDamage(int damage) {
         takeDamage = true;
         damageToTake = damage;
+        deathSound.play();
     }
 
     @Override
     public void fireProjectile(ProjectileCode code) {
         super.fireProjectile(code);
-
-        fireSound.play();
     }
 
     @Override
