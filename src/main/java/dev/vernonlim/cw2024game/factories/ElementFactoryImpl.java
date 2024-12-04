@@ -22,7 +22,7 @@ public class ElementFactoryImpl extends FactoryParent implements ElementFactory 
         ImageView imageView = makeView("shield");
         imageView.setFitHeight(68);
 
-        return new ShieldImage(root, imageView);
+        return new ImageElement(root, imageView);
     }
 
     public Element createBackground(String imageName) {
@@ -33,6 +33,9 @@ public class ElementFactoryImpl extends FactoryParent implements ElementFactory 
         imageView.setFitWidth(Main.SCREEN_WIDTH);
         imageView.setPreserveRatio(false);
 
-        return new Background(root, imageView);
+        ImageElement background = new ImageElement(root, imageView);
+        background.show();
+
+        return background;
     }
 }

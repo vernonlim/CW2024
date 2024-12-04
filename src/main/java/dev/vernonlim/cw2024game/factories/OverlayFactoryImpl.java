@@ -41,7 +41,7 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
     public Element createGameOverImage(double xPosition, double yPosition) {
         ImageView imageView = makeView("gameover");
 
-        GameOverImage image = new GameOverImage(root, imageView);
+        ImageElement image = new ImageElement(root, imageView);
         image.setPosition(xPosition, yPosition);
 
         return image;
@@ -51,7 +51,7 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
         ImageView imageView = makeView("heart");
         imageView.setFitHeight(50);
 
-        return new Heart(root, imageView);
+        return new ImageElement(root, imageView);
     }
 
     public Element createWinImage(double xPosition, double yPosition) {
@@ -59,7 +59,7 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
         imageView.setFitHeight(500);
         imageView.setFitWidth(600);
 
-        WinImage winImage = new WinImage(root, imageView);
+        ImageElement winImage = new ImageElement(root, imageView);
         winImage.setPosition(xPosition, yPosition);
 
         return winImage;
