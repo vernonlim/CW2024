@@ -13,26 +13,11 @@ public class MainMenuOverlay extends MenuOverlay {
     public MainMenuOverlay(Controller controller, OverlayFactory overlayFactory, Pane root, InputManager input, ScreenChangeHandler screenChangeHandler) {
         super(controller, overlayFactory, root, input, screenChangeHandler);
 
-        TextBox startGame = gridElementFactory.createTextBox("Start Game", new ClickListener() {
-            @Override
-            public void onClick() {
-                screenChangeHandler.changeScreen(ScreenCode.CHARACTER_SELECT);
-            }
-        }, rightPercent, totalRows);
+        TextBox startGame = gridElementFactory.createTextBox("Start Game", ScreenCode.CHARACTER_SELECT, rightPercent, totalRows);
 
-        TextBox levelOne = gridElementFactory.createTextBox("Level One", new ClickListener() {
-            @Override
-            public void onClick() {
-                screenChangeHandler.changeScreen(ScreenCode.LEVEL_ONE);
-            }
-        }, rightPercent, totalRows);
+        TextBox levelOne = gridElementFactory.createTextBox("Level One", ScreenCode.LEVEL_ONE, rightPercent, totalRows);
 
-        TextBox levelTwo = gridElementFactory.createTextBox("Level Two", new ClickListener() {
-            @Override
-            public void onClick() {
-                screenChangeHandler.changeScreen(ScreenCode.LEVEL_TWO);
-            }
-        }, rightPercent, totalRows);
+        TextBox levelTwo = gridElementFactory.createTextBox("Level Two", ScreenCode.LEVEL_TWO, rightPercent, totalRows);
 
         addButton(startGame);
         addButton(levelOne);

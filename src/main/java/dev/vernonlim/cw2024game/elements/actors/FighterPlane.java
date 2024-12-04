@@ -8,6 +8,7 @@ import dev.vernonlim.cw2024game.elements.strategies.PlaneStrategy;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 
 public abstract class FighterPlane extends ActiveActorDestructible {
     protected final ProjectileFactory projectileFactory;
@@ -19,8 +20,14 @@ public abstract class FighterPlane extends ActiveActorDestructible {
 
     protected PlaneStrategy planeStrategy;
 
-    public FighterPlane(PlaneStrategy planeStrategy, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView, int health, double speed, double projectileYOffset, boolean facingRight, boolean alwaysInBounds) {
+    protected AudioClip fireSound;
+    protected AudioClip deathSound;
+
+    public FighterPlane(PlaneStrategy planeStrategy, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView, AudioClip fireSound, AudioClip deathSound, int health, double speed, double projectileYOffset, boolean facingRight, boolean alwaysInBounds) {
         super(planeStrategy, root, imageView, speed, alwaysInBounds);
+
+        this.fireSound = fireSound;
+        this.deathSound = deathSound;
 
         this.health = health;
 
@@ -45,6 +52,8 @@ public abstract class FighterPlane extends ActiveActorDestructible {
 
     public void fireProjectile(ProjectileCode code) {
         projectileListener.onFire(createProjectile(code));
+
+        fireSound.play();
     }
 
     public Projectile createProjectile(ProjectileCode code) {
@@ -60,6 +69,13 @@ public abstract class FighterPlane extends ActiveActorDestructible {
         if (healthBelowZero()) {
             this.destroy();
         }
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+
+        deathSound.play();
     }
 
     public boolean healthBelowZero() {

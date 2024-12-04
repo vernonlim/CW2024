@@ -41,10 +41,11 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         imageView.setFitHeight(40);
 
         AudioClip fireSound = loader.loadSound("gunshot");
+        AudioClip deathSound = loader.loadSound("pichuun");
 
         PlaneStrategy planeStrategy = new RegularPlaneStrategy(inputManager);
 
-        return new RegularPlane(planeStrategy, projectileFactory, root, projectileListener, inputManager, imageView, fireSound, initialHealth, 24.0f, 7.0f);
+        return new RegularPlane(planeStrategy, projectileFactory, root, projectileListener, inputManager, imageView, fireSound, deathSound, initialHealth, 24.0f, 7.0f);
     }
 
     private UserPlane createGreenPlane() {
@@ -54,19 +55,23 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         imageView.setFitHeight(40);
 
         AudioClip fireSound = loader.loadSound("laser");
+        AudioClip deathSound = loader.loadSound("pichuun");
 
         PlaneStrategy planeStrategy = new GreenPlaneStrategy(inputManager);
 
-        return new GreenPlane(planeStrategy, projectileFactory, root, projectileListener, inputManager, imageView, fireSound, initialHealth, 30.0f, 7.0f);
+        return new GreenPlane(planeStrategy, projectileFactory, root, projectileListener, inputManager, imageView, fireSound, deathSound, initialHealth, 30.0f, 7.0f);
     }
 
     public FighterPlane createEnemyPlane(double initialXPos, double initialYPos) {
         ImageView imageView = makeView("enemyplane");
         imageView.setFitHeight(54);
 
+        AudioClip fireSound = loader.loadSound("missile");
+        AudioClip deathSound = loader.loadSound("explosion");
+
         PlaneStrategy planeStrategy = new EnemyPlaneStrategy();
 
-        EnemyPlane plane = new EnemyPlane(planeStrategy, projectileFactory, root, projectileListener, imageView);
+        EnemyPlane plane = new EnemyPlane(planeStrategy, projectileFactory, root, projectileListener, imageView, fireSound, deathSound);
         plane.setPosition(initialXPos, initialYPos);
 
         return plane;
@@ -76,8 +81,11 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         ImageView imageView = makeView("bossplane");
         imageView.setFitHeight(56);
 
+        AudioClip fireSound = loader.loadSound("fireball");
+        AudioClip deathSound = loader.loadSound("explosion");
+
         BossStrategy bossStrategy = new BossStrategyImpl();
 
-        return new Boss(bossStrategy, elementFactory, projectileFactory, root, projectileListener, imageView);
+        return new Boss(bossStrategy, elementFactory, projectileFactory, root, projectileListener, imageView, fireSound, deathSound);
     }
 }

@@ -45,6 +45,8 @@ abstract class CW2024AssetLoader implements AssetLoader {
             entry("gamestart", "/audio/gamestart.wav"),
             entry("fireball", "/audio/fireball.wav"),
             entry("explosion", "/audio/explosion.wav"),
+            entry("select", "/audio/select.wav"),
+            entry("pichuun", "/audio/pichuun.wav"),
             entry("error", "/audio/error.wav")
     );
 

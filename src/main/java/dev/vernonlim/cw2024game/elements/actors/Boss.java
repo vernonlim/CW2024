@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.media.AudioClip;
 
 public class Boss extends FighterPlane {
     private static final int HEALTH = 1000;
@@ -27,8 +28,8 @@ public class Boss extends FighterPlane {
 
     protected BossStrategy bossStrategy;
 
-    public Boss(BossStrategy bossStrategy, ElementFactory elementFactory, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView) {
-        super(bossStrategy, projectileFactory, root, projectileListener, imageView, HEALTH, SPEED, PROJECTILE_Y_OFFSET, FACING_RIGHT, ALWAYS_IN_BOUNDS);
+    public Boss(BossStrategy bossStrategy, ElementFactory elementFactory, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView, AudioClip fireSound, AudioClip deathSound) {
+        super(bossStrategy, projectileFactory, root, projectileListener, imageView, fireSound, deathSound, HEALTH, SPEED, PROJECTILE_Y_OFFSET, FACING_RIGHT, ALWAYS_IN_BOUNDS);
 
         this.bossStrategy = bossStrategy;
 

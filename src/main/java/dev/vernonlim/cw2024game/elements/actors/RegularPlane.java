@@ -9,7 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
 public class RegularPlane extends UserPlane {
-    public RegularPlane(PlaneStrategy planeStrategy, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, InputManager input, ImageView imageView, AudioClip fireSound, int initialHealth, double speed, double projectileYOffset) {
-        super(planeStrategy, projectileFactory, root, projectileListener, input, imageView, fireSound, initialHealth, speed, projectileYOffset);
+    public RegularPlane(PlaneStrategy planeStrategy, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, InputManager input, ImageView imageView, AudioClip fireSound, AudioClip damageSound, int initialHealth, double speed, double projectileYOffset) {
+        super(planeStrategy, projectileFactory, root, projectileListener, input, imageView, fireSound, damageSound, initialHealth, speed, projectileYOffset);
     }
 }
