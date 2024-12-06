@@ -14,12 +14,29 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 
 public class Controller {
-    private final Stage stage;
+    private static Controller instance;
+    private static Stage stage;
     private final ScreenFactory screenFactory;
 
-    public Controller(Stage stage, AssetLoader loader, KeybindStore keybinds) {
-        this.stage = stage;
+    private Controller(Stage stage, AssetLoader loader, KeybindStore keybinds) {
+        Controller.stage = stage;
         this.screenFactory = new ScreenFactoryImpl(stage, this, loader, keybinds);
+    }
+
+    public static Controller getController() {
+        return instance;
+    }
+
+    public static Stage getStage() {
+        return stage;
+    }
+
+    public static Controller getController(Stage stage, AssetLoader loader, KeybindStore keybinds) {
+        if (instance == null) {
+            instance = new Controller(stage, loader, keybinds);
+        }
+
+        return instance;
     }
 
     public static void triggerAlertAndExit(String message) {

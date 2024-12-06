@@ -31,7 +31,7 @@ public class Main extends Application {
 
         KeybindStore keybinds = new KeybindStore(KEYBINDS_PATH);
 
-        Controller myController = new Controller(stage, loader, keybinds);
+        Controller myController = Controller.getController(stage, loader, keybinds);
         myController.launchGame();
     }
 }
