@@ -6,7 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
 
-// Credit:
+// Source:
 // https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
 public class SceneSizeChangeListener implements ChangeListener<Number> {
     private final Scene scene;
@@ -23,8 +23,6 @@ public class SceneSizeChangeListener implements ChangeListener<Number> {
         this.contentPane = contentPane;
     }
 
-    // Credit:
-    // https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
     public static void letterbox(Scene scene, Pane contentPane, double initWidth, double initHeight) {
         final double ratio = initWidth / initHeight;
 

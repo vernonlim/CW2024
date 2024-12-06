@@ -15,7 +15,7 @@ public class LevelFive extends LevelParent {
     public LevelFive(ScreenConfig config) {
         super(config);
 
-        boss = actorFactory.createEnemy(EnemyCode.FINAL_BOSS, 0, 0);
+        boss = getActorFactory().createEnemy(EnemyCode.FINAL_BOSS, 0, 0);
     }
 
     @Override

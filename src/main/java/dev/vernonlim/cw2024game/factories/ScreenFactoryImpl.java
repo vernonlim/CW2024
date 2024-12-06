@@ -59,12 +59,14 @@ public class ScreenFactoryImpl implements ScreenFactory {
             case ScreenCode.LEVEL_THREE: {
                 config.setBackgroundImageName("background3");
                 config.setCurrentScreenCode(ScreenCode.LEVEL_THREE);
+                config.setCountdownTime(20);
                 screen = new LevelThree(config);
                 break;
             }
             case ScreenCode.LEVEL_FOUR: {
                 config.setBackgroundImageName("background4");
                 config.setCurrentScreenCode(ScreenCode.LEVEL_FOUR);
+                config.setCountdownTime(20);
                 screen = new LevelFour(config);
                 break;
             }

@@ -1,22 +1,22 @@
 package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
-import dev.vernonlim.cw2024game.elements.actors.*;
+import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
+import dev.vernonlim.cw2024game.elements.actors.Projectile;
+import dev.vernonlim.cw2024game.elements.actors.UserPlane;
 import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
-import dev.vernonlim.cw2024game.factories.*;
+import dev.vernonlim.cw2024game.factories.ActorFactoryImpl;
+import dev.vernonlim.cw2024game.factories.ProjectileFactoryImpl;
 import dev.vernonlim.cw2024game.factories.interfaces.ActorFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import dev.vernonlim.cw2024game.managers.CollisionManager;
 import dev.vernonlim.cw2024game.managers.DamageCollisionManager;
-import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import dev.vernonlim.cw2024game.overlays.MenuOverlay;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
-import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import javax.swing.*;
@@ -24,42 +24,54 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class LevelParent extends ScreenParent implements Screen {
-    protected final UserPlane user;
-    protected final ProjectileListener projectileListener;
+    private final UserPlane user;
+    private ProjectileListener projectileListener;
 
-    protected final ProjectileFactory projectileFactory;
-    protected final ActorFactory actorFactory;
+    private ProjectileFactory projectileFactory;
+    private ActorFactory actorFactory;
 
-    protected final CollisionManager collisionManager;
+    private final CollisionManager collisionManager;
+    private final GameplayOverlay gameplayOverlay;
+    private final MenuOverlay pauseOverlay;
+    private List<ActiveActorDestructible> friendlyUnits;
+    private List<ActiveActorDestructible> enemyUnits;
+    private List<ActiveActorDestructible> userProjectiles;
+    private List<ActiveActorDestructible> enemyProjectiles;
+    private double lastUpdate;
+    private double lastEnemySpawnAttempt;
+    private Timer timer;
+    private double virtualTime;
 
-    private final List<ActiveActorDestructible> friendlyUnits;
-    private final List<ActiveActorDestructible> enemyUnits;
-    private final List<ActiveActorDestructible> userProjectiles;
-    private final List<ActiveActorDestructible> enemyProjectiles;
+    private int currentNumberOfEnemies;
 
-    protected final GameplayOverlay gameplayOverlay;
-    protected final MenuOverlay pauseOverlay;
+    private boolean paused;
+    private double lastPaused;
 
-    protected double lastUpdate;
-    protected double lastEnemySpawnAttempt;
-    protected Timer timer;
-    protected double virtualTime;
-
-    protected int currentNumberOfEnemies;
-
-    protected boolean paused;
-    protected double lastPaused;
-
-    protected boolean backToMenu;
+    private boolean backToMainMenu;
 
     public LevelParent(ScreenConfig config) {
         super(config);
 
-        // initializing handlers
         this.collisionManager = new DamageCollisionManager();
 
-        // what to do with projectiles?
-        this.projectileListener = new ProjectileListener() {
+        initializeProjectileListener();
+        initializeFactories();
+        initializeUnitArrays();
+
+        // must be run after the unit arrays are initialized
+        this.user = actorFactory.createUserPlane(userPlaneCode);
+        friendlyUnits.add(user);
+
+        // the overlay on top
+        this.gameplayOverlay = overlayFactory.createGameplayOverlay(user.getHealth());
+        this.pauseOverlay = overlayFactory.createPauseOverlay(currentScreen);
+
+        initializeState();
+        fixCloseRequestHandling();
+    }
+
+    private void initializeProjectileListener() {
+        projectileListener = new ProjectileListener() {
             @Override
             public void onFire(Projectile projectile) {
                 projectile.show();
@@ -71,32 +83,33 @@ public abstract class LevelParent extends ScreenParent implements Screen {
                 }
             }
         };
+    }
 
-        this.projectileFactory = new ProjectileFactoryImpl(root, loader);
-        this.actorFactory = new ActorFactoryImpl(root, loader, inputManager, projectileFactory, projectileListener, elementFactory);
+    private void initializeUnitArrays() {
+        friendlyUnits = new ArrayList<>();
+        enemyUnits = new ArrayList<>();
+        userProjectiles = new ArrayList<>();
+        enemyProjectiles = new ArrayList<>();
+    }
 
-        this.friendlyUnits = new ArrayList<>();
-        this.enemyUnits = new ArrayList<>();
-        this.userProjectiles = new ArrayList<>();
-        this.enemyProjectiles = new ArrayList<>();
+    private void initializeFactories() {
+        projectileFactory = new ProjectileFactoryImpl(root, loader);
+        actorFactory = new ActorFactoryImpl(root, loader, inputManager, projectileFactory, projectileListener, elementFactory);
+    }
 
-        this.user = actorFactory.createUserPlane(userPlaneCode);
-        friendlyUnits.add(user);
-
-        // the overlay on top
-        this.gameplayOverlay = overlayFactory.createGameplayOverlay(user.getHealth());
-        this.pauseOverlay = overlayFactory.createPauseOverlay(currentScreen);
-
+    private void initializeState() {
         this.paused = false;
-        this.lastPaused = -99999;
+        this.lastPaused = -99999.0;
 
         this.currentNumberOfEnemies = 0;
 
-        this.lastUpdate = 0; // mostly arbitrary time at the start
-        this.virtualTime = 0;
+        this.lastUpdate = 0.0; // mostly arbitrary time at the start
+        this.virtualTime = 0.0;
         this.timer = createTimer();
-        this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
+        this.lastEnemySpawnAttempt = -99999.0; // set to an arbitrary negative time to simulate no enemies having spawned
+    }
 
+    private void fixCloseRequestHandling() {
         Controller.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
@@ -131,13 +144,26 @@ public abstract class LevelParent extends ScreenParent implements Screen {
 
         double realCurrentTime = System.currentTimeMillis();
 
-        if (backToMenu) {
-            pauseOverlay.update(realCurrentTime);
+        handlePauseToggle(realCurrentTime);
 
+        if (backToMainMenu || paused) {
+            pauseOverlay.update(realCurrentTime);
             return;
         }
 
-        if (inputManager.isPausePressed() && realCurrentTime - lastPaused > 200.0f) {
+        updateActors(deltaTime, currentTime);
+        spawnEnemyUnits(currentTime);
+        updateNumberOfEnemies();
+        handleEnemyPenetration();
+        handleAllCollisions();
+        removeAllDestroyedActors();
+        updateKillCount();
+        updateOverlays(currentTime);
+        checkIfGameOver(currentTime);
+    }
+
+    private void handlePauseToggle(double realCurrentTime) {
+        if (inputManager.isPausePressed() && realCurrentTime - lastPaused > 200.0) {
             lastPaused = realCurrentTime;
 
             paused = !paused;
@@ -150,25 +176,6 @@ public abstract class LevelParent extends ScreenParent implements Screen {
                 pauseOverlay.hide();
             }
         }
-
-        if (paused) {
-            pauseOverlay.update(realCurrentTime);
-
-            return;
-        }
-
-        // uses deltaTime to scale movement, currentTime to determine if some event should trigger
-        updateActors(deltaTime, currentTime); // also spawns projectiles
-        spawnEnemyUnits(currentTime);
-
-        // these should be updated ASAP, so they don't need time information
-        updateNumberOfEnemies();
-        handleEnemyPenetration();
-        handleAllCollisions();
-        removeAllDestroyedActors();
-        updateKillCount();
-        updateOverlays(currentTime);
-        checkIfGameOver(currentTime);
     }
 
     private void updateActors(double deltaTime, double currentTime) {
@@ -224,14 +231,14 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         gameplayOverlay.showWinImage();
         pauseOverlay.show();
         paused = true;
-        backToMenu = true;
+        backToMainMenu = true;
     }
 
     protected void loseGame() {
         gameplayOverlay.showGameOverImage();
         pauseOverlay.show();
         paused = true;
-        backToMenu = true;
+        backToMainMenu = true;
     }
 
     protected int getCurrentNumberOfEnemies() {
@@ -245,5 +252,25 @@ public abstract class LevelParent extends ScreenParent implements Screen {
 
     private void updateNumberOfEnemies() {
         currentNumberOfEnemies = enemyUnits.size();
+    }
+
+    protected int getUserKills() {
+        return user.getNumberOfKills();
+    }
+
+    protected double getLastEnemySpawnAttempt() {
+        return lastEnemySpawnAttempt;
+    }
+
+    protected void setLastEnemySpawnAttempt(double time) {
+        lastEnemySpawnAttempt = time;
+    }
+
+    protected boolean isUserDestroyed() {
+        return user.isDestroyed();
+    }
+
+    protected ActorFactory getActorFactory() {
+        return actorFactory;
     }
 }

@@ -13,6 +13,7 @@ public class ScreenConfig {
     private String backgroundImageName;
     private ScreenCode currentScreenCode;
     private UserPlaneCode userPlaneCode;
+    private int countdownTime;
 
     public ScreenConfig(KeybindStore keybindStore, AssetLoader assetLoader) {
         this.keybindStore = keybindStore;
@@ -57,5 +58,13 @@ public class ScreenConfig {
 
     public void setUserPlaneCode(UserPlaneCode userPlaneCode) {
         this.userPlaneCode = userPlaneCode;
+    }
+
+    public int getCountdownTime() {
+        return countdownTime;
+    }
+
+    public void setCountdownTime(int countdownTime) {
+        this.countdownTime = countdownTime;
     }
 }
