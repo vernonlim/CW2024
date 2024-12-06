@@ -1,6 +1,7 @@
 package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.Controller;
+import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.screens.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
@@ -25,40 +26,50 @@ public class ScreenFactoryImpl implements ScreenFactory {
     public Screen createScreen(ScreenCode screenCode, UserPlaneCode userPlaneCode) {
         Screen screen = null;
 
+        ScreenConfig config = new ScreenConfig(stage, controller, keybinds, loader);
+        config.setUserPlaneCode(userPlaneCode);
+
         switch (screenCode) {
             case ScreenCode.MAIN_MENU: {
-                String backgroundImageName = "mainmenu";
-                screen = new MainMenu(controller, loader, keybinds, backgroundImageName, ScreenCode.MAIN_MENU, userPlaneCode);
+                config.setBackgroundImageName("mainmenu");
+                config.setCurrentScreenCode(ScreenCode.MAIN_MENU);
+                screen = new MainMenu(config);
                 break;
             }
             case ScreenCode.CHARACTER_SELECT: {
-                String backgroundImageName = "mainmenu";
-                screen = new CharacterSelect(controller, loader, keybinds, backgroundImageName, ScreenCode.CHARACTER_SELECT, userPlaneCode);
+                config.setBackgroundImageName("mainmenu");
+                config.setCurrentScreenCode(ScreenCode.CHARACTER_SELECT);
+                screen = new CharacterSelect(config);
                 break;
             }
             case ScreenCode.LEVEL_SELECT: {
-                String backgroundImageName = "mainmenu";
-                screen = new LevelSelect(controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_SELECT, userPlaneCode);
+                config.setBackgroundImageName("mainmenu");
+                config.setCurrentScreenCode(ScreenCode.LEVEL_SELECT);
+                screen = new LevelSelect(config);
                 break;
             }
             case ScreenCode.LEVEL_ONE: {
-                String backgroundImageName = "background1";
-                screen = new LevelOne(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_ONE, userPlaneCode);
+                config.setBackgroundImageName("background1");
+                config.setCurrentScreenCode(ScreenCode.LEVEL_ONE);
+                screen = new LevelOne(config);
                 break;
             }
             case ScreenCode.LEVEL_TWO: {
-                String backgroundImageName = "background2";
-                screen = new LevelTwo(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_TWO, userPlaneCode);
+                config.setBackgroundImageName("background2");
+                config.setCurrentScreenCode(ScreenCode.LEVEL_TWO);
+                screen = new LevelTwo(config);
                 break;
             }
             case ScreenCode.LEVEL_THREE: {
-                String backgroundImageName = "background3";
-                screen = new LevelThree(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_THREE, userPlaneCode);
+                config.setBackgroundImageName("background3");
+                config.setCurrentScreenCode(ScreenCode.LEVEL_THREE);
+                screen = new LevelThree(config);
                 break;
             }
             case ScreenCode.LEVEL_FOUR: {
-                String backgroundImageName = "background4";
-                screen = new LevelFour(stage, controller, loader, keybinds, backgroundImageName, ScreenCode.LEVEL_THREE, userPlaneCode);
+                config.setBackgroundImageName("background4");
+                config.setCurrentScreenCode(ScreenCode.LEVEL_FOUR);
+                screen = new LevelFour(config);
                 break;
             }
         }

@@ -1,13 +1,12 @@
 package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.assets.AssetLoader;
-import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
 import dev.vernonlim.cw2024game.elements.Vector;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
-import dev.vernonlim.cw2024game.elements.strategies.ActorStrategy;
+import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
+import dev.vernonlim.cw2024game.elements.configs.ProjectileConfig;
 import dev.vernonlim.cw2024game.elements.strategies.LinearProjectileStrategy;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
 public class ProjectileFactoryImpl extends FactoryParent implements ProjectileFactory {
@@ -15,30 +14,41 @@ public class ProjectileFactoryImpl extends FactoryParent implements ProjectileFa
         super(root, loader);
     }
 
-    public Projectile createProjectile(ProjectileCode code, double initialXPos, double initialYPos) {
+    public Projectile createProjectile(ProjectileCode code, double x, double y) {
         return switch (code) {
-            case ProjectileCode.USER -> createUserProjectile("userfire", initialXPos, initialYPos, 10, new Vector(1, 0));
-            case ProjectileCode.USER_ROUND -> createUserProjectile("circlebullet", initialXPos, initialYPos, 5, new Vector(1, 0));
-            case ProjectileCode.USER_ROUND_GREEN -> createUserProjectile("circlebulletgreen", initialXPos, initialYPos, 10, new Vector(1, 0));
-            case ProjectileCode.USER_ROUND_UP -> createUserProjectile("circlebullet", initialXPos, initialYPos, 5, new Vector(1, 0.3));
-            case ProjectileCode.USER_ROUND_DOWN -> createUserProjectile("circlebullet", initialXPos, initialYPos, 5, new Vector(1, -0.3));
-            case ProjectileCode.ENEMY -> createEnemyProjectile("enemyFire", initialXPos, initialYPos, 1, new Vector(-1, 0));
-            case ProjectileCode.ENEMY_ROUND_DOWN -> createEnemyProjectile("circlebulletblue", initialXPos, initialYPos, 1, new Vector(-1, -0.3));
-            case ProjectileCode.ENEMY_ROUND_UP -> createEnemyProjectile("circlebulletblue", initialXPos, initialYPos, 1, new Vector(-1, 0.3));
-            case ProjectileCode.BOSS -> createBossProjectile(initialXPos, initialYPos, 1);
+            case ProjectileCode.USER ->
+                    createUserProjectile("userfire", x, y, 10, new Vector(1, 0));
+            case ProjectileCode.USER_ROUND ->
+                    createUserProjectile("circlebullet", x, y, 5, new Vector(1, 0));
+            case ProjectileCode.USER_ROUND_GREEN ->
+                    createUserProjectile("circlebulletgreen", x, y, 10, new Vector(1, 0));
+            case ProjectileCode.USER_ROUND_UP ->
+                    createUserProjectile("circlebullet", x, y, 5, new Vector(1, 0.3));
+            case ProjectileCode.USER_ROUND_DOWN ->
+                    createUserProjectile("circlebullet", x, y, 5, new Vector(1, -0.3));
+            case ProjectileCode.ENEMY ->
+                    createEnemyProjectile("enemyFire", x, y, 1, new Vector(-1, 0));
+            case ProjectileCode.ENEMY_ROUND_DOWN ->
+                    createEnemyProjectile("circlebulletblue", x, y, 1, new Vector(-1, -0.3));
+            case ProjectileCode.ENEMY_ROUND_UP ->
+                    createEnemyProjectile("circlebulletblue", x, y, 1, new Vector(-1, 0.3));
+            case ProjectileCode.BOSS ->
+                    createBossProjectile(x, y, 1);
         };
     }
 
-    protected Projectile createGenericProjectile(String imageName, double fitHeight, double speed, double initialXPos, double initialYPos, int damage, Vector velocity, boolean travellingRight) {
-        ImageView imageView = makeView(imageName);
-        imageView.setFitHeight(fitHeight);
+    protected Projectile createGenericProjectile(String imageName, double fitHeight, double speed, double x, double y, int damage, Vector velocity, boolean travellingRight) {
+        ProjectileConfig config = new ProjectileConfig(root);
+        config.setSpeed(speed);
+        config.setDamage(damage);
+        config.setPosition(x, y);
+        config.setImage(loadImage(imageName));
+        config.setFitHeight(fitHeight);
+        config.setUserProjectile(travellingRight);
+        config.setAlwaysInBounds(false);
+        config.setActorStrategy(new LinearProjectileStrategy(velocity));
 
-        ActorStrategy actorStrategy = new LinearProjectileStrategy(velocity);
-
-        Projectile projectile = new Projectile(actorStrategy, root, imageView, damage, speed, travellingRight);
-        projectile.setPosition(initialXPos, initialYPos);
-
-        return projectile;
+        return new Projectile(config);
     }
 
     protected Projectile createUserProjectile(String imageName, double initialXPos, double initialYPos, int damage, Vector velocity) {

@@ -5,12 +5,12 @@ import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
+import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.factories.ElementFactoryImpl;
 import dev.vernonlim.cw2024game.factories.OverlayFactoryImpl;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
-import dev.vernonlim.cw2024game.managers.KeybindStore;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -19,11 +19,13 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public abstract class ScreenParent implements Screen {
     protected UserPlaneCode userPlaneCode;
 
+    protected final Stage stage;
     protected final ScreenCode currentScreen;
 
     protected final Pane root;
@@ -37,9 +39,11 @@ public abstract class ScreenParent implements Screen {
     protected final OverlayFactory overlayFactory;
     protected final Timeline timeline;
 
-    public ScreenParent(Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
-        this.currentScreen = currentScreen;
-        this.userPlaneCode = userPlaneCode;
+    public ScreenParent(ScreenConfig config) {
+        this.stage = config.getStage();
+
+        this.currentScreen = config.getCurrentScreenCode();
+        this.userPlaneCode = config.getUserPlaneCode();
 
         // initializing the main nodes
         this.root = new Pane();
@@ -60,9 +64,9 @@ public abstract class ScreenParent implements Screen {
         // letterboxing
         SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 
-        this.inputManager = new InputManager(scene, keybinds);
-        this.controller = controller;
-        this.loader = loader;
+        this.inputManager = new InputManager(scene, config.getKeybindStore());
+        this.controller = config.getController();
+        this.loader = config.getAssetLoader();
 
         this.elementFactory = new ElementFactoryImpl(root, loader);
         this.overlayFactory = new OverlayFactoryImpl(stackPane, loader, inputManager, controller, new ScreenChangeHandler() {
@@ -73,7 +77,7 @@ public abstract class ScreenParent implements Screen {
         }, userPlaneCode);
 
         // background
-        this.background = elementFactory.createBackground(backgroundImagePath);
+        this.background = elementFactory.createBackground(config.getBackgroundImageName());
 
         // activity
         this.timeline = new Timeline(Main.FRAME_RATE);

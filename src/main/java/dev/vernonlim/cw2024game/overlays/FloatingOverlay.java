@@ -1,19 +1,19 @@
 package dev.vernonlim.cw2024game.overlays;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.elements.ContainerElement;
 import dev.vernonlim.cw2024game.elements.Element;
+import dev.vernonlim.cw2024game.elements.configs.ElementConfig;
 import javafx.scene.layout.Pane;
 
-public class FloatingOverlay extends Element {
-    public final Pane pane;
+public class FloatingOverlay extends ContainerElement {
+    public FloatingOverlay(ElementConfig config) {
+        super(config);
 
-    public FloatingOverlay(Pane root) {
-        super(root);
+        this.container = new Pane();
+        this.node = container;
 
-        this.pane = new Pane();
-        this.node = pane;
-
-        pane.setMaxHeight(Main.SCREEN_HEIGHT);
-        pane.setMaxWidth(Main.SCREEN_WIDTH);
+        container.setMaxHeight(Main.SCREEN_HEIGHT);
+        container.setMaxWidth(Main.SCREEN_WIDTH);
     }
 }

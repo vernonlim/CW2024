@@ -5,6 +5,7 @@ import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.actors.*;
+import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.factories.*;
 import dev.vernonlim.cw2024game.factories.interfaces.ActorFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
@@ -51,8 +52,8 @@ public abstract class LevelParent extends ScreenParent implements Screen {
 
     protected boolean backToMenu;
 
-    public LevelParent(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImagePath, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
-        super(controller, loader, keybinds, backgroundImagePath, currentScreen, userPlaneCode);
+    public LevelParent(ScreenConfig config) {
+        super(config);
 
         // initializing handlers
         this.collisionManager = new DamageCollisionManager();
@@ -63,7 +64,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
             public void onFire(Projectile projectile) {
                 projectile.show();
 
-                if (projectile.userProjectile) {
+                if (projectile.isUserProjectile) {
                     userProjectiles.add(projectile);
                 } else {
                     enemyProjectiles.add(projectile);
@@ -96,8 +97,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         this.timer = createTimer();
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
 
-
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+        this.stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
                 try {

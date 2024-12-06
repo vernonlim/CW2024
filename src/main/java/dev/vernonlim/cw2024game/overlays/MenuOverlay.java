@@ -2,8 +2,10 @@ package dev.vernonlim.cw2024game.overlays;
 
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.elements.ContainerElement;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.TextBox;
+import dev.vernonlim.cw2024game.elements.configs.OverlayConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
 import dev.vernonlim.cw2024game.screens.ScreenChangeHandler;
@@ -16,9 +18,8 @@ import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
-public abstract class MenuOverlay extends Element {
+public abstract class MenuOverlay extends ContainerElement {
     protected final GridPane gridPane;
-    protected final Pane pane;
     protected final OverlayFactory overlayElementFactory;
     protected final OverlayFactory gridElementFactory;
     protected final InputManager input;
@@ -39,12 +40,12 @@ public abstract class MenuOverlay extends Element {
 
     protected double rightPercent;
 
-    public MenuOverlay(Controller controller, OverlayFactory overlayFactory, Pane root, InputManager input, ScreenChangeHandler screenChangeHandler) {
-        super(root);
+    public MenuOverlay(OverlayConfig config) {
+        super(config);
 
-        this.controller = controller;
-        this.input = input;
-        this.screenChangeHandler = screenChangeHandler;
+        this.controller = config.getController();
+        this.input = config.getInput();
+        this.screenChangeHandler = config.getScreenChangeHandler();
 
         this.buttons = new ArrayList<>();
 
@@ -54,37 +55,37 @@ public abstract class MenuOverlay extends Element {
         this.totalRows = 9;
 
         this.gridPane = new GridPane();
-        this.pane = new Pane(gridPane);
-        this.node = pane;
+        this.container = new Pane(gridPane);
+        this.node = container;
 
-        pane.setMaxWidth(Main.SCREEN_WIDTH);
-        pane.setMaxHeight(Main.SCREEN_HEIGHT);
+        this.container.setMaxWidth(Main.SCREEN_WIDTH);
+        this.container.setMaxHeight(Main.SCREEN_HEIGHT);
 
-        gridPane.setMaxWidth(Main.SCREEN_WIDTH);
-        gridPane.setMaxHeight(Main.SCREEN_HEIGHT);
-        gridPane.setMinWidth(Main.SCREEN_WIDTH);
-        gridPane.setMinHeight(Main.SCREEN_HEIGHT);
+        this.gridPane.setMaxWidth(Main.SCREEN_WIDTH);
+        this.gridPane.setMaxHeight(Main.SCREEN_HEIGHT);
+        this.gridPane.setMinWidth(Main.SCREEN_WIDTH);
+        this.gridPane.setMinHeight(Main.SCREEN_HEIGHT);
 //        gridPane.setGridLinesVisible(true);
 
         ColumnConstraints colConst = new ColumnConstraints();
         colConst.setPercentWidth(100.0f - rightPercent);
-        gridPane.getColumnConstraints().add(colConst);
+        this.gridPane.getColumnConstraints().add(colConst);
 
         ColumnConstraints colConst2 = new ColumnConstraints();
         colConst2.setPercentWidth(rightPercent);
-        gridPane.getColumnConstraints().add(colConst2);
+        this.gridPane.getColumnConstraints().add(colConst2);
 
         for (int i = 0; i < totalRows; i++) {
             RowConstraints rowConst = new RowConstraints();
             rowConst.setPercentHeight(100.0 / totalRows);
-            gridPane.getRowConstraints().add(rowConst);
+            this.gridPane.getRowConstraints().add(rowConst);
         }
 
-        this.overlayElementFactory = overlayFactory.withNewRoot(pane);
-        this.gridElementFactory = overlayFactory.withNewRoot(gridPane);
+        this.overlayElementFactory = config.getOverlayFactory().withNewRoot(container);
+        this.gridElementFactory = config.getOverlayFactory().withNewRoot(gridPane);
 
-        this.menuArrow = overlayElementFactory.createMenuArrow();
-        menuArrow.show();
+        this.menuArrow = this.overlayElementFactory.createMenuArrow();
+        this.menuArrow.show();
 
         this.lastUpdate = System.currentTimeMillis();
         this.lastMovementUpdate = System.currentTimeMillis();
@@ -128,19 +129,26 @@ public abstract class MenuOverlay extends Element {
         if (up && down) {
             // do nothing
         } else if (up) {
-            currentButton = mod(currentButton - 1, totalButtons);
+            currentButton = getPreviousButton(currentButton);
         } else if (down) {
-            currentButton = mod(currentButton + 1, totalButtons);
+            currentButton = getNextButton(currentButton);
         }
     }
 
-    protected int mod(int num, int n) {
-        if (num < 0) {
-            int remainder = (-num) % n;
-            return n - remainder;
-        } else {
-            return num % n;
+    protected int getNextButton(int currentButton) {
+        if (currentButton + 1 >= totalButtons) {
+            return 0;
         }
+
+        return currentButton + 1;
+    }
+
+    protected int getPreviousButton(int currentButton) {
+        if (currentButton - 1 < 0) {
+            return totalButtons - 1;
+        }
+
+        return currentButton - 1;
     }
 
     protected double getYAt(int row) {

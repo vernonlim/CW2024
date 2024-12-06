@@ -1,10 +1,9 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
+import dev.vernonlim.cw2024game.elements.configs.FighterPlaneConfig;
 import dev.vernonlim.cw2024game.elements.strategies.PlaneStrategy;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
 public abstract class FighterPlane extends ActiveActorDestructible {
@@ -20,21 +19,21 @@ public abstract class FighterPlane extends ActiveActorDestructible {
     protected AudioClip fireSound;
     protected AudioClip deathSound;
 
-    public FighterPlane(PlaneStrategy planeStrategy, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView, AudioClip fireSound, AudioClip deathSound, int health, double speed, double projectileYOffset, boolean facingRight, boolean alwaysInBounds) {
-        super(planeStrategy, root, imageView, speed, alwaysInBounds);
+    public FighterPlane(FighterPlaneConfig config) {
+        super(config);
 
-        this.fireSound = fireSound;
-        this.deathSound = deathSound;
+        this.health = config.getHealth();
 
-        this.health = health;
+        this.fireSound = config.getFireSound();
+        this.deathSound = config.getDeathSound();
 
-        this.projectileListener = projectileListener;
-        this.projectileFactory = projectileFactory;
+        this.projectileListener = config.getProjectileListener();
+        this.projectileFactory = config.getProjectileFactory();
+        this.projectileYOffset = config.getProjectileYOffset();
 
-        this.projectileYOffset = projectileYOffset;
-        this.facingRight = facingRight;
+        this.facingRight = config.isFacingRight();
 
-        this.planeStrategy = planeStrategy;
+        this.planeStrategy = config.getPlaneStrategy();
     }
 
     public void setPlaneStrategy(PlaneStrategy strategy) {

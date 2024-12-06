@@ -1,6 +1,7 @@
 package dev.vernonlim.cw2024game.elements;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.elements.configs.ElementConfig;
 import javafx.beans.value.ObservableValue;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
@@ -11,8 +12,8 @@ public abstract class Element {
     public Pane root;
     public Node node;
 
-    public Element(Pane root) {
-        this.root = root;
+    public Element(ElementConfig config) {
+        this.root = config.getRoot();
     }
 
     public void show() {

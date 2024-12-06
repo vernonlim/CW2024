@@ -4,6 +4,7 @@ import dev.vernonlim.cw2024game.assets.AssetLoader;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 
 public abstract class FactoryParent {
     protected final Pane root;
@@ -14,11 +15,11 @@ public abstract class FactoryParent {
         this.loader = loader;
     }
 
-    protected ImageView makeView(String imageName) {
-        Image image = loader.loadImage(imageName);
-        ImageView imageView = new ImageView(image);
-        imageView.setPreserveRatio(true);
+    protected Image loadImage(String imageName) {
+        return loader.loadImage(imageName);
+    }
 
-        return imageView;
+    protected AudioClip loadSound(String soundName) {
+        return loader.loadSound(soundName);
     }
 }

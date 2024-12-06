@@ -6,6 +6,7 @@ import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
+import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
 import javafx.stage.Stage;
 
@@ -15,8 +16,8 @@ public class LevelOne extends LevelParent {
     private static final int KILLS_TO_ADVANCE = 10;
     private static final double ENEMY_SPAWN_PROBABILITY = .20;
 
-    public LevelOne(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImageName, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
-        super(stage, controller, loader, keybinds, backgroundImageName, currentScreen, userPlaneCode);
+    public LevelOne(ScreenConfig config) {
+        super(config);
     }
 
     @Override

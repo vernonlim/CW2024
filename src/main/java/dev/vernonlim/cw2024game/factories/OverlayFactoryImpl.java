@@ -1,6 +1,11 @@
 package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.Controller;
+import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.elements.configs.ElementConfig;
+import dev.vernonlim.cw2024game.elements.configs.ImageElementConfig;
+import dev.vernonlim.cw2024game.elements.configs.OverlayConfig;
+import dev.vernonlim.cw2024game.elements.configs.TextBoxConfig;
 import dev.vernonlim.cw2024game.screens.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.*;
@@ -38,71 +43,86 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
         return new OverlayFactoryImpl(newRoot, loader, input, controller, screenChangeHandler, userPlaneCode);
     }
 
-    public Element createGameOverImage(double xPosition, double yPosition) {
-        ImageView imageView = makeView("gameover");
+    public Element createGameOverImage(double x, double y) {
+        ImageElementConfig config = new ImageElementConfig(root);
+        config.setPosition(x, y);
+        config.setImage(loadImage("gameover"));
+        config.setFitHeight(Main.SCREEN_HEIGHT);
 
-        ImageElement image = new ImageElement(root, imageView);
-        image.setPosition(xPosition, yPosition);
-
-        return image;
+        return new ImageElement(config);
     }
 
     public Element createHeart() {
-        ImageView imageView = makeView("heart");
-        imageView.setFitHeight(50);
+        ImageElementConfig config = new ImageElementConfig(root);
+        config.setImage(loadImage("heart"));
+        config.setFitHeight(50.0);
 
-        return new ImageElement(root, imageView);
+        return new ImageElement(config);
     }
 
-    public Element createWinImage(double xPosition, double yPosition) {
-        ImageView imageView = makeView("youwin");
-        imageView.setFitHeight(500);
-        imageView.setFitWidth(600);
+    public Element createWinImage(double x, double y) {
+        ImageElementConfig config = new ImageElementConfig(root);
+        config.setPosition(x, y);
+        config.setImage(loadImage("youwin"));
+        config.setFitWidth(600);
+        config.setFitHeight(500);
 
-        ImageElement winImage = new ImageElement(root, imageView);
-        winImage.setPosition(xPosition, yPosition);
-
-        return winImage;
+        return new ImageElement(config);
     }
 
-    public HeartDisplay createHeartDisplay(double xPosition, double yPosition, int heartsToDisplay) {
-        return new HeartDisplay(this, root, xPosition, yPosition, heartsToDisplay);
+    public HeartDisplay createHeartDisplay(double x, double y, int heartsToDisplay) {
+        OverlayConfig config = new OverlayConfig(root, this);
+        config.setPosition(x, y);
+
+        return new HeartDisplay(config, heartsToDisplay);
     }
 
     public GameplayOverlay createGameplayOverlay(int heartsToDisplay) {
-        return new GameplayOverlay(this, root, heartsToDisplay);
+        OverlayConfig config = new OverlayConfig(root, this);
+
+        return new GameplayOverlay(config, heartsToDisplay);
     }
 
     public Element createMenuArrow() {
-        ImageView imageView = makeView("menuarrow");
-        imageView.setFitHeight(50);
-        imageView.setFitWidth(50);
+        ImageElementConfig config = new ImageElementConfig(root);
+        config.setImage(loadImage("menuarrow"));
+        config.setFitWidth(50);
+        config.setFitHeight(50);
 
-        return new ImageElement(root, imageView);
+        return new ImageElement(config);
     }
 
     public MenuOverlay createMainMenuOverlay() {
-        return new MainMenuOverlay(controller, this, root, input, screenChangeHandler);
+        OverlayConfig config = new OverlayConfig(root, this, input, controller, screenChangeHandler);
+
+        return new MainMenuOverlay(config);
     }
 
     public MenuOverlay createCharacterSelectOverlay() {
-        return new CharacterSelectOverlay(controller, this, root, input, screenChangeHandler);
+        OverlayConfig config = new OverlayConfig(root, this, input, controller, screenChangeHandler);
+
+        return new CharacterSelectOverlay(config);
     }
 
     public MenuOverlay createLevelSelectOverlay(UserPlaneCode userPlaneCode) {
-        return new LevelSelectOverlay(controller, this, root, input, screenChangeHandler, userPlaneCode);
+        OverlayConfig config = new OverlayConfig(root, this, input, controller, screenChangeHandler);
+        config.setUserPlaneCode(userPlaneCode);
+
+        return new LevelSelectOverlay(config);
     }
 
     public MenuOverlay createPauseOverlay(ScreenCode currentScreen) {
-        return new PauseOverlay(controller, this, root, input, screenChangeHandler, currentScreen);
+        OverlayConfig config = new OverlayConfig(root, this, input, controller, screenChangeHandler);
+        config.setCurrentScreen(currentScreen);
+
+        return new PauseOverlay(config);
     }
 
     public TextBox createTextBox(String content, ScreenCode screenCode, UserPlaneCode newUserPlaneCode, double rightPercent, int rows) {
-        Text text = new Text(content);
-        text.setFont(Font.font(50));
+        TextBoxConfig config = new TextBoxConfig(root, content, rightPercent, rows);
+        config.getText().setFont(Font.font(50));
 
-        AudioClip sound = loader.loadSound("select");
-
+        AudioClip sound = loadSound("select");
         ClickListener clickListener = new ClickListener() {
             @Override
             public void onClick() {
@@ -111,7 +131,9 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
             }
         };
 
-        return new TextBox(root, text, clickListener, rightPercent, rows);
+        config.setClickListener(clickListener);
+
+        return new TextBox(config);
     }
 
     public TextBox createTextBox(String content, ScreenCode screenCode, double rightPercent, int rows) {
@@ -119,10 +141,14 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
     }
 
     public TimeDisplay createTimeDisplay(int seconds) {
-        return new TimeDisplay(root, seconds);
+        OverlayConfig config = new OverlayConfig(root);
+
+        return new TimeDisplay(config, seconds);
     }
 
     public TimerOverlay createTimerOverlay(int secondsRemaining) {
-        return new TimerOverlay(this, root, secondsRemaining);
+        OverlayConfig config = new OverlayConfig(root, this);
+
+        return new TimerOverlay(config, secondsRemaining);
     }
 }
