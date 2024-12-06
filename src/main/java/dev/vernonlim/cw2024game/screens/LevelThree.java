@@ -6,6 +6,7 @@ import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
+import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.overlays.TimerOverlay;
 import javafx.stage.Stage;
@@ -14,8 +15,8 @@ public class LevelThree extends LevelParent {
     protected TimerOverlay timerOverlay;
     protected final int SECONDS_REMAINING = 20;
 
-    public LevelThree(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImageName, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
-        super(stage, controller, loader, keybinds, backgroundImageName, currentScreen, userPlaneCode);
+    public LevelThree(ScreenConfig config) {
+        super(config);
 
         this.timerOverlay = overlayFactory.createTimerOverlay(SECONDS_REMAINING);
     }

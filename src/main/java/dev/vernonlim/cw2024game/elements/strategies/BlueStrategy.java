@@ -1,8 +1,6 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
 import dev.vernonlim.cw2024game.Main;
-import dev.vernonlim.cw2024game.elements.actors.ActiveActor;
-import dev.vernonlim.cw2024game.elements.actors.EnemyPlane;
 import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
 import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
 import dev.vernonlim.cw2024game.elements.Vector;

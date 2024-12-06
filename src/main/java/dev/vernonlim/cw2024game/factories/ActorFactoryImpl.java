@@ -1,13 +1,18 @@
 package dev.vernonlim.cw2024game.factories;
 
+import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.actors.*;
+import dev.vernonlim.cw2024game.elements.configs.BossConfig;
+import dev.vernonlim.cw2024game.elements.configs.FighterPlaneConfig;
+import dev.vernonlim.cw2024game.elements.configs.UserPlaneConfig;
 import dev.vernonlim.cw2024game.elements.strategies.*;
 import dev.vernonlim.cw2024game.factories.interfaces.ActorFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 import javafx.scene.layout.Pane;
@@ -47,97 +52,111 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
     }
 
     private UserPlane createRegularPlane() {
-        int initialHealth = 5;
+        UserPlaneConfig config = new UserPlaneConfig(root, projectileFactory, projectileListener, inputManager);
+        config.setPosition(5.0, Main.SCREEN_HEIGHT / 2.0);
+        config.setHealth(5);
+        config.setImage(loadImage("userplane"));;
+        config.setFitHeight(40.0);
+        config.setFireSound(loader.loadSound("gunshot"));
+        config.setDeathSound(loader.loadSound("pichuun"));
+        config.setPlaneStrategy(new RegularPlaneStrategy(inputManager));
+        config.setSpeed(24.0);
+        config.setProjectileYOffset(7.0);
 
-        ImageView imageView = makeView("userplane");
-        imageView.setFitHeight(40);
-
-        AudioClip fireSound = loader.loadSound("gunshot");
-        AudioClip deathSound = loader.loadSound("pichuun");
-
-        PlaneStrategy planeStrategy = new RegularPlaneStrategy(inputManager);
-
-        return new RegularPlane(planeStrategy, projectileFactory, root, projectileListener, inputManager, imageView, fireSound, deathSound, initialHealth, 24.0f, 7.0f);
+        return new RegularPlane(config);
     }
 
     private UserPlane createGreenPlane() {
-        int initialHealth = 3;
+        UserPlaneConfig config = new UserPlaneConfig(root, projectileFactory, projectileListener, inputManager);
+        config.setPosition(5.0, Main.SCREEN_HEIGHT / 2.0);
+        config.setHealth(3);
+        config.setImage(loadImage("userplane2"));;
+        config.setFitHeight(40.0);
+        config.setFireSound(loader.loadSound("laser"));
+        config.setDeathSound(loader.loadSound("pichuun"));
+        config.setPlaneStrategy(new GreenPlaneStrategy(inputManager));
+        config.setSpeed(30.0);
+        config.setProjectileYOffset(7.0);
 
-        ImageView imageView = makeView("userplane2");
-        imageView.setFitHeight(40);
-
-        AudioClip fireSound = loader.loadSound("laser");
-        AudioClip deathSound = loader.loadSound("pichuun");
-
-        PlaneStrategy planeStrategy = new GreenPlaneStrategy(inputManager);
-
-        return new GreenPlane(planeStrategy, projectileFactory, root, projectileListener, inputManager, imageView, fireSound, deathSound, initialHealth, 30.0f, 7.0f);
+        return new GreenPlane(config);
     }
 
     private FighterPlane createEnemyPlane(double initialXPos, double initialYPos) {
-        double speed = 5.0f;
+        FighterPlaneConfig config = new FighterPlaneConfig(root, projectileFactory, projectileListener);
+        config.setPosition(initialXPos, initialYPos);
+        config.setHealth(10);
+        config.setImage(loadImage("enemyplane"));
+        config.setFitHeight(54.0);
+        config.setFireSound(loader.loadSound("missile"));
+        config.setDeathSound(loader.loadSound("explosion"));
+        config.setPlaneStrategy(new EnemyPlaneStrategy());
+        config.setSpeed(5.0);
+        config.setProjectileYOffset(7.0);
+        config.setFacingRight(false);
+        config.setAlwaysInBounds(false);
 
-        ImageView imageView = makeView("enemyplane");
-        imageView.setFitHeight(54);
-
-        AudioClip fireSound = loader.loadSound("missile");
-        AudioClip deathSound = loader.loadSound("explosion");
-
-        PlaneStrategy planeStrategy = new EnemyPlaneStrategy();
-
-        EnemyPlane plane = new EnemyPlane(planeStrategy, projectileFactory, root, projectileListener, imageView, speed, fireSound, deathSound);
-        plane.setPosition(initialXPos, initialYPos);
-
-        return plane;
+        return new EnemyPlane(config);
     }
 
     private FighterPlane createEnemyBlue(double initialXPos, double initialYPos) {
-        double speed = 5.0f;
+        FighterPlaneConfig config = new FighterPlaneConfig(root, projectileFactory, projectileListener);
+        config.setPosition(initialXPos, initialYPos);
+        config.setHealth(10);
+        config.setImage(loadImage("enemyblue"));
+        config.setFitHeight(54.0);
+        config.setFireSound(loader.loadSound("laser"));
+        config.setDeathSound(loader.loadSound("explosion"));
+        config.setSpeed(5.0);
+        config.setProjectileYOffset(7.0);
+        config.setFacingRight(false);
+        config.setAlwaysInBounds(false);
 
-        ImageView imageView = makeView("enemyblue");
-        imageView.setFitHeight(54);
+        EnemyPlane plane =  new EnemyPlane(config);
 
-        AudioClip fireSound = loader.loadSound("laser");
-        AudioClip deathSound = loader.loadSound("explosion");
-
-        EnemyPlane plane = new EnemyPlane(null, projectileFactory, root, projectileListener, imageView, speed, fireSound, deathSound);
-        plane.setPosition(initialXPos, initialYPos);
-
-        PlaneStrategy planeStrategy = new BlueStrategy(plane);
-        plane.setPlaneStrategy(planeStrategy);
+        plane.setPlaneStrategy(new BlueStrategy(plane));
 
         return plane;
     }
 
     private FighterPlane createEnemyRed(double initialXPos, double initialYPos) {
-        double speed = 50.0f;
+        FighterPlaneConfig config = new FighterPlaneConfig(root, projectileFactory, projectileListener);
+        config.setPosition(initialXPos, initialYPos);
+        config.setHealth(10);
+        config.setImage(loadImage("enemyred"));
+        config.setFitHeight(54.0);
+        config.setFireSound(loader.loadSound("laser"));
+        config.setDeathSound(loader.loadSound("explosion"));
+        config.setPlaneStrategy(new RedStrategy());
+        config.setSpeed(50.0);
+        config.setProjectileYOffset(7.0);
+        config.setFacingRight(false);
+        config.setAlwaysInBounds(false);
 
-        ImageView imageView = makeView("enemyred");
-        imageView.setFitHeight(54);
-
-        AudioClip fireSound = loader.loadSound("laser");
-        AudioClip deathSound = loader.loadSound("explosion");
-
-        PlaneStrategy planeStrategy = new RedStrategy();
-
-        EnemyPlane plane = new EnemyPlane(planeStrategy, projectileFactory, root, projectileListener, imageView, speed, fireSound, deathSound);
-        plane.setPosition(initialXPos, initialYPos);
-
-        return plane;
+        return new EnemyPlane(config);
     }
 
     private FighterPlane createBoss() {
-        ImageView imageView = makeView("bossplane");
-        imageView.setFitHeight(56);
+        BossConfig config = new BossConfig(root, projectileFactory, projectileListener);
+        config.setPosition(Main.SCREEN_WIDTH - 5.0, Main.SCREEN_HEIGHT / 2.0);
+        config.setHealth(1000);
+        config.setImage(loadImage("bossplane"));
+        config.setFitHeight(56.0);
+        config.setFireSound(loader.loadSound("fireball"));
+        config.setDeathSound(loader.loadSound("explosion"));
+        config.setShieldSound(loader.loadSound("metalhit"));
 
-        AudioClip fireSound = loader.loadSound("fireball");
-        AudioClip deathSound = loader.loadSound("explosion");
-        AudioClip shieldSound = loader.loadSound("metalhit");
+        config.setShieldImage(elementFactory.createShieldImage());
+
         AudioClip damageSound = loader.loadSound("click");
         damageSound.setVolume(1.0);
+        config.setDamageSound(damageSound);
 
-        BossStrategy bossStrategy = new BossStrategyImpl();
+        config.setBossStrategy(new BossStrategyImpl());
+        config.setSpeed(8.0);
+        config.setProjectileYOffset(0.0);
+        config.setFacingRight(false);
+        config.setAlwaysInBounds(true);
 
-        return new Boss(bossStrategy, elementFactory, projectileFactory, root, projectileListener, imageView, fireSound, deathSound, shieldSound, damageSound);
+        return new Boss(config);
     }
 }

@@ -1,6 +1,8 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.elements.configs.FighterPlaneConfig;
+import dev.vernonlim.cw2024game.elements.configs.UserPlaneConfig;
 import dev.vernonlim.cw2024game.elements.strategies.PlaneStrategy;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.image.ImageView;
@@ -12,9 +14,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
 public abstract class UserPlane extends FighterPlane {
-    private static final boolean FACING_RIGHT = true;
-    private static final boolean ALWAYS_IN_BOUNDS = true;
-
     protected InputManager input;
 
     protected int numberOfKills;
@@ -23,13 +22,10 @@ public abstract class UserPlane extends FighterPlane {
     protected double lastDamage;
     protected boolean takeDamage;
 
-    public UserPlane(PlaneStrategy planeStrategy, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, InputManager input, ImageView imageView, AudioClip fireSound, AudioClip damageSound, int initialHealth, double speed, double projectileYOffset) {
-        super(planeStrategy, projectileFactory, root, projectileListener, imageView, fireSound, damageSound, initialHealth, speed, projectileYOffset, FACING_RIGHT, ALWAYS_IN_BOUNDS);
+    public UserPlane(UserPlaneConfig config) {
+        super(config);
 
-        setXFromLeft(5);
-        setY(Main.SCREEN_HEIGHT / 2.0f);
-
-        this.input = input;
+        this.input = config.getInput();
 
         this.damageToTake = 1;
         this.lastDamage = 0;
@@ -57,11 +53,6 @@ public abstract class UserPlane extends FighterPlane {
     public void takeDamage(int damage) {
         takeDamage = true;
         damageToTake = damage;
-    }
-
-    @Override
-    public void fireProjectile(ProjectileCode code) {
-        super.fireProjectile(code);
     }
 
     @Override

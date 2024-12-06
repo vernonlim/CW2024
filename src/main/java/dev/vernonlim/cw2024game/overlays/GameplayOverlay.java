@@ -3,6 +3,7 @@ package dev.vernonlim.cw2024game.overlays;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.HeartDisplay;
+import dev.vernonlim.cw2024game.elements.configs.OverlayConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import javafx.scene.layout.Pane;
 
@@ -14,16 +15,16 @@ public class GameplayOverlay extends FloatingOverlay {
     private final HeartDisplay heartDisplay;
     private final OverlayFactory overlayElementFactory;
 
-    public GameplayOverlay(OverlayFactory overlayFactory, Pane root, int heartsToDisplay) {
-        super(root);
+    public GameplayOverlay(OverlayConfig config, int heartsToDisplay) {
+        super(config);
 
-        this.overlayElementFactory = overlayFactory.withNewRoot(pane);
+        this.overlayElementFactory = config.getOverlayFactory().withNewRoot(this.container);
 
-        this.heartDisplay = overlayElementFactory.createHeartDisplay(HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
-        this.winImage = overlayElementFactory.createWinImage(Main.SCREEN_WIDTH / 2.0f, Main.SCREEN_HEIGHT / 2.0f);
-        this.gameOverImage = overlayElementFactory.createGameOverImage(Main.SCREEN_WIDTH / 2.0f, Main.SCREEN_HEIGHT / 2.0f);
+        this.heartDisplay = this.overlayElementFactory.createHeartDisplay(HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
+        this.winImage = this.overlayElementFactory.createWinImage(Main.SCREEN_WIDTH / 2.0f, Main.SCREEN_HEIGHT / 2.0f);
+        this.gameOverImage = this.overlayElementFactory.createGameOverImage(Main.SCREEN_WIDTH / 2.0f, Main.SCREEN_HEIGHT / 2.0f);
 
-        heartDisplay.show();
+        this.heartDisplay.show();
 
         show();
     }

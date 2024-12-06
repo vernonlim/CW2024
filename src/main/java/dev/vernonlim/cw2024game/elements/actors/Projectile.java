@@ -1,23 +1,20 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
-import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Vector;
-import dev.vernonlim.cw2024game.elements.strategies.ActorStrategy;
-import javafx.scene.layout.Pane;
-import javafx.scene.image.ImageView;
+import dev.vernonlim.cw2024game.elements.configs.ProjectileConfig;
 
 public class Projectile extends ActiveActorDestructible {
     public final int damage;
-    public final boolean userProjectile;
+    public final boolean isUserProjectile;
 
-    public Projectile(ActorStrategy actorStrategy, Pane root, ImageView imageView, int damage, double speed, boolean userProjectile) {
-        super(actorStrategy, root, imageView, speed, false);
+    public Projectile(ProjectileConfig config) {
+        super(config);
 
-        this.damage = damage;
-        this.userProjectile = userProjectile;
+        this.damage = config.getDamage();
+        this.isUserProjectile = config.isUserProjectile();
 
-        if (userProjectile) {
+        if (isUserProjectile) {
             moveHorizontally(getHalfWidth());
         } else {
             moveHorizontally(-getHalfWidth());

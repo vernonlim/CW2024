@@ -3,6 +3,7 @@ package dev.vernonlim.cw2024game.elements.actors;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
+import dev.vernonlim.cw2024game.elements.configs.BossConfig;
 import dev.vernonlim.cw2024game.elements.strategies.BossStrategy;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
@@ -12,11 +13,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 
 public class Boss extends FighterPlane {
-    private static final int HEALTH = 1000;
-    private static final double SPEED = 8.0f;
-    private static final double PROJECTILE_Y_OFFSET = 0.0f;
-    private static final boolean FACING_RIGHT = false;
-    private static final boolean ALWAYS_IN_BOUNDS = true;
     private boolean isShielded;
 
     private final Element shieldImage;
@@ -26,20 +22,17 @@ public class Boss extends FighterPlane {
     protected AudioClip shieldSound;
     protected AudioClip damageSound;
 
-    public Boss(BossStrategy bossStrategy, ElementFactory elementFactory, ProjectileFactory projectileFactory, Pane root, ProjectileListener projectileListener, ImageView imageView, AudioClip fireSound, AudioClip deathSound, AudioClip shieldSound, AudioClip damageSound) {
-        super(bossStrategy, projectileFactory, root, projectileListener, imageView, fireSound, deathSound, HEALTH, SPEED, PROJECTILE_Y_OFFSET, FACING_RIGHT, ALWAYS_IN_BOUNDS);
+    public Boss(BossConfig config) {
+        super(config);
 
-        this.shieldSound = shieldSound;
-        this.damageSound = damageSound;
+        this.shieldSound = config.getShieldSound();
+        this.damageSound = config.getDamageSound();
 
-        this.bossStrategy = bossStrategy;
-
-        setXFromRight(5.0f);
-        setY(Main.SCREEN_HEIGHT / 2.0f);
+        this.bossStrategy = config.getBossStrategy();
 
         this.isShielded = false;
 
-        this.shieldImage = elementFactory.createShieldImage();
+        this.shieldImage = config.getShieldImage();
     }
 
     @Override

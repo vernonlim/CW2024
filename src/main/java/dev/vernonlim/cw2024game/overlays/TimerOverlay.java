@@ -3,6 +3,7 @@ package dev.vernonlim.cw2024game.overlays;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.TimeDisplay;
+import dev.vernonlim.cw2024game.elements.configs.OverlayConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import javafx.scene.layout.Pane;
 
@@ -11,15 +12,15 @@ public class TimerOverlay extends FloatingOverlay {
     protected final TimeDisplay timeDisplay;
     protected int secondsRemaining;
 
-    public TimerOverlay(OverlayFactory overlayFactory, Pane root, int secondsRemaining) {
-        super(root);
+    public TimerOverlay(OverlayConfig config, int secondsRemaining) {
+        super(config);
 
         this.secondsRemaining = secondsRemaining;
 
-        this.overlayElementFactory = overlayFactory.withNewRoot(pane);
+        this.overlayElementFactory = config.getOverlayFactory().withNewRoot(container);
 
         this.timeDisplay = overlayElementFactory.createTimeDisplay(secondsRemaining);
-        timeDisplay.show();
+        this.timeDisplay.show();
 
         show();
     }

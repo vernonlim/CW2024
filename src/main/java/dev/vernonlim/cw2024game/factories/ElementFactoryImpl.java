@@ -4,6 +4,7 @@ import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.*;
 import dev.vernonlim.cw2024game.elements.actors.*;
+import dev.vernonlim.cw2024game.elements.configs.ImageElementConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import javafx.scene.layout.Pane;
@@ -19,21 +20,23 @@ public class ElementFactoryImpl extends FactoryParent implements ElementFactory 
     }
 
     public Element createShieldImage() {
-        ImageView imageView = makeView("shield");
-        imageView.setFitHeight(68);
+        ImageElementConfig config = new ImageElementConfig(root);
+        config.setImage(loadImage("shield"));
+        config.setFitHeight(68.0);
 
-        return new ImageElement(root, imageView);
+        return new ImageElement(config);
     }
 
     public Element createBackground(String imageName) {
-        ImageView imageView = makeView(imageName);
+        ImageElementConfig config = new ImageElementConfig(root);
+        config.setImage(loadImage(imageName));
 
-        imageView.setFocusTraversable(true);
-        imageView.setFitHeight(Main.SCREEN_HEIGHT);
-        imageView.setFitWidth(Main.SCREEN_WIDTH);
-        imageView.setPreserveRatio(false);
+        config.setFocusTraversable(true);
+        config.setFitHeight(Main.SCREEN_HEIGHT);
+        config.setFitWidth(Main.SCREEN_WIDTH);
+        config.setPreserveRatio(false);
 
-        ImageElement background = new ImageElement(root, imageView);
+        ImageElement background = new ImageElement(config);
         background.show();
 
         return background;

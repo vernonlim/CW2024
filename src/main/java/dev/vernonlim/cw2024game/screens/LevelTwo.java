@@ -5,14 +5,15 @@ import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
+import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
 import javafx.stage.Stage;
 
 public class LevelTwo extends LevelParent {
     private final FighterPlane boss;
 
-    public LevelTwo(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds, String backgroundImageName, ScreenCode currentScreen, UserPlaneCode userPlaneCode) {
-        super(stage, controller, loader, keybinds, backgroundImageName, currentScreen, userPlaneCode);
+    public LevelTwo(ScreenConfig config) {
+        super(config);
 
         boss = actorFactory.createEnemy(EnemyCode.BOSS, 0, 0);
     }
