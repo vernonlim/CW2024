@@ -12,17 +12,17 @@ public class InputManager {
 
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
-                Action action = keybindStore.keyBindings.get(e.getCode());
+                Action action = keybindStore.getAction(e.getCode());
                 if (action != null) {
-                    keybindStore.actionsTriggered.get(action).set(true);
+                    keybindStore.triggerAction(action);
                 }
             }
         });
         scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
             public void handle(KeyEvent e) {
-                Action action = keybindStore.keyBindings.get(e.getCode());
+                Action action = keybindStore.getAction(e.getCode());
                 if (action != null) {
-                    keybindStore.actionsTriggered.get(action).set(false);
+                    keybindStore.triggerAction(action);
                 }
             }
         });

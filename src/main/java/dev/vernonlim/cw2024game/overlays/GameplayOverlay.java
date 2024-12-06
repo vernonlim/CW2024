@@ -5,7 +5,6 @@ import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.HeartDisplay;
 import dev.vernonlim.cw2024game.elements.configs.OverlayConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
-import javafx.scene.layout.Pane;
 
 public class GameplayOverlay extends FloatingOverlay {
     private static final double HEART_DISPLAY_X_POSITION = 5;

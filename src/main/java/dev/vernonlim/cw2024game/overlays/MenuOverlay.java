@@ -18,15 +18,13 @@ import javafx.scene.layout.RowConstraints;
 import java.util.ArrayList;
 
 public abstract class MenuOverlay extends ContainerElement {
-    private GridPane gridPane;
     private final OverlayFactory overlayElementFactory;
     private final OverlayFactory gridElementFactory;
     private final InputManager input;
     private final ScreenChangeHandler screenChangeHandler;
-
     private final Element menuArrow;
-
     private final ArrayList<TextBox> buttons;
+    private GridPane gridPane;
     private int totalRows;
     private int startIndex;
     private int currentButton;

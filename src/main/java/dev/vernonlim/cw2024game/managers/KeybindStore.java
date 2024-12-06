@@ -3,7 +3,7 @@ package dev.vernonlim.cw2024game.managers;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.input.KeyCode;
-import org.json.*;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,14 +15,22 @@ import java.util.Map;
 import static java.util.Map.entry;
 
 public class KeybindStore {
-    public final Map<Action, BooleanProperty> actionsTriggered;
+    private final Map<Action, BooleanProperty> actionsTriggered;
 
     // this could be read from a file
-    public final Map<KeyCode, Action> keyBindings;
+    private final Map<KeyCode, Action> keyBindings;
 
     public KeybindStore(String jsonPath) {
         this.actionsTriggered = createActionMap();
         this.keyBindings = createKeyCodeMap(jsonPath);
+    }
+
+    public Action getAction(KeyCode code) {
+        return keyBindings.get(code);
+    }
+
+    public void triggerAction(Action action) {
+        actionsTriggered.get(action).set(true);
     }
 
     public boolean getActionStatus(Action action) {

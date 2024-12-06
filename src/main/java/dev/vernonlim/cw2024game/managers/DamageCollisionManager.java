@@ -21,7 +21,6 @@ public class DamageCollisionManager implements CollisionManager {
                     } else {
                         otherActor.takeDamage(1);
                     }
-
                 }
             }
         }
