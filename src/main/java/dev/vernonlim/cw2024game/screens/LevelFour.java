@@ -67,6 +67,7 @@ public class LevelFour extends CountdownLevel {
         return getActorFactory().createEnemy(
                 EnemyCode.ENEMY_RED,
                 Main.SCREEN_WIDTH,
-                Main.SCREEN_HEIGHT / 2.0f);
+                Main.SCREEN_HEIGHT / 2.0f
+        );
     }
 }

@@ -14,9 +14,25 @@ public class CharacterSelectOverlay extends MenuOverlay {
     public CharacterSelectOverlay(OverlayConfig config) {
         super(config);
 
-        TextBox character1 = gridElementFactory.createTextBox("Regular Plane", ScreenCode.LEVEL_SELECT, UserPlaneCode.REGULAR_PLANE, rightPercent, totalRows);
+        OverlayFactory gridElementFactory = getGridElementFactory();
+        double rightPercent = getRightPercent();
+        int totalRows = getTotalRows();
 
-        TextBox character2 = gridElementFactory.createTextBox("Green Plane", ScreenCode.LEVEL_SELECT, UserPlaneCode.GREEN_PLANE, rightPercent, totalRows);
+        TextBox character1 = gridElementFactory.createTextBox(
+                "Regular Plane",
+                ScreenCode.LEVEL_SELECT,
+                UserPlaneCode.REGULAR_PLANE,
+                rightPercent,
+                totalRows
+        );
+
+        TextBox character2 = gridElementFactory.createTextBox(
+                "Green Plane",
+                ScreenCode.LEVEL_SELECT,
+                UserPlaneCode.GREEN_PLANE,
+                rightPercent,
+                totalRows
+        );
 
         addButton(character1);
         addButton(character2);

@@ -43,9 +43,12 @@ public class LevelOne extends LevelParent {
                 getActorFactory().createEnemy(
                         EnemyCode.ENEMY_PLANE,
                         Main.SCREEN_WIDTH,
-                        Main.SCREEN_HEIGHT / 2.0);
+                        Main.SCREEN_HEIGHT / 2.0
+                );
+
         double enemyYPosition =
                 Math.random() * (Main.SCREEN_HEIGHT - enemy.getHeight()) + enemy.getHalfHeight();
+
         enemy.setY(enemyYPosition);
         addEnemyUnit(enemy);
     }

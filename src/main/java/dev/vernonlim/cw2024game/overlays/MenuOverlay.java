@@ -1,6 +1,5 @@
 package dev.vernonlim.cw2024game.overlays;
 
-import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.ContainerElement;
 import dev.vernonlim.cw2024game.elements.Element;
@@ -13,31 +12,29 @@ import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 
 import java.util.ArrayList;
 
 public abstract class MenuOverlay extends ContainerElement {
-    protected final GridPane gridPane;
-    protected final OverlayFactory overlayElementFactory;
-    protected final OverlayFactory gridElementFactory;
-    protected final InputManager input;
-    protected final ScreenChangeHandler screenChangeHandler;
+    private GridPane gridPane;
+    private final OverlayFactory overlayElementFactory;
+    private final OverlayFactory gridElementFactory;
+    private final InputManager input;
+    private final ScreenChangeHandler screenChangeHandler;
 
-    protected final Element menuArrow;
+    private final Element menuArrow;
 
-    protected final ArrayList<TextBox> buttons;
+    private final ArrayList<TextBox> buttons;
+    private int totalRows;
+    private int startIndex;
+    private int currentButton;
+    private int totalButtons;
+    private double lastUpdate;
+    private double lastMovementUpdate;
 
-    protected int startIndex;
-    protected int currentButton;
-    protected int totalButtons;
-    protected final int totalRows;
-
-    protected double lastUpdate;
-    protected double lastMovementUpdate;
-
-    protected double rightPercent;
+    private double rightPercent;
 
     public MenuOverlay(OverlayConfig config) {
         super(config);
@@ -47,11 +44,27 @@ public abstract class MenuOverlay extends ContainerElement {
 
         this.buttons = new ArrayList<>();
 
-        this.startIndex = 3;
-        this.currentButton = 0;
-        this.rightPercent = 40.0f;
-        this.totalRows = 9;
+        initializeValues();
+        initializeNodes();
 
+        this.overlayElementFactory = config.getOverlayFactory().withNewRoot(container);
+        this.gridElementFactory = config.getOverlayFactory().withNewRoot(gridPane);
+
+        this.menuArrow = this.overlayElementFactory.createMenuArrow();
+        this.menuArrow.show();
+    }
+
+    private void initializeValues() {
+        startIndex = 3;
+        currentButton = 0;
+        rightPercent = 40.0f;
+        totalRows = 9;
+
+        lastUpdate = System.currentTimeMillis();
+        lastMovementUpdate = System.currentTimeMillis();
+    }
+
+    private void initializeNodes() {
         this.gridPane = new GridPane();
         this.container = new Pane(gridPane);
         this.node = container;
@@ -63,7 +76,6 @@ public abstract class MenuOverlay extends ContainerElement {
         this.gridPane.setMaxHeight(Main.SCREEN_HEIGHT);
         this.gridPane.setMinWidth(Main.SCREEN_WIDTH);
         this.gridPane.setMinHeight(Main.SCREEN_HEIGHT);
-//        gridPane.setGridLinesVisible(true);
 
         ColumnConstraints colConst = new ColumnConstraints();
         colConst.setPercentWidth(100.0f - rightPercent);
@@ -78,15 +90,6 @@ public abstract class MenuOverlay extends ContainerElement {
             rowConst.setPercentHeight(100.0 / totalRows);
             this.gridPane.getRowConstraints().add(rowConst);
         }
-
-        this.overlayElementFactory = config.getOverlayFactory().withNewRoot(container);
-        this.gridElementFactory = config.getOverlayFactory().withNewRoot(gridPane);
-
-        this.menuArrow = this.overlayElementFactory.createMenuArrow();
-        this.menuArrow.show();
-
-        this.lastUpdate = System.currentTimeMillis();
-        this.lastMovementUpdate = System.currentTimeMillis();
     }
 
     protected void addButton(TextBox box) {
@@ -150,7 +153,7 @@ public abstract class MenuOverlay extends ContainerElement {
     }
 
     protected double getYAt(int row) {
-        double height = Main.SCREEN_HEIGHT / (double)totalRows;
+        double height = Main.SCREEN_HEIGHT / (double) totalRows;
 
         return (height * row) - (height / 2);
     }
@@ -159,5 +162,17 @@ public abstract class MenuOverlay extends ContainerElement {
         double width = Main.SCREEN_WIDTH * ((100 - rightPercent) / 100.0f);
 
         return width - menuArrow.getHalfWidth();
+    }
+
+    public OverlayFactory getGridElementFactory() {
+        return gridElementFactory;
+    }
+
+    public double getRightPercent() {
+        return rightPercent;
+    }
+
+    public int getTotalRows() {
+        return totalRows;
     }
 }

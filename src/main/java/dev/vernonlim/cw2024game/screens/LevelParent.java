@@ -193,7 +193,8 @@ public abstract class LevelParent extends ScreenParent implements Screen {
     }
 
     protected void removeDestroyedActors(List<ActiveActorDestructible> actors) {
-        List<ActiveActorDestructible> destroyedActors = actors.stream().filter(ActiveActorDestructible::isDestroyed).toList();
+        List<ActiveActorDestructible> destroyedActors =
+                actors.stream().filter(ActiveActorDestructible::isDestroyed).toList();
         destroyedActors.forEach(Element::hide);
         actors.removeAll(destroyedActors);
     }

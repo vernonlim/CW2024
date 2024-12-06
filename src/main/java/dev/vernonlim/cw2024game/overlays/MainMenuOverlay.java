@@ -13,7 +13,11 @@ public class MainMenuOverlay extends MenuOverlay {
     public MainMenuOverlay(OverlayConfig config) {
         super(config);
 
-        TextBox startGame = gridElementFactory.createTextBox("Start Game", ScreenCode.CHARACTER_SELECT, rightPercent, totalRows);
+        TextBox startGame = getGridElementFactory().createTextBox(
+                "Start Game",
+                ScreenCode.CHARACTER_SELECT,
+                getRightPercent(), getTotalRows()
+        );
 
         addButton(startGame);
 
