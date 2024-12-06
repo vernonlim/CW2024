@@ -9,15 +9,12 @@ import javafx.scene.media.AudioClip;
 public abstract class FighterPlane extends ActiveActorDestructible {
     protected final ProjectileFactory projectileFactory;
     protected final ProjectileListener projectileListener;
-    private int health;
-
     protected final double projectileYOffset;
     protected final boolean facingRight;
-
     protected PlaneStrategy planeStrategy;
-
     protected AudioClip fireSound;
     protected AudioClip deathSound;
+    private int health;
 
     public FighterPlane(FighterPlaneConfig config) {
         super(config);

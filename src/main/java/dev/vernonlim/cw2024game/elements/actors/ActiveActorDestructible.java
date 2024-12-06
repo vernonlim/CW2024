@@ -1,20 +1,16 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
-import dev.vernonlim.cw2024game.elements.Vector;
+import dev.vernonlim.cw2024game.Vector;
 import dev.vernonlim.cw2024game.elements.configs.ActiveActorDestructibleConfig;
 import dev.vernonlim.cw2024game.elements.strategies.ActorStrategy;
 import javafx.geometry.Bounds;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 
 
 public abstract class ActiveActorDestructible extends ActiveActor implements Destructible {
     protected final double speed;
     protected final boolean alwaysInBounds;
-
-    private boolean isDestroyed;
-
     protected ActorStrategy actorStrategy;
+    private boolean isDestroyed;
 
     public ActiveActorDestructible(ActiveActorDestructibleConfig config) {
         super(config);

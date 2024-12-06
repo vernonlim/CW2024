@@ -4,7 +4,6 @@ import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
 import javafx.scene.layout.Pane;
-import javafx.scene.image.Image;
 
 public class UserPlaneConfig extends FighterPlaneConfig {
     private InputManager input;

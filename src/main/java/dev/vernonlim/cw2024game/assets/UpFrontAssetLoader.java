@@ -2,10 +2,8 @@ package dev.vernonlim.cw2024game.assets;
 
 import dev.vernonlim.cw2024game.Controller;
 import javafx.scene.image.Image;
-import javafx.scene.media.Media;
 import javafx.scene.media.AudioClip;
 
-import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;

@@ -1,17 +1,9 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
-import dev.vernonlim.cw2024game.Main;
-import dev.vernonlim.cw2024game.elements.configs.FighterPlaneConfig;
 import dev.vernonlim.cw2024game.elements.configs.UserPlaneConfig;
-import dev.vernonlim.cw2024game.elements.strategies.PlaneStrategy;
-import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
-import javafx.scene.image.ImageView;
-import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.managers.InputManager;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
-import javafx.scene.layout.Pane;
-import javafx.scene.media.AudioClip;
 
 public abstract class UserPlane extends FighterPlane {
     protected InputManager input;
@@ -57,7 +49,12 @@ public abstract class UserPlane extends FighterPlane {
 
     @Override
     public Bounds getCollisionBounds() {
-        return new BoundingBox(getX() - getHalfHeight(), getY() - getHalfHeight(), getHeight(), getHeight());
+        return new BoundingBox(
+                getX() - getHalfHeight(),
+                getY() - getHalfHeight(),
+                getHeight(),
+                getHeight()
+        );
     }
 
     public int getNumberOfKills() {

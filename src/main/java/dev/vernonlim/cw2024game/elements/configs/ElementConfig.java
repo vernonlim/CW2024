@@ -1,12 +1,11 @@
 package dev.vernonlim.cw2024game.elements.configs;
 
-import dev.vernonlim.cw2024game.elements.Vector;
-import javafx.scene.image.Image;
+import dev.vernonlim.cw2024game.Vector;
 import javafx.scene.layout.Pane;
 
 public class ElementConfig {
-    private Pane root;
-    private Vector position;
+    private final Pane root;
+    private final Vector position;
     private boolean shouldSetPosition;
 
     public ElementConfig(Pane root) {
@@ -30,10 +29,6 @@ public class ElementConfig {
 
         position.x = x;
         position.y = y;
-    }
-
-    public void setPosition(Vector position) {
-        setPosition(position.x, position.y);
     }
 
     public boolean shouldSetPosition() {

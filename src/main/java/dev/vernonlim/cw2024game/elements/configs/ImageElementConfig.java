@@ -1,9 +1,8 @@
 package dev.vernonlim.cw2024game.elements.configs;
 
-import dev.vernonlim.cw2024game.elements.Vector;
-import javafx.scene.layout.Pane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 public class ImageElementConfig extends ElementConfig {
     private ImageView imageView;

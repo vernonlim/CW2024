@@ -4,7 +4,6 @@ import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.strategies.PlaneStrategy;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.layout.Pane;
-import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 
 public class FighterPlaneConfig extends ActiveActorDestructibleConfig {

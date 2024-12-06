@@ -1,11 +1,9 @@
 package dev.vernonlim.cw2024game.elements.configs;
 
-import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.screens.ScreenCode;
-import javafx.stage.Stage;
 
 public class ScreenConfig {
     private KeybindStore keybindStore;

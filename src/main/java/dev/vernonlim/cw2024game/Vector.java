@@ -1,4 +1,4 @@
-package dev.vernonlim.cw2024game.elements;
+package dev.vernonlim.cw2024game;
 
 public class Vector {
     public double x;
@@ -20,20 +20,9 @@ public class Vector {
         y /= magnitude;
     }
 
-    public double getAngle() {
-        return Math.atan(y / x);
-    }
-
     public void scaleBy(double scalar) {
         x *= scalar;
         y *= scalar;
-    }
-
-    public static Vector fromMagnitudeAngle(double magnitude, double angle) {
-        return new Vector(
-                magnitude * Math.cos(angle),
-                magnitude * Math.sin(angle)
-        );
     }
 
     public void ensureInBounds(double left, double right, double top, double bottom) {
@@ -52,11 +41,8 @@ public class Vector {
     }
 
     public boolean isOutside(double left, double right, double top, double bottom) {
-        boolean outside = false;
+        boolean outside = x < left;
 
-        if (x < left) {
-            outside = true;
-        }
         if (x > right) {
             outside = true;
         }

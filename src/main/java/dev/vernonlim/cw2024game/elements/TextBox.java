@@ -1,14 +1,10 @@
 package dev.vernonlim.cw2024game.elements;
 
 import dev.vernonlim.cw2024game.Main;
-import dev.vernonlim.cw2024game.elements.configs.ElementConfig;
 import dev.vernonlim.cw2024game.elements.configs.TextBoxConfig;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Text;
 
 public class TextBox extends ContainerElement {
     public ClickListener clickListener;
@@ -20,7 +16,7 @@ public class TextBox extends ContainerElement {
         rectangle.setStroke(Color.BLACK);
         rectangle.setFill(Color.WHITE);
         rectangle.setWidth(Main.SCREEN_WIDTH * config.getRightPercent() / 100.0f);
-        rectangle.setHeight(Main.SCREEN_HEIGHT / (double)config.getRows());
+        rectangle.setHeight(Main.SCREEN_HEIGHT / (double) config.getRows());
 
         this.container = new StackPane(rectangle);
         this.container.getChildren().add(config.getText());

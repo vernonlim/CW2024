@@ -1,14 +1,11 @@
 package dev.vernonlim.cw2024game.elements.configs;
 
-import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
 import dev.vernonlim.cw2024game.screens.ScreenChangeHandler;
 import dev.vernonlim.cw2024game.screens.ScreenCode;
 import javafx.scene.layout.Pane;
-
-import javax.sound.sampled.Control;
 
 public class OverlayConfig extends ElementConfig {
     private OverlayFactory overlayFactory;

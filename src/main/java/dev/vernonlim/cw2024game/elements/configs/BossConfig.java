@@ -4,7 +4,6 @@ import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.strategies.BossStrategy;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 

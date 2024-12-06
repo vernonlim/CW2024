@@ -1,9 +1,9 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.Vector;
 import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
 import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
-import dev.vernonlim.cw2024game.elements.Vector;
 
 public class BlueStrategy extends PlaneStrategyImpl implements PlaneStrategy {
     protected FighterPlane plane;

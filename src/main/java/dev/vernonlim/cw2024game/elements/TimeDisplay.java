@@ -2,7 +2,6 @@ package dev.vernonlim.cw2024game.elements;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.configs.ElementConfig;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

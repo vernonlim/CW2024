@@ -1,26 +1,16 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
-import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.Element;
-import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.configs.BossConfig;
 import dev.vernonlim.cw2024game.elements.strategies.BossStrategy;
-import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
-import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
-import javafx.scene.layout.Pane;
-
-import javafx.scene.image.ImageView;
 import javafx.scene.media.AudioClip;
 
 public class Boss extends FighterPlane {
-    private boolean isShielded;
-
     private final Element shieldImage;
-
     protected BossStrategy bossStrategy;
-
     protected AudioClip shieldSound;
     protected AudioClip damageSound;
+    private boolean isShielded;
 
     public Boss(BossConfig config) {
         super(config);

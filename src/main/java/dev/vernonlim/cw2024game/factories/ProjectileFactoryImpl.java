@@ -1,7 +1,7 @@
 package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.assets.AssetLoader;
-import dev.vernonlim.cw2024game.elements.Vector;
+import dev.vernonlim.cw2024game.Vector;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
 import dev.vernonlim.cw2024game.elements.configs.ProjectileConfig;

@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game.elements.configs;
 
 import dev.vernonlim.cw2024game.elements.strategies.ActorStrategy;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 public class ActiveActorDestructibleConfig extends ImageElementConfig {

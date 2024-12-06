@@ -1,6 +1,5 @@
 package dev.vernonlim.cw2024game.elements.configs;
 
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
 public class ProjectileConfig extends ActiveActorDestructibleConfig {

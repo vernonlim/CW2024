@@ -1,7 +1,5 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
-import dev.vernonlim.cw2024game.elements.actors.ActiveActor;
-
 public abstract class StrategyParent implements PlaneStrategy {
     protected double deltaTime;
     protected double currentTime;
