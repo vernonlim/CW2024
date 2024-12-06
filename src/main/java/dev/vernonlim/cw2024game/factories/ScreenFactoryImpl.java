@@ -11,14 +11,10 @@ import dev.vernonlim.cw2024game.screens.*;
 import javafx.stage.Stage;
 
 public class ScreenFactoryImpl implements ScreenFactory {
-    protected final Stage stage;
-    protected final Controller controller;
     protected final AssetLoader loader;
     protected final KeybindStore keybinds;
 
-    public ScreenFactoryImpl(Stage stage, Controller controller, AssetLoader loader, KeybindStore keybinds) {
-        this.stage = stage;
-        this.controller = controller;
+    public ScreenFactoryImpl(AssetLoader loader, KeybindStore keybinds) {
         this.loader = loader;
         this.keybinds = keybinds;
     }
@@ -26,7 +22,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
     public Screen createScreen(ScreenCode screenCode, UserPlaneCode userPlaneCode) {
         Screen screen = null;
 
-        ScreenConfig config = new ScreenConfig(stage, controller, keybinds, loader);
+        ScreenConfig config = new ScreenConfig(keybinds, loader);
         config.setUserPlaneCode(userPlaneCode);
 
         switch (screenCode) {

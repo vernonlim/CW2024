@@ -25,13 +25,11 @@ import javafx.util.Duration;
 public abstract class ScreenParent implements Screen {
     protected UserPlaneCode userPlaneCode;
 
-    protected final Stage stage;
     protected final ScreenCode currentScreen;
 
     protected final Pane root;
     protected final StackPane stackPane;
     protected final Scene scene;
-    protected final Controller controller;
     protected final InputManager inputManager;
     protected final AssetLoader loader;
     protected final Element background;
@@ -40,8 +38,6 @@ public abstract class ScreenParent implements Screen {
     protected final Timeline timeline;
 
     public ScreenParent(ScreenConfig config) {
-        this.stage = config.getStage();
-
         this.currentScreen = config.getCurrentScreenCode();
         this.userPlaneCode = config.getUserPlaneCode();
 
@@ -65,11 +61,10 @@ public abstract class ScreenParent implements Screen {
         SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 
         this.inputManager = new InputManager(scene, config.getKeybindStore());
-        this.controller = config.getController();
         this.loader = config.getAssetLoader();
 
         this.elementFactory = new ElementFactoryImpl(root, loader);
-        this.overlayFactory = new OverlayFactoryImpl(stackPane, loader, inputManager, controller, new ScreenChangeHandler() {
+        this.overlayFactory = new OverlayFactoryImpl(stackPane, loader, inputManager, new ScreenChangeHandler() {
             @Override
             public void changeScreen(ScreenCode code, UserPlaneCode userPlaneCode) {
                 goToScreen(code, userPlaneCode);
@@ -94,7 +89,7 @@ public abstract class ScreenParent implements Screen {
     public void goToScreen(ScreenCode screen, UserPlaneCode userPlaneCode) {
         timeline.pause();
         Platform.runLater(() -> {
-            controller.goToScreen(screen, userPlaneCode);
+            Controller.getController().goToScreen(screen, userPlaneCode);
         });
     }
 

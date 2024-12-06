@@ -20,7 +20,7 @@ public class Controller {
 
     private Controller(Stage stage, AssetLoader loader, KeybindStore keybinds) {
         Controller.stage = stage;
-        this.screenFactory = new ScreenFactoryImpl(stage, this, loader, keybinds);
+        this.screenFactory = new ScreenFactoryImpl(loader, keybinds);
     }
 
     public static Controller getController() {

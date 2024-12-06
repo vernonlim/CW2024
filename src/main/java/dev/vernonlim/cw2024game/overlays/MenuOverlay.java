@@ -23,7 +23,6 @@ public abstract class MenuOverlay extends ContainerElement {
     protected final OverlayFactory overlayElementFactory;
     protected final OverlayFactory gridElementFactory;
     protected final InputManager input;
-    protected final Controller controller;
     protected final ScreenChangeHandler screenChangeHandler;
 
     protected final Element menuArrow;
@@ -43,7 +42,6 @@ public abstract class MenuOverlay extends ContainerElement {
     public MenuOverlay(OverlayConfig config) {
         super(config);
 
-        this.controller = config.getController();
         this.input = config.getInput();
         this.screenChangeHandler = config.getScreenChangeHandler();
 

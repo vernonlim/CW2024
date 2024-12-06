@@ -97,7 +97,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
         this.timer = createTimer();
         this.lastEnemySpawnAttempt = -99999; // set to an arbitrary negative time to simulate no enemies having spawned
 
-        this.stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+        Controller.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent event) {
                 try {

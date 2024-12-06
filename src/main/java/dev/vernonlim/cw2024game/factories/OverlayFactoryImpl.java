@@ -22,15 +22,13 @@ import javafx.scene.layout.Pane;
 
 public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory {
     protected final InputManager input;
-    protected final Controller controller;
     protected final ScreenChangeHandler screenChangeHandler;
     protected UserPlaneCode userPlaneCode;
     
-    public OverlayFactoryImpl(Pane root, AssetLoader loader, InputManager input, Controller controller, ScreenChangeHandler screenChangeHandler, UserPlaneCode userPlaneCode) {
+    public OverlayFactoryImpl(Pane root, AssetLoader loader, InputManager input, ScreenChangeHandler screenChangeHandler, UserPlaneCode userPlaneCode) {
         super(root, loader);
         
         this.input = input;
-        this.controller = controller;
         this.screenChangeHandler = screenChangeHandler;
         this.userPlaneCode = userPlaneCode;
     }
@@ -40,7 +38,7 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
     }
 
     public OverlayFactory withNewRoot(Pane newRoot) {
-        return new OverlayFactoryImpl(newRoot, loader, input, controller, screenChangeHandler, userPlaneCode);
+        return new OverlayFactoryImpl(newRoot, loader, input, screenChangeHandler, userPlaneCode);
     }
 
     public Element createGameOverImage(double x, double y) {
@@ -93,26 +91,26 @@ public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory 
     }
 
     public MenuOverlay createMainMenuOverlay() {
-        OverlayConfig config = new OverlayConfig(root, this, input, controller, screenChangeHandler);
+        OverlayConfig config = new OverlayConfig(root, this, input, screenChangeHandler);
 
         return new MainMenuOverlay(config);
     }
 
     public MenuOverlay createCharacterSelectOverlay() {
-        OverlayConfig config = new OverlayConfig(root, this, input, controller, screenChangeHandler);
+        OverlayConfig config = new OverlayConfig(root, this, input, screenChangeHandler);
 
         return new CharacterSelectOverlay(config);
     }
 
     public MenuOverlay createLevelSelectOverlay(UserPlaneCode userPlaneCode) {
-        OverlayConfig config = new OverlayConfig(root, this, input, controller, screenChangeHandler);
+        OverlayConfig config = new OverlayConfig(root, this, input, screenChangeHandler);
         config.setUserPlaneCode(userPlaneCode);
 
         return new LevelSelectOverlay(config);
     }
 
     public MenuOverlay createPauseOverlay(ScreenCode currentScreen) {
-        OverlayConfig config = new OverlayConfig(root, this, input, controller, screenChangeHandler);
+        OverlayConfig config = new OverlayConfig(root, this, input, screenChangeHandler);
         config.setCurrentScreen(currentScreen);
 
         return new PauseOverlay(config);

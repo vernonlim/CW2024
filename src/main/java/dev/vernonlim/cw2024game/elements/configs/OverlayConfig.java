@@ -12,7 +12,6 @@ import javax.sound.sampled.Control;
 
 public class OverlayConfig extends ElementConfig {
     private OverlayFactory overlayFactory;
-    private Controller controller;
     private InputManager input;
     private ScreenChangeHandler screenChangeHandler;
     private ScreenCode currentScreen;
@@ -28,11 +27,10 @@ public class OverlayConfig extends ElementConfig {
         this.overlayFactory = overlayFactory;
     }
 
-    public OverlayConfig(Pane root, OverlayFactory overlayFactory, InputManager input, Controller controller, ScreenChangeHandler screenChangeHandler) {
+    public OverlayConfig(Pane root, OverlayFactory overlayFactory, InputManager input, ScreenChangeHandler screenChangeHandler) {
         this(root, overlayFactory);
 
         this.input = input;
-        this.controller = controller;
         this.screenChangeHandler = screenChangeHandler;
     }
 
@@ -42,14 +40,6 @@ public class OverlayConfig extends ElementConfig {
 
     public void setOverlayFactory(OverlayFactory overlayFactory) {
         this.overlayFactory = overlayFactory;
-    }
-
-    public Controller getController() {
-        return controller;
-    }
-
-    public void setController(Controller controller) {
-        this.controller = controller;
     }
 
     public InputManager getInput() {
