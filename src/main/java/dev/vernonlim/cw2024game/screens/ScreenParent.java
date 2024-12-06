@@ -19,28 +19,47 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public abstract class ScreenParent implements Screen {
-    protected UserPlaneCode userPlaneCode;
-
     protected final ScreenCode currentScreen;
-
-    protected final Pane root;
-    protected final StackPane stackPane;
-    protected final Scene scene;
     protected final InputManager inputManager;
     protected final AssetLoader loader;
     protected final Element background;
     protected final ElementFactory elementFactory;
     protected final OverlayFactory overlayFactory;
     protected final Timeline timeline;
+    protected final UserPlaneCode userPlaneCode;
+    protected Pane root;
+    protected StackPane stackPane;
+    protected Scene scene;
 
     public ScreenParent(ScreenConfig config) {
         this.currentScreen = config.getCurrentScreenCode();
         this.userPlaneCode = config.getUserPlaneCode();
 
+        initializeNodes();
+
+        this.loader = config.getAssetLoader();
+        this.inputManager = new InputManager(scene, config.getKeybindStore());
+        this.elementFactory = new ElementFactoryImpl(root, loader);
+        this.overlayFactory = new OverlayFactoryImpl(stackPane, loader, inputManager, new ScreenChangeHandler() {
+            @Override
+            public void changeScreen(ScreenCode code, UserPlaneCode userPlaneCode) {
+                goToScreen(code, userPlaneCode);
+            }
+        }, userPlaneCode);
+
+        // background
+        this.background = elementFactory.createBackground(config.getBackgroundImageName());
+
+        // activity
+        this.timeline = new Timeline(Main.FRAME_RATE);
+
+        initializeTimeline();
+    }
+
+    private void initializeNodes() {
         // initializing the main nodes
         this.root = new Pane();
 
@@ -59,32 +78,19 @@ public abstract class ScreenParent implements Screen {
 
         // letterboxing
         SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
-
-        this.inputManager = new InputManager(scene, config.getKeybindStore());
-        this.loader = config.getAssetLoader();
-
-        this.elementFactory = new ElementFactoryImpl(root, loader);
-        this.overlayFactory = new OverlayFactoryImpl(stackPane, loader, inputManager, new ScreenChangeHandler() {
-            @Override
-            public void changeScreen(ScreenCode code, UserPlaneCode userPlaneCode) {
-                goToScreen(code, userPlaneCode);
-            }
-        }, userPlaneCode);
-
-        // background
-        this.background = elementFactory.createBackground(config.getBackgroundImageName());
-
-        // activity
-        this.timeline = new Timeline(Main.FRAME_RATE);
-
-        initializeTimeline();
     }
 
-    protected abstract void updateScene();
+    protected void initializeTimeline() {
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        KeyFrame gameLoop = new KeyFrame(Duration.millis(1000f / Main.FRAME_RATE), e -> updateScene());
+        timeline.getKeyFrames().add(gameLoop);
+    }
 
     public Scene getScene() {
         return scene;
     }
+
+    protected abstract void updateScene();
 
     public void goToScreen(ScreenCode screen, UserPlaneCode userPlaneCode) {
         timeline.pause();
@@ -96,11 +102,5 @@ public abstract class ScreenParent implements Screen {
     public void start() {
         background.node.requestFocus();
         timeline.play();
-    }
-
-    protected void initializeTimeline() {
-        timeline.setCycleCount(Timeline.INDEFINITE);
-        KeyFrame gameLoop = new KeyFrame(Duration.millis(1000f / Main.FRAME_RATE), e -> updateScene());
-        timeline.getKeyFrames().add(gameLoop);
     }
 }

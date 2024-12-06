@@ -57,7 +57,7 @@ public class Controller {
     public void goToScreen(ScreenCode screenCode, UserPlaneCode userPlaneCode) {
         Screen screen = screenFactory.createScreen(screenCode, userPlaneCode);
 
-        // Only null if the system if exiting
+        // Only null if the system is exiting
         Scene scene = screen.getScene();
         stage.setScene(scene);
         screen.start();

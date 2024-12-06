@@ -1,9 +1,7 @@
 package dev.vernonlim.cw2024game;
 
 import dev.vernonlim.cw2024game.assets.AssetLoader;
-import dev.vernonlim.cw2024game.assets.CachedAssetLoader;
 import dev.vernonlim.cw2024game.assets.UpFrontAssetLoader;
-import dev.vernonlim.cw2024game.managers.InputManager;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -26,7 +24,6 @@ public class Main extends Application {
         stage.setHeight(SCREEN_HEIGHT);
         stage.setWidth(SCREEN_WIDTH);
 
-//        AssetLoader loader = new UpFrontAssetLoader();
         AssetLoader loader = new UpFrontAssetLoader();
 
         KeybindStore keybinds = new KeybindStore(KEYBINDS_PATH);
