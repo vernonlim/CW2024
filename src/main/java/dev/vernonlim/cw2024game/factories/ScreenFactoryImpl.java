@@ -1,14 +1,12 @@
 package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.Controller;
-import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
-import dev.vernonlim.cw2024game.screens.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
+import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.ScreenFactory;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.screens.*;
-import javafx.stage.Stage;
 
 public class ScreenFactoryImpl implements ScreenFactory {
     protected final AssetLoader loader;

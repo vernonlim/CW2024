@@ -12,10 +12,8 @@ import dev.vernonlim.cw2024game.factories.interfaces.ActorFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.media.AudioClip;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 
 public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
     protected InputManager inputManager;
@@ -55,7 +53,7 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         UserPlaneConfig config = new UserPlaneConfig(root, projectileFactory, projectileListener, inputManager);
         config.setPosition(5.0, Main.SCREEN_HEIGHT / 2.0);
         config.setHealth(5);
-        config.setImage(loadImage("userplane"));;
+        config.setImage(loadImage("userplane"));
         config.setFitHeight(40.0);
         config.setFireSound(loader.loadSound("gunshot"));
         config.setDeathSound(loader.loadSound("pichuun"));
@@ -70,7 +68,7 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         UserPlaneConfig config = new UserPlaneConfig(root, projectileFactory, projectileListener, inputManager);
         config.setPosition(5.0, Main.SCREEN_HEIGHT / 2.0);
         config.setHealth(3);
-        config.setImage(loadImage("userplane2"));;
+        config.setImage(loadImage("userplane2"));
         config.setFitHeight(40.0);
         config.setFireSound(loader.loadSound("laser"));
         config.setDeathSound(loader.loadSound("pichuun"));
@@ -111,7 +109,7 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         config.setFacingRight(false);
         config.setAlwaysInBounds(false);
 
-        EnemyPlane plane =  new EnemyPlane(config);
+        EnemyPlane plane = new EnemyPlane(config);
 
         plane.setPlaneStrategy(new BlueStrategy(plane));
 

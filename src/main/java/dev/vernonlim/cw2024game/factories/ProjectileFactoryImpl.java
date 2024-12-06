@@ -16,28 +16,27 @@ public class ProjectileFactoryImpl extends FactoryParent implements ProjectileFa
 
     public Projectile createProjectile(ProjectileCode code, double x, double y) {
         return switch (code) {
-            case ProjectileCode.USER ->
-                    createUserProjectile("userfire", x, y, 10, new Vector(1, 0));
-            case ProjectileCode.USER_ROUND ->
-                    createUserProjectile("circlebullet", x, y, 5, new Vector(1, 0));
-            case ProjectileCode.USER_ROUND_GREEN ->
-                    createUserProjectile("circlebulletgreen", x, y, 10, new Vector(1, 0));
-            case ProjectileCode.USER_ROUND_UP ->
-                    createUserProjectile("circlebullet", x, y, 5, new Vector(1, 0.3));
-            case ProjectileCode.USER_ROUND_DOWN ->
-                    createUserProjectile("circlebullet", x, y, 5, new Vector(1, -0.3));
-            case ProjectileCode.ENEMY ->
-                    createEnemyProjectile("enemyFire", x, y, 1, new Vector(-1, 0));
-            case ProjectileCode.ENEMY_ROUND_DOWN ->
-                    createEnemyProjectile("circlebulletblue", x, y, 1, new Vector(-1, -0.3));
-            case ProjectileCode.ENEMY_ROUND_UP ->
-                    createEnemyProjectile("circlebulletblue", x, y, 1, new Vector(-1, 0.3));
-            case ProjectileCode.BOSS ->
-                    createBossProjectile(x, y, 1);
+            case ProjectileCode.USER -> createUserProjectile(
+                    "userfire", 10, new Vector(1, 0), x, y);
+            case ProjectileCode.USER_ROUND -> createUserProjectile(
+                    "circlebullet", 5, new Vector(1, 0), x, y);
+            case ProjectileCode.USER_ROUND_GREEN -> createUserProjectile(
+                    "circlebulletgreen", 10, new Vector(1, 0), x, y);
+            case ProjectileCode.USER_ROUND_UP -> createUserProjectile(
+                    "circlebullet", 5, new Vector(1, 0.3), x, y);
+            case ProjectileCode.USER_ROUND_DOWN -> createUserProjectile(
+                    "circlebullet", 5, new Vector(1, -0.3), x, y);
+            case ProjectileCode.ENEMY -> createEnemyProjectile(
+                    "enemyFire", 1, new Vector(-1, 0), x, y);
+            case ProjectileCode.ENEMY_ROUND_DOWN -> createEnemyProjectile(
+                    "circlebulletblue", 1, new Vector(-1, -0.3), x, y);
+            case ProjectileCode.ENEMY_ROUND_UP -> createEnemyProjectile(
+                    "circlebulletblue", 1, new Vector(-1, 0.3), x, y);
+            case ProjectileCode.BOSS -> createBossProjectile(1, x, y);
         };
     }
 
-    protected Projectile createGenericProjectile(String imageName, double fitHeight, double speed, double x, double y, int damage, Vector velocity, boolean travellingRight) {
+    protected Projectile createGenericProjectile(String imageName, double fitHeight, double speed, int damage, Vector velocity, boolean travellingRight, double x, double y) {
         ProjectileConfig config = new ProjectileConfig(root);
         config.setSpeed(speed);
         config.setDamage(damage);
@@ -51,15 +50,18 @@ public class ProjectileFactoryImpl extends FactoryParent implements ProjectileFa
         return new Projectile(config);
     }
 
-    protected Projectile createUserProjectile(String imageName, double initialXPos, double initialYPos, int damage, Vector velocity) {
-        return createGenericProjectile(imageName, 12, 100, initialXPos, initialYPos, damage, velocity, true);
+    private Projectile createUserProjectile(String imageName, int damage, Vector velocity, double x, double y) {
+        return createGenericProjectile(
+                imageName, 12, 100, damage, velocity, true, x, y);
     }
 
-    protected Projectile createEnemyProjectile(String imageName, double initialXPos, double initialYPos, int damage, Vector velocity) {
-        return createGenericProjectile(imageName, 34, 10, initialXPos, initialYPos, damage, velocity, false);
+    private Projectile createEnemyProjectile(String imageName, int damage, Vector velocity, double x, double y) {
+        return createGenericProjectile(
+                imageName, 34, 10, damage, velocity, false, x, y);
     }
 
-    protected Projectile createBossProjectile(double initialXPos, double initialYPos, int damage) {
-        return createGenericProjectile("fireball", 75, 15, initialXPos, initialYPos, damage, new Vector(-1, 0), false);
+    private Projectile createBossProjectile(int damage, double x, double y) {
+        return createGenericProjectile(
+                "fireball", 75, 15, damage, new Vector(-1, 0), false, x, y);
     }
 }

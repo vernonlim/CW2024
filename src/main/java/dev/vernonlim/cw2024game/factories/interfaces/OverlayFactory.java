@@ -10,7 +10,6 @@ import dev.vernonlim.cw2024game.overlays.TimerOverlay;
 import javafx.scene.layout.Pane;
 
 public interface OverlayFactory {
-    void changeUserPlane(UserPlaneCode userPlaneCode);
     OverlayFactory withNewRoot(Pane newRoot);
     Element createGameOverImage(double xPosition, double yPosition);
     Element createWinImage(double xPosition, double yPosition);

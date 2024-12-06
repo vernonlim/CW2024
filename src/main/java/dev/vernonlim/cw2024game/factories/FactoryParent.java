@@ -2,7 +2,6 @@ package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 

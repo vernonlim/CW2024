@@ -1,39 +1,31 @@
 package dev.vernonlim.cw2024game.factories;
 
-import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.Main;
-import dev.vernonlim.cw2024game.elements.configs.ElementConfig;
-import dev.vernonlim.cw2024game.elements.configs.ImageElementConfig;
-import dev.vernonlim.cw2024game.elements.configs.OverlayConfig;
-import dev.vernonlim.cw2024game.elements.configs.TextBoxConfig;
-import dev.vernonlim.cw2024game.screens.ScreenCode;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.*;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
+import dev.vernonlim.cw2024game.elements.configs.ImageElementConfig;
+import dev.vernonlim.cw2024game.elements.configs.OverlayConfig;
+import dev.vernonlim.cw2024game.elements.configs.TextBoxConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
 import dev.vernonlim.cw2024game.overlays.*;
 import dev.vernonlim.cw2024game.screens.ScreenChangeHandler;
-import javafx.scene.image.ImageView;
+import dev.vernonlim.cw2024game.screens.ScreenCode;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.layout.Pane;
 
 public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory {
     protected final InputManager input;
     protected final ScreenChangeHandler screenChangeHandler;
     protected UserPlaneCode userPlaneCode;
-    
+
     public OverlayFactoryImpl(Pane root, AssetLoader loader, InputManager input, ScreenChangeHandler screenChangeHandler, UserPlaneCode userPlaneCode) {
         super(root, loader);
-        
+
         this.input = input;
         this.screenChangeHandler = screenChangeHandler;
-        this.userPlaneCode = userPlaneCode;
-    }
-
-    public void changeUserPlane(UserPlaneCode userPlaneCode) {
         this.userPlaneCode = userPlaneCode;
     }
 
