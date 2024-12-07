@@ -5,5 +5,4 @@ public enum EnemyCode {
     ENEMY_BLUE,
     ENEMY_RED,
     BOSS,
-    FINAL_BOSS,
 }

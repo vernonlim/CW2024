@@ -45,7 +45,6 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
             case BOSS -> createBoss();
             case ENEMY_BLUE -> createEnemyBlue(initialXPos, initialYPos);
             case ENEMY_RED -> createEnemyRed(initialXPos, initialYPos);
-            default -> createEnemyPlane(initialXPos, initialYPos);
         };
     }
 
