@@ -6,11 +6,11 @@ import dev.vernonlim.cw2024game.elements.strategies.Shielding;
 import javafx.scene.media.AudioClip;
 
 public class Boss extends FighterPlane {
-    private final Element shieldImage;
+    protected final Element shieldImage;
     protected Shielding shieldingStrategy;
     protected AudioClip shieldSound;
     protected AudioClip damageSound;
-    private boolean isShielded;
+    protected boolean isShielded;
 
     public Boss(BossConfig config) {
         super(config);

@@ -122,7 +122,7 @@ public abstract class MenuOverlay extends ContainerElement {
         }
 
         if (triggered) {
-            buttons.get(currentButton).clickListener.onClick();
+            buttons.get(currentButton).getClickListener().onClick();
         }
 
         if (up && down) {

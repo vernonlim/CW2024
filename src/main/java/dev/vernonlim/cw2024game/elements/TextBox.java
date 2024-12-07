@@ -7,7 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
 public class TextBox extends ContainerElement {
-    public ClickListener clickListener;
+    private final ClickListener clickListener;
 
     public TextBox(TextBoxConfig config) {
         super(config);
@@ -23,5 +23,9 @@ public class TextBox extends ContainerElement {
 
         this.node = container;
         this.clickListener = config.getClickListener();
+    }
+
+    public ClickListener getClickListener() {
+        return clickListener;
     }
 }

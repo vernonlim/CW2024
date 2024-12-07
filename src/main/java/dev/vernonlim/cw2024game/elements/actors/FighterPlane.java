@@ -14,7 +14,7 @@ public abstract class FighterPlane extends ActiveActorDestructible {
     protected Firing firingStrategy;
     protected AudioClip fireSound;
     protected AudioClip deathSound;
-    private int health;
+    protected int health;
 
     public FighterPlane(FighterPlaneConfig config) {
         super(config);

@@ -6,8 +6,8 @@ import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
 
 public class LevelFour extends CountdownLevel {
-    protected double lastSpawnHeight;
-    protected int spawnCount;
+    private double lastSpawnHeight;
+    private int spawnCount;
 
     public LevelFour(ScreenConfig config) {
         super(config);

@@ -5,8 +5,8 @@ import dev.vernonlim.cw2024game.Vector;
 import dev.vernonlim.cw2024game.elements.configs.ProjectileConfig;
 
 public class Projectile extends ActiveActorDestructible {
-    public final int damage;
-    public final boolean isUserProjectile;
+    protected final int damage;
+    protected final boolean isUserProjectile;
 
     public Projectile(ProjectileConfig config) {
         super(config);
@@ -35,5 +35,13 @@ public class Projectile extends ActiveActorDestructible {
         if (position.isOutside(0, Main.SCREEN_WIDTH, 0, Main.SCREEN_HEIGHT)) {
             destroy();
         }
+    }
+
+    public int getDamage() {
+        return damage;
+    }
+
+    public boolean isUserProjectile() {
+        return isUserProjectile;
     }
 }

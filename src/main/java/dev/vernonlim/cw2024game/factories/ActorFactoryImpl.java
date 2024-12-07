@@ -16,10 +16,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
 public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
-    protected InputManager inputManager;
-    protected ProjectileListener projectileListener;
-    protected ProjectileFactory projectileFactory;
-    protected ElementFactory elementFactory;
+    private final InputManager inputManager;
+    private final ProjectileListener projectileListener;
+    private final ProjectileFactory projectileFactory;
+    private final ElementFactory elementFactory;
 
     public ActorFactoryImpl(Pane root, AssetLoader loader, InputManager inputManager, ProjectileFactory projectileFactory, ProjectileListener projectileListener, ElementFactory elementFactory) {
         super(root, loader);

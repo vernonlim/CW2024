@@ -9,7 +9,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 public class TimeDisplay extends ContainerElement {
-    public Text text;
+    private final Text text;
 
     public TimeDisplay(ElementConfig config, int seconds) {
         super(config);

@@ -17,7 +17,7 @@ public class DamageCollisionManager implements CollisionManager {
                     actor.takeDamage(1);
 
                     if (actor instanceof Projectile) {
-                        otherActor.takeDamage(((Projectile) actor).damage);
+                        otherActor.takeDamage(((Projectile) actor).getDamage());
                     } else {
                         otherActor.takeDamage(1);
                     }

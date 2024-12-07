@@ -76,7 +76,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
             public void onFire(Projectile projectile) {
                 projectile.show();
 
-                if (projectile.isUserProjectile) {
+                if (projectile.isUserProjectile()) {
                     userProjectiles.add(projectile);
                 } else {
                     enemyProjectiles.add(projectile);

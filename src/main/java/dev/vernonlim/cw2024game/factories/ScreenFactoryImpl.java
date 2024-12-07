@@ -9,8 +9,8 @@ import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.screens.*;
 
 public class ScreenFactoryImpl implements ScreenFactory {
-    protected final AssetLoader loader;
-    protected final KeybindStore keybinds;
+    private final AssetLoader loader;
+    private final KeybindStore keybinds;
 
     public ScreenFactoryImpl(AssetLoader loader, KeybindStore keybinds) {
         this.loader = loader;

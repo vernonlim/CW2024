@@ -9,6 +9,6 @@ public class LevelSelect extends MainMenu implements Screen {
 
     @Override
     protected void initializeMenuOverlay() {
-        menuOverlay = overlayFactory.createLevelSelectOverlay(userPlaneCode);
+        setMenuOverlay(overlayFactory.createLevelSelectOverlay(userPlaneCode));
     }
 }

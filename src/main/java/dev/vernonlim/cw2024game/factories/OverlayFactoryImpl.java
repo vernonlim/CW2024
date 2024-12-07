@@ -17,9 +17,9 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.text.Font;
 
 public class OverlayFactoryImpl extends FactoryParent implements OverlayFactory {
-    protected final InputManager input;
-    protected final ScreenChangeHandler screenChangeHandler;
-    protected UserPlaneCode userPlaneCode;
+    private final InputManager input;
+    private final ScreenChangeHandler screenChangeHandler;
+    private final UserPlaneCode userPlaneCode;
 
     public OverlayFactoryImpl(Pane root, AssetLoader loader, InputManager input, ScreenChangeHandler screenChangeHandler, UserPlaneCode userPlaneCode) {
         super(root, loader);

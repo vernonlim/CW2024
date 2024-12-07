@@ -4,16 +4,12 @@ import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.overlays.MenuOverlay;
 
 public class MainMenu extends ScreenParent implements Screen {
-    protected MenuOverlay menuOverlay;
-
-    protected double lastUpdate;
+    private MenuOverlay menuOverlay;
 
     public MainMenu(ScreenConfig config) {
         super(config);
 
         initializeMenuOverlay();
-
-        this.lastUpdate = System.currentTimeMillis();
     }
 
     protected void initializeMenuOverlay() {
@@ -23,8 +19,15 @@ public class MainMenu extends ScreenParent implements Screen {
     @Override
     protected void updateScene() {
         double currentTime = System.currentTimeMillis();
-        lastUpdate = currentTime;
 
         menuOverlay.update(currentTime);
+    }
+
+    protected MenuOverlay getMenuOverlay() {
+        return menuOverlay;
+    }
+
+    protected void setMenuOverlay(MenuOverlay menuOverlay) {
+        this.menuOverlay = menuOverlay;
     }
 }
