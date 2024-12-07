@@ -2,16 +2,12 @@ package dev.vernonlim.cw2024game.elements.strategies;
 
 import dev.vernonlim.cw2024game.Vector;
 
-public class LinearProjectileStrategy implements ActorStrategy {
-    public Vector movement;
+public class LinearMovement extends UpdatableStrategy implements Movement {
+    private final Vector movement;
 
-    public LinearProjectileStrategy(Vector movement) {
+    public LinearMovement(Vector movement) {
         this.movement = movement.copy();
         movement.normalize();
-    }
-
-    @Override
-    public void updateStrategyState(double deltaTime, double currentTime) {
     }
 
     @Override

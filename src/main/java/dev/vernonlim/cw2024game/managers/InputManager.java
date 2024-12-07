@@ -22,7 +22,7 @@ public class InputManager {
             public void handle(KeyEvent e) {
                 Action action = keybindStore.getAction(e.getCode());
                 if (action != null) {
-                    keybindStore.triggerAction(action);
+                    keybindStore.unsetAction(action);
                 }
             }
         });

@@ -2,7 +2,7 @@ package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.configs.FighterPlaneConfig;
-import dev.vernonlim.cw2024game.elements.strategies.PlaneStrategy;
+import dev.vernonlim.cw2024game.elements.strategies.Firing;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.media.AudioClip;
 
@@ -11,7 +11,7 @@ public abstract class FighterPlane extends ActiveActorDestructible {
     protected final ProjectileListener projectileListener;
     protected final double projectileYOffset;
     protected final boolean facingRight;
-    protected PlaneStrategy planeStrategy;
+    protected Firing firingStrategy;
     protected AudioClip fireSound;
     protected AudioClip deathSound;
     private int health;
@@ -30,21 +30,22 @@ public abstract class FighterPlane extends ActiveActorDestructible {
 
         this.facingRight = config.isFacingRight();
 
-        this.planeStrategy = config.getPlaneStrategy();
+        this.firingStrategy = config.getFiring();
     }
 
-    public void setPlaneStrategy(PlaneStrategy strategy) {
-        this.planeStrategy = strategy;
-        this.actorStrategy = strategy;
+    public void setFiringStrategy(Firing firingStrategy) {
+        this.firingStrategy = firingStrategy;
     }
 
     @Override
     public void updateActor(double deltaTime, double currentTime) {
         super.updateActor(deltaTime, currentTime);
 
-        boolean shouldFire = planeStrategy.shouldFire();
+        firingStrategy.updateStrategyState(deltaTime, currentTime);
+
+        boolean shouldFire = firingStrategy.shouldFire();
         if (shouldFire) {
-            fireProjectile(planeStrategy.getProjectileCode());
+            fireProjectile(firingStrategy.getProjectileCode());
         }
     }
 

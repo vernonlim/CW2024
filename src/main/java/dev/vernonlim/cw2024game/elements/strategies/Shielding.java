@@ -1,5 +1,5 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
-public interface BossStrategy extends PlaneStrategy {
+public interface Shielding extends Updatable {
     boolean isShielded();
 }

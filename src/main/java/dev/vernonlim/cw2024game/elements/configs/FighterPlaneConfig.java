@@ -1,13 +1,13 @@
 package dev.vernonlim.cw2024game.elements.configs;
 
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
-import dev.vernonlim.cw2024game.elements.strategies.PlaneStrategy;
+import dev.vernonlim.cw2024game.elements.strategies.Firing;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
 public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
-    private PlaneStrategy planeStrategy;
+    private Firing firing;
     private ProjectileFactory projectileFactory;
     private ProjectileListener projectileListener;
     private AudioClip fireSound;
@@ -27,13 +27,12 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
         this.isFacingRight = true;
     }
 
-    public PlaneStrategy getPlaneStrategy() {
-        return planeStrategy;
+    public Firing getFiring() {
+        return firing;
     }
 
-    public void setPlaneStrategy(PlaneStrategy planeStrategy) {
-        this.planeStrategy = planeStrategy;
-        this.setActorStrategy(this.planeStrategy);
+    public void setFiring(Firing firing) {
+        this.firing = firing;
     }
 
     public ProjectileFactory getProjectileFactory() {

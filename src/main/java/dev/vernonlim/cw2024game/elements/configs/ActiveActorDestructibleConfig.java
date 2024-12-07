@@ -1,10 +1,10 @@
 package dev.vernonlim.cw2024game.elements.configs;
 
-import dev.vernonlim.cw2024game.elements.strategies.ActorStrategy;
+import dev.vernonlim.cw2024game.elements.strategies.Movement;
 import javafx.scene.layout.Pane;
 
 public class ActiveActorDestructibleConfig extends ImageElementConfig {
-    private ActorStrategy actorStrategy;
+    private Movement movement;
     private double speed;
     private boolean alwaysInBounds;
 
@@ -14,12 +14,12 @@ public class ActiveActorDestructibleConfig extends ImageElementConfig {
         this.alwaysInBounds = true;
     }
 
-    public ActorStrategy getActorStrategy() {
-        return actorStrategy;
+    public Movement getMovement() {
+        return movement;
     }
 
-    public void setActorStrategy(ActorStrategy actorStrategy) {
-        this.actorStrategy = actorStrategy;
+    public void setMovement(Movement movement) {
+        this.movement = movement;
     }
 
     public double getSpeed() {

@@ -2,12 +2,12 @@ package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.configs.BossConfig;
-import dev.vernonlim.cw2024game.elements.strategies.BossStrategy;
+import dev.vernonlim.cw2024game.elements.strategies.Shielding;
 import javafx.scene.media.AudioClip;
 
 public class Boss extends FighterPlane {
     private final Element shieldImage;
-    protected BossStrategy bossStrategy;
+    protected Shielding shieldingStrategy;
     protected AudioClip shieldSound;
     protected AudioClip damageSound;
     private boolean isShielded;
@@ -18,7 +18,7 @@ public class Boss extends FighterPlane {
         this.shieldSound = config.getShieldSound();
         this.damageSound = config.getDamageSound();
 
-        this.bossStrategy = config.getBossStrategy();
+        this.shieldingStrategy = config.getShielding();
 
         this.isShielded = false;
 
@@ -29,8 +29,10 @@ public class Boss extends FighterPlane {
     public void updateActor(double deltaTime, double currentTime) {
         super.updateActor(deltaTime, currentTime);
 
+        shieldingStrategy.updateStrategyState(deltaTime, currentTime);
+
         boolean original = isShielded;
-        isShielded = bossStrategy.isShielded();
+        isShielded = shieldingStrategy.isShielded();
 
         if (original != isShielded) {
             if (isShielded) {

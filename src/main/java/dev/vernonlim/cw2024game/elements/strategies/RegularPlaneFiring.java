@@ -3,18 +3,16 @@ package dev.vernonlim.cw2024game.elements.strategies;
 import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
 import dev.vernonlim.cw2024game.managers.InputManager;
 
-public class RegularPlaneStrategy extends UserPlaneStrategy implements PlaneStrategy {
-    public RegularPlaneStrategy(InputManager input) {
+public class RegularPlaneFiring extends UserFiring implements Firing {
+    public RegularPlaneFiring(InputManager input) {
         super(input);
     }
 
     @Override
     protected void handleFocus() {
         if (focus) {
-            movementMultiplier = 0.6f;
             fireRate = baseFireRate * 2.0f;
         } else {
-            movementMultiplier = 1.0f;
             fireRate = baseFireRate;
         }
     }

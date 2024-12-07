@@ -5,10 +5,10 @@ import dev.vernonlim.cw2024game.Vector;
 import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
 import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
 
-public class BlueStrategy extends PlaneStrategyImpl implements PlaneStrategy {
+public class BlueEnemyFiring extends PlaneFiring implements Firing {
     protected FighterPlane plane;
 
-    public BlueStrategy(FighterPlane plane) {
+    public BlueEnemyFiring(FighterPlane plane) {
         this.plane = plane;
     }
 
@@ -20,11 +20,6 @@ public class BlueStrategy extends PlaneStrategyImpl implements PlaneStrategy {
     @Override
     protected boolean canFire() {
         return true;
-    }
-
-    @Override
-    public Vector getNextMovement() {
-        return new Vector(-1, 0);
     }
 
     @Override

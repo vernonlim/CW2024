@@ -2,13 +2,13 @@ package dev.vernonlim.cw2024game.elements.configs;
 
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
-import dev.vernonlim.cw2024game.elements.strategies.BossStrategy;
+import dev.vernonlim.cw2024game.elements.strategies.Shielding;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
 public class BossConfig extends FighterPlaneConfig {
-    private BossStrategy bossStrategy;
+    private Shielding shielding;
     private Element shieldImage;
     private AudioClip shieldSound;
     private AudioClip damageSound;
@@ -17,14 +17,12 @@ public class BossConfig extends FighterPlaneConfig {
         super(root, projectileFactory, projectileListener);
     }
 
-    public BossStrategy getBossStrategy() {
-        return bossStrategy;
+    public Shielding getShielding() {
+        return shielding;
     }
 
-    public void setBossStrategy(BossStrategy bossStrategy) {
-        this.bossStrategy = bossStrategy;
-        this.setPlaneStrategy(this.bossStrategy);
-        this.setActorStrategy(this.bossStrategy);
+    public void setShielding(Shielding shielding) {
+        this.shielding = shielding;
     }
 
     public AudioClip getDamageSound() {
