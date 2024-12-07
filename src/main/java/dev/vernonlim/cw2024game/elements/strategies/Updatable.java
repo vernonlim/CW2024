@@ -1,8 +1,5 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
-import dev.vernonlim.cw2024game.Vector;
-
-public interface ActorStrategy {
+public interface Updatable {
     void updateStrategyState(double deltaTime, double currentTime);
-    Vector getNextMovement();
 }

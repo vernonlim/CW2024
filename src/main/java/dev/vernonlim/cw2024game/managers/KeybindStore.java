@@ -33,6 +33,10 @@ public class KeybindStore {
         actionsTriggered.get(action).set(true);
     }
 
+    public void unsetAction(Action action) {
+        actionsTriggered.get(action).set(false);
+    }
+
     public boolean getActionStatus(Action action) {
         return actionsTriggered.get(action).get();
     }

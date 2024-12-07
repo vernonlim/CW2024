@@ -1,10 +1,13 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
-public abstract class PlaneStrategyImpl extends StrategyParent implements PlaneStrategy {
+import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
+import dev.vernonlim.cw2024game.managers.InputManager;
+
+public abstract class PlaneFiring extends UpdatableStrategy implements Firing {
     protected double lastFireAttempt;
     protected double lastFireTime;
 
-    public PlaneStrategyImpl() {
+    public PlaneFiring() {
         this.lastFireAttempt = 0;
         this.lastFireTime = 0;
     }

@@ -57,7 +57,8 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         config.setFitHeight(40.0);
         config.setFireSound(loader.loadSound("gunshot"));
         config.setDeathSound(loader.loadSound("pichuun"));
-        config.setPlaneStrategy(new RegularPlaneStrategy(inputManager));
+        config.setMovement(new RegularPlaneMovement(inputManager));
+        config.setFiring(new RegularPlaneFiring(inputManager));
         config.setSpeed(24.0);
         config.setProjectileYOffset(7.0);
 
@@ -72,7 +73,8 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         config.setFitHeight(40.0);
         config.setFireSound(loader.loadSound("laser"));
         config.setDeathSound(loader.loadSound("pichuun"));
-        config.setPlaneStrategy(new GreenPlaneStrategy(inputManager));
+        config.setMovement(new GreenPlaneMovement(inputManager));
+        config.setFiring(new GreenPlaneFiring(inputManager));
         config.setSpeed(30.0);
         config.setProjectileYOffset(7.0);
 
@@ -87,7 +89,8 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         config.setFitHeight(54.0);
         config.setFireSound(loader.loadSound("missile"));
         config.setDeathSound(loader.loadSound("explosion"));
-        config.setPlaneStrategy(new EnemyPlaneStrategy());
+        config.setMovement(new EnemyPlaneMovement());
+        config.setFiring(new EnemyPlaneFiring());
         config.setSpeed(5.0);
         config.setProjectileYOffset(7.0);
         config.setFacingRight(false);
@@ -108,10 +111,11 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         config.setProjectileYOffset(7.0);
         config.setFacingRight(false);
         config.setAlwaysInBounds(false);
+        config.setMovement(new EnemyPlaneMovement());
 
         EnemyPlane plane = new EnemyPlane(config);
 
-        plane.setPlaneStrategy(new BlueStrategy(plane));
+        plane.setFiringStrategy(new BlueEnemyFiring(plane));
 
         return plane;
     }
@@ -124,7 +128,8 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         config.setFitHeight(54.0);
         config.setFireSound(loader.loadSound("laser"));
         config.setDeathSound(loader.loadSound("explosion"));
-        config.setPlaneStrategy(new RedStrategy());
+        config.setMovement(new EnemyPlaneMovement());
+        config.setFiring(new RedEnemyFiring());
         config.setSpeed(50.0);
         config.setProjectileYOffset(7.0);
         config.setFacingRight(false);
@@ -149,7 +154,9 @@ public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
         damageSound.setVolume(1.0);
         config.setDamageSound(damageSound);
 
-        config.setBossStrategy(new BossStrategyImpl());
+        config.setMovement(new BossMovement());
+        config.setFiring(new BossFiring());
+        config.setShielding(new BossShielding());
         config.setSpeed(8.0);
         config.setProjectileYOffset(0.0);
         config.setFacingRight(false);

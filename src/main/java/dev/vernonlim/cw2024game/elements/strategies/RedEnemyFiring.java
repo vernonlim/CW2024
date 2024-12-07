@@ -1,9 +1,8 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
-import dev.vernonlim.cw2024game.Vector;
 import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
 
-public class RedStrategy extends PlaneStrategyImpl implements PlaneStrategy {
+public class RedEnemyFiring extends PlaneFiring implements Firing {
     @Override
     protected boolean willAttemptFire() {
         return false;
@@ -17,10 +16,5 @@ public class RedStrategy extends PlaneStrategyImpl implements PlaneStrategy {
     @Override
     public ProjectileCode getProjectileCode() {
         return null;
-    }
-
-    @Override
-    public Vector getNextMovement() {
-        return new Vector(-1, 0);
     }
 }

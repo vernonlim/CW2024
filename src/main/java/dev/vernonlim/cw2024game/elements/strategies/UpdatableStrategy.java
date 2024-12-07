@@ -1,10 +1,10 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
-public abstract class StrategyParent implements PlaneStrategy {
+public abstract class UpdatableStrategy implements Updatable {
     protected double deltaTime;
     protected double currentTime;
 
-    public StrategyParent() {
+    public UpdatableStrategy() {
         this.deltaTime = 0;
         this.currentTime = 0;
     }
