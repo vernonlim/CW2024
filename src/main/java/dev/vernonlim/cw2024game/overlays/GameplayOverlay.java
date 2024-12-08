@@ -7,20 +7,49 @@ import dev.vernonlim.cw2024game.configs.OverlayConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 
 public class GameplayOverlay extends FloatingOverlay {
-    private static final double HEART_DISPLAY_X_POSITION = 5;
-    private static final double HEART_DISPLAY_Y_POSITION = 25;
+    /**
+     * The offset for the Heart Display to be drawn from the left.
+     */
+    private static final double HEART_DISPLAY_X_OFFSET = 5;
+
+    /**
+     * The offset for the Heart Display to be drawn from the top.
+     */
+    private static final double HEART_DISPLAY_Y_OFFSET = 25;
+
+    /**
+     * The Element for the image to be displayed when winning.
+     */
     private final Element winImage;
+
+    /**
+     * The Element for the image to be displayed during a game over.
+     */
     private final Element gameOverImage;
+
+    /**
+     * The Element for the heart display.
+     */
     private final HeartDisplay heartDisplay;
+
+    /**
+     * The OverlayFactory for constructing Elements rooted in this Overlay.
+     */
     private final OverlayFactory overlayElementFactory;
 
+    /**
+     * Constructs a Gameplay Overlay.
+     *
+     * @param config the configuration object containing the necessary data to construct the Level
+     * @param heartsToDisplay the number of hearts to display - this should match player health
+     */
     public GameplayOverlay(OverlayConfig config, int heartsToDisplay) {
         super(config);
 
         this.overlayElementFactory = config.getOverlayFactory().withNewRoot(this.container);
 
         this.heartDisplay = this.overlayElementFactory
-                .createHeartDisplay(HEART_DISPLAY_X_POSITION, HEART_DISPLAY_Y_POSITION, heartsToDisplay);
+                .createHeartDisplay(HEART_DISPLAY_X_OFFSET, HEART_DISPLAY_Y_OFFSET, heartsToDisplay);
         this.winImage = this.overlayElementFactory
                 .createWinImage(Main.SCREEN_WIDTH / 2.0f, Main.SCREEN_HEIGHT / 2.0f);
         this.gameOverImage = this.overlayElementFactory
@@ -31,14 +60,25 @@ public class GameplayOverlay extends FloatingOverlay {
         show();
     }
 
+    /**
+     * Shows the win image.
+     */
     public void showWinImage() {
         winImage.show();
     }
 
+    /**
+     * Shows the game over image.
+     */
     public void showGameOverImage() {
         gameOverImage.show();
     }
 
+    /**
+     * If the number of hearts remaining is lower than the number of hearts, remove them until the number matches.
+     *
+     * @param heartsRemaining the number of hearts remaining
+     */
     public void removeHearts(int heartsRemaining) {
         int currentNumberOfHearts = heartDisplay.getHeartCount();
 

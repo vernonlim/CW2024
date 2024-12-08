@@ -6,6 +6,11 @@ import dev.vernonlim.cw2024game.configs.ElementConfig;
 import javafx.scene.layout.Pane;
 
 public class FloatingOverlay extends ContainerElement {
+    /**
+     * Constructs a Floating Overlay
+     *
+     * @param config the configuration object containing the necessary data to construct the Level
+     */
     public FloatingOverlay(ElementConfig config) {
         super(config);
 

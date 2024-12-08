@@ -5,9 +5,22 @@ import dev.vernonlim.cw2024game.configs.OverlayConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 
 public class TimerOverlay extends FloatingOverlay {
+    /**
+     * The TimeDisplay for this Overlay to be displayed at the top right.
+     */
     private final TimeDisplay timeDisplay;
+
+    /**
+     * The duration of the TimeDisplay.
+     */
     private final int duration;
 
+    /**
+     * Constructs a Timer Overlay.
+     *
+     * @param config the configuration object containing the necessary data to construct the Level
+     * @param duration the duration to count down from
+     */
     public TimerOverlay(OverlayConfig config, int duration) {
         super(config);
 
@@ -21,6 +34,11 @@ public class TimerOverlay extends FloatingOverlay {
         show();
     }
 
+    /**
+     * Updates this Overlay.
+     *
+     * @param currentTime the current virtual time
+     */
     public void update(double currentTime) {
         int time = (int) (duration - currentTime / 1000.0f);
 

@@ -7,6 +7,11 @@ import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import dev.vernonlim.cw2024game.screens.ScreenCode;
 
 public class LevelSelectOverlay extends MenuOverlay {
+    /**
+     * Constructs a Level Select Overlay.
+     *
+     * @param config the configuration object containing the necessary data to construct the Level
+     */
     public LevelSelectOverlay(OverlayConfig config) {
         super(config);
 
