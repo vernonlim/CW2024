@@ -8,15 +8,32 @@ import dev.vernonlim.cw2024game.factories.interfaces.ScreenFactory;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.screens.*;
 
+/**
+ * The default implementation of ScreenFactory for CW2024Game.
+ */
 public class ScreenFactoryImpl implements ScreenFactory {
-    private final AssetLoader loader;
+    /**
+     * The AssetLoader for this Factory.
+     */
+    protected final AssetLoader loader;
+
+    /**
+     * The KeybindStore for this Factory. Meant for passing to Screens.
+     */
     private final KeybindStore keybinds;
 
+    /**
+     * Constructs a ScreenFactory from the given params;
+     *
+     * @param loader the AssetLoader handling loading of assets
+     * @param keybinds the KeybindStore managing user keybinds
+     */
     public ScreenFactoryImpl(AssetLoader loader, KeybindStore keybinds) {
         this.loader = loader;
         this.keybinds = keybinds;
     }
 
+    @Override
     public Screen createScreen(ScreenCode screenCode, UserPlaneCode userPlaneCode) {
         Screen screen = null;
 
