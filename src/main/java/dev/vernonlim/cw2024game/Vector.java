@@ -13,6 +13,13 @@ public class Vector {
         return new Vector(x, y);
     }
 
+    public boolean isEqualTo(Vector vec) {
+        boolean xEquals = Double.compare(x, vec.x) == 0;
+        boolean yEquals = Double.compare(y, vec.y) == 0;
+
+        return xEquals && yEquals;
+    }
+
     public void normalize() {
         double magnitude = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
 

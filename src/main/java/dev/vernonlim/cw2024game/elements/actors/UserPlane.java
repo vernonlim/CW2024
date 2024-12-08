@@ -1,6 +1,6 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
-import dev.vernonlim.cw2024game.elements.configs.UserPlaneConfig;
+import dev.vernonlim.cw2024game.configs.UserPlaneConfig;
 import dev.vernonlim.cw2024game.managers.InputManager;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;

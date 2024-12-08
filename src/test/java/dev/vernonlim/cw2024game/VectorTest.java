@@ -23,6 +23,17 @@ class VectorTest {
     }
 
     @Test
+    @DisplayName("Should return true if the vectors are numerically equal")
+    void isEqualTo() {
+        Vector vec1 = new Vector(10.0, 15.0);
+        Vector vec2 = new Vector(10.0, 15.0);
+        Vector vec3 = new Vector(10.0, 15.01);
+
+        assertTrue(vec1.isEqualTo(vec2));
+        assertFalse(vec1.isEqualTo(vec3));
+    }
+
+    @Test
     @DisplayName("Should ensure the magnitude of the vector is 1")
     void normalize() {
         Vector vec1 = new Vector(10.0, 15.0);

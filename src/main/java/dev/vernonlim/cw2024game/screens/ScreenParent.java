@@ -5,7 +5,7 @@ import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
-import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
+import dev.vernonlim.cw2024game.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.factories.ElementFactoryImpl;
 import dev.vernonlim.cw2024game.factories.OverlayFactoryImpl;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;

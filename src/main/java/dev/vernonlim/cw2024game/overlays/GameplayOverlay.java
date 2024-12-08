@@ -3,7 +3,7 @@ package dev.vernonlim.cw2024game.overlays;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.HeartDisplay;
-import dev.vernonlim.cw2024game.elements.configs.OverlayConfig;
+import dev.vernonlim.cw2024game.configs.OverlayConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 
 public class GameplayOverlay extends FloatingOverlay {

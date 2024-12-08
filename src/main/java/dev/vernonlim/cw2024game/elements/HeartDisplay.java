@@ -1,7 +1,7 @@
 package dev.vernonlim.cw2024game.elements;
 
 import dev.vernonlim.cw2024game.Vector;
-import dev.vernonlim.cw2024game.elements.configs.OverlayConfig;
+import dev.vernonlim.cw2024game.configs.OverlayConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import javafx.scene.layout.HBox;
 

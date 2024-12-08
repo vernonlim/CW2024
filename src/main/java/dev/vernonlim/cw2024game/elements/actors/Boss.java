@@ -1,7 +1,7 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.elements.Element;
-import dev.vernonlim.cw2024game.elements.configs.BossConfig;
+import dev.vernonlim.cw2024game.configs.BossConfig;
 import dev.vernonlim.cw2024game.elements.strategies.Shielding;
 import javafx.scene.media.AudioClip;
 

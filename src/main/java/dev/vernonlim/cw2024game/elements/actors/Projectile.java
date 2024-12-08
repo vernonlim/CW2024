@@ -2,7 +2,7 @@ package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.Vector;
-import dev.vernonlim.cw2024game.elements.configs.ProjectileConfig;
+import dev.vernonlim.cw2024game.configs.ProjectileConfig;
 
 public class Projectile extends ActiveActorDestructible {
     protected final int damage;

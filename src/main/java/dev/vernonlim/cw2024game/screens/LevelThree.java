@@ -3,8 +3,7 @@ package dev.vernonlim.cw2024game.screens;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
-import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
-import dev.vernonlim.cw2024game.overlays.TimerOverlay;
+import dev.vernonlim.cw2024game.configs.ScreenConfig;
 
 public class LevelThree extends CountdownLevel {
     public LevelThree(ScreenConfig config) {

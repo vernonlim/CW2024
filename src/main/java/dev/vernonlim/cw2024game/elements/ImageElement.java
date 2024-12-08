@@ -1,6 +1,6 @@
 package dev.vernonlim.cw2024game.elements;
 
-import dev.vernonlim.cw2024game.elements.configs.ImageElementConfig;
+import dev.vernonlim.cw2024game.configs.ImageElementConfig;
 import javafx.scene.image.ImageView;
 
 public class ImageElement extends Element {

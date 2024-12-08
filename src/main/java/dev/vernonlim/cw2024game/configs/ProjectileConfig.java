@@ -1,4 +1,4 @@
-package dev.vernonlim.cw2024game.elements.configs;
+package dev.vernonlim.cw2024game.configs;
 
 import javafx.scene.layout.Pane;
 

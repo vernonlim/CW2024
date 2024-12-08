@@ -6,7 +6,7 @@ import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.UserPlane;
-import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
+import dev.vernonlim.cw2024game.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.factories.ActorFactoryImpl;
 import dev.vernonlim.cw2024game.factories.ProjectileFactoryImpl;
 import dev.vernonlim.cw2024game.factories.interfaces.ActorFactory;

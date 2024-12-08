@@ -1,4 +1,4 @@
-package dev.vernonlim.cw2024game.elements.configs;
+package dev.vernonlim.cw2024game.configs;
 
 import dev.vernonlim.cw2024game.elements.strategies.Movement;
 import javafx.scene.layout.Pane;

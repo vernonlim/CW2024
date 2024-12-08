@@ -2,7 +2,7 @@ package dev.vernonlim.cw2024game.elements;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.Vector;
-import dev.vernonlim.cw2024game.elements.configs.ElementConfig;
+import dev.vernonlim.cw2024game.configs.ElementConfig;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;

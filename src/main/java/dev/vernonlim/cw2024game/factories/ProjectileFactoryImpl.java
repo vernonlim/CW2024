@@ -4,7 +4,7 @@ import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.Vector;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
-import dev.vernonlim.cw2024game.elements.configs.ProjectileConfig;
+import dev.vernonlim.cw2024game.configs.ProjectileConfig;
 import dev.vernonlim.cw2024game.elements.strategies.LinearMovement;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.layout.Pane;

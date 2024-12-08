@@ -46,7 +46,7 @@ public class CachedAssetLoader extends CW2024AssetLoader {
             if (resourcePath == null) {
                 Controller.triggerAlertAndExit("Sound " + name + " doesn't exist at path " + path + ".");
             } else {
-                AudioClip fetched = new AudioClip(new File(resourcePath.toExternalForm()).toURI().toString());
+                AudioClip fetched = new AudioClip(resourcePath.toString());
                 sounds.put(name, fetched);
 
                 return fetched;

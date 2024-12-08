@@ -1,7 +1,7 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
 import dev.vernonlim.cw2024game.Vector;
-import dev.vernonlim.cw2024game.elements.configs.ActiveActorDestructibleConfig;
+import dev.vernonlim.cw2024game.configs.ActiveActorDestructibleConfig;
 import dev.vernonlim.cw2024game.elements.strategies.Movement;
 import javafx.geometry.Bounds;
 
