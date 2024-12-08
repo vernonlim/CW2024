@@ -1,5 +1,8 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
+/**
+ * An enum representing the types of projectiles present in the game.
+ */
 public enum ProjectileCode {
     USER,
     USER_ROUND,

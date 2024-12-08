@@ -21,7 +21,7 @@ public class ProjectileConfig extends ActiveActorDestructibleConfig {
         this.damage = damage;
     }
 
-    public boolean isUserProjectile() {
+    public boolean isAllyProjectile() {
         return isUserProjectile;
     }
 
