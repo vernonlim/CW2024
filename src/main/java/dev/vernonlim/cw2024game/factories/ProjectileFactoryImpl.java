@@ -66,7 +66,7 @@ public class ProjectileFactoryImpl extends Factory implements ProjectileFactory 
         config.setPosition(x, y);
         config.setImage(loadImage(imageName));
         config.setFitHeight(fitHeight);
-        config.setUserProjectile(travellingRight);
+        config.setAllyProjectile(travellingRight);
         config.setAlwaysInBounds(false);
         config.setMovement(new LinearMovement(velocity));
 

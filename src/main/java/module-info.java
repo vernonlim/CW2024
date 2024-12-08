@@ -6,7 +6,6 @@ module dev.vernonlim.cw2024game {
     requires java.desktop;
     requires org.json;
     requires java.logging;
-    requires org.junit.jupiter.api;
 
     opens dev.vernonlim.cw2024game to javafx.fxml;
     opens dev.vernonlim.cw2024game.screens to javafx.fxml;
