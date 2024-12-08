@@ -8,10 +8,23 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * An Asset Loader that loads all images up front before storing them in a cache.
+ */
 public class UpFrontAssetLoader extends CW2024AssetLoader {
+    /**
+     * A map between image names and their corresponding Images.
+     */
     private final Map<String, Image> images;
+
+    /**
+     * A map between sound names and their corresponding AudioClips.
+     */
     private final Map<String, AudioClip> sounds;
 
+    /**
+     * Constructs an UpFrontAssetLoader.
+     */
     public UpFrontAssetLoader() {
         images = new HashMap<>(imagePaths.size());
         sounds = new HashMap<>(soundPaths.size());

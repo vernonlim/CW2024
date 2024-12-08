@@ -7,7 +7,13 @@ import java.util.Map;
 
 import static java.util.Map.entry;
 
-abstract class CW2024AssetLoader implements AssetLoader {
+/**
+ * An abstract class representing a loader for all the resources used in CW2024Game.
+ */
+public abstract class CW2024AssetLoader implements AssetLoader {
+    /**
+     * A map of image names to image paths to be used for image loading.
+     */
     protected static final Map<String, String> imagePaths = Map.ofEntries(
             entry("userplane", "/images/userplane.png"),
             entry("userplane2", "/images/userplane2.png"),
@@ -34,6 +40,9 @@ abstract class CW2024AssetLoader implements AssetLoader {
             entry("menuarrow", "/images/menuarrow.png")
     );
 
+    /**
+     * A map of sound names to sound paths to be used for sound loading.
+     */
     protected static final Map<String, String> soundPaths = Map.ofEntries(
             entry("gunshot", "/audio/gunshot.wav"),
             entry("laser", "/audio/laser.wav"),
@@ -48,7 +57,19 @@ abstract class CW2024AssetLoader implements AssetLoader {
             entry("error", "/audio/error.wav")
     );
 
+    /**
+     * Fetches an image with the given name.
+     *
+     * @param name the name of the image
+     * @return an Image, if it exists
+     */
     public abstract Image loadImage(String name);
 
+    /**
+     * Fetches a sound with the given name.
+     *
+     * @param name the name of the sound
+     * @return an AudioClip, if it exists
+     */
     public abstract AudioClip loadSound(String name);
 }
