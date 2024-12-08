@@ -5,6 +5,9 @@ import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.configs.ScreenConfig;
 
+/**
+ * The First Level of the game.
+ */
 public class LevelOne extends Level {
     /**
      * The next Level in sequence.

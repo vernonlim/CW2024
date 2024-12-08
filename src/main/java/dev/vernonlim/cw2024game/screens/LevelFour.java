@@ -5,6 +5,9 @@ import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.configs.ScreenConfig;
 
+/**
+ * The Fourth Level of the game.
+ */
 public class LevelFour extends CountdownLevel {
     /**
      * The last height an enemy spawned at.

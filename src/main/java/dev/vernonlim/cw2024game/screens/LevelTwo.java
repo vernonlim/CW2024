@@ -4,6 +4,9 @@ import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
 import dev.vernonlim.cw2024game.configs.ScreenConfig;
 
+/**
+ * The Second Level of the game. Contains a Boss.
+ */
 public class LevelTwo extends Level {
     /**
      * The Boss of the Level.

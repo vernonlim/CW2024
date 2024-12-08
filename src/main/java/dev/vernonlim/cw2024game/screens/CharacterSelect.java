@@ -2,6 +2,9 @@ package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.configs.ScreenConfig;
 
+/**
+ * The Character Select Screen, consisting of buttons allowing the player to choose a plane.
+ */
 public class CharacterSelect extends MainMenu implements Screen {
     /**
      * Constructs the Character Select screen.

@@ -5,6 +5,9 @@ import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.configs.ScreenConfig;
 
+/**
+ * The Third Level of the game.
+ */
 public class LevelThree extends CountdownLevel {
     /**
      * Constructs an instance of Level Three.

@@ -17,6 +17,9 @@ import javafx.scene.layout.RowConstraints;
 
 import java.util.ArrayList;
 
+/**
+ * An abstract class representing a Menu Overlay - an overlay consisting of interactive buttons.
+ */
 public abstract class MenuOverlay extends ContainerElement {
     /**
      * The OverlayFactory for constructing Elements rooted in this Overlay.
@@ -86,7 +89,7 @@ public abstract class MenuOverlay extends ContainerElement {
     /**
      * Constructs a MenuOverlay.
      *
-     * @param config the configuration object containing the necessary data to construct the Level
+     * @param config the configuration object containing the necessary data to construct the Overlay
      */
     public MenuOverlay(OverlayConfig config) {
         super(config);
