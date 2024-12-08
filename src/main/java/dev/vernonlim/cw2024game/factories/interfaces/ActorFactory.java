@@ -2,6 +2,9 @@ package dev.vernonlim.cw2024game.factories.interfaces;
 
 import dev.vernonlim.cw2024game.elements.actors.*;
 
+/**
+ * An interface defining a Factory for creating Actors.
+ */
 public interface ActorFactory {
     /**
      * Creates a User Plane from the given UserPlaneCode.

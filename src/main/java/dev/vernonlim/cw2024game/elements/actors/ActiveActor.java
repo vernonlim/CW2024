@@ -16,5 +16,11 @@ public abstract class ActiveActor extends ImageElement {
         super(config);
     }
 
+    /**
+     * Updates the Actor.
+     *
+     * @param deltaTime the difference in virtual time between the previous and current update
+     * @param currentTime the current virtual time
+     */
     public abstract void updateActor(double deltaTime, double currentTime);
 }

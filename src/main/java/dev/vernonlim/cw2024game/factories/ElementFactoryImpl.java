@@ -22,10 +22,6 @@ public class ElementFactoryImpl extends Factory implements ElementFactory {
         super(root, loader);
     }
 
-    public ElementFactory withNewRoot(Pane newRoot) {
-        return new ElementFactoryImpl(newRoot, loader);
-    }
-
     public Element createShieldImage() {
         ImageElementConfig config = new ImageElementConfig(root);
         config.setImage(loadImage("shield"));
