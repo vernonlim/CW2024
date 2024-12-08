@@ -23,7 +23,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class LevelParent extends ScreenParent implements Screen {
+public abstract class Level extends ScreenParent implements Screen {
     private final UserPlane user;
     private ProjectileListener projectileListener;
 
@@ -49,7 +49,7 @@ public abstract class LevelParent extends ScreenParent implements Screen {
 
     private boolean backToMainMenu;
 
-    public LevelParent(ScreenConfig config) {
+    public Level(ScreenConfig config) {
         super(config);
 
         this.collisionManager = new DamageCollisionManager();

@@ -4,7 +4,7 @@ import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
 import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
 
-public class LevelTwo extends LevelParent {
+public class LevelTwo extends Level {
     private final FighterPlane boss;
 
     public LevelTwo(ScreenConfig config) {

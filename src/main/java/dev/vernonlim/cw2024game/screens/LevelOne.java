@@ -5,7 +5,7 @@ import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.elements.configs.ScreenConfig;
 
-public class LevelOne extends LevelParent {
+public class LevelOne extends Level {
     private static final ScreenCode NEXT_LEVEL = ScreenCode.LEVEL_TWO;
     private static final int TOTAL_ENEMIES = 5;
     private static final int KILLS_TO_ADVANCE = 10;
