@@ -1,12 +1,5 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
-import dev.vernonlim.cw2024game.Vector;
-import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 public class BossShielding extends UpdatableStrategy implements Shielding {
     private static final double BOSS_SHIELD_PROBABILITY = 0.002;
     private static final double MAX_TIME_WITH_SHIELD = 500 * 50.0f;

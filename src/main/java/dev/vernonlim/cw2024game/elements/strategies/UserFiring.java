@@ -1,6 +1,5 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
-import dev.vernonlim.cw2024game.Vector;
 import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
 import dev.vernonlim.cw2024game.managers.InputManager;
 
@@ -12,7 +11,7 @@ public abstract class UserFiring extends PlaneFiring implements Firing {
 
     protected double baseFireRate;
     protected double fireRate;
-    
+
     protected ProjectileCode lastProjectile;
 
     public UserFiring(InputManager input) {
