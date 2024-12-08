@@ -14,7 +14,6 @@ module dev.vernonlim.cw2024game {
     exports dev.vernonlim.cw2024game;
     exports dev.vernonlim.cw2024game.overlays;
     opens dev.vernonlim.cw2024game.overlays to javafx.fxml;
-    opens dev.vernonlim.cw2024game.elements.elements to javafx.fxml;
     opens dev.vernonlim.cw2024game.elements to javafx.fxml;
     exports dev.vernonlim.cw2024game.managers;
     opens dev.vernonlim.cw2024game.managers to javafx.fxml;
