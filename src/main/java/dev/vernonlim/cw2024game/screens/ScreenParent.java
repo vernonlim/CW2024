@@ -21,19 +21,60 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
+/**
+ * An abstract class containing common logic for all screens
+ */
 public abstract class ScreenParent implements Screen {
+    /**
+     * The corresponding code for this screen instance.
+     */
     protected final ScreenCode currentScreen;
+    /**
+     * The InputManager associated with this Screen. Meant to be passed to Actors.
+     */
     protected final InputManager inputManager;
+    /**
+     * The AssetLoader associated with this Screen. Meant to be passed to Factories.
+     */
     protected final AssetLoader loader;
+    /**
+     * The background used for this Screen.
+     */
     protected final Element background;
+    /**
+     * The ElementFactory associated with this Screen.
+     */
     protected final ElementFactory elementFactory;
+    /**
+     * The OverlayFactory associated with this Screen.
+     */
     protected final OverlayFactory overlayFactory;
+    /**
+     * The Timeline for this Screen, which controls the animations played.
+     */
     protected final Timeline timeline;
+    /**
+     * The current UserPlane code for the Screen.
+     */
     protected final UserPlaneCode userPlaneCode;
+    /**
+     * The root node where this screen is drawn.
+     */
     protected Pane root;
+    /**
+     * The StackPane used to wrap the root node to handle node layering and alignment.
+     */
     protected StackPane stackPane;
+    /**
+     * The Scene associated with this Screen.
+     */
     protected Scene scene;
 
+    /**
+     * Constructs a Screen with no content on its Timeline.
+     *
+     * @param config the configuration object containing the necessary data to construct the Screen
+     */
     public ScreenParent(ScreenConfig config) {
         this.currentScreen = config.getCurrentScreenCode();
         this.userPlaneCode = config.getUserPlaneCode();
@@ -59,6 +100,15 @@ public abstract class ScreenParent implements Screen {
         initializeTimeline();
     }
 
+    /**
+     * Initializes the nodes of this Screen.
+     * <p>
+     * The root node where most content is drawn is initialized to a Pane, which is then added as a child to a StackPane.
+     * <p>
+     * Other nodes added to the StackPane are drawn above the root.
+     * <p>
+     * Finally, sets up letterboxing for the nodes, keeping a fixed aspect ratio and coordinate system when the window is rescaled.
+     */
     private void initializeNodes() {
         // initializing the main nodes
         this.root = new Pane();
@@ -80,25 +130,44 @@ public abstract class ScreenParent implements Screen {
         SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
     }
 
+    /**
+     * Initializes this Screen's Timeline
+     */
     protected void initializeTimeline() {
         timeline.setCycleCount(Timeline.INDEFINITE);
         KeyFrame gameLoop = new KeyFrame(Duration.millis(1000f / Main.FRAME_RATE), e -> updateScene());
         timeline.getKeyFrames().add(gameLoop);
     }
 
+    @Override
     public Scene getScene() {
         return scene;
     }
 
+    /**
+     * Updates the scene with any changes that need to happen.
+     * <p>
+     * This is usually called every frame.
+     */
     protected abstract void updateScene();
 
-    public void goToScreen(ScreenCode screen, UserPlaneCode userPlaneCode) {
+    /**
+     * Loads a screen with a specific UserPlane after pausing the Screen's Timeline.
+     *
+     * @param screenCode the code of the screen to load
+     * @param userPlaneCode the code of the user's plane
+     */
+    public void goToScreen(ScreenCode screenCode, UserPlaneCode userPlaneCode) {
         timeline.pause();
         Platform.runLater(() -> {
-            Controller.getController().goToScreen(screen, userPlaneCode);
+            Controller.getController().goToScreen(screenCode, userPlaneCode);
         });
     }
 
+    /**
+     * Requests focus for the background and starts the Screen's Timeline, making it begin rendering the game.
+     */
+    @Override
     public void start() {
         background.node.requestFocus();
         timeline.play();

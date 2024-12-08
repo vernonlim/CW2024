@@ -28,7 +28,7 @@ public class Controller {
      */
     private static Stage stage;
     /**
-     * The factory used to create instances of each screen.
+     * The factory used to construct instances of each screen.
      */
     private final ScreenFactory screenFactory;
 
