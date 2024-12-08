@@ -16,7 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.text.Font;
 
-public class OverlayFactoryImpl extends FactoryBase implements OverlayFactory {
+public class OverlayFactoryImpl extends Factory implements OverlayFactory {
     private final InputManager input;
     private final ScreenChangeHandler screenChangeHandler;
     private final UserPlaneCode userPlaneCode;

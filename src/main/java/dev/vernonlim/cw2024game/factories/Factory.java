@@ -5,11 +5,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
-public abstract class FactoryBase {
+public abstract class Factory {
     protected final Pane root;
     protected final AssetLoader loader;
 
-    public FactoryBase(Pane root, AssetLoader loader) {
+    public Factory(Pane root, AssetLoader loader) {
         this.root = root;
         this.loader = loader;
     }

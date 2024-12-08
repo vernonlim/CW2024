@@ -9,7 +9,7 @@ import dev.vernonlim.cw2024game.elements.strategies.LinearMovement;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.layout.Pane;
 
-public class ProjectileFactoryImpl extends FactoryBase implements ProjectileFactory {
+public class ProjectileFactoryImpl extends Factory implements ProjectileFactory {
     public ProjectileFactoryImpl(Pane root, AssetLoader loader) {
         super(root, loader);
     }
