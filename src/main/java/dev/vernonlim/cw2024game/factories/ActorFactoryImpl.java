@@ -15,7 +15,7 @@ import dev.vernonlim.cw2024game.managers.InputManager;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
-public class ActorFactoryImpl extends FactoryParent implements ActorFactory {
+public class ActorFactoryImpl extends FactoryBase implements ActorFactory {
     private final InputManager inputManager;
     private final ProjectileListener projectileListener;
     private final ProjectileFactory projectileFactory;
