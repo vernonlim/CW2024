@@ -7,11 +7,31 @@ import javafx.scene.layout.HBox;
 
 import java.util.ArrayList;
 
+/**
+ * An element displaying the user's health with a sequence of Hearts.
+ */
 public class HeartDisplay extends ContainerElement {
+    /**
+     * The OverlayFactory for this element used to create the Hearts.
+     */
     private final OverlayFactory heartFactory;
+
+    /**
+     * The list of Hearts which gets modified as the element gets updated.
+     */
     private final ArrayList<Element> hearts = new ArrayList<>();
+
+    /**
+     * The position of the HeartDisplay.
+     */
     private final Vector position;
 
+    /**
+     * Constructs a HeartDisplay from the given params.
+     *
+     * @param overlayConfig the configuration object containing the necessary data to construct the HeartDisplay
+     * @param heartsToDisplay the number of hearts to initially display
+     */
     public HeartDisplay(OverlayConfig overlayConfig, int heartsToDisplay) {
         super(overlayConfig);
 
@@ -24,6 +44,9 @@ public class HeartDisplay extends ContainerElement {
         initializeHearts(heartsToDisplay);
     }
 
+    /**
+     * Initializes the container storing the hearts.
+     */
     private void initializeContainer() {
         container = new HBox();
         node = container;
@@ -31,6 +54,11 @@ public class HeartDisplay extends ContainerElement {
         container.setLayoutY(position.y);
     }
 
+    /**
+     * Initializes the Hearts inside of the container.
+     *
+     * @param heartCount the number of hearts to add
+     */
     private void initializeHearts(int heartCount) {
         for (int i = 0; i < heartCount; i++) {
             Element heart = heartFactory.createHeart();
@@ -41,10 +69,18 @@ public class HeartDisplay extends ContainerElement {
         }
     }
 
+    /**
+     * Gets the current number of Hearts.
+     *
+     * @return the current number of Hearts
+     */
     public int getHeartCount() {
         return hearts.size();
     }
 
+    /**
+     * Removes a heart from the container.
+     */
     public void removeHeart() {
         hearts.removeLast().hide();
     }

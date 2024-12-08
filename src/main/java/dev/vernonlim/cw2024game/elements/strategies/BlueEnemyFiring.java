@@ -4,9 +4,20 @@ import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
 import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
 
+/**
+ * A Firing strategy for Blue enemies.
+ */
 public class BlueEnemyFiring extends PlaneFiring implements Firing {
+    /**
+     * The FighterPlane this strategy is for.
+     */
     protected FighterPlane plane;
 
+    /**
+     * Constructs a BlueEnemyFiring strategy.
+     *
+     * @param plane the FighterPlane this strategy is for
+     */
     public BlueEnemyFiring(FighterPlane plane) {
         this.plane = plane;
     }

@@ -8,9 +8,22 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+/**
+ * An element consisting of a red rectangle with a time rendered on top of it.
+ * This is used for the Countdown in the Countdown Levels.
+ */
 public class TimeDisplay extends ContainerElement {
+    /**
+     * The Text representing the remaining time.
+     */
     private final Text text;
 
+    /**
+     * Constructs a TimeDisplay from the given params.
+     *
+     * @param config the configuration object containing the necessary data to construct the TimeDisplay
+     * @param seconds the amount of time initially displayed
+     */
     public TimeDisplay(ElementConfig config, int seconds) {
         super(config);
 
@@ -33,6 +46,11 @@ public class TimeDisplay extends ContainerElement {
         setY(getHalfHeight());
     }
 
+    /**
+     * Sets the time displayed to the given param.
+     *
+     * @param seconds the time to be displayed
+     */
     public void setTime(int seconds) {
         this.text.setText(Integer.toString(seconds));
     }

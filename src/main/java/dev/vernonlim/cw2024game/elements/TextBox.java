@@ -6,9 +6,21 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * An element that consists of a white rectangle with text that renders on top.
+ * This is used for the "Buttons" in the game.
+ */
 public class TextBox extends ContainerElement {
+    /**
+     * The ClickListener that controls what each TextBox does when triggered.
+     */
     private final ClickListener clickListener;
 
+    /**
+     * Constructs a TextBox from the given params.
+     *
+     * @param config the configuration object containing the necessary data to construct the TextBox
+     */
     public TextBox(TextBoxConfig config) {
         super(config);
 
@@ -25,6 +37,11 @@ public class TextBox extends ContainerElement {
         this.clickListener = config.getClickListener();
     }
 
+    /**
+     * Gets the ClickListener for this TextBox.
+     *
+     * @return the ClickListener for this TextBox
+     */
     public ClickListener getClickListener() {
         return clickListener;
     }

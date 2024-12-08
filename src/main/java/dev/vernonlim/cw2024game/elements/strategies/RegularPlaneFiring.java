@@ -3,7 +3,15 @@ package dev.vernonlim.cw2024game.elements.strategies;
 import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
 import dev.vernonlim.cw2024game.managers.InputManager;
 
+/**
+ * A Regular User Plane Firing strategy.
+ */
 public class RegularPlaneFiring extends UserFiring implements Firing {
+    /**
+     * Constructs a Regular (User) Plane Firing strategy.
+     *
+     * @param input the InputManager used to handle user input
+     */
     public RegularPlaneFiring(InputManager input) {
         super(input);
     }
