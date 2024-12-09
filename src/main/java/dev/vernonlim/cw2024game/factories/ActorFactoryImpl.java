@@ -15,12 +15,40 @@ import dev.vernonlim.cw2024game.managers.InputManager;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 
+/**
+ * The default implementation of ActorFactory for CW2024Game.
+ */
 public class ActorFactoryImpl extends Factory implements ActorFactory {
+    /**
+     * The InputManager for this Factory. Meant for passing to Actors.
+     */
     private final InputManager inputManager;
+
+    /**
+     * The ProjectileListener for this Factory. Meant for passing to Actors.
+     */
     private final ProjectileListener projectileListener;
+
+    /**
+     * The ProjectileFactory for this Factory. Meant for passing to Actors.
+     */
     private final ProjectileFactory projectileFactory;
+
+    /**
+     * The ElementFactory for this Factory. Meant for passing to Actors.
+     */
     private final ElementFactory elementFactory;
 
+    /**
+     * Constructs an ActorFactory from the given params.
+     *
+     * @param root the root Pane the Actors will be based on
+     * @param loader the AssetLoader handling loading of assets
+     * @param inputManager the InputManager handling user input
+     * @param projectileFactory the ProjectileFactory producing projectiles
+     * @param projectileListener the ProjectileListener handling projectile generation
+     * @param elementFactory the ElementFactory producing various non-Actor Elements
+     */
     public ActorFactoryImpl(Pane root, AssetLoader loader, InputManager inputManager, ProjectileFactory projectileFactory, ProjectileListener projectileListener, ElementFactory elementFactory) {
         super(root, loader);
 
@@ -48,6 +76,11 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
         };
     }
 
+    /**
+     * Creates a Regular User Plane
+     *
+     * @return the RegularPlane
+     */
     private UserPlane createRegularPlane() {
         UserPlaneConfig config = new UserPlaneConfig(root, projectileFactory, projectileListener, inputManager);
         config.setPosition(5.0, Main.SCREEN_HEIGHT / 2.0);
@@ -64,6 +97,11 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
         return new RegularPlane(config);
     }
 
+    /**
+     * Creates a Green User Plane
+     *
+     * @return the GreenPlane
+     */
     private UserPlane createGreenPlane() {
         UserPlaneConfig config = new UserPlaneConfig(root, projectileFactory, projectileListener, inputManager);
         config.setPosition(5.0, Main.SCREEN_HEIGHT / 2.0);
@@ -80,6 +118,13 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
         return new GreenPlane(config);
     }
 
+    /**
+     * Creates an Enemy Plane at the given position
+     *
+     * @param initialXPos the initial x position
+     * @param initialYPos the initial y position
+     * @return the EnemyPlane
+     */
     private FighterPlane createEnemyPlane(double initialXPos, double initialYPos) {
         FighterPlaneConfig config = new FighterPlaneConfig(root, projectileFactory, projectileListener);
         config.setPosition(initialXPos, initialYPos);
@@ -98,6 +143,13 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
         return new EnemyPlane(config);
     }
 
+    /**
+     * Creates a Blue Enemy Plane at the given position
+     *
+     * @param initialXPos the initial x position
+     * @param initialYPos the initial y position
+     * @return the EnemyBlue
+     */
     private FighterPlane createEnemyBlue(double initialXPos, double initialYPos) {
         FighterPlaneConfig config = new FighterPlaneConfig(root, projectileFactory, projectileListener);
         config.setPosition(initialXPos, initialYPos);
@@ -119,6 +171,13 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
         return plane;
     }
 
+    /**
+     * Creates a Red Enemy Plane at the given position
+     *
+     * @param initialXPos the initial x position
+     * @param initialYPos the initial y position
+     * @return the EnemyRed
+     */
     private FighterPlane createEnemyRed(double initialXPos, double initialYPos) {
         FighterPlaneConfig config = new FighterPlaneConfig(root, projectileFactory, projectileListener);
         config.setPosition(initialXPos, initialYPos);
@@ -137,6 +196,11 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
         return new EnemyPlane(config);
     }
 
+    /**
+     * Creates a Boss Plane at the given position
+     *
+     * @return the BossPlane
+     */
     private FighterPlane createBoss() {
         BossConfig config = new BossConfig(root, projectileFactory, projectileListener);
         config.setPosition(Main.SCREEN_WIDTH - 5.0, Main.SCREEN_HEIGHT / 2.0);

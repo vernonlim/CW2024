@@ -5,15 +5,40 @@ import dev.vernonlim.cw2024game.managers.InputManager;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 
+/**
+ * An abstract class representing a FighterPlane controlled by the User.
+ */
 public abstract class UserPlane extends FighterPlane {
+    /**
+     * The InputManager handling user input.
+     */
     protected InputManager input;
 
+    /**
+     * The number of kills the user has achieved.
+     */
     protected int numberOfKills;
 
+    /**
+     * The amount of damage to take next cycle (after a collision or enemy penetration).
+     */
     protected int damageToTake;
+
+    /**
+     * The last time the UserPlane took damage.
+     */
     protected double lastDamage;
+
+    /**
+     * Indicates if the UserPlane should take damage.
+     */
     protected boolean takeDamage;
 
+    /**
+     * Constructs a UserPlane with the given params.
+     *
+     * @param config the configuration object containing the necessary data to construct the UserPlane
+     */
     public UserPlane(UserPlaneConfig config) {
         super(config);
 
@@ -57,10 +82,18 @@ public abstract class UserPlane extends FighterPlane {
         );
     }
 
+    /**
+     * Gets the number of kills the user has achieved.
+     *
+     * @return the number of kills the user has achieved
+     */
     public int getNumberOfKills() {
         return numberOfKills;
     }
 
+    /**
+     * Increments the user's kill count by 1.
+     */
     public void incrementKillCount() {
         numberOfKills++;
     }

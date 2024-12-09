@@ -6,13 +6,38 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * The Movement strategy for Boss enemies.
+ */
 public class BossMovement extends UpdatableStrategy implements Movement {
+    /**
+     * The number of moves per cycle.
+     */
     private static final int MOVE_FREQUENCY_PER_CYCLE = 5;
+
+    /**
+     * The maximum amount of time the Boss spends moving in the same direction.
+     */
     private static final double MAX_TIME_WITH_SAME_MOVE = 10 * 50.0f;
+
+    /**
+     * The list of movement directions.
+     */
     private final List<Double> movePattern;
+
+    /**
+     * The time spent moving in the same direction.
+     */
     private double timeMovingInSameDirection;
+
+    /**
+     * The index of the current move within the movePattern list.
+     */
     private int indexOfCurrentMove;
 
+    /**
+     * Constructs a Boss Movement strategy.
+     */
     public BossMovement() {
         movePattern = new ArrayList<>();
         timeMovingInSameDirection = 0;
@@ -21,6 +46,9 @@ public class BossMovement extends UpdatableStrategy implements Movement {
         initializeMovePattern();
     }
 
+    /**
+     * Initializes the movement pattern list with random movement directions.
+     */
     private void initializeMovePattern() {
         for (int i = 0; i < MOVE_FREQUENCY_PER_CYCLE; i++) {
             movePattern.add(1.0);

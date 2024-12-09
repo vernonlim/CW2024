@@ -5,7 +5,15 @@ import dev.vernonlim.cw2024game.elements.ContainerElement;
 import dev.vernonlim.cw2024game.configs.ElementConfig;
 import javafx.scene.layout.Pane;
 
+/**
+ * A parent class for elements that render above the main content of the game - i.e Overlays.
+ */
 public class FloatingOverlay extends ContainerElement {
+    /**
+     * Constructs a Floating Overlay
+     *
+     * @param config the configuration object containing the necessary data to construct the Overlay
+     */
     public FloatingOverlay(ElementConfig config) {
         super(config);
 

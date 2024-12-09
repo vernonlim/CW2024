@@ -5,13 +5,40 @@ import dev.vernonlim.cw2024game.configs.BossConfig;
 import dev.vernonlim.cw2024game.elements.strategies.Shielding;
 import javafx.scene.media.AudioClip;
 
+/**
+ * An Enemy Boss Plane.
+ */
 public class Boss extends FighterPlane {
+    /**
+     * The image representing the Boss's shield.
+     */
     protected final Element shieldImage;
+
+    /**
+     * The Shielding strategy used by the Boss.
+     */
     protected Shielding shieldingStrategy;
+
+    /**
+     * The sound played upon collision with the shield.
+     */
     protected AudioClip shieldSound;
+
+    /**
+     * The sound played when the boss takes damage.
+     */
     protected AudioClip damageSound;
+
+    /**
+     * Indicates whether the boss is currently shielded.
+     */
     protected boolean isShielded;
 
+    /**
+     * Constructs an Enemy Boss Plane with the given params.
+     *
+     * @param config the configuration object containing the necessary data to construct the Boss
+     */
     public Boss(BossConfig config) {
         super(config);
 

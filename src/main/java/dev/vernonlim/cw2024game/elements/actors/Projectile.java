@@ -4,17 +4,33 @@ import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.Vector;
 import dev.vernonlim.cw2024game.configs.ProjectileConfig;
 
+/**
+ * An ActiveActorDestructible that deals a certain amount of damage on collision and
+ * can be fired by either an enemy or an ally
+ */
 public class Projectile extends ActiveActorDestructible {
+    /**
+     * The amount of damage the Projectile does on collision.
+     */
     protected final int damage;
-    protected final boolean isUserProjectile;
 
+    /**
+     * Indicates whether the Projectile was fired by an ally.
+     */
+    protected final boolean isAllyProjectile;
+
+    /**
+     * Constructs a Projectile from the given params.
+     *
+     * @param config the configuration object containing the necessary data to construct the Projectile
+     */
     public Projectile(ProjectileConfig config) {
         super(config);
 
         this.damage = config.getDamage();
-        this.isUserProjectile = config.isUserProjectile();
+        this.isAllyProjectile = config.isAllyProjectile();
 
-        if (isUserProjectile) {
+        if (isAllyProjectile) {
             moveHorizontally(getHalfWidth());
         } else {
             moveHorizontally(-getHalfWidth());
@@ -37,11 +53,21 @@ public class Projectile extends ActiveActorDestructible {
         }
     }
 
+    /**
+     * Gets the damage dealt by the Projectile.
+     *
+     * @return the damage dealt by the Projectile
+     */
     public int getDamage() {
         return damage;
     }
 
-    public boolean isUserProjectile() {
-        return isUserProjectile;
+    /**
+     * Indicates whether the Projectile was fired by an Ally.
+     *
+     * @return true if the Projectile was fired by an Ally, false otherwise
+     */
+    public boolean isAllyProjectile() {
+        return isAllyProjectile;
     }
 }

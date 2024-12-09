@@ -8,13 +8,40 @@ import javafx.scene.transform.Scale;
 
 // Source:
 // https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
+/**
+ * Handles the letterboxing of JavaFX nodes
+ */
 public class SceneSizeChangeListener implements ChangeListener<Number> {
+    /**
+     * The Scene associated with this instance
+     */
     private final Scene scene;
+    /**
+     * The ratio to be kept
+     */
     private final double ratio;
+    /**
+     * The initial height
+     */
     private final double initHeight;
+    /**
+     * The initial width
+     */
     private final double initWidth;
+    /**
+     * The pane containing the main content
+     */
     private final Pane contentPane;
 
+    /**
+     * Constructs a SceneChangeSizeListener with the given params
+     *
+     * @param scene the scene to be letterboxed
+     * @param ratio the ratio to be kept
+     * @param initHeight the initial height
+     * @param initWidth the initial width
+     * @param contentPane the pane the main content is drawn on
+     */
     public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth, Pane contentPane) {
         this.scene = scene;
         this.ratio = ratio;
@@ -23,6 +50,14 @@ public class SceneSizeChangeListener implements ChangeListener<Number> {
         this.contentPane = contentPane;
     }
 
+    /**
+     * Keeps the aspect ratio of the pane's content constant by transforming it when the scene updates
+     *
+     * @param scene the scene to be letterboxed
+     * @param contentPane the pane the main content is drawn on
+     * @param initHeight the initial height
+     * @param initWidth the initial width
+     */
     public static void letterbox(Scene scene, Pane contentPane, double initWidth, double initHeight) {
         final double ratio = initWidth / initHeight;
 
@@ -31,6 +66,16 @@ public class SceneSizeChangeListener implements ChangeListener<Number> {
         scene.heightProperty().addListener(sizeListener);
     }
 
+    /**
+     * The method that handles the pane's transformations on scene change
+     *
+     * @param observableValue
+     *            The {@code ObservableValue} which value changed
+     * @param oldValue
+     *            The old value
+     * @param newValue
+     *            The new value
+     */
     @Override
     public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {
         final double newWidth = scene.getWidth();

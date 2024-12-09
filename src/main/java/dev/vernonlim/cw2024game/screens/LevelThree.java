@@ -5,7 +5,15 @@ import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.configs.ScreenConfig;
 
+/**
+ * The Third Level of the game.
+ */
 public class LevelThree extends CountdownLevel {
+    /**
+     * Constructs an instance of Level Three.
+     *
+     * @param config the configuration object containing the necessary data to construct the Level
+     */
     public LevelThree(ScreenConfig config) {
         super(config);
     }
@@ -29,6 +37,11 @@ public class LevelThree extends CountdownLevel {
         }
     }
 
+    /**
+     * Spawns a Blue enemy in one of two given positions
+     *
+     * @param top if true, the enemy will spawn at the top. the enemy will spawn at the bottom otherwise
+     */
     private void spawnEnemy(boolean top) {
         ActiveActorDestructible enemy =
                 getActorFactory().createEnemy(

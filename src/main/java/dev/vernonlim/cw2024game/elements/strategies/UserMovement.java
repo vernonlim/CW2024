@@ -3,20 +3,60 @@ package dev.vernonlim.cw2024game.elements.strategies;
 import dev.vernonlim.cw2024game.Vector;
 import dev.vernonlim.cw2024game.managers.InputManager;
 
+/**
+ * An abstract class implement shared behaviour for User Movement strategies.
+ */
 public abstract class UserMovement extends UpdatableStrategy implements Movement {
+    /**
+     * The InputManager handling user input.
+     */
     protected InputManager input;
 
+    /**
+     * Indicates whether the user is holding down the Down key.
+     */
     protected boolean down;
+
+    /**
+     * Indicates whether the user is holding down the Up key.
+     */
     protected boolean up;
+
+    /**
+     * Indicates whether the user is holding down the Left key.
+     */
     protected boolean left;
+
+    /**
+     * Indicates whether the user is holding down the Right key.
+     */
     protected boolean right;
+
+    /**
+     * Indicates whether the user is holding down the Focus key.
+     */
     protected boolean focus;
 
+    /**
+     * The previous vertical movement multiplier.
+     */
     protected int lastVerticalMult;
+
+    /**
+     * The previous horizontal movement multiplier.
+     */
     protected int lastHorizontalMult;
 
+    /**
+     * The current overall movement multiplier.
+     */
     protected double movementMultiplier;
 
+    /**
+     * Constructs a User Movement strategy from the given params.
+     *
+     * @param input the InputManager used to handle user input
+     */
     public UserMovement(InputManager input) {
         this.input = input;
 
@@ -38,6 +78,9 @@ public abstract class UserMovement extends UpdatableStrategy implements Movement
         handleFocus();
     }
 
+    /**
+     * Modifies the strategy fields depending on whether Focus is being held.
+     */
     protected abstract void handleFocus();
 
     @Override

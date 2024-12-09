@@ -8,13 +8,18 @@ import dev.vernonlim.cw2024game.configs.ImageElementConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
 import javafx.scene.layout.Pane;
 
+/**
+ * The default implementation of ElementFactory for CW2024Game.
+ */
 public class ElementFactoryImpl extends Factory implements ElementFactory {
+    /**
+     * Constucts an ElementFactory from the given params.
+     *
+     * @param root the root Pane elements will be based on
+     * @param loader the AssetLoader handling loading of assets
+     */
     public ElementFactoryImpl(Pane root, AssetLoader loader) {
         super(root, loader);
-    }
-
-    public ElementFactory withNewRoot(Pane newRoot) {
-        return new ElementFactoryImpl(newRoot, loader);
     }
 
     public Element createShieldImage() {
