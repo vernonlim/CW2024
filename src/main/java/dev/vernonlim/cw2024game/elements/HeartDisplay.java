@@ -9,6 +9,9 @@ import java.util.ArrayList;
 
 /**
  * An element displaying the user's health with a sequence of Hearts.
+ * <p>
+ * This class is modified.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/HeartDisplay.java">GitHub</a>
  */
 public class HeartDisplay extends ContainerElement {
     /**

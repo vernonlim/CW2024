@@ -2,6 +2,9 @@ package dev.vernonlim.cw2024game.elements.strategies;
 
 /**
  * A Shielding strategy for Boss enemies.
+ * <p>
+ * This class contains sections from the original project.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/Boss.java">GitHub</a>
  */
 public class BossShielding extends UpdatableStrategy implements Shielding {
     /**

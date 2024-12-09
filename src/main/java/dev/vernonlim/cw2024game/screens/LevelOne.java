@@ -7,6 +7,9 @@ import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 
 /**
  * The First Level of the game.
+ * <p>
+ * This class is modified.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/LevelOne.java">GitHub</a>
  */
 public class LevelOne extends Level {
     /**

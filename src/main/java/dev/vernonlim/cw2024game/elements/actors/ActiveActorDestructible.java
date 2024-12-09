@@ -7,6 +7,9 @@ import javafx.geometry.Bounds;
 
 /**
  * An abstract class representing an ActiveActor that can move and be destroyed.
+ * <p>
+ * This class is modified.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/ActiveActorDestructible.java">GitHub</a>
  */
 public abstract class ActiveActorDestructible extends ActiveActor implements Destructible {
     /**

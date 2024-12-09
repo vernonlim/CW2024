@@ -23,6 +23,9 @@ import javafx.util.Duration;
 
 /**
  * An abstract class containing common logic for all screens
+ * <p>
+ * This class contains sections from the original project.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/LevelParent.java">GitHub</a>
  */
 public abstract class ScreenParent implements Screen {
     /**

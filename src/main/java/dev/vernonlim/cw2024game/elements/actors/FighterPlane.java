@@ -8,6 +8,9 @@ import javafx.scene.media.AudioClip;
 
 /**
  * An abstract class representing an ActiveActorDestructible that represents a Fighter Plane.
+ * <p>
+ * This class is modified.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/FighterPlane.java">GitHub</a>
  */
 public abstract class FighterPlane extends ActiveActorDestructible {
     /**

@@ -8,6 +8,9 @@ import java.util.List;
 /**
  * Handles collisions between two lists of Actors by damaging both of them by 1.
  * If the first is a projectile, the second actor takes the projectile's damage instead of 1.
+ * <p>
+ * This class contains sections from the original project.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/LevelView.java">GitHub</a>
  */
 public class DamageCollisionManager implements CollisionManager {
     /**

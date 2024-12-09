@@ -17,6 +17,8 @@ import javafx.stage.Stage;
  * Controller class for managing the game screens and transition between them.
  * <p>
  * This class follows the singleton pattern as only one instance is ever needed - reducing the number of command line arguments needed to be passed.
+ * <p>
+ * This class is modified. Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/controller/Controller.java">GitHub</a>
  */
 public class Controller {
     /**

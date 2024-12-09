@@ -7,6 +7,9 @@ import javafx.scene.media.AudioClip;
 
 /**
  * An Enemy Boss Plane.
+ * <p>
+ * This class is modified.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/Boss.java">GitHub</a>
  */
 public class Boss extends FighterPlane {
     /**

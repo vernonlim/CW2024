@@ -5,6 +5,9 @@ import dev.vernonlim.cw2024game.elements.ImageElement;
 
 /**
  * An abstract class representing an ImageElement that can be updated.
+ * <p>
+ * This class is modified.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/ActiveActor.java">GitHub</a>
  */
 public abstract class ActiveActor extends ImageElement {
     /**

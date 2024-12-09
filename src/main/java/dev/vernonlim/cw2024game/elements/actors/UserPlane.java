@@ -7,6 +7,9 @@ import javafx.geometry.Bounds;
 
 /**
  * An abstract class representing a FighterPlane controlled by the User.
+ * <p>
+ * This class is modified.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/UserPlane.java">GitHub</a>
  */
 public abstract class UserPlane extends FighterPlane {
     /**

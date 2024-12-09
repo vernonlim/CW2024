@@ -6,6 +6,9 @@ import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
 
 /**
  * The Second Level of the game. Contains a Boss.
+ * <p>
+ * This class is modified.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/LevelTwo.java">GitHub</a>
  */
 public class LevelTwo extends Level {
     /**

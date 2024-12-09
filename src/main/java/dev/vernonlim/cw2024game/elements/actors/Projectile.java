@@ -7,6 +7,9 @@ import dev.vernonlim.cw2024game.configs.ProjectileConfig;
 /**
  * An ActiveActorDestructible that deals a certain amount of damage on collision and
  * can be fired by either an enemy or an ally
+ * <p>
+ * This class is modified.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/Projectile.java">GitHub</a>
  */
 public class Projectile extends ActiveActorDestructible {
     /**

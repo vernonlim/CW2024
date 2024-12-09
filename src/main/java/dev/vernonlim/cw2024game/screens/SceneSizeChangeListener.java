@@ -7,10 +7,12 @@ import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
 
 // Source:
-// https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
 
 /**
- * Handles the letterboxing of JavaFX nodes
+ * Handles the letterboxing of JavaFX nodes.
+ * <p>
+ * This class is based off of non-original code.
+ * Credit: <a href="https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size">StackOverflow</a>
  */
 public class SceneSizeChangeListener implements ChangeListener<Number> {
     /**
