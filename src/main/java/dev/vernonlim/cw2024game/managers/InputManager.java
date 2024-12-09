@@ -1,8 +1,6 @@
 package dev.vernonlim.cw2024game.managers;
 
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyEvent;
 
 /**
  * Handles user input, adding event handlers to the given Scene that trigger

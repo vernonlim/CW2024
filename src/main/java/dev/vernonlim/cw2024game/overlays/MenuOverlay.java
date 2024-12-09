@@ -168,7 +168,7 @@ public abstract class MenuOverlay extends ContainerElement {
 
         int row = currentButton + startIndex + 1;
 
-        menuArrow.setPosition(getXLeftAt(row), getYAt(row));
+        menuArrow.setPosition(getLeftX(), getYAt(row));
     }
 
     /**
@@ -242,7 +242,7 @@ public abstract class MenuOverlay extends ContainerElement {
      *
      * @return the X position
      */
-    protected double getXLeftAt() {
+    protected double getLeftX() {
         double width = Main.SCREEN_WIDTH * ((100 - rightPercent) / 100.0f);
 
         return width - menuArrow.getHalfWidth();
