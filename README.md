@@ -65,12 +65,12 @@ Right click on the src/test/java folder and click "Run 'Tests in 'java''".
 #### Menus
 CW2024Game has a total of 3 Menu overlays navigatable with a keyboard:
 1. Main Menu - allows the user to start the game
-2. Character Select - allows the user to select a character
+2. Character Select - allows the user to select one of two characters
 3. Pause - allows the user to head back to the main menu or retry the level
 
 The menus can be navigated with the up and down arrows, and a button selected with the 'c' key.
 
-After a victory or loss, the pause menu is displayed, allowing the user to continue playing.
+After a victory or loss, the pause menu is displayed, allowing the user to continue playing (by either replaying the level, or heading to the main menu).
 
 #### Pausing
 Of course, if there's a pause menu, there has to be pausing. The game can now be paused by pressing the 'Escape' key on the keyboard (by default). This pauses the game's virtual timer along with the Timeline, meaning actor simulation and animation is paused, but uses real time for navigating the pause screen to avoid it also freezing.
@@ -94,20 +94,63 @@ All this has been done without affecting the original enemy algorithms of the ga
 #### Improved Movement
 The player character can now move in 4 directions! That by itself wouldn't be too notable as an achievement though, the notable features added here are null-cancellation and normalization.
 
-Null-cancellation is a problem that only arises when an input system that can handle multiple flags at once, for example both UP and DOWN being held simultaneously, is implemented.
+Null-cancellation is a problem that only arises when an input system that can handle multiple flags at once, for example both UP and DOWN being held simultaneously, is implemented. In such a case, what should happen when both UP and DOWN are held? The obvious approach is to have them 'null' - they cancel each other out and the player stays still. However, this can be quite annoying for precise movement. The intuitive solution here is to have the player character move in the direction of the most recent keypress. For example:
+```
+  L-----
+R--------
+The character moves right first, and then moves left due to it being the most recent keypress.
+```
 
+This poses an interesting implementation challenge, because an extra variable tracking the last movement *with a single keypress* has to be stored. If it wasn't and the algorithm was simply implemented as "if L and R pressed, move in the last direction", it would flip direction every frame.
+
+CW2024Game implements this with well, the extra variable tracking the last "full" movement.
+
+```java
+// From UserMovement.java
+// null cancelling movement
+if (down && up) {
+    verticalMult = -lastVerticalMult;
+} else if (up) {
+    lastVerticalMult = -1;
+    verticalMult = -1;
+} else if (down) {
+    lastVerticalMult = 1;
+    verticalMult = 1;
+} else {
+    verticalMult = 0;
+}
+```
+
+Secondly, there's the issue of vector normalization. If the player moves both up and right by 1 unit when moving diagonally, their speed will be higher than a player moving purely in 1 direction, specifically being sqrt(2) as opposed to 1. This is solved conveniently by a `Vector` class added to the project.
+``` java
+// UserMovement.java
+Vector movement = new Vector(horizontalMult, verticalMult);
+movement.normalize();
+movement.scaleBy(movementMultiplier);
+```
+
+        
 #### Multiple Player Characters
 There are now 2 different planes that the player can choose from on the Character Select screen before entering a level. The first being a reworked version of the original plane, and the second being a variant coloured green.
 
 Both planes have different speeds, health and projectiles fired, along with different effects from triggering 'Focus Fire'.
 
+Regular Plane:
+Health     - 5
+Movement   - 24 units/second
+Fire       - a mix of the original bullets and yellow balls
+Focus Fire - doubles the fire rate, slows movement by 40%
+
+Green Plane:
+Health     - 3
+Movement   - 30 units/second
+Fire       - a mix of the original bullets and yellow balls
+Focus Fire - switches to spread shot, slows movement by 10%
+
 #### Focus Fire
-When holding Shift (by default), the player character enters "Focus Fire". The effects for the two planes are as follows:
+When holding Shift (by default), the player character enters "Focus Fire". This is intended to slow the player character down, while giving them a stronger attack.
 
-Regular Plane - Slows the plane down significantly and doubles the fire rate.
-Green Plane - Slows the plane down marginally and switches to a spread shot.
-
-The spread shot has the plane shoot 3 bullets each cycle in 3 directions.
+As mentioned in the section above, it doubles the fire rate for the regular plane. For the green plane, it switches to a "spread shot", where it fires 3 weaker bullets simultaneously in 3 directions (slightly up, straight, slightly down).
     
 #### Two New Levels
 The game now has two new levels after Level Two - Level Three and Level Four. Each level has its own new background image and enemy type, along with a new win condition.
@@ -122,7 +165,7 @@ Level Four's new enemy type is the "Red Enemy", having the original plane sprite
 The game now has audio feedback for the majority of actions. Menu buttons have a select sound, firing projectiles makes a noise, enemies have an explosion sound on death, and so on. The sound effects vary between the different player characters and enemy types as well, as within the codebase customizing them is as easy as constructing them with different data.
 
 #### Letterboxing
-The game is now resizeable, with its content being scaled down and aspect ratio being maintained via black bars at the side of the window. This means that while internally the coordinates the game came with are being used (1300, 750), the actual game window can be any size including fullscreen (however, with issues here - see the not working properly section). 
+The game is now resizable, with its content being scaled down and aspect ratio being maintained via black bars at the side of the window. This means that while internally the coordinates the game came with are being used (1300, 750), the actual game window can be any size including fullscreen (however, with issues here - see the not working properly section). 
 
 Do take note that the main logic for the dynamic scaling is from another author - the code has been attributed properly in the documentation. However, the setup with the Pane, StackPane and Group is something I had to come up with myself to get the code from there to function.
 
@@ -220,13 +263,339 @@ With this system, components like the health display (and newly added, the count
 
 The Menus are also abstracted as Overlays, being one that contains a `GridPane` as its container and having a method for adding `TextBox`es to the grid.
 
-#### A Vector class for simplying
+#### A Vector class for simplifying movement
+As mentioned in the gameplay features section above, the project now contains a `Vector` class used for movement where convenient, representing a 2D vector with x and y components. The main reason this was added was due to the implementation of `Movement` strategies - methods can only return a single field, and having separate `getNextXMovement` and `getNextYMovement` methods seemed like a poor idea. Having it return a single `Vector` works significantly cleaner. The class also comes with many helper methods like `normalize()` related to movement calculations, making it convenient for other purposes as well.
+
+In another language, making a `Vector` data structure would have been the first thing I would do, but Java doesn't have custom value types. As such, every `Vector` created is created as an instance of a class allocated on the heap, which is terrible for performance. They are also passed by reference instead of being copied when used in methods and what not (for good reason, a copy would mean allocating a new instance). While this is a pretty annoying tradeoff, I decided on making the decision to use the class anyway, as I believe the code quality benefits are big enough to justify the potential performance hit.
+
+#### A Singleton instance of Controller and Stage
+During the course of development, I noticed that over the lifecycle of the application, there was only ever one instance of Controller and one instance of Stage. As such, I turned Controller into a Singleton, storing a single instance of itself, and also having a static field for the Stage. This reduces the number of parameters needed to be passed to methods, as they can be replaced with direct references.
+
+#### Unit tests for core functionality
+While I didn't manage to implement more extensive integration tests of the game (mostly due to time limitations), There are tests present for some core functionality that the entire project relies on - namely tests for `Vector`, `Element` and `ImageElement`. These ensure that positions and locations are calculated correctly, that showing/hiding an element on a root node works as expected, and that methods for keeping sane values like the out of bounds checks function.
 
 ## Implemented but Not Working Properly
+### Gameplay
+#### Letterboxing in Fullscreen
+While the letterboxing mentioned above works in windowed mode and also while *entering* fullscreen, when a screen transition occurs while in fullscreen, the game's letterboxing breaks and the game renders in the original resolution at the bottom left of the screen.
+
+I have not been able to figure out the cause of this, but it almost certainly to do with that letterboxing code I referenced earlier. There *is* a more comprehensive solution out there that I could have gotten to work, but I preferred to stick with the smaller code snippet that I could quickly understand and properly document, rather than have to spend a long period understanding a larger piece of code.
+
+#### Controls, but after Alt+Tab
+While the systems for handling controls and user input are quite robust when the user interacts normally with the game window, if the user Alt+Tabs away to another window while moving, the player character gets stuck moving in that direction until the user sends another keypress to the window. This is because the game listens for Key Down events for toggling off keys. 
+
+As JavaFX send Key Up events constantly as a key is held, this could be fixed by not handling Key Down events at all, and instead clearing the `KeyStore` state for every action other than the ones currently being held. However, "currently being held" doesn't make much sense for an event based system, and so a system adding another layer of booleans syncing it to perhaps the game clock would be needed.
+
+Due to time constraints, I have not attempted this.
+
 ## Not Implemented
+### Gameplay
+#### Level 5
+I had initial plans for Level 5 involving a second boss, which would showcase the flexible strategy system and `Element` generalization by having a chargeable laser ball attack. It would charge up for some time with an image being present as warning, before flying out at high speed.
+
+Unfortunately, I had to scrap it due to time constraints.
+
+#### Keybind reading from file
+"Doesn't your code already read keybinds from a file?" you may ask. Well, it reads that file from the *resource* folder, not a physical location on someone's computer, meaning that keybinds are still hardcoded at compile time, unless the app is distributed in a form where the resources are openly editable (and not baked into a jar or something). If I had time, I would have implemented a system where a default keybind configuration json would be written to the user configuration folder (AppData on Windows), and could then be edited to customize keybinds.
+
+#### Music
+Music is not in the game, even though it could be easily implemented using the existing `AudioClip` infrastructure, because it isn't semantic. `AudioClip` is for short clips, because it stores all of its content in-memory. `Media` is what would be used for longer music tracks. However, the code infrastructure isn't there for loading files as `Media`, so I passed on it.
+
+### Code
+#### Dynamic directory scanning for resource names
+Currently resource names and paths are hardcoded in `CW2024AssetLoader`, meaning adding an asset involves editing a source code file. It would be a better idea to scan the directory for available files, then add them to the map. This would probably also have some security issues, so some work would need to be done hardening it.
+
+#### Integration tests
+There are currently only unit tests for some core components of the game. I recently discovered how to properly test JavaFX (having tests inherit from `ApplicationTest`), so I know this is possible. Other than the rather obvious issues discussed before, they were left out because generally, tests are less useful for games than for other kinds of software. Outside of core API-focused components like the covered `Vector` and `Element`, game development is a heavily iterative cycle, where most things can change at any moment, which is not much of a suitable environment for testing things other than what has been stabilized (which should be tested for regressions).
+
+#### A generalization of `InputManager` to a generic `Input` interface
+This would allow for making other forms of `Input`-implementing classes, which would allow for things like an enemy plane with the same controls/abilities as the player, but controlled by an AI that simulates keyboard inputs. It would also allow for automatically testing things that require input, without the need to use mocking frameworks like Mockito.
 
 # Classes
 ## New Java Classes
+Location: `/`
+Location: `/managers`
+Location: `/screens`
+Location: `/config`
+Location: `/factories`
+Location: `/factories/interfaces`
+Location: `/overlays`
+Location: `/elements`
+Location: `/elements/actors`
+Location: `/elements/strategies`
+Location: `/assets`
+
+### Miscellaneous
+#### Vector
+Location: `/`
+
+This is a class for encapsulating a position or motion. It represents a 2D Vector with x and y components. It has various utility methods related to positions and motions, like normalization or ensuring it's within a range.
+
+### Enums
+#### Action
+Location: `/managers`
+
+This is an enum with all of the possible 'Actions' defined for the game. Examples include UP, DOWN, FIRE, CONFIRM and so on - things that the player can do and that keybinds can be mapped to. These are automatically enumerated by `KeybindStore`, so adding an entry here is all that is needed to add a new action.
+
+#### ScreenCode
+Location: `/screens`
+
+This is an enum representing all the Screens available in the game. For every screen accessible to the player, there should be an entry here and a corresponding case statement in the switch statement in  `ScreenFactory`.
+
+#### UserPlaneCode
+Location: `/elements/actors`
+
+This is an enum representing all the planes available to the user. For every entry here, there should be a corresponding entry in the switch statement in `ActorFactory`.
+
+#### ProjectileCode
+Location: `/elements/actors`
+
+This is an enum representing all the projectiles available to create. These are fired by both enemies and players. For every entry here, there should be a corresponding entry in the switch statement in `ProjectileFactory`.
+
+#### EnemyCode
+Location: `/elements/actors`
+
+This is an enum representing all the enemies in the game. For every entry here, there should be a corresponding entry in the switch statement in `ActorFactory`.
+
+
+### Screens
+Classes to do with `Screen`s, mostly ones from the actual `screens` subpackage.
+
+#### Screen
+Location: `/screens`
+
+An interface defining the behaviour of a `Screen`. These are being able to return a scene that can be added to the application stage, and being able to be started.
+
+#### ScreenParent
+Location: `/screens`
+
+This is an abstract class generalized out from what was originally LevelParent to cover all screens, including ones such as the Main Menu which don't involve gameplay. It contains logic common to all screens, such as initializing the graph of JavaFX Nodes used for the Overlay system.
+
+#### SceneSizeChangeListener
+Location: `/screens`
+
+This is a class containing methods for implementing letterboxing. The code here is not original, the source is credited in the Javadoc.
+
+#### ScreenChangeHandler
+Location: `/screens`
+
+This is an interface representing a handler for changing screens. This is needed so that it can be passed to other classes that might want to trigger a screen change, but don't have the access required to do so.
+
+#### MainMenu
+Location: `/screens`
+
+This is a class for the Main Menu of the game. It works as the entry point for the game, and at the moment only has a single button that causes a screen switch to Character Select. All the class really does is hold and update a `MenuOverlay`.
+
+#### CharacterSelect
+Location: `/screens`
+
+This is a class for the Character Select screen. It has two buttons, allowing the player to choose between characters.
+
+#### CountdownLevel
+Location: `/screens`
+
+This is a class for Levels with a countdown timer as the win condition. It has a `TimerOverlay` displayed, counting down from a fixed time of 20s.
+
+#### LevelThree
+Location: `/screens`
+
+The Level that comes after Two. It is a countdown level with blue enemies.
+
+#### LevelFour
+Location: `/screens`
+
+The Level that comes after Three. It is a countdown level with red enemies. After this level is beat, it triggers the win sequence.
+
+### Overlays
+Classes that all inherit from `ContainerElement` that are drawn above the gameplay elements. Does not include `GameplayOverlay` because that is modified from `LevelView`.
+
+#### MenuOverlay
+Location: `/overlays`
+
+This is an abstract class that represents Menu Overlays - overlays that consist of interactive buttons. It contains a `GridPane` that aligns elements along with a grid, and logic for positioning a menu cursor along that grid. It uses `TextBox`es for its buttons.
+
+#### MainMenuOverlay
+Location: `/overlays`
+
+This is a class representing everything in the Main Menu other than the background. It contains the button, and the logic to activate it.
+
+#### CharacterSelectOverlay
+Location: `/overlays`
+
+This is a class representing the Character Select Overlay - the elements rendered above the background in the Character Select screen. 
+
+#### PauseOverlay
+Location: `/overlays`
+
+This is a class representing the Pause Overlay - the MenuOverlay displayed when paused in-game. It should get updated with real-time as opposed to virtual time by the Level.
+
+#### FloatingOverlay
+Location: `/overlays`
+
+This is an abstract class representing overlays that are just a simple container for its elements, that cover the entire screen. 
+
+#### GameplayOverlay
+Location: `/overlays`
+
+This is a class representing the Gameplay Overlay - the overlay that displays the player's health. It has its own internal logic for tracking how many hearts to display, and needs to be updated with such information.
+
+#### TimerOverlay
+Location: `/overlays`
+
+This is a class representing the Timer Overlay - the overlay used for countdown levels 3 and 4, which displays a red box with black text in the top right that serves as a countdown timer for the level. It needs to be updated with the current time.
+
+### Managers
+Classes that roughly "Manage" something, such as input.
+
+#### CollisionManager
+Location: `/managers`
+
+This is an interface defining the behaviour of a CollisionManager. That is, it has a method `handleCollisions`, that is meant to be run with two lists of actors that are supposed to have their collision between them handled. For example, user projectiles and enemies.
+
+#### DamageCollisionManager
+Location: `/managers`
+
+This is a class implementing CollisionManager that implements the collision behaviour currently in-game. On collision, actors take 1 damage, unless the first actor is a projectile, in which case the second actor takes the projectile's damage value as damage.
+
+#### KeybindStore
+Location: `/managers`
+
+This is a class used for mapping `KeyCode`s to `Action`s and `Action`s to `BooleanProperty`s. The `KeyCode`s are fetched from a JSON file and the `Action`s are fetched from the enum. What this does is keep track of the state of input - every time a key event with a certain `KeyCode` is triggered, it affects the corresponding shared `BooleanProperty`, meaning one `Action` can be triggered by multiple `KeyCode`s.
+
+#### InputManager
+Location: `/managers`
+
+This is a class used to handle user input and direct it to the `KeybindStore`. An instance of this has to be passed anywhere where user input is needed, such as in user strategies.
+
+### Factories
+Classes that handle the construction of various things.
+
+#### ActorFactory
+Location: `/factories/interfaces`
+
+This is an interface that defines a factory for creating `Actor`s - the enemies, boss and player character. It populates them with not only their image and data, but also strategies.
+
+#### ElementFactory
+Location: `/factories/interfaces`
+
+This is an interface that defines a factory for creating some standalone `Element`s - currently only the boss's shield image and Screen backgrounds.
+
+#### OverlayFactory
+Location: `/factories/interfaces`
+
+This is an interface that defines a factory for creating many different `Element`s associated with Overlays. They mostly all share the same common feature of needing to be drawn on a node that isn't the root of the scene.
+
+#### ProjectileFactory
+Location: `/factories/interfaces`
+
+This is an interface that defines a factory for creating `Projectile`s. These are both projectiles fired by the enemies and projectiles fired by the player. It populates them with not only their image and data, but also strategies.
+
+#### ScreenFactory
+Location: `/factories/interfaces`
+
+This is an interface that defines a factory for creating `Screen`s. These include both the menus and the main gameplay, and so this is used heavily by `Controller` for switch between screens.
+
+#### Factory
+Location: `/factories`
+
+This is a class that contains shared behavior for all implementations of the interfaces above.
+
+#### The Implementations
+As the implementations just fulfil the interfaces described above, they are simply listed below without descriptions.
+
+Locations: `/factories`
+- ActorFactoryImpl
+- ElementFactoryImpl
+- OverlayFactoryImpl
+- ProjectileFactoryImpl
+- ScreenFactoryImpl
+
+### Elements
+Anything that can be added to the JavaFX Node graph and convenience methods to operate on them.
+
+#### Element
+Location: `/elements`
+
+This is the abstract class representing an `Element`, the most general of them all. It has a reference to its root node and its own node and various methods such as `show()` that adds it to the root.
+
+#### ImageElement
+Location: `/elements`
+
+This is a class representing an `Element` that has an `ImageView` as its node. This is the basis behind most elements in the game.
+
+#### ContainerElement
+Location: `/elements`
+
+This is an abstract class representing an `Element` that has a container as its node - a container being a node that can contain other nodes. This is the basis behind all of the Overlays, for one, but is also behind the heart display and things like Text boxes.
+
+#### ClickListener
+Location: `/elements`
+
+This is an interface defining a handler for user confirmation. i.e, confirmation in menus.
+
+#### ProjectileListener
+Location: `/elements`
+
+This is an interface defining what should be done with a projectile passed to it. It is used for allowing `Actor`s to add projectiles to the level, via the level passing them a lambda that does that.
+
+#### TextBox
+Location: `/elements`
+
+This is a class representing a Text box, used in menus. It consists of a white rectangle sized to fit the menu's `GridPane` bounds and black text that renders on top of it.
+
+#### TimeDisplay
+Location: `/elements`
+
+This is a class representing a Time display, used in countdown levels. It consists of a red rectangle with black text in the middle showing a time.
+
+#### RegularPlane
+Location: `/elements/actors`
+
+This is a class representing the ordinary User Plane, the original class having been modified into an abstract one.
+
+#### GreenPlane
+Location: `/elements/actors`
+
+This is a class representing the secondary, Green User Plane. It has different parameters and different behaviour on focus fire.
+
+### Assets
+Classes to do with loading and processing assets.
+
+#### AssetLoader
+Location: `/assets`
+
+This is a class representing an interface for an Asset Loader, something that can load images and load sounds.
+
+#### CW2024AssetLoader
+Location: `/assets`
+
+This is an abstract class that contains the predefined names and locations of all assets used in the game. Meant for inheriting from to implement asset loaders.
+
+#### UpFrontAssetLoader
+Location: `/assets`
+
+This is a class that implements AssetLoader and inherits from CW2024AssetLoader. It loads all assets up front, then stores them in a map, then fetches them from that map upon request.
+
+#### CachedAssetLoader
+Location: `/assets`
+
+This is a class that implements AssetLoader and inherits from CW2024AssetLoader. It loads assets on-demand, but then stores them in a map, and fetches assets if they are already present.
+
+### Configs
+Classes used to bundle data together to pass to constructors. As these are just fancy data classes, they will just be listed below, along with some class relations. The naming pattern is {name}Config, where name is the class the config is meant for constructing.
+
+(: indicates inheritance)
+- ElementConfig
+- ImageElementConfig : ElementConfig
+- ActiveActorDestructibleConfig : ImageElementConfig
+- FighterPlaneConfig : ActiveActorDestructibleConfig
+- ProjectileConfig : ActiveActorDestructibleConfig
+- BossConfig : FighterPlaneConfig
+- UserPlaneConfig : FighterPlaneConfig
+- OverlayConfig : ElementConfig
+- TextBoxConfig : ElementConfig
+- ScreenConfig
+
 ## Modified Java Classes
 
 # Unexpected Problems
