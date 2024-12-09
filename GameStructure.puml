@@ -1,6 +1,8 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+class Vector
+
 'Asset Loaders
 interface AssetLoader
 abstract class CW2024AssetLoader {
@@ -21,12 +23,25 @@ class TextBox
 class TimeDisplay
 class ImageElement
 class HeartDisplay
+class Heart
 
+Pane "1" --o "1" Element
+Node "1" --o "1" Element
 Element <|-- ContainerElement
 Element <|-- ImageElement
+
+Pane "1" --o "1" ContainerElement
+ImageView "1" --o "1" ImageELement
+
 ContainerElement <|-- TextBox
 ContainerElement <|-- TimeDisplay
 ContainerElement <|-- HeartDisplay
+
+ClickListener "1" --o "1" TextBox
+Text "1" --o "1" TimeDisplay
+Heart "0..*" --* "1" HeartDisplay
+OverlayFactory "1" --o "1" HeartDisplay
+
 
 'Strategies
 interface Firing
@@ -97,17 +112,33 @@ class GreenPlane
 class EnemyPlane
 class Boss
 class Projectile
+class AudioClip
+class ImageView
 
 ImageElement <|-- ActiveActor
 ActiveActor <|-- ActiveActorDestructible
 Destructible <|.. ActiveActorDestructible
+
 ActiveActorDestructible <|-- FighterPlane
 ActiveActorDestructible <|-- Projectile
+
 FighterPlane <|-- Boss
 FighterPlane <|-- EnemyPlane
 FighterPlane <|-- UserPlane
+
+ProjectileFactory "1" --o "1" FighterPlane
+ProjectileListener "1" --o "1" FighterPlane
+Firing "1" --o "1" FighterPlane
+AudioClip "2" --o "1" FighterPlane
+
 UserPlane <|-- RegularPlane
 UserPlane <|-- GreenPlane
+
+InputManager "1" --o "1" UserPLane
+
+AudioClip "2" --o "1" Boss
+Shielding "1" --o "1" Boss
+Element "1" --o "1" Boss
 
 'Game startup
 class Main
@@ -137,6 +168,7 @@ class ElementFactoryImpl
 class OverlayFactoryImpl
 class ProjectileFactoryImpl
 class ScreenFactoryImpl
+interface ClickListener
 
 abstract class Factory
 
@@ -214,53 +246,63 @@ LevelFour --|> CountdownLevel
 'Configs
 class ElementConfig
 class ImageElementConfig
-class ImageView
 class ActiveActorDestructibleConfig
 class FighterPlaneConfig
-class AudioClip
 class UserPlaneConfig
 class BossConfig
 class TextBoxConfig
 class ProjectileConfig
 class ScreenConfig
-interface ClickListener
 
-Pane "1" --o "1" ElementConfig
-Position "0..1" --o "1" ElementConfig
+Pane "1" --[norank]o "1" ElementConfig
+Position "0..1" --down[norank]o "1" ElementConfig
 
 ImageElementConfig --|> ElementConfig
-ImageView "0..1" --o "1" ImageElementConfig
+ImageView "0..1" --down[norank]o "1" ImageElementConfig
 
 ActiveActorDestructibleConfig --|> ImageElementConfig
-Movement "0..1" --o "1" ActiveActorDestructibleConfig
+Movement "0..1" --down[norank]o "1" ActiveActorDestructibleConfig
 
 FighterPlaneConfig --|> ActiveActorDestructibleConfig
-Firing "0..1" --o "1" FighterPlaneConfig
-ProjectileFactory "1" --o "1" FighterPlaneConfig
-ProjectileListener "1" --o "1" FighterPlaneConfig
-AudioClip "0..2" --o "1" FighterPlaneConfig
+Firing "0..1" --down[norank]o "1" FighterPlaneConfig
+ProjectileFactory "1" --down[norank]o "1" FighterPlaneConfig
+ProjectileListener "1" --down[norank]o "1" FighterPlaneConfig
+AudioClip "0..2" --down[norank]o "1" FighterPlaneConfig
 
 UserPlaneConfig --|> FighterPlaneConfig
-InputManager "1" --o "1" UserPlaneConfig
+InputManager "1" --[norank]o "1" UserPlaneConfig
 
 BossConfig --|> FighterPlaneConfig
-Shielding "0..1" --o "1" BossConfig
-Element "0..1" --o "1" BossConfig
-AudioClip "0..2" --o "1" BossConfig
+Shielding "0..1" --[norank]o "1" BossConfig
+Element "0..1" --[norank]o "1" BossConfig
+AudioClip "0..2" --[norank]o "1" BossConfig
 
 TextBoxConfig --|> ElementConfig
-ClickListener "0..1" --o "1" TextBoxConfig
-Text "0..1" --o "1" TextBoxConfig
+ClickListener "0..1" --[norank]o "1" TextBoxConfig
+Text "0..1" --[norank]o "1" TextBoxConfig
 
 ProjectileConfig --|> ActiveActorDestructibleConfig
 
-KeybindStore "1" --o "1" ScreenConfig
-AssetLoader "1" --o "1" ScreenConfig
+KeybindStore "1" --[norank]o "1" ScreenConfig
+AssetLoader "1" --[norank]o "1" ScreenConfig
 
 class SceneChangeSizeListener
 ScreenParent --> SceneChangeSizeListener
 
+'Tests
+class VectorTest
+class ElementTest
+class UpdatableTest
+class AssetLoaderTest
+class ImageElementConfigTest
+Firing "1..*" --* "1" UpdatableTest
+Movement "1..*" --* "1" UpdatableTest
+Shielding "1..*" --* "1" UpdatableTest
+Pane "1" --* "1" ElementTest
+ImageElement "1" --* "1" ElementTest
 
+ImageElementConfig "1" --* "1" ImageElementConfigTest
+AssetLoader "1..*" --* "1" AssetLoaderTest
 
 
 @enduml
