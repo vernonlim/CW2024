@@ -6,26 +6,22 @@ import dev.vernonlim.cw2024game.configs.ImageElementConfig;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ElementTest {
-    static final double EPSILON = 0.001;
+public class ElementTest extends ApplicationTest {
+    final double EPSILON = 0.001;
     Pane root;
     ImageElement element;
 
-    @BeforeAll
-    static void startup() {
-        Platform.startup(() -> {
-        });
-    }
-
-    @BeforeEach
-    void setUp() {
+    @Override
+    public void start(Stage stage) {
         Pane root = new Pane();
         this.root = root;
         ImageElementConfig config = new ImageElementConfig(root);

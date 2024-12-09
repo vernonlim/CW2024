@@ -1,24 +1,25 @@
 package dev.vernonlim.cw2024game.assets;
 
+import dev.vernonlim.cw2024game.configs.ImageElementConfig;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class AssetLoaderTest {
-    static ArrayList<AssetLoader> loaders;
+public class AssetLoaderTest extends ApplicationTest {
+    ArrayList<AssetLoader> loaders;
 
-    @BeforeAll
-    static void setup() {
-        Platform.startup(() -> {
-        });
-
+    @Override
+    public void start(Stage stage) {
         loaders = new ArrayList<>();
         loaders.add(new UpFrontAssetLoader());
         loaders.add(new CachedAssetLoader());
