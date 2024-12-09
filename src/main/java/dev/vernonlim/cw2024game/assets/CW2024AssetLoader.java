@@ -12,6 +12,11 @@ import static java.util.Map.entry;
  */
 public abstract class CW2024AssetLoader implements AssetLoader {
     /**
+     * Constructs a CW2024AssetLoader.
+     */
+    public CW2024AssetLoader() {};
+
+    /**
      * A map of image names to image paths to be used for image loading.
      */
     protected static final Map<String, String> imagePaths = Map.ofEntries(
@@ -57,19 +62,9 @@ public abstract class CW2024AssetLoader implements AssetLoader {
             entry("error", "/audio/error.wav")
     );
 
-    /**
-     * Fetches an image with the given name.
-     *
-     * @param name the name of the image
-     * @return an Image, if it exists
-     */
+    @Override
     public abstract Image loadImage(String name);
 
-    /**
-     * Fetches a sound with the given name.
-     *
-     * @param name the name of the sound
-     * @return an AudioClip, if it exists
-     */
+    @Override
     public abstract AudioClip loadSound(String name);
 }

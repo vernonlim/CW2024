@@ -26,22 +26,24 @@ public interface OverlayFactory {
     /**
      * Creates an image displayed during Game Over.
      *
-     * @param x the x position
-     * @param y the y position
+     * @param xPosition the x position
+     * @param yPosition the y position
      * @return the Game Over Image.
      */
     Element createGameOverImage(double xPosition, double yPosition);
 
     /**
      * Creates a Heart image for use in HeartDisplay.
+     *
+     * @return the Heart image
      */
     Element createHeart();
 
     /**
      * Creates an image displayed on Game Win.
      *
-     * @param x the x position
-     * @param y the y position
+     * @param xPosition the x position
+     * @param yPosition the y position
      * @return the Win Image
      */
     Element createWinImage(double xPosition, double yPosition);
@@ -49,8 +51,8 @@ public interface OverlayFactory {
     /**
      * Creates a Heart Display for visually representing the player's health.
      *
-     * @param x the x position
-     * @param y the y position
+     * @param xPosition the x position
+     * @param yPosition the y position
      * @param heartsToDisplay the number of hearts to display initially
      * @return the Heart Display
      */
@@ -88,6 +90,7 @@ public interface OverlayFactory {
     /**
      * Creates a Level Select Overlay displaying the list of Levels.
      *
+     * @param userPlaneCode the User Plane Code to enter the Levels with
      * @return the Level Select Overlay
      */
     MenuOverlay createLevelSelectOverlay(UserPlaneCode userPlaneCode);
@@ -96,7 +99,7 @@ public interface OverlayFactory {
      * Creates a Pause Overlay displayed when the game is paused.
      *
      * @param currentScreen the current screen the pause overlay is to be displayed over
-     * @return
+     * @return the Menu Overlay
      */
     MenuOverlay createPauseOverlay(ScreenCode currentScreen);
 

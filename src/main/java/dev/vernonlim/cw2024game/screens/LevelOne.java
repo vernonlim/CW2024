@@ -79,6 +79,11 @@ public class LevelOne extends Level {
         addEnemyUnit(enemy);
     }
 
+    /**
+     * Indicates whether the user has reached the target number of kills.
+     *
+     * @return the target number of kills
+     */
     private boolean userHasReachedKillTarget() {
         return getUserKills() >= KILLS_TO_ADVANCE;
     }

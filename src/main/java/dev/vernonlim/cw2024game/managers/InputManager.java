@@ -42,6 +42,8 @@ public class InputManager {
     }
 
     /**
+     * Indicates whether Fire is pressed.
+     *
      * @return true if Fire is pressed, otherwise false
      */
     public boolean isFirePressed() {
@@ -49,6 +51,8 @@ public class InputManager {
     }
 
     /**
+     * Indicates whether Up is pressed.
+     *
      * @return true if Up is pressed, otherwise false
      */
     public boolean isUpPressed() {
@@ -56,6 +60,8 @@ public class InputManager {
     }
 
     /**
+     * Indicates whether Down is pressed.
+     *
      * @return true if Down is pressed, otherwise false
      */
     public boolean isDownPressed() {
@@ -63,6 +69,8 @@ public class InputManager {
     }
 
     /**
+     * Indicates whether Left is pressed.
+     *
      * @return true if Left is pressed, otherwise false
      */
     public boolean isLeftPressed() {
@@ -70,6 +78,8 @@ public class InputManager {
     }
 
     /**
+     * Indicates whether Right is pressed.
+     *
      * @return true if Right is pressed, otherwise false
      */
     public boolean isRightPressed() {
@@ -77,6 +87,8 @@ public class InputManager {
     }
 
     /**
+     * Indicates whether Focus is pressed.
+     *
      * @return true if Focus is pressed, otherwise false
      */
     public boolean isFocusPressed() {
@@ -84,6 +96,8 @@ public class InputManager {
     }
 
     /**
+     * Indicates whether Pause is pressed.
+     *
      * @return true if Pause is pressed, otherwise false
      */
     public boolean isPausePressed() {
@@ -91,6 +105,8 @@ public class InputManager {
     }
 
     /**
+     * Indicates whether Confirm is pressed.
+     *
      * @return true if Confirm is pressed, otherwise false
      */
     public boolean isConfirmPressed() {

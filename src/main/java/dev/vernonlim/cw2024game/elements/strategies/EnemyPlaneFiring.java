@@ -1,11 +1,18 @@
 package dev.vernonlim.cw2024game.elements.strategies;
 
+import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
+import dev.vernonlim.cw2024game.elements.actors.EnemyPlane;
 import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
 
 /**
  * An Enemy Plane Firing strategy.
  */
 public class EnemyPlaneFiring extends PlaneFiring implements Firing {
+    /**
+     * Constructs an Enemy Plane Firing strategy.
+     */
+    public EnemyPlaneFiring() {};
+
     /**
      * The fire rate in terms of probability per 50.0ms cycle.
      */

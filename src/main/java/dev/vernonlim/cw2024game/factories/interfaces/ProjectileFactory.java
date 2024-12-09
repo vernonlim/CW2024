@@ -11,8 +11,8 @@ public interface ProjectileFactory {
      * Creates a projectile from the given ProjectileCode and x, y positions.
      *
      * @param code the ProjectileCode
-     * @param x the x position
-     * @param y the y position
+     * @param initialXPos the x position
+     * @param initialYPos the y position
      * @return the created Projectile
      */
     Projectile createProjectile(ProjectileCode code, double initialXPos, double initialYPos);

@@ -10,6 +10,11 @@ import java.util.List;
  * If the first is a projectile, the second actor takes the projectile's damage instead of 1.
  */
 public class DamageCollisionManager implements CollisionManager {
+    /**
+     * Constructs a DamageCollisionManager.
+     */
+    public DamageCollisionManager() {};
+
     @Override
     public void handleCollisions(List<ActiveActorDestructible> list1, List<ActiveActorDestructible> list2) {
         for (ActiveActorDestructible actor : list1) {

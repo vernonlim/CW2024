@@ -15,6 +15,11 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     /**
+     * Constructs an instance of the Main class, serving as the entry point for the game.
+     */
+    public Main() {};
+
+    /**
      * The width of the game screen.
      * <p>
      * The default value present is what the game is designed for, but other values are taken into account.

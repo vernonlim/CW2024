@@ -1,3 +1,6 @@
+/**
+ * This module contains the 2D bullet hell shooter game CW2024Game.
+ */
 module dev.vernonlim.cw2024game {
     requires javafx.controls;
     requires javafx.fxml;

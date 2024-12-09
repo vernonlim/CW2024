@@ -12,6 +12,8 @@ public interface Screen {
     void start();
 
     /**
+     * Gets the Scene associated with this Screen
+     *
      * @return the Scene associated with this Screen
      */
     Scene getScene();

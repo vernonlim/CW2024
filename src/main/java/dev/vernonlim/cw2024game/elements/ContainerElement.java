@@ -7,6 +7,9 @@ import javafx.scene.layout.Pane;
  * An abstract class representing an Element, but with a Pane container as its Node.
  */
 public abstract class ContainerElement extends Element {
+    /**
+     * The Pane acting as the container holding the child Elements.
+     */
     protected Pane container;
 
     /**

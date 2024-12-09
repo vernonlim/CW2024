@@ -45,14 +45,18 @@ public class Controller {
     }
 
     /**
-     * @return the singleton controller instance.
+     * Gets the singleton controller instance.
+     *
+     * @return the singleton controller instance
      */
     public static Controller getController() {
         return instance;
     }
 
     /**
-     * @return the stage the game is rendered on.
+     * Gets the stage the game is rendered on.
+     *
+     * @return the stage the game is rendered on
      */
     public static Stage getStage() {
         return stage;
