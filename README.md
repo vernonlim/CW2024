@@ -20,7 +20,7 @@ If you don't already have the source code (from being the grader), download the 
 git clone https://github.com/vernonlim/CW2024.git
 cd CW2024
 ```
-
+    
 If you don't have git, click on the code button on the GitHub page, then click on "Download ZIP". Then, extract the .zip file with a utility such as 7zip.
 
 ## Building
@@ -84,6 +84,18 @@ Try adding a new entry to the list like say, "V": "CONFIRM" if you want to try i
 
 By default, a few more keybinds are added - WASD for movement, Z for firing and Shift for Focus Fire.
 
+#### Framerate-Independent Logic
+Game state updates have been reworked to be based off of the time passed inbetween frames (deltaTime), along with the current time (of a virtual timer, in most cases). This means that the target framerate can be arbitrarily set without affecting how fast the game runs. The default value is 60fps, but try changing it in the source code to something like 20 or 120 if you want to verify that it works properly.
+
+As a side effect, this allows for high refresh rate support, as any FPS, even dynamic (from lag or such), should effectively approximate the same game speed.
+
+All this has been done without affecting the original enemy algorithms of the game, by simulating the original 50ms tick time at the places that need it by storing the time of last update (and calculating the time since).
+
+#### Improved Movement
+The player character can now move in 4 directions! That by itself wouldn't be too notable as an achievement though, the notable features added here are null-cancellation and normalization.
+
+Null-cancellation is a problem that only arises when an input system that can handle multiple flags at once, for example both UP and DOWN being held simultaneously, is implemented.
+
 #### Multiple Player Characters
 There are now 2 different planes that the player can choose from on the Character Select screen before entering a level. The first being a reworked version of the original plane, and the second being a variant coloured green.
 
@@ -109,11 +121,6 @@ Level Four's new enemy type is the "Red Enemy", having the original plane sprite
 #### Audio
 The game now has audio feedback for the majority of actions. Menu buttons have a select sound, firing projectiles makes a noise, enemies have an explosion sound on death, and so on. The sound effects vary between the different player characters and enemy types as well, as within the codebase customizing them is as easy as constructing them with different data.
 
-#### Framerate-Independent Logic
-Game state updates have been reworked to be based off of the time passed inbetween frames, along with the current time (of a virtual timer, in most cases). This means that the target framerate can be arbitrarily set without affecting how fast the game runs. The default value is 60fps, but try changing it in the source code to something like 20 or 120 if you want to verify that it works properly.
-
-As a side effect, this allows for high refresh rate support, as any FPS, even dynamic (from lag or such), now works fine.
-
 #### Letterboxing
 The game is now resizeable, with its content being scaled down and aspect ratio being maintained via black bars at the side of the window. This means that while internally the coordinates the game came with are being used (1300, 750), the actual game window can be any size including fullscreen (however, with issues here - see the not working properly section). 
 
@@ -123,11 +130,6 @@ Do take note that the main logic for the dynamic scaling is from another author 
 I am not sure if this is considered an implemented feature or a fixed bug, but regardless the hitboxes for the player and enemy are now significantly more accurate, courtesy of cropping the blank space out of the images.
 
 However, there is now also support for overriding the bounds used for collision. In-game, this is currently only used for giving the player a slightly smaller horizontal hitbox - the player hitbox is a square instead of a rectangle - but it's worth noting as a feature nonetheless.
-
-#### Improved Movement
-This is mainly notable because of two things - null cancelling and velocity normalization.
-
-In the original code, 
 
 ### Code
 #### Modular Actor behaviour using the Strategy Pattern
