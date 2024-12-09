@@ -22,7 +22,7 @@ public abstract class ActiveActorDestructible extends ActiveActor implements Des
     /**
      * The Movement strategy for the Actor determining how it moves.
      */
-    protected Movement movementStrategy;
+    protected final Movement movementStrategy;
 
     /**
      * Indicates if the Actor has been destroyed.
@@ -64,7 +64,7 @@ public abstract class ActiveActorDestructible extends ActiveActor implements Des
 
     @Override
     public void destroy() {
-        setDestroyed(true);
+        isDestroyed = true;
     }
 
     /**
@@ -74,15 +74,6 @@ public abstract class ActiveActorDestructible extends ActiveActor implements Des
      */
     public boolean isDestroyed() {
         return isDestroyed;
-    }
-
-    /**
-     * Sets whether the Actor has been destroyed.
-     *
-     * @param isDestroyed whether the actor is destroyed
-     */
-    protected void setDestroyed(boolean isDestroyed) {
-        this.isDestroyed = isDestroyed;
     }
 
     /**

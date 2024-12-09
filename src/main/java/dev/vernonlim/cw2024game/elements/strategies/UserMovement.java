@@ -10,7 +10,7 @@ public abstract class UserMovement extends UpdatableStrategy implements Movement
     /**
      * The InputManager handling user input.
      */
-    protected InputManager input;
+    protected final InputManager input;
 
     /**
      * Indicates whether the user is holding down the Down key.
@@ -85,8 +85,8 @@ public abstract class UserMovement extends UpdatableStrategy implements Movement
 
     @Override
     public Vector getNextMovement() {
-        double verticalMult = 0;
-        double horizontalMult = 0;
+        double verticalMult;
+        double horizontalMult;
 
         // null cancelling movement
         if (down && up) {

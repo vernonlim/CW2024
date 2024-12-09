@@ -84,12 +84,7 @@ public abstract class ScreenParent implements Screen {
         this.loader = config.getAssetLoader();
         this.inputManager = new InputManager(scene, config.getKeybindStore());
         this.elementFactory = new ElementFactoryImpl(root, loader);
-        this.overlayFactory = new OverlayFactoryImpl(stackPane, loader, inputManager, new ScreenChangeHandler() {
-            @Override
-            public void changeScreen(ScreenCode code, UserPlaneCode userPlaneCode) {
-                goToScreen(code, userPlaneCode);
-            }
-        }, userPlaneCode);
+        this.overlayFactory = new OverlayFactoryImpl(stackPane, loader, inputManager, this::goToScreen, userPlaneCode);
 
         // background
         this.background = elementFactory.createBackground(config.getBackgroundImageName());
@@ -159,9 +154,7 @@ public abstract class ScreenParent implements Screen {
      */
     public void goToScreen(ScreenCode screenCode, UserPlaneCode userPlaneCode) {
         timeline.pause();
-        Platform.runLater(() -> {
-            Controller.getController().goToScreen(screenCode, userPlaneCode);
-        });
+        Platform.runLater(() -> Controller.getController().goToScreen(screenCode, userPlaneCode));
     }
 
     /**

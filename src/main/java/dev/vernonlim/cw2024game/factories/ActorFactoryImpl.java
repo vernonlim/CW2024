@@ -87,8 +87,8 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
         config.setHealth(5);
         config.setImage(loadImage("userplane"));
         config.setFitHeight(40.0);
-        config.setFireSound(loader.loadSound("gunshot"));
-        config.setDeathSound(loader.loadSound("pichuun"));
+        config.setFireSound(loadSound("gunshot"));
+        config.setDeathSound(loadSound("pichuun"));
         config.setMovement(new RegularPlaneMovement(inputManager));
         config.setFiring(new RegularPlaneFiring(inputManager));
         config.setSpeed(24.0);
@@ -108,8 +108,8 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
         config.setHealth(3);
         config.setImage(loadImage("userplane2"));
         config.setFitHeight(40.0);
-        config.setFireSound(loader.loadSound("laser"));
-        config.setDeathSound(loader.loadSound("pichuun"));
+        config.setFireSound(loadSound("laser"));
+        config.setDeathSound(loadSound("pichuun"));
         config.setMovement(new GreenPlaneMovement(inputManager));
         config.setFiring(new GreenPlaneFiring(inputManager));
         config.setSpeed(30.0);
@@ -131,8 +131,8 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
         config.setHealth(10);
         config.setImage(loadImage("enemyplane"));
         config.setFitHeight(54.0);
-        config.setFireSound(loader.loadSound("missile"));
-        config.setDeathSound(loader.loadSound("explosion"));
+        config.setFireSound(loadSound("missile"));
+        config.setDeathSound(loadSound("explosion"));
         config.setMovement(new EnemyPlaneMovement());
         config.setFiring(new EnemyPlaneFiring());
         config.setSpeed(5.0);
@@ -156,8 +156,8 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
         config.setHealth(10);
         config.setImage(loadImage("enemyblue"));
         config.setFitHeight(54.0);
-        config.setFireSound(loader.loadSound("laser"));
-        config.setDeathSound(loader.loadSound("explosion"));
+        config.setFireSound(loadSound("laser"));
+        config.setDeathSound(loadSound("explosion"));
         config.setSpeed(5.0);
         config.setProjectileYOffset(7.0);
         config.setFacingRight(false);
@@ -184,8 +184,8 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
         config.setHealth(10);
         config.setImage(loadImage("enemyred"));
         config.setFitHeight(54.0);
-        config.setFireSound(loader.loadSound("laser"));
-        config.setDeathSound(loader.loadSound("explosion"));
+        config.setFireSound(loadSound("laser"));
+        config.setDeathSound(loadSound("explosion"));
         config.setMovement(new EnemyPlaneMovement());
         config.setFiring(new RedEnemyFiring());
         config.setSpeed(50.0);
@@ -207,13 +207,13 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
         config.setHealth(1000);
         config.setImage(loadImage("bossplane"));
         config.setFitHeight(56.0);
-        config.setFireSound(loader.loadSound("fireball"));
-        config.setDeathSound(loader.loadSound("explosion"));
-        config.setShieldSound(loader.loadSound("metalhit"));
+        config.setFireSound(loadSound("fireball"));
+        config.setDeathSound(loadSound("explosion"));
+        config.setShieldSound(loadSound("metalhit"));
 
         config.setShieldImage(elementFactory.createShieldImage());
 
-        AudioClip damageSound = loader.loadSound("click");
+        AudioClip damageSound = loadSound("click");
         damageSound.setVolume(1.0);
         config.setDamageSound(damageSound);
 

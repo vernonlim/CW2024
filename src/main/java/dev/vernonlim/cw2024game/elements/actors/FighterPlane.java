@@ -38,12 +38,12 @@ public abstract class FighterPlane extends ActiveActorDestructible {
     /**
      * The sound to play after firing a projectile.
      */
-    protected AudioClip fireSound;
+    protected final AudioClip fireSound;
 
     /**
      * The sound to play on destruction.
      */
-    protected AudioClip deathSound;
+    protected final AudioClip deathSound;
 
     /**
      * The health of the FighterPlane.

@@ -38,15 +38,6 @@ public class MainMenu extends ScreenParent implements Screen {
     }
 
     /**
-     * Gets the MenuOverlay associated with this Screen
-     *
-     * @return the MenuOverlay associated with this Screen
-     */
-    protected MenuOverlay getMenuOverlay() {
-        return menuOverlay;
-    }
-
-    /**
      * Sets the MenuOverlay associated with this Screen.
      *
      * @param menuOverlay the menu overlay to be set

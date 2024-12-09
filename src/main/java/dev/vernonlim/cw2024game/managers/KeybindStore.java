@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -100,11 +101,13 @@ public class KeybindStore {
      * @return the initialized map
      */
     private Map<KeyCode, Action> createKeyCodeMap(String jsonPath) {
-        String keybindsPath = KeybindStore.class.getResource(jsonPath).getFile();
+        URL keybindsURL = KeybindStore.class.getResource(jsonPath);
 
-        if (keybindsPath == null) {
+        if (keybindsURL == null) {
             return getDefaultKeyCodeMap();
         }
+
+        String keybindsPath = keybindsURL.getFile();
 
         try {
             Path path = Paths.get(keybindsPath);

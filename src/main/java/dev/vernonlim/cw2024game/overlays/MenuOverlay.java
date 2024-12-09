@@ -7,7 +7,6 @@ import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.TextBox;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
-import dev.vernonlim.cw2024game.screens.ScreenChangeHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.VPos;
 import javafx.scene.layout.ColumnConstraints;
@@ -21,10 +20,6 @@ import java.util.ArrayList;
  * An abstract class representing a Menu Overlay - an overlay consisting of interactive buttons.
  */
 public abstract class MenuOverlay extends ContainerElement {
-    /**
-     * The OverlayFactory for constructing Elements rooted in this Overlay.
-     */
-    private final OverlayFactory overlayElementFactory;
 
     /**
      * The OverlayFactory for constructing Elements within a grid.
@@ -35,11 +30,6 @@ public abstract class MenuOverlay extends ContainerElement {
      * The InputManager for this Overlay.
      */
     private final InputManager input;
-
-    /**
-     * The ScreenChangeHandler for this Overlay used to switch screens.
-     */
-    private final ScreenChangeHandler screenChangeHandler;
 
     /**
      * The Element used to indicate the current selected button.
@@ -95,17 +85,16 @@ public abstract class MenuOverlay extends ContainerElement {
         super(config);
 
         this.input = config.getInput();
-        this.screenChangeHandler = config.getScreenChangeHandler();
 
         this.buttons = new ArrayList<>();
 
         initializeValues();
         initializeNodes();
 
-        this.overlayElementFactory = config.getOverlayFactory().withNewRoot(container);
+        OverlayFactory overlayElementFactory = config.getOverlayFactory().withNewRoot(container);
         this.gridElementFactory = config.getOverlayFactory().withNewRoot(gridPane);
 
-        this.menuArrow = this.overlayElementFactory.createMenuArrow();
+        this.menuArrow = overlayElementFactory.createMenuArrow();
         this.menuArrow.show();
     }
 
@@ -191,6 +180,7 @@ public abstract class MenuOverlay extends ContainerElement {
         boolean triggered = input.isConfirmPressed();
         boolean down = input.isDownPressed();
         boolean up = input.isUpPressed();
+        boolean both = down && up;
 
         if (triggered || up || down) {
             lastMovementUpdate = currentTime;
@@ -200,11 +190,9 @@ public abstract class MenuOverlay extends ContainerElement {
             buttons.get(currentButton).getClickListener().onClick();
         }
 
-        if (up && down) {
-            // do nothing
-        } else if (up) {
+        if (up && !both) {
             currentButton = getPreviousButton(currentButton);
-        } else if (down) {
+        } else if (down && !both) {
             currentButton = getNextButton(currentButton);
         }
     }
@@ -250,12 +238,11 @@ public abstract class MenuOverlay extends ContainerElement {
     }
 
     /**
-     * Gets the X position at a certain row.
+     * Gets the top-left X position of a button.
      *
-     * @param row the row
      * @return the X position
      */
-    protected double getXLeftAt(int row) {
+    protected double getXLeftAt() {
         double width = Main.SCREEN_WIDTH * ((100 - rightPercent) / 100.0f);
 
         return width - menuArrow.getHalfWidth();

@@ -10,7 +10,7 @@ public class ImageElement extends Element {
     /**
      * The ImageView for this ImageElement.
      */
-    protected ImageView view;
+    protected final ImageView view;
 
     /**
      * Constructs an ImageElement.

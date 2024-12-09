@@ -17,17 +17,17 @@ public class Boss extends FighterPlane {
     /**
      * The Shielding strategy used by the Boss.
      */
-    protected Shielding shieldingStrategy;
+    protected final Shielding shieldingStrategy;
 
     /**
      * The sound played upon collision with the shield.
      */
-    protected AudioClip shieldSound;
+    protected final AudioClip shieldSound;
 
     /**
      * The sound played when the boss takes damage.
      */
-    protected AudioClip damageSound;
+    protected final AudioClip damageSound;
 
     /**
      * Indicates whether the boss is currently shielded.

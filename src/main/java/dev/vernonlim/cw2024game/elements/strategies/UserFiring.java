@@ -10,7 +10,7 @@ public abstract class UserFiring extends PlaneFiring implements Firing {
     /**
      * The InputManager handling user input.
      */
-    protected InputManager input;
+    protected final InputManager input;
 
     /**
      * Indicates whether the user is holding down the Focus key.
@@ -25,7 +25,7 @@ public abstract class UserFiring extends PlaneFiring implements Firing {
     /**
      * The base fire rate, in terms of milliseconds between shots.
      */
-    protected double baseFireRate;
+    protected final double baseFireRate;
 
     /**
      * The fire rate after Focus adjustments.

@@ -64,20 +64,11 @@ public class ElementConfig {
     }
 
     /**
-     * Indicates if the position should be set.
+     * Indicates if the position should be set. This is the case then setPosition has been called.
      *
      * @return true if the position should be set, false otherwise
      */
     public boolean shouldSetPosition() {
         return shouldSetPosition;
-    }
-
-    /**
-     * Sets whether the position should be set.
-     *
-     * @param shouldSetPosition true if the position should be set, false otherwise
-     */
-    public void setShouldSetPosition(boolean shouldSetPosition) {
-        this.shouldSetPosition = shouldSetPosition;
     }
 }

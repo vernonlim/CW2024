@@ -12,7 +12,7 @@ public abstract class UserPlane extends FighterPlane {
     /**
      * The InputManager handling user input.
      */
-    protected InputManager input;
+    protected final InputManager input;
 
     /**
      * The number of kills the user has achieved.

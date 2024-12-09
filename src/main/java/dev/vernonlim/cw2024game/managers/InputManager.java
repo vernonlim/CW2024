@@ -23,20 +23,16 @@ public class InputManager {
     public InputManager(Scene scene, KeybindStore keybindStore) {
         this.keybindStore = keybindStore;
 
-        scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent e) {
-                Action action = keybindStore.getAction(e.getCode());
-                if (action != null) {
-                    keybindStore.triggerAction(action);
-                }
+        scene.setOnKeyPressed(e -> {
+            Action action = keybindStore.getAction(e.getCode());
+            if (action != null) {
+                keybindStore.triggerAction(action);
             }
         });
-        scene.setOnKeyReleased(new EventHandler<KeyEvent>() {
-            public void handle(KeyEvent e) {
-                Action action = keybindStore.getAction(e.getCode());
-                if (action != null) {
-                    keybindStore.unsetAction(action);
-                }
+        scene.setOnKeyReleased(e -> {
+            Action action = keybindStore.getAction(e.getCode());
+            if (action != null) {
+                keybindStore.unsetAction(action);
             }
         });
     }

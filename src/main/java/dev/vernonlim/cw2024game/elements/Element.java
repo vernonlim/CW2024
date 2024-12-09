@@ -14,7 +14,7 @@ public abstract class Element {
     /**
      * The root this element is based on.
      */
-    public Pane root;
+    public final Pane root;
 
     /**
      * The node containing the element's contents.

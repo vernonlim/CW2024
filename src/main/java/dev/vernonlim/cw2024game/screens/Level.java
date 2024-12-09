@@ -48,10 +48,6 @@ public abstract class Level extends ScreenParent implements Screen {
      */
     private ProjectileListener projectileListener;
     /**
-     * The ProjectileFactory associated with this Level. Meant to be passed to Actors.
-     */
-    private ProjectileFactory projectileFactory;
-    /**
      * The ActorFactory associated with this Level.
      */
     private ActorFactory actorFactory;
@@ -145,16 +141,13 @@ public abstract class Level extends ScreenParent implements Screen {
      * Initializes the projectile listener for this Level.
      */
     private void initializeProjectileListener() {
-        projectileListener = new ProjectileListener() {
-            @Override
-            public void onFire(Projectile projectile) {
-                projectile.show();
+        projectileListener = projectile -> {
+            projectile.show();
 
-                if (projectile.isAllyProjectile()) {
-                    userProjectiles.add(projectile);
-                } else {
-                    enemyProjectiles.add(projectile);
-                }
+            if (projectile.isAllyProjectile()) {
+                userProjectiles.add(projectile);
+            } else {
+                enemyProjectiles.add(projectile);
             }
         };
     }
@@ -173,7 +166,7 @@ public abstract class Level extends ScreenParent implements Screen {
      * Initializes the factories for this Level.
      */
     private void initializeFactories() {
-        projectileFactory = new ProjectileFactoryImpl(root, loader);
+        ProjectileFactory projectileFactory = new ProjectileFactoryImpl(root, loader);
         actorFactory = new ActorFactoryImpl(root, loader, inputManager, projectileFactory, projectileListener, elementFactory);
     }
 
@@ -196,16 +189,13 @@ public abstract class Level extends ScreenParent implements Screen {
      * Attempts to fix the game not quitting on close request.
      */
     private void fixCloseRequestHandling() {
-        Controller.getStage().setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                try {
-                    timer.stop();
-                    Thread.sleep(100);
-                    Platform.exit();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+        Controller.getStage().setOnCloseRequest(event -> {
+            try {
+                timer.stop();
+                Thread.sleep(100);
+                Platform.exit();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
             }
         });
     }
@@ -216,9 +206,7 @@ public abstract class Level extends ScreenParent implements Screen {
      * @return a Timer that increments virtualTime every millisecond
      */
     private Timer createTimer() {
-        Timer timer = new Timer(1, (ae) -> {
-            virtualTime += 1;
-        });
+        Timer timer = new Timer(1, (ae) -> virtualTime += 1);
         timer.start();
         return timer;
     }

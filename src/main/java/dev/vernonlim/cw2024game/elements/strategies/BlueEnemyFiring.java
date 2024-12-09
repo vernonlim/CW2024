@@ -11,7 +11,7 @@ public class BlueEnemyFiring extends PlaneFiring implements Firing {
     /**
      * The FighterPlane this strategy is for.
      */
-    protected FighterPlane plane;
+    protected final FighterPlane plane;
 
     /**
      * Constructs a BlueEnemyFiring strategy.

@@ -36,11 +36,6 @@ public class GameplayOverlay extends FloatingOverlay {
     private final HeartDisplay heartDisplay;
 
     /**
-     * The OverlayFactory for constructing Elements rooted in this Overlay.
-     */
-    private final OverlayFactory overlayElementFactory;
-
-    /**
      * Constructs a Gameplay Overlay.
      *
      * @param config          the configuration object containing the necessary data to construct the Overlay
@@ -49,13 +44,13 @@ public class GameplayOverlay extends FloatingOverlay {
     public GameplayOverlay(OverlayConfig config, int heartsToDisplay) {
         super(config);
 
-        this.overlayElementFactory = config.getOverlayFactory().withNewRoot(this.container);
+        OverlayFactory overlayElementFactory = config.getOverlayFactory().withNewRoot(this.container);
 
-        this.heartDisplay = this.overlayElementFactory
+        this.heartDisplay = overlayElementFactory
                 .createHeartDisplay(HEART_DISPLAY_X_OFFSET, HEART_DISPLAY_Y_OFFSET, heartsToDisplay);
-        this.winImage = this.overlayElementFactory
+        this.winImage = overlayElementFactory
                 .createWinImage(Main.SCREEN_WIDTH / 2.0f, Main.SCREEN_HEIGHT / 2.0f);
-        this.gameOverImage = this.overlayElementFactory
+        this.gameOverImage = overlayElementFactory
                 .createGameOverImage(Main.SCREEN_WIDTH / 2.0f, Main.SCREEN_HEIGHT / 2.0f);
 
         this.heartDisplay.show();

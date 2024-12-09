@@ -98,7 +98,7 @@ public class ProjectileFactoryImpl extends Factory implements ProjectileFactory 
      * @param y         the starting y position
      * @return the created projectile
      */
-    private Projectile createEnemyProjectile(String imageName, int damage, Vector velocity, double x, double y) {
+    private Projectile createEnemyProjectile(String imageName, @SuppressWarnings("SameParameterValue") int damage, Vector velocity, double x, double y) {
         return createGenericProjectile(
                 imageName, 34, 10, damage, velocity, false, x, y);
     }
@@ -111,7 +111,7 @@ public class ProjectileFactoryImpl extends Factory implements ProjectileFactory 
      * @param y      the starting y position
      * @return the created projectile
      */
-    private Projectile createBossProjectile(int damage, double x, double y) {
+    private Projectile createBossProjectile(@SuppressWarnings("SameParameterValue") int damage, double x, double y) {
         return createGenericProjectile(
                 "fireball", 75, 15, damage, new Vector(-1, 0), false, x, y);
     }

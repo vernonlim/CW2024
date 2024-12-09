@@ -148,12 +148,9 @@ public class OverlayFactoryImpl extends Factory implements OverlayFactory {
         config.getText().setFont(Font.font(50));
 
         AudioClip sound = loadSound("select");
-        ClickListener clickListener = new ClickListener() {
-            @Override
-            public void onClick() {
-                sound.play();
-                screenChangeHandler.changeScreen(screenCode, newUserPlaneCode);
-            }
+        ClickListener clickListener = () -> {
+            sound.play();
+            screenChangeHandler.changeScreen(screenCode, newUserPlaneCode);
         };
 
         config.setClickListener(clickListener);
