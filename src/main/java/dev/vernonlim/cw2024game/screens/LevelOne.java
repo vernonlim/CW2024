@@ -13,11 +13,6 @@ import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
  */
 public class LevelOne extends Level {
     /**
-     * The next Level in sequence.
-     */
-    private static final ScreenCode NEXT_LEVEL = ScreenCode.LEVEL_TWO;
-
-    /**
      * Total enemies that should be on screen at once.
      */
     private static final int TOTAL_ENEMIES = 5;
@@ -46,7 +41,7 @@ public class LevelOne extends Level {
         if (isUserDestroyed()) {
             loseGame();
         } else if (userHasReachedKillTarget()) {
-            goToScreen(NEXT_LEVEL, userPlaneCode);
+            goToScreen(ScreenCode.LEVEL_TWO, userPlaneCode);
         }
     }
 

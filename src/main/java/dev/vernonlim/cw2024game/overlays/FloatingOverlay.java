@@ -8,7 +8,7 @@ import javafx.scene.layout.Pane;
 /**
  * A parent class for elements that render above the main content of the game - i.e Overlays.
  */
-public class FloatingOverlay extends ContainerElement {
+public abstract class FloatingOverlay extends ContainerElement {
     /**
      * Constructs a Floating Overlay
      *

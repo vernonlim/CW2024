@@ -1,0 +1,266 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+'Asset Loaders
+interface AssetLoader
+abstract class CW2024AssetLoader {
+    loadImage()
+    loadSound()
+}
+class CachedAssetLoader
+class UpFrontAssetLoader
+
+AssetLoader <|.. CW2024AssetLoader
+CW2024AssetLoader <|-- CachedAssetLoader
+CW2024AssetLoader <|-- UpFrontAssetLoader
+
+'Elements excluding actors
+abstract class Element
+abstract class ContainerElement
+class TextBox
+class TimeDisplay
+class ImageElement
+class HeartDisplay
+
+Element <|-- ContainerElement
+Element <|-- ImageElement
+ContainerElement <|-- TextBox
+ContainerElement <|-- TimeDisplay
+ContainerElement <|-- HeartDisplay
+
+'Strategies
+interface Firing
+interface Movement
+interface Shielding
+interface Updatable
+Firing --|> Updatable
+Movement --|> Updatable
+Shielding --|> Updatable
+
+abstract class UpdatableStrategy
+abstract class PlaneFiring
+class EnemyPlaneFiring
+class BossFiring
+class BlueEnemyFiring
+class RedEnemyFiring
+abstract class UserFiring
+class RegularPlaneFiring
+class GreenPlaneFiring
+
+UpdatableStrategy ..|> Updatable
+PlaneFiring --|> UpdatableStrategy
+PlaneFiring ..|> Firing
+
+EnemyPlaneFiring --|> PlaneFiring
+BossFiring --|> PlaneFiring
+BlueEnemyFiring --|> PlaneFiring
+FighterPlane "1" --|> "1" BlueEnemyFiring
+RedEnemyFiring --|> PlaneFiring
+
+UserFiring --|> PlaneFiring
+InputManager "1" --o "1" UserFiring
+RegularPlaneFiring --|> UserFiring
+GreenPlaneFiring --|> UserFiring
+
+class EnemyPlaneMovement
+EnemyPlaneMovement --|> UpdatableStrategy
+EnemyPlaneMovement --|> Movement
+
+class BossMovement
+BossMovement --|> UpdatableStrategy
+BossMovement --|> Movement
+
+abstract class UserMovement
+class RegularPlaneMovement
+UserMovement --|> UpdatableStrategy
+UserMovement ..|> Movement
+InputManager "1" --o "1" UserMovement
+RegularPlaneMovement --|> UserMovement
+GreenPlaneMovement --|> UserMovement
+
+class LinearMovement
+LinearMovement --|> UpdatableStrategy
+LinearMovement --|> Movement
+
+class BossShielding
+BossShielding --|> UpdatableStrategy
+BossShielding ..|> Shielding
+
+'Actors
+interface Destructible
+abstract class ActiveActor
+abstract class ActiveActorDestructible
+abstract class FighterPlane
+abstract class UserPlane
+class RegularPlane
+class GreenPlane
+class EnemyPlane
+class Boss
+class Projectile
+
+ImageElement <|-- ActiveActor
+ActiveActor <|-- ActiveActorDestructible
+Destructible <|.. ActiveActorDestructible
+ActiveActorDestructible <|-- FighterPlane
+ActiveActorDestructible <|-- Projectile
+FighterPlane <|-- Boss
+FighterPlane <|-- EnemyPlane
+FighterPlane <|-- UserPlane
+UserPlane <|-- RegularPlane
+UserPlane <|-- GreenPlane
+
+'Game startup
+class Main
+class Controller
+class Stage
+interface ScreenFactory
+Controller "1" o-- "1" Stage
+Controller "1" o-- "1" ScreenFactory
+
+'Managers
+class KeybindStore
+class InputManager
+interface CollisionManager
+class DamageCollisionManager
+
+InputManager "1" o-- "1" KeybindStore
+CollisionManager <|.. DamageCollisionManager
+
+'Factories
+interface ActorFactory
+interface ElementFactory
+interface OverlayFactory
+interface ProjectileFactory
+interface ScreenFactory
+class ActorFactoryImpl
+class ElementFactoryImpl
+class OverlayFactoryImpl
+class ProjectileFactoryImpl
+class ScreenFactoryImpl
+
+abstract class Factory
+
+ActorFactoryImpl ..|> ActorFactory
+ActorFactoryImpl --|> Factory
+ElementFactoryImpl ..|> ElementFactory
+ElementFactoryImpl --|> Factory
+OverlayFactoryImpl ..|> OverlayFactory
+OverlayFactoryImpl --|> Factory
+ProjectileFactoryImpl ..|> ProjectileFactory
+ProjectileFactoryImpl --|> Factory
+ScreenFactoryImpl ..|> ScreenFactory
+ScreenFactoryImpl --|> Factory
+
+'Overlays
+class MenuOverlay
+abstract class FloatingOverlay
+class PauseOverlay
+class TimerOverlay
+abstract class MainMenuOverlay
+class LevelSelectOverlay
+class GameplayOverlay
+class CharacterSelectOverlay
+
+ContainerElement <|-- FloatingOverlay
+FloatingOverlay <|-- TimerOverlay
+ContainerElement <|-- MenuOverlay
+CharacterSelectOverlay --|> MenuOverlay
+MenuOverlay <|-- MainMenuOverlay
+MenuOverlay <|-- PauseOverlay
+GameplayOverlay --|> FloatingOverlay
+LevelSelectOverlay --|> MenuOverlay
+
+'The Screens
+interface Screen
+abstract class ScreenParent
+Screen <|.. ScreenParent
+ScreenParent "1" *-- "1" InputManager
+ScreenParent "1" o-- "1" AssetLoader
+ScreenParent "1" *-- "1" ElementFactory
+ScreenParent "1" *-- "1" OverlayFactory
+ScreenParent "1" *-- "1" Timeline
+ScreenParent "1" *-- "1..*" Element
+ScreenParent "1" *-- "1" Pane
+ScreenParent "1" *-- "1" StackPane
+ScreenParent "1" *-- "1" Scene
+
+class MainMenu
+class CharacterSelect
+class Timer
+abstract class Level
+interface ProjectileListener
+ScreenParent <|-- MainMenu
+MainMenu "1" *-- "1" MainMenuOverlay
+CharacterSelect --|> MainMenu
+Level --|> ScreenParent
+UserPlane "1" --* "1" Level
+CollisionManager "1" --o "1" Level
+GameplayOverlay "1" --* "1" Level
+MenuOverlay "1" --* "1" Level
+ProjectileListener "1" --* "1" Level
+ActorFactory "1" --* "1" Level
+Timer "1" --o "1" Level
+ActiveActorDestructible "0..*" --* "1" Level
+
+class LevelOne
+LevelOne --|> Level
+LevelTwo --|> Level
+abstract class CountdownLevel
+CountdownLevel --|> Level
+TimerOverlay "1" --* "1" CountdownLevel
+LevelThree --|> CountdownLevel
+LevelFour --|> CountdownLevel
+
+'Configs
+class ElementConfig
+class ImageElementConfig
+class ImageView
+class ActiveActorDestructibleConfig
+class FighterPlaneConfig
+class AudioClip
+class UserPlaneConfig
+class BossConfig
+class TextBoxConfig
+class ProjectileConfig
+class ScreenConfig
+interface ClickListener
+
+Pane "1" --o "1" ElementConfig
+Position "0..1" --o "1" ElementConfig
+
+ImageElementConfig --|> ElementConfig
+ImageView "0..1" --o "1" ImageElementConfig
+
+ActiveActorDestructibleConfig --|> ImageElementConfig
+Movement "0..1" --o "1" ActiveActorDestructibleConfig
+
+FighterPlaneConfig --|> ActiveActorDestructibleConfig
+Firing "0..1" --o "1" FighterPlaneConfig
+ProjectileFactory "1" --o "1" FighterPlaneConfig
+ProjectileListener "1" --o "1" FighterPlaneConfig
+AudioClip "0..2" --o "1" FighterPlaneConfig
+
+UserPlaneConfig --|> FighterPlaneConfig
+InputManager "1" --o "1" UserPlaneConfig
+
+BossConfig --|> FighterPlaneConfig
+Shielding "0..1" --o "1" BossConfig
+Element "0..1" --o "1" BossConfig
+AudioClip "0..2" --o "1" BossConfig
+
+TextBoxConfig --|> ElementConfig
+ClickListener "0..1" --o "1" TextBoxConfig
+Text "0..1" --o "1" TextBoxConfig
+
+ProjectileConfig --|> ActiveActorDestructibleConfig
+
+KeybindStore "1" --o "1" ScreenConfig
+AssetLoader "1" --o "1" ScreenConfig
+
+class SceneChangeSizeListener
+ScreenParent --> SceneChangeSizeListener
+
+
+
+
+@enduml
