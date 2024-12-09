@@ -10,6 +10,9 @@ import dev.vernonlim.cw2024game.screens.*;
 
 /**
  * The default implementation of ScreenFactory for CW2024Game.
+ * <p>
+ * Some of the logic within this class comes from the original project. The sources come from many different places.
+ * Original Project: <a href="https://github.com/kooitt/CW2024">GitHub</a>
  */
 public class ScreenFactoryImpl implements ScreenFactory {
     /**

@@ -17,6 +17,9 @@ import javafx.scene.media.AudioClip;
 
 /**
  * The default implementation of ActorFactory for CW2024Game.
+ * <p>
+ * Some of the logic within this class comes from the original project. The sources come from many different places.
+ * Original Project: <a href="https://github.com/kooitt/CW2024">GitHub</a>
  */
 public class ActorFactoryImpl extends Factory implements ActorFactory {
     /**

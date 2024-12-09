@@ -18,6 +18,9 @@ import javafx.scene.text.Font;
 
 /**
  * The default implementation of OverlayFactory for CW2024Game.
+ * <p>
+ * Some of the logic within this class comes from the original project. The sources come from many different places.
+ * Original Project: <a href="https://github.com/kooitt/CW2024">GitHub</a>
  */
 public class OverlayFactoryImpl extends Factory implements OverlayFactory {
     /**

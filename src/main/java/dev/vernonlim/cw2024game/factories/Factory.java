@@ -7,6 +7,9 @@ import javafx.scene.media.AudioClip;
 
 /**
  * An abstract class for shared implementation between all CW2024Game factories.
+ * <p>
+ * Some of the logic within this class comes from the original project. The sources come from many different places.
+ * Original Project: <a href="https://github.com/kooitt/CW2024">GitHub</a>
  */
 public abstract class Factory {
     /**

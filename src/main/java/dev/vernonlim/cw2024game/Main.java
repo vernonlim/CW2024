@@ -13,7 +13,8 @@ import javafx.stage.Stage;
  * <p>
  * It sets up the stage, initializes the Asset Loader, fetches user keybinds, sets up the game controller and launches the game.
  * <p>
- * This class is modified. Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/controller/Main.java">GitHub</a>
+ * This class is modified.
+ * Original Code: <a href="https://github.com/kooitt/CW2024/blob/master/src/main/java/com/example/demo/controller/Main.java">GitHub</a>
  */
 public class Main extends Application {
     /**

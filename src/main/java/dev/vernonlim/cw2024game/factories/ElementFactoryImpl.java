@@ -10,6 +10,9 @@ import javafx.scene.layout.Pane;
 
 /**
  * The default implementation of ElementFactory for CW2024Game.
+ * <p>
+ * Some of the logic within this class comes from the original project. The sources come from many different places.
+ * Original Project: <a href="https://github.com/kooitt/CW2024">GitHub</a>
  */
 public class ElementFactoryImpl extends Factory implements ElementFactory {
     /**

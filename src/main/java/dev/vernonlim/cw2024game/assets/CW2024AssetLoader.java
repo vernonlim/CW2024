@@ -9,6 +9,9 @@ import static java.util.Map.entry;
 
 /**
  * An abstract class representing a loader for all the resources used in CW2024Game.
+ * <p>
+ * The resources this Asset Loader loads come from the original project. As such, the names are not original (nor are the assets).
+ * Original Project: <a href="https://github.com/kooitt/CW2024/tree/master/src/main/resources/com/example/demo/images">GitHub</a>
  */
 public abstract class CW2024AssetLoader implements AssetLoader {
     /**
