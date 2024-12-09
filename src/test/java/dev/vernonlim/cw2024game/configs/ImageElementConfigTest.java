@@ -18,7 +18,8 @@ class ImageElementConfigTest {
 
     @BeforeAll
     static void startup() {
-        Platform.startup(() -> {});
+        Platform.startup(() -> {
+        });
     }
 
     @BeforeEach

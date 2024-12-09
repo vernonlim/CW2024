@@ -3,9 +3,9 @@ package dev.vernonlim.cw2024game.screens;
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
+import dev.vernonlim.cw2024game.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
-import dev.vernonlim.cw2024game.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.factories.ElementFactoryImpl;
 import dev.vernonlim.cw2024game.factories.OverlayFactoryImpl;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
@@ -154,7 +154,7 @@ public abstract class ScreenParent implements Screen {
     /**
      * Loads a screen with a specific UserPlane after pausing the Screen's Timeline.
      *
-     * @param screenCode the code of the screen to load
+     * @param screenCode    the code of the screen to load
      * @param userPlaneCode the code of the user's plane
      */
     public void goToScreen(ScreenCode screenCode, UserPlaneCode userPlaneCode) {

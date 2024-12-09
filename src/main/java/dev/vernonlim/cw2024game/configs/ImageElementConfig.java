@@ -24,7 +24,7 @@ public class ImageElementConfig extends ElementConfig {
 
     /**
      * Gets the ImageView.
-     * 
+     *
      * @return the ImageView
      */
     public ImageView getImageView() {
@@ -33,7 +33,7 @@ public class ImageElementConfig extends ElementConfig {
 
     /**
      * Sets the Image. Automatically creates an ImageView from it.
-     * 
+     *
      * @param image the Image to set
      */
     public void setImage(Image image) {
@@ -43,7 +43,7 @@ public class ImageElementConfig extends ElementConfig {
 
     /**
      * Sets the fit height.
-     * 
+     *
      * @param height the fit height to set
      */
     public void setFitHeight(double height) {
@@ -52,7 +52,7 @@ public class ImageElementConfig extends ElementConfig {
 
     /**
      * Sets the fit width.
-     * 
+     *
      * @param width the fit width to set
      */
     public void setFitWidth(double width) {
@@ -61,7 +61,7 @@ public class ImageElementConfig extends ElementConfig {
 
     /**
      * Sets whether to preserve the ratio of the ImageView.
-     * 
+     *
      * @param preserve true to preserve the ratio, false otherwise
      */
     public void setPreserveRatio(boolean preserve) {
@@ -70,7 +70,7 @@ public class ImageElementConfig extends ElementConfig {
 
     /**
      * Sets whether the ImageView is focus traversable.
-     * 
+     *
      * @param traversable true if the ImageView is focus traversable, false otherwise
      */
     public void setFocusTraversable(boolean traversable) {

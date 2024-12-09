@@ -35,8 +35,8 @@ public class Controller {
     /**
      * Constructs a Controller instance from the given params.
      *
-     * @param stage the stage the game is rendered on
-     * @param loader the asset loader used
+     * @param stage    the stage the game is rendered on
+     * @param loader   the asset loader used
      * @param keybinds the keybinds used
      */
     private Controller(Stage stage, AssetLoader loader, KeybindStore keybinds) {
@@ -65,8 +65,8 @@ public class Controller {
     /**
      * If not already present, constructs the singleton instance of the Controller.
      *
-     * @param stage the stage the game is rendered on
-     * @param loader the asset loader used
+     * @param stage    the stage the game is rendered on
+     * @param loader   the asset loader used
      * @param keybinds the keybinds used
      * @return the instance constructed
      */
@@ -109,7 +109,7 @@ public class Controller {
     /**
      * Loads a screen with a specific UserPlane.
      *
-     * @param screenCode the code of the screen to load
+     * @param screenCode    the code of the screen to load
      * @param userPlaneCode the code of the user's plane
      */
     public void goToScreen(ScreenCode screenCode, UserPlaneCode userPlaneCode) {

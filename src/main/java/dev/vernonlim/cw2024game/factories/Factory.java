@@ -22,7 +22,7 @@ public abstract class Factory {
     /**
      * Constructs a Factory from the given params.
      *
-     * @param root the root Pane elements will be based on
+     * @param root   the root Pane elements will be based on
      * @param loader the AssetLoader handling loading of assets
      */
     public Factory(Pane root, AssetLoader loader) {

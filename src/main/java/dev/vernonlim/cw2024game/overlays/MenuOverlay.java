@@ -1,10 +1,10 @@
 package dev.vernonlim.cw2024game.overlays;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.configs.OverlayConfig;
 import dev.vernonlim.cw2024game.elements.ContainerElement;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.TextBox;
-import dev.vernonlim.cw2024game.configs.OverlayConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 import dev.vernonlim.cw2024game.managers.InputManager;
 import dev.vernonlim.cw2024game.screens.ScreenChangeHandler;

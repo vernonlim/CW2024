@@ -1,7 +1,6 @@
 package dev.vernonlim.cw2024game.factories.interfaces;
 
-import dev.vernonlim.cw2024game.elements.*;
-import javafx.scene.layout.Pane;
+import dev.vernonlim.cw2024game.elements.Element;
 
 /**
  * An interface defining a Factory for creating Elements.

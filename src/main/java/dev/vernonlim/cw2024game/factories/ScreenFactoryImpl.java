@@ -2,8 +2,8 @@ package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.Controller;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
-import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
 import dev.vernonlim.cw2024game.configs.ScreenConfig;
+import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
 import dev.vernonlim.cw2024game.factories.interfaces.ScreenFactory;
 import dev.vernonlim.cw2024game.managers.KeybindStore;
 import dev.vernonlim.cw2024game.screens.*;
@@ -25,7 +25,7 @@ public class ScreenFactoryImpl implements ScreenFactory {
     /**
      * Constructs a ScreenFactory from the given params;
      *
-     * @param loader the AssetLoader handling loading of assets
+     * @param loader   the AssetLoader handling loading of assets
      * @param keybinds the KeybindStore managing user keybinds
      */
     public ScreenFactoryImpl(AssetLoader loader, KeybindStore keybinds) {

@@ -9,7 +9,8 @@ public class EnemyPlaneMovement extends UpdatableStrategy implements Movement {
     /**
      * Constructs an Enemy Plane Movement strategy.
      */
-    public EnemyPlaneMovement() {};
+    public EnemyPlaneMovement() {
+    }
 
     @Override
     public Vector getNextMovement() {

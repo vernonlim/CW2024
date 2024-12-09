@@ -53,8 +53,8 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
     /**
      * Constructs a FighterPlaneConfig with the given params.
      *
-     * @param root the root Pane on which the FighterPlane is based
-     * @param projectileFactory the ProjectileFactory for the FighterPLane
+     * @param root               the root Pane on which the FighterPlane is based
+     * @param projectileFactory  the ProjectileFactory for the FighterPLane
      * @param projectileListener the ProjectileListener for the FighterPlane
      */
     public FighterPlaneConfig(Pane root, ProjectileFactory projectileFactory, ProjectileListener projectileListener) {
@@ -70,7 +70,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Gets the Firing strategy.
-     * 
+     *
      * @return the Firing strategy
      */
     public Firing getFiring() {
@@ -79,7 +79,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Sets the Firing strategy.
-     * 
+     *
      * @param firing the Firing strategy to set
      */
     public void setFiring(Firing firing) {
@@ -88,7 +88,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Gets the ProjectileFactory.
-     * 
+     *
      * @return the ProjectileFactory
      */
     public ProjectileFactory getProjectileFactory() {
@@ -97,7 +97,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Sets the ProjectileFactory.
-     * 
+     *
      * @param projectileFactory the ProjectileFactory to set
      */
     public void setProjectileFactory(ProjectileFactory projectileFactory) {
@@ -106,7 +106,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Gets the ProjectileListener.
-     * 
+     *
      * @return the ProjectileListener
      */
     public ProjectileListener getProjectileListener() {
@@ -115,7 +115,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Sets the ProjectileListener.
-     * 
+     *
      * @param projectileListener the ProjectileListener to set
      */
     public void setProjectileListener(ProjectileListener projectileListener) {
@@ -124,7 +124,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Gets the fire sound.
-     * 
+     *
      * @return the fire sound
      */
     public AudioClip getFireSound() {
@@ -133,7 +133,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Sets the fire sound.
-     * 
+     *
      * @param fireSound the fire sound to set
      */
     public void setFireSound(AudioClip fireSound) {
@@ -142,7 +142,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Gets the death sound.
-     * 
+     *
      * @return the death sound
      */
     public AudioClip getDeathSound() {
@@ -151,7 +151,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Sets the death sound.
-     * 
+     *
      * @param deathSound the death sound to set
      */
     public void setDeathSound(AudioClip deathSound) {
@@ -160,7 +160,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Gets the health.
-     * 
+     *
      * @return the health
      */
     public int getHealth() {
@@ -169,7 +169,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Sets the health.
-     * 
+     *
      * @param health the health to set
      */
     public void setHealth(int health) {
@@ -178,7 +178,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Gets the projectile Y offset.
-     * 
+     *
      * @return the projectile Y offset
      */
     public double getProjectileYOffset() {
@@ -187,7 +187,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Sets the projectile Y offset.
-     * 
+     *
      * @param projectileYOffset the projectile Y offset to set
      */
     public void setProjectileYOffset(double projectileYOffset) {
@@ -196,7 +196,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Indicates if the plane is facing right.
-     * 
+     *
      * @return true if the plane is facing right, false otherwise
      */
     public boolean isFacingRight() {
@@ -205,7 +205,7 @@ public class FighterPlaneConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Sets whether the plane is facing right.
-     * 
+     *
      * @param facingRight true if the plane is facing right, false otherwise
      */
     public void setFacingRight(boolean facingRight) {

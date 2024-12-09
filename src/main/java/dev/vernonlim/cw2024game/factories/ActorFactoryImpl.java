@@ -2,11 +2,11 @@ package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
-import dev.vernonlim.cw2024game.elements.ProjectileListener;
-import dev.vernonlim.cw2024game.elements.actors.*;
 import dev.vernonlim.cw2024game.configs.BossConfig;
 import dev.vernonlim.cw2024game.configs.FighterPlaneConfig;
 import dev.vernonlim.cw2024game.configs.UserPlaneConfig;
+import dev.vernonlim.cw2024game.elements.ProjectileListener;
+import dev.vernonlim.cw2024game.elements.actors.*;
 import dev.vernonlim.cw2024game.elements.strategies.*;
 import dev.vernonlim.cw2024game.factories.interfaces.ActorFactory;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
@@ -42,12 +42,12 @@ public class ActorFactoryImpl extends Factory implements ActorFactory {
     /**
      * Constructs an ActorFactory from the given params.
      *
-     * @param root the root Pane the Actors will be based on
-     * @param loader the AssetLoader handling loading of assets
-     * @param inputManager the InputManager handling user input
-     * @param projectileFactory the ProjectileFactory producing projectiles
+     * @param root               the root Pane the Actors will be based on
+     * @param loader             the AssetLoader handling loading of assets
+     * @param inputManager       the InputManager handling user input
+     * @param projectileFactory  the ProjectileFactory producing projectiles
      * @param projectileListener the ProjectileListener handling projectile generation
-     * @param elementFactory the ElementFactory producing various non-Actor Elements
+     * @param elementFactory     the ElementFactory producing various non-Actor Elements
      */
     public ActorFactoryImpl(Pane root, AssetLoader loader, InputManager inputManager, ProjectileFactory projectileFactory, ProjectileListener projectileListener, ElementFactory elementFactory) {
         super(root, loader);

@@ -1,6 +1,9 @@
 package dev.vernonlim.cw2024game.factories.interfaces;
 
-import dev.vernonlim.cw2024game.elements.actors.*;
+import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
+import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
+import dev.vernonlim.cw2024game.elements.actors.UserPlane;
+import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
 
 /**
  * An interface defining a Factory for creating Actors.
@@ -17,7 +20,7 @@ public interface ActorFactory {
     /**
      * Creates an Enemy from the given EnemyCode and its initial position.
      *
-     * @param enemyCode the EnemyCode determining the type of enemy
+     * @param enemyCode   the EnemyCode determining the type of enemy
      * @param initialXPos the initial x position
      * @param initialYPos the initial y position
      * @return the EnemyPlane

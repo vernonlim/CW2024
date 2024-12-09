@@ -48,7 +48,7 @@ public class OverlayConfig extends ElementConfig {
     /**
      * Constructs an OverlayConfig with the given params.
      *
-     * @param root the root Pane on which the Overlay is based
+     * @param root           the root Pane on which the Overlay is based
      * @param overlayFactory the OverlayFactory used to produce nested elements
      */
     public OverlayConfig(Pane root, OverlayFactory overlayFactory) {
@@ -59,9 +59,9 @@ public class OverlayConfig extends ElementConfig {
     /**
      * Constructs an OverlayConfig with the given params.
      *
-     * @param root the root Pane on which the Overlay is based on
-     * @param overlayFactory the OverlayFactory used to produce nested elements
-     * @param input the InputManager used to handle user input
+     * @param root                the root Pane on which the Overlay is based on
+     * @param overlayFactory      the OverlayFactory used to produce nested elements
+     * @param input               the InputManager used to handle user input
      * @param screenChangeHandler the ScreenChangeHandler used to trigger screen changes
      */
     public OverlayConfig(Pane root, OverlayFactory overlayFactory, InputManager input, ScreenChangeHandler screenChangeHandler) {
@@ -72,7 +72,7 @@ public class OverlayConfig extends ElementConfig {
 
     /**
      * Gets the OverlayFactory.
-     * 
+     *
      * @return the OverlayFactory
      */
     public OverlayFactory getOverlayFactory() {
@@ -81,7 +81,7 @@ public class OverlayConfig extends ElementConfig {
 
     /**
      * Sets the OverlayFactory.
-     * 
+     *
      * @param overlayFactory the OverlayFactory to set
      */
     public void setOverlayFactory(OverlayFactory overlayFactory) {
@@ -90,7 +90,7 @@ public class OverlayConfig extends ElementConfig {
 
     /**
      * Gets the InputManager.
-     * 
+     *
      * @return the InputManager
      */
     public InputManager getInput() {
@@ -99,7 +99,7 @@ public class OverlayConfig extends ElementConfig {
 
     /**
      * Sets the InputManager.
-     * 
+     *
      * @param input the InputManager to set
      */
     public void setInput(InputManager input) {
@@ -108,7 +108,7 @@ public class OverlayConfig extends ElementConfig {
 
     /**
      * Gets the ScreenChangeHandler.
-     * 
+     *
      * @return the ScreenChangeHandler
      */
     public ScreenChangeHandler getScreenChangeHandler() {
@@ -117,7 +117,7 @@ public class OverlayConfig extends ElementConfig {
 
     /**
      * Sets the ScreenChangeHandler.
-     * 
+     *
      * @param screenChangeHandler the ScreenChangeHandler to set
      */
     public void setScreenChangeHandler(ScreenChangeHandler screenChangeHandler) {
@@ -126,7 +126,7 @@ public class OverlayConfig extends ElementConfig {
 
     /**
      * Gets the current ScreenCode.
-     * 
+     *
      * @return the current ScreenCode
      */
     public ScreenCode getCurrentScreen() {
@@ -135,7 +135,7 @@ public class OverlayConfig extends ElementConfig {
 
     /**
      * Sets the current ScreenCode.
-     * 
+     *
      * @param currentScreen the current ScreenCode to set
      */
     public void setCurrentScreen(ScreenCode currentScreen) {
@@ -144,7 +144,7 @@ public class OverlayConfig extends ElementConfig {
 
     /**
      * Gets the UserPlaneCode.
-     * 
+     *
      * @return the UserPlaneCode
      */
     public UserPlaneCode getUserPlaneCode() {
@@ -153,7 +153,7 @@ public class OverlayConfig extends ElementConfig {
 
     /**
      * Sets the UserPlaneCode.
-     * 
+     *
      * @param userPlaneCode the UserPlaneCode to set
      */
     public void setUserPlaneCode(UserPlaneCode userPlaneCode) {

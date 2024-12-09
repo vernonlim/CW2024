@@ -13,7 +13,8 @@ public class DamageCollisionManager implements CollisionManager {
     /**
      * Constructs a DamageCollisionManager.
      */
-    public DamageCollisionManager() {};
+    public DamageCollisionManager() {
+    }
 
     @Override
     public void handleCollisions(List<ActiveActorDestructible> list1, List<ActiveActorDestructible> list2) {

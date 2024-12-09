@@ -9,7 +9,7 @@ public interface ScreenChangeHandler {
     /**
      * Loads a screen with a specific UserPlane.
      *
-     * @param screenCode the code of the screen to load
+     * @param screenCode    the code of the screen to load
      * @param userPlaneCode the code of the user's plane
      */
     void changeScreen(ScreenCode screenCode, UserPlaneCode userPlaneCode);

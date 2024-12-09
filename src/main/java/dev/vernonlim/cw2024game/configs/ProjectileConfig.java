@@ -30,7 +30,7 @@ public class ProjectileConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Gets the damage.
-     * 
+     *
      * @return the damage
      */
     public int getDamage() {
@@ -39,7 +39,7 @@ public class ProjectileConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Sets the damage.
-     * 
+     *
      * @param damage the damage to set
      */
     public void setDamage(int damage) {
@@ -48,7 +48,7 @@ public class ProjectileConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Checks if it is a user projectile.
-     * 
+     *
      * @return true if it is a user projectile, false otherwise
      */
     public boolean isAllyProjectile() {
@@ -57,7 +57,7 @@ public class ProjectileConfig extends ActiveActorDestructibleConfig {
 
     /**
      * Sets if it is a user projectile.
-     * 
+     *
      * @param allyProjectile true if it is a user projectile, false otherwise
      */
     public void setAllyProjectile(boolean allyProjectile) {

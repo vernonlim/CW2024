@@ -7,7 +7,7 @@ public interface Updatable {
     /**
      * Updates the current state of the strategy.
      *
-     * @param deltaTime the difference in virtual time between the previous and current update
+     * @param deltaTime   the difference in virtual time between the previous and current update
      * @param currentTime the current virtual time
      */
     void updateStrategyState(double deltaTime, double currentTime);

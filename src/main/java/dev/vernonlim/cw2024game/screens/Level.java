@@ -1,12 +1,12 @@
 package dev.vernonlim.cw2024game.screens;
 
 import dev.vernonlim.cw2024game.Controller;
+import dev.vernonlim.cw2024game.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.actors.ActiveActorDestructible;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.UserPlane;
-import dev.vernonlim.cw2024game.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.factories.ActorFactoryImpl;
 import dev.vernonlim.cw2024game.factories.ProjectileFactoryImpl;
 import dev.vernonlim.cw2024game.factories.interfaces.ActorFactory;
@@ -31,37 +31,30 @@ public abstract class Level extends ScreenParent implements Screen {
      * The UserPlane associated with this Level representing the player character.
      */
     private final UserPlane user;
-
-    /**
-     * The ProjectileListener associated with this Level. Meant to be passed to Actors.
-     */
-    private ProjectileListener projectileListener;
-
-    /**
-     * The ProjectileFactory associated with this Level. Meant to be passed to Actors.
-     */
-    private ProjectileFactory projectileFactory;
-
-    /**
-     * The ActorFactory associated with this Level.
-     */
-    private ActorFactory actorFactory;
-
     /**
      * The CollisionManager associated with this Level.
      */
     private final CollisionManager collisionManager;
-
     /**
      * The GameplayOverlay associated with this Level.
      */
     private final GameplayOverlay gameplayOverlay;
-
     /**
      * The MenuOverlay associated with this Level.
      */
     private final MenuOverlay pauseOverlay;
-
+    /**
+     * The ProjectileListener associated with this Level. Meant to be passed to Actors.
+     */
+    private ProjectileListener projectileListener;
+    /**
+     * The ProjectileFactory associated with this Level. Meant to be passed to Actors.
+     */
+    private ProjectileFactory projectileFactory;
+    /**
+     * The ActorFactory associated with this Level.
+     */
+    private ActorFactory actorFactory;
     /**
      * The list of friendly Actors for this Level.
      */
@@ -297,7 +290,7 @@ public abstract class Level extends ScreenParent implements Screen {
     /**
      * Updates each Actor in this Level.
      *
-     * @param deltaTime the difference in virtual time between the previous update and current
+     * @param deltaTime   the difference in virtual time between the previous update and current
      * @param currentTime the current virtual time
      */
     private void updateActors(double deltaTime, double currentTime) {

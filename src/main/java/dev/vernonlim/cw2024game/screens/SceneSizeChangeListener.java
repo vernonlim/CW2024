@@ -8,6 +8,7 @@ import javafx.scene.transform.Scale;
 
 // Source:
 // https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size
+
 /**
  * Handles the letterboxing of JavaFX nodes
  */
@@ -36,10 +37,10 @@ public class SceneSizeChangeListener implements ChangeListener<Number> {
     /**
      * Constructs a SceneChangeSizeListener with the given params
      *
-     * @param scene the scene to be letterboxed
-     * @param ratio the ratio to be kept
-     * @param initHeight the initial height
-     * @param initWidth the initial width
+     * @param scene       the scene to be letterboxed
+     * @param ratio       the ratio to be kept
+     * @param initHeight  the initial height
+     * @param initWidth   the initial width
      * @param contentPane the pane the main content is drawn on
      */
     public SceneSizeChangeListener(Scene scene, double ratio, double initHeight, double initWidth, Pane contentPane) {
@@ -53,10 +54,10 @@ public class SceneSizeChangeListener implements ChangeListener<Number> {
     /**
      * Keeps the aspect ratio of the pane's content constant by transforming it when the scene updates
      *
-     * @param scene the scene to be letterboxed
+     * @param scene       the scene to be letterboxed
      * @param contentPane the pane the main content is drawn on
-     * @param initHeight the initial height
-     * @param initWidth the initial width
+     * @param initHeight  the initial height
+     * @param initWidth   the initial width
      */
     public static void letterbox(Scene scene, Pane contentPane, double initWidth, double initHeight) {
         final double ratio = initWidth / initHeight;
@@ -69,12 +70,9 @@ public class SceneSizeChangeListener implements ChangeListener<Number> {
     /**
      * The method that handles the pane's transformations on scene change
      *
-     * @param observableValue
-     *            The {@code ObservableValue} which value changed
-     * @param oldValue
-     *            The old value
-     * @param newValue
-     *            The new value
+     * @param observableValue The {@code ObservableValue} which value changed
+     * @param oldValue        The old value
+     * @param newValue        The new value
      */
     @Override
     public void changed(ObservableValue<? extends Number> observableValue, Number oldValue, Number newValue) {

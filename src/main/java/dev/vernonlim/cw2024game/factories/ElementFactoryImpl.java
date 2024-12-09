@@ -2,9 +2,9 @@ package dev.vernonlim.cw2024game.factories;
 
 import dev.vernonlim.cw2024game.Main;
 import dev.vernonlim.cw2024game.assets.AssetLoader;
+import dev.vernonlim.cw2024game.configs.ImageElementConfig;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.ImageElement;
-import dev.vernonlim.cw2024game.configs.ImageElementConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.ElementFactory;
 import javafx.scene.layout.Pane;
 
@@ -15,7 +15,7 @@ public class ElementFactoryImpl extends Factory implements ElementFactory {
     /**
      * Constucts an ElementFactory from the given params.
      *
-     * @param root the root Pane elements will be based on
+     * @param root   the root Pane elements will be based on
      * @param loader the AssetLoader handling loading of assets
      */
     public ElementFactoryImpl(Pane root, AssetLoader loader) {

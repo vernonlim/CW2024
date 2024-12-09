@@ -29,7 +29,7 @@ public class HeartDisplay extends ContainerElement {
     /**
      * Constructs a HeartDisplay from the given params.
      *
-     * @param overlayConfig the configuration object containing the necessary data to construct the HeartDisplay
+     * @param overlayConfig   the configuration object containing the necessary data to construct the HeartDisplay
      * @param heartsToDisplay the number of hearts to initially display
      */
     public HeartDisplay(OverlayConfig overlayConfig, int heartsToDisplay) {

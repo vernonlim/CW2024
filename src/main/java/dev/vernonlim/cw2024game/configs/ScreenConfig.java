@@ -43,7 +43,7 @@ public class ScreenConfig {
      * Constructs a ScreenConfig with the given params.
      *
      * @param keybindStore the KeybindStore for the Screen
-     * @param assetLoader the AssetLoader for the Screen
+     * @param assetLoader  the AssetLoader for the Screen
      */
     public ScreenConfig(KeybindStore keybindStore, AssetLoader assetLoader) {
         this.keybindStore = keybindStore;
@@ -52,7 +52,7 @@ public class ScreenConfig {
 
     /**
      * Gets the KeybindStore.
-     * 
+     *
      * @return the KeybindStore
      */
     public KeybindStore getKeybindStore() {
@@ -61,7 +61,7 @@ public class ScreenConfig {
 
     /**
      * Sets the KeybindStore.
-     * 
+     *
      * @param keybindStore the KeybindStore to set
      */
     public void setKeybindStore(KeybindStore keybindStore) {
@@ -70,7 +70,7 @@ public class ScreenConfig {
 
     /**
      * Gets the AssetLoader.
-     * 
+     *
      * @return the AssetLoader
      */
     public AssetLoader getAssetLoader() {
@@ -79,7 +79,7 @@ public class ScreenConfig {
 
     /**
      * Sets the AssetLoader.
-     * 
+     *
      * @param assetLoader the AssetLoader to set
      */
     public void setAssetLoader(AssetLoader assetLoader) {
@@ -88,7 +88,7 @@ public class ScreenConfig {
 
     /**
      * Gets the background image name.
-     * 
+     *
      * @return the background image name
      */
     public String getBackgroundImageName() {
@@ -97,7 +97,7 @@ public class ScreenConfig {
 
     /**
      * Sets the background image name.
-     * 
+     *
      * @param backgroundImageName the background image name to set
      */
     public void setBackgroundImageName(String backgroundImageName) {
@@ -106,7 +106,7 @@ public class ScreenConfig {
 
     /**
      * Gets the current ScreenCode.
-     * 
+     *
      * @return the current ScreenCode
      */
     public ScreenCode getCurrentScreenCode() {
@@ -115,7 +115,7 @@ public class ScreenConfig {
 
     /**
      * Sets the current ScreenCode.
-     * 
+     *
      * @param currentScreenCode the current ScreenCode to set
      */
     public void setCurrentScreenCode(ScreenCode currentScreenCode) {
@@ -124,7 +124,7 @@ public class ScreenConfig {
 
     /**
      * Gets the UserPlaneCode.
-     * 
+     *
      * @return the UserPlaneCode
      */
     public UserPlaneCode getUserPlaneCode() {
@@ -133,7 +133,7 @@ public class ScreenConfig {
 
     /**
      * Sets the UserPlaneCode.
-     * 
+     *
      * @param userPlaneCode the UserPlaneCode to set
      */
     public void setUserPlaneCode(UserPlaneCode userPlaneCode) {
@@ -142,7 +142,7 @@ public class ScreenConfig {
 
     /**
      * Gets the countdown time.
-     * 
+     *
      * @return the countdown time
      */
     public int getCountdownTime() {
@@ -151,7 +151,7 @@ public class ScreenConfig {
 
     /**
      * Sets the countdown time.
-     * 
+     *
      * @param countdownTime the countdown time to set
      */
     public void setCountdownTime(int countdownTime) {

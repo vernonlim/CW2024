@@ -9,14 +9,15 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AssetLoaderTest {
     static ArrayList<AssetLoader> loaders;
 
     @BeforeAll
     static void setup() {
-        Platform.startup(() -> {});
+        Platform.startup(() -> {
+        });
 
         loaders = new ArrayList<>();
         loaders.add(new UpFrontAssetLoader());

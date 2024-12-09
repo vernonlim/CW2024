@@ -1,9 +1,9 @@
 package dev.vernonlim.cw2024game.overlays;
 
 import dev.vernonlim.cw2024game.Main;
+import dev.vernonlim.cw2024game.configs.OverlayConfig;
 import dev.vernonlim.cw2024game.elements.Element;
 import dev.vernonlim.cw2024game.elements.HeartDisplay;
-import dev.vernonlim.cw2024game.configs.OverlayConfig;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 
 /**
@@ -43,7 +43,7 @@ public class GameplayOverlay extends FloatingOverlay {
     /**
      * Constructs a Gameplay Overlay.
      *
-     * @param config the configuration object containing the necessary data to construct the Overlay
+     * @param config          the configuration object containing the necessary data to construct the Overlay
      * @param heartsToDisplay the number of hearts to display - this should match player health
      */
     public GameplayOverlay(OverlayConfig config, int heartsToDisplay) {

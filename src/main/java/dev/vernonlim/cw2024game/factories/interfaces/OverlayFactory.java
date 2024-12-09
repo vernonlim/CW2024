@@ -1,12 +1,14 @@
 package dev.vernonlim.cw2024game.factories.interfaces;
 
-import dev.vernonlim.cw2024game.overlays.CharacterSelectOverlay;
-import dev.vernonlim.cw2024game.screens.ScreenCode;
-import dev.vernonlim.cw2024game.elements.*;
+import dev.vernonlim.cw2024game.elements.Element;
+import dev.vernonlim.cw2024game.elements.HeartDisplay;
+import dev.vernonlim.cw2024game.elements.TextBox;
+import dev.vernonlim.cw2024game.elements.TimeDisplay;
 import dev.vernonlim.cw2024game.elements.actors.UserPlaneCode;
 import dev.vernonlim.cw2024game.overlays.GameplayOverlay;
 import dev.vernonlim.cw2024game.overlays.MenuOverlay;
 import dev.vernonlim.cw2024game.overlays.TimerOverlay;
+import dev.vernonlim.cw2024game.screens.ScreenCode;
 import javafx.scene.layout.Pane;
 
 /**
@@ -51,8 +53,8 @@ public interface OverlayFactory {
     /**
      * Creates a Heart Display for visually representing the player's health.
      *
-     * @param xPosition the x position
-     * @param yPosition the y position
+     * @param xPosition       the x position
+     * @param yPosition       the y position
      * @param heartsToDisplay the number of hearts to display initially
      * @return the Heart Display
      */
@@ -106,11 +108,11 @@ public interface OverlayFactory {
     /**
      * Creates a TextBox (Button) from the given params.
      *
-     * @param content the text to be displayed
-     * @param screenCode the Screen the button links to
+     * @param content       the text to be displayed
+     * @param screenCode    the Screen the button links to
      * @param userPlaneCode the UserPlaneCode the button passes to the Screen
-     * @param rightPercent the amount of horizontal space the button takes up
-     * @param rows the number of rows the grid pane the button will live in has
+     * @param rightPercent  the amount of horizontal space the button takes up
+     * @param rows          the number of rows the grid pane the button will live in has
      * @return the TextBox
      */
     TextBox createTextBox(String content, ScreenCode screenCode, UserPlaneCode userPlaneCode, double rightPercent, int rows);
@@ -118,10 +120,10 @@ public interface OverlayFactory {
     /**
      * Creates a TextBox (Button) from the given params with a default UserPlaneCode.
      *
-     * @param content the text to be displayed
-     * @param screenCode the Screen the button links to
+     * @param content      the text to be displayed
+     * @param screenCode   the Screen the button links to
      * @param rightPercent the amount of horizontal space the button takes up
-     * @param rows the number of rows the grid pane the button will live in has
+     * @param rows         the number of rows the grid pane the button will live in has
      * @return the TextBox
      */
     TextBox createTextBox(String content, ScreenCode screenCode, double rightPercent, int rows);

@@ -9,7 +9,8 @@ public class RedEnemyFiring extends PlaneFiring implements Firing {
     /**
      * Constructs a Red Enemy Firing strategy.
      */
-    public RedEnemyFiring() {};
+    public RedEnemyFiring() {
+    }
 
     @Override
     protected boolean willAttemptFire() {

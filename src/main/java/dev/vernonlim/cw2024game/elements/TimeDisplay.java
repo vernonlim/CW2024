@@ -21,7 +21,7 @@ public class TimeDisplay extends ContainerElement {
     /**
      * Constructs a TimeDisplay from the given params.
      *
-     * @param config the configuration object containing the necessary data to construct the TimeDisplay
+     * @param config  the configuration object containing the necessary data to construct the TimeDisplay
      * @param seconds the amount of time initially displayed
      */
     public TimeDisplay(ElementConfig config, int seconds) {

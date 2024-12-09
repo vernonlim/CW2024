@@ -1,10 +1,10 @@
 package dev.vernonlim.cw2024game.factories;
 
-import dev.vernonlim.cw2024game.assets.AssetLoader;
 import dev.vernonlim.cw2024game.Vector;
+import dev.vernonlim.cw2024game.assets.AssetLoader;
+import dev.vernonlim.cw2024game.configs.ProjectileConfig;
 import dev.vernonlim.cw2024game.elements.actors.Projectile;
 import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
-import dev.vernonlim.cw2024game.configs.ProjectileConfig;
 import dev.vernonlim.cw2024game.elements.strategies.LinearMovement;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.layout.Pane;
@@ -16,7 +16,7 @@ public class ProjectileFactoryImpl extends Factory implements ProjectileFactory 
     /**
      * Constructs a ProjectileFactory from the given params.
      *
-     * @param root the root Pane projectiles will be based on
+     * @param root   the root Pane projectiles will be based on
      * @param loader the AssetLoader handling loading of assets
      */
     public ProjectileFactoryImpl(Pane root, AssetLoader loader) {
@@ -49,14 +49,14 @@ public class ProjectileFactoryImpl extends Factory implements ProjectileFactory 
     /**
      * Creates a generic projectile from the given params.
      *
-     * @param imageName the name of the image as defined in the AssetLoader
-     * @param fitHeight the height of the projectile
-     * @param speed the speed of the projectile
-     * @param damage the damage of the projectile
-     * @param velocity the velocity of the projectile, a normalized vector pointing in a direction
+     * @param imageName       the name of the image as defined in the AssetLoader
+     * @param fitHeight       the height of the projectile
+     * @param speed           the speed of the projectile
+     * @param damage          the damage of the projectile
+     * @param velocity        the velocity of the projectile, a normalized vector pointing in a direction
      * @param travellingRight whether the projectile is travelling right
-     * @param x the starting x position
-     * @param y the starting y position
+     * @param x               the starting x position
+     * @param y               the starting y position
      * @return the created projectile
      */
     protected Projectile createGenericProjectile(String imageName, double fitHeight, double speed, int damage, Vector velocity, boolean travellingRight, double x, double y) {
@@ -77,10 +77,10 @@ public class ProjectileFactoryImpl extends Factory implements ProjectileFactory 
      * Creates a User projectile from the given params.
      *
      * @param imageName the name of the image as defined in the AssetLoader
-     * @param damage the damage of the projectile
-     * @param velocity the velocity of the projectile, a normalized vector pointing in a direction
-     * @param x the starting x position
-     * @param y the starting y position
+     * @param damage    the damage of the projectile
+     * @param velocity  the velocity of the projectile, a normalized vector pointing in a direction
+     * @param x         the starting x position
+     * @param y         the starting y position
      * @return the created projectile
      */
     private Projectile createUserProjectile(String imageName, int damage, Vector velocity, double x, double y) {
@@ -92,10 +92,10 @@ public class ProjectileFactoryImpl extends Factory implements ProjectileFactory 
      * Creates an Enemy projectile from the given params.
      *
      * @param imageName the name of the image as defined in the AssetLoader
-     * @param damage the damage of the projectile
-     * @param velocity the velocity of the projectile, a normalized vector pointing in a direction
-     * @param x the starting x position
-     * @param y the starting y position
+     * @param damage    the damage of the projectile
+     * @param velocity  the velocity of the projectile, a normalized vector pointing in a direction
+     * @param x         the starting x position
+     * @param y         the starting y position
      * @return the created projectile
      */
     private Projectile createEnemyProjectile(String imageName, int damage, Vector velocity, double x, double y) {
@@ -107,8 +107,8 @@ public class ProjectileFactoryImpl extends Factory implements ProjectileFactory 
      * Creates a Boss projectile from the given params.
      *
      * @param damage the damage of the projectile
-     * @param x the starting x position
-     * @param y the starting y position
+     * @param x      the starting x position
+     * @param y      the starting y position
      * @return the created projectile
      */
     private Projectile createBossProjectile(int damage, double x, double y) {

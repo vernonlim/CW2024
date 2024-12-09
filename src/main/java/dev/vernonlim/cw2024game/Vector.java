@@ -74,9 +74,9 @@ public class Vector {
      * <p>
      * y is measured from the top, meaning that 0 is the top of the screen.
      *
-     * @param left the minimum x value
-     * @param right the maximum x value
-     * @param top the minimum y value
+     * @param left   the minimum x value
+     * @param right  the maximum x value
+     * @param top    the minimum y value
      * @param bottom the maximum y value
      */
     public void ensureInBounds(double left, double right, double top, double bottom) {
@@ -88,7 +88,7 @@ public class Vector {
         }
         if (y < top) {
             y = top;
-        } 
+        }
         if (y > bottom) {
             y = bottom;
         }
@@ -101,9 +101,9 @@ public class Vector {
      * <p>
      * y is measured from the top, meaning that 0 is the top of the screen.
      *
-     * @param left the minimum x value
-     * @param right the maximum x value
-     * @param top the minimum y value
+     * @param left   the minimum x value
+     * @param right  the maximum x value
+     * @param top    the minimum y value
      * @param bottom the maximum y value
      * @return true if the vector is outside the specified bounds, false otherwise
      */

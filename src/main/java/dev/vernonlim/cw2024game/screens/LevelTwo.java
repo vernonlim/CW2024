@@ -1,8 +1,8 @@
 package dev.vernonlim.cw2024game.screens;
 
+import dev.vernonlim.cw2024game.configs.ScreenConfig;
 import dev.vernonlim.cw2024game.elements.actors.EnemyCode;
 import dev.vernonlim.cw2024game.elements.actors.FighterPlane;
-import dev.vernonlim.cw2024game.configs.ScreenConfig;
 
 /**
  * The Second Level of the game. Contains a Boss.

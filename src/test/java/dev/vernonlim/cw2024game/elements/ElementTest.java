@@ -20,7 +20,8 @@ class ElementTest {
 
     @BeforeAll
     static void startup() {
-        Platform.startup(() -> {});
+        Platform.startup(() -> {
+        });
     }
 
     @BeforeEach

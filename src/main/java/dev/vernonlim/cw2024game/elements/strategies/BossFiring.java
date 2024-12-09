@@ -7,14 +7,15 @@ import dev.vernonlim.cw2024game.elements.actors.ProjectileCode;
  */
 public class BossFiring extends PlaneFiring implements Firing {
     /**
-     * Constructs a Boss Firing strategy.
-     */
-    public BossFiring() {};
-
-    /**
      * The fire rate of the Boss in terms of chance per 50.0ms cycle.
      */
     private static final double BOSS_FIRE_RATE = .04;
+
+    /**
+     * Constructs a Boss Firing strategy.
+     */
+    public BossFiring() {
+    }
 
     @Override
     protected boolean willAttemptFire() {

@@ -1,7 +1,7 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
-import dev.vernonlim.cw2024game.elements.ImageElement;
 import dev.vernonlim.cw2024game.configs.ImageElementConfig;
+import dev.vernonlim.cw2024game.elements.ImageElement;
 
 /**
  * An abstract class representing an ImageElement that can be updated.
@@ -19,7 +19,7 @@ public abstract class ActiveActor extends ImageElement {
     /**
      * Updates the Actor.
      *
-     * @param deltaTime the difference in virtual time between the previous and current update
+     * @param deltaTime   the difference in virtual time between the previous and current update
      * @param currentTime the current virtual time
      */
     public abstract void updateActor(double deltaTime, double currentTime);

@@ -1,7 +1,7 @@
 package dev.vernonlim.cw2024game.overlays;
 
-import dev.vernonlim.cw2024game.elements.TimeDisplay;
 import dev.vernonlim.cw2024game.configs.OverlayConfig;
+import dev.vernonlim.cw2024game.elements.TimeDisplay;
 import dev.vernonlim.cw2024game.factories.interfaces.OverlayFactory;
 
 /**
@@ -21,7 +21,7 @@ public class TimerOverlay extends FloatingOverlay {
     /**
      * Constructs a Timer Overlay.
      *
-     * @param config the configuration object containing the necessary data to construct the Overlay
+     * @param config   the configuration object containing the necessary data to construct the Overlay
      * @param duration the duration to count down from
      */
     public TimerOverlay(OverlayConfig config, int duration) {

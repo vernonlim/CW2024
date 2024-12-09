@@ -17,7 +17,7 @@ public class InputManager {
     /**
      * Constructs an InputManager for a given Scene and KeybindStore.
      *
-     * @param scene the Scene
+     * @param scene        the Scene
      * @param keybindStore the KeybindStore
      */
     public InputManager(Scene scene, KeybindStore keybindStore) {

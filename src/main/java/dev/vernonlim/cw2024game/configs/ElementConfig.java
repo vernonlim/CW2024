@@ -35,7 +35,7 @@ public class ElementConfig {
 
     /**
      * Gets the root Pane.
-     * 
+     *
      * @return the root Pane
      */
     public Pane getRoot() {
@@ -44,7 +44,7 @@ public class ElementConfig {
 
     /**
      * Gets the position as a Vector.
-     * 
+     *
      * @return the position as a Vector
      */
     public Vector getPosition() {
@@ -53,7 +53,7 @@ public class ElementConfig {
 
     /**
      * Sets the position.
-     * 
+     *
      * @param x the x-coordinate to set
      * @param y the y-coordinate to set
      */
@@ -65,7 +65,7 @@ public class ElementConfig {
 
     /**
      * Indicates if the position should be set.
-     * 
+     *
      * @return true if the position should be set, false otherwise
      */
     public boolean shouldSetPosition() {
@@ -74,7 +74,7 @@ public class ElementConfig {
 
     /**
      * Sets whether the position should be set.
-     * 
+     *
      * @param shouldSetPosition true if the position should be set, false otherwise
      */
     public void setShouldSetPosition(boolean shouldSetPosition) {

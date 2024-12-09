@@ -43,10 +43,10 @@ public class TextBoxConfig extends ElementConfig {
     /**
      * Constructs a TextBoxConfig with the given params.
      *
-     * @param root the root Pane on which this is based on
-     * @param text the content of the TextBox
+     * @param root         the root Pane on which this is based on
+     * @param text         the content of the TextBox
      * @param rightPercent the amount of space the TextBox takes up horizontally
-     * @param rows the number of rows in the GridPane the TextBox is based on
+     * @param rows         the number of rows in the GridPane the TextBox is based on
      */
     public TextBoxConfig(Pane root, String text, double rightPercent, int rows) {
         this(root);
@@ -58,7 +58,7 @@ public class TextBoxConfig extends ElementConfig {
 
     /**
      * Gets the ClickListener.
-     * 
+     *
      * @return the ClickListener
      */
     public ClickListener getClickListener() {
@@ -67,7 +67,7 @@ public class TextBoxConfig extends ElementConfig {
 
     /**
      * Sets the ClickListener.
-     * 
+     *
      * @param clickListener the ClickListener to set
      */
     public void setClickListener(ClickListener clickListener) {
@@ -76,7 +76,7 @@ public class TextBoxConfig extends ElementConfig {
 
     /**
      * Gets the Text of the TextBox.
-     * 
+     *
      * @return the Text of the TextBox
      */
     public Text getText() {
@@ -85,7 +85,7 @@ public class TextBoxConfig extends ElementConfig {
 
     /**
      * Sets the Text of the TextBox.
-     * 
+     *
      * @param text the Text to set
      */
     public void setText(String text) {
@@ -94,7 +94,7 @@ public class TextBoxConfig extends ElementConfig {
 
     /**
      * Gets the amount of space the TextBox takes up horizontally.
-     * 
+     *
      * @return the amount of space the TextBox takes up in percent
      */
     public double getRightPercent() {
@@ -112,7 +112,7 @@ public class TextBoxConfig extends ElementConfig {
 
     /**
      * Gets the number of rows.
-     * 
+     *
      * @return the number of rows
      */
     public int getRows() {
@@ -121,7 +121,7 @@ public class TextBoxConfig extends ElementConfig {
 
     /**
      * Sets the number of rows.
-     * 
+     *
      * @param rows the number of rows to set
      */
     public void setRows(int rows) {

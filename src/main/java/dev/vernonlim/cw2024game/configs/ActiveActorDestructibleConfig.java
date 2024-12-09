@@ -35,7 +35,7 @@ public class ActiveActorDestructibleConfig extends ImageElementConfig {
 
     /**
      * Gets the Movement strategy.
-     * 
+     *
      * @return the Movement strategy
      */
     public Movement getMovement() {
@@ -44,7 +44,7 @@ public class ActiveActorDestructibleConfig extends ImageElementConfig {
 
     /**
      * Sets the Movement strategy.
-     * 
+     *
      * @param movement the Movement strategy to set
      */
     public void setMovement(Movement movement) {
@@ -53,7 +53,7 @@ public class ActiveActorDestructibleConfig extends ImageElementConfig {
 
     /**
      * Gets the speed.
-     * 
+     *
      * @return the speed
      */
     public double getSpeed() {
@@ -62,7 +62,7 @@ public class ActiveActorDestructibleConfig extends ImageElementConfig {
 
     /**
      * Sets the speed.
-     * 
+     *
      * @param speed the speed to set
      */
     public void setSpeed(double speed) {
@@ -71,7 +71,7 @@ public class ActiveActorDestructibleConfig extends ImageElementConfig {
 
     /**
      * Indicates if the Actor should always be in bounds.
-     * 
+     *
      * @return true if always in bounds, false otherwise
      */
     public boolean isAlwaysInBounds() {

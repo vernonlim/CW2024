@@ -1,7 +1,7 @@
 package dev.vernonlim.cw2024game.elements.actors;
 
-import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.configs.FighterPlaneConfig;
+import dev.vernonlim.cw2024game.elements.ProjectileListener;
 import dev.vernonlim.cw2024game.elements.strategies.Firing;
 import dev.vernonlim.cw2024game.factories.interfaces.ProjectileFactory;
 import javafx.scene.media.AudioClip;

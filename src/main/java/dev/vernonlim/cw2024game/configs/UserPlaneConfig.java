@@ -17,10 +17,10 @@ public class UserPlaneConfig extends FighterPlaneConfig {
     /**
      * Constructs a UserPlaneConfig with the given params.
      *
-     * @param root the root Pane on which the UserPlane is based
-     * @param projectileFactory the ProjectileFactory that produces the projectiles
+     * @param root               the root Pane on which the UserPlane is based
+     * @param projectileFactory  the ProjectileFactory that produces the projectiles
      * @param projectileListener the ProjectileListener that handles the firing of projectiles
-     * @param input the InputManager handling user input
+     * @param input              the InputManager handling user input
      */
     public UserPlaneConfig(Pane root, ProjectileFactory projectileFactory, ProjectileListener projectileListener, InputManager input) {
         super(root, projectileFactory, projectileListener);
@@ -29,7 +29,7 @@ public class UserPlaneConfig extends FighterPlaneConfig {
 
     /**
      * Gets the InputManager.
-     * 
+     *
      * @return the InputManager
      */
     public InputManager getInput() {
@@ -38,7 +38,7 @@ public class UserPlaneConfig extends FighterPlaneConfig {
 
     /**
      * Sets the InputManager.
-     * 
+     *
      * @param input the InputManager to set
      */
     public void setInput(InputManager input) {

@@ -34,8 +34,8 @@ public class BossConfig extends FighterPlaneConfig {
     /**
      * Constructs a BossConfig with the given params.
      *
-     * @param root the root Pane on which the Boss is based
-     * @param projectileFactory the ProjectileFactory for the Boss
+     * @param root               the root Pane on which the Boss is based
+     * @param projectileFactory  the ProjectileFactory for the Boss
      * @param projectileListener the ProjectileListener for the Boss
      */
     public BossConfig(Pane root, ProjectileFactory projectileFactory, ProjectileListener projectileListener) {
@@ -44,7 +44,7 @@ public class BossConfig extends FighterPlaneConfig {
 
     /**
      * Gets the Shielding strategy.
-     * 
+     *
      * @return the Shielding strategy
      */
     public Shielding getShielding() {
@@ -53,7 +53,7 @@ public class BossConfig extends FighterPlaneConfig {
 
     /**
      * Sets the Shielding strategy.
-     * 
+     *
      * @param shielding the Shielding strategy to set
      */
     public void setShielding(Shielding shielding) {
@@ -62,7 +62,7 @@ public class BossConfig extends FighterPlaneConfig {
 
     /**
      * Gets the shield image.
-     * 
+     *
      * @return the shield image
      */
     public Element getShieldImage() {
@@ -71,7 +71,7 @@ public class BossConfig extends FighterPlaneConfig {
 
     /**
      * Sets the shield image.
-     * 
+     *
      * @param shieldImage the shield image to set
      */
     public void setShieldImage(Element shieldImage) {
@@ -80,7 +80,7 @@ public class BossConfig extends FighterPlaneConfig {
 
     /**
      * Gets the shield sound.
-     * 
+     *
      * @return the shield sound
      */
     public AudioClip getShieldSound() {
@@ -89,7 +89,7 @@ public class BossConfig extends FighterPlaneConfig {
 
     /**
      * Sets the shield sound.
-     * 
+     *
      * @param shieldSound the shield sound to set
      */
     public void setShieldSound(AudioClip shieldSound) {
@@ -98,7 +98,7 @@ public class BossConfig extends FighterPlaneConfig {
 
     /**
      * Gets the damage sound.
-     * 
+     *
      * @return the damage sound
      */
     public AudioClip getDamageSound() {
@@ -107,7 +107,7 @@ public class BossConfig extends FighterPlaneConfig {
 
     /**
      * Sets the damage sound.
-     * 
+     *
      * @param damageSound the damage sound to set
      */
     public void setDamageSound(AudioClip damageSound) {
