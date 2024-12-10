@@ -1,29 +1,26 @@
 package dev.vernonlim.cw2024game.configs;
 
 import dev.vernonlim.cw2024game.Vector;
+import dev.vernonlim.cw2024game.elements.ImageElement;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.testfx.framework.junit5.ApplicationTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class ImageElementConfigTest {
-    static final double EPSILON = 0.001;
+public class ImageElementConfigTest extends ApplicationTest {
+    final double EPSILON = 0.001;
     ImageElementConfig config;
 
-    @BeforeAll
-    static void startup() {
-        Platform.startup(() -> {
-        });
-    }
-
-    @BeforeEach
-    void setUp() {
+    @Override
+    public void start(Stage stage) {
         Pane root = new Pane();
         config = new ImageElementConfig(root);
     }

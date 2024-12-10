@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class UpdatableTest {
-    static final double EPSILON = 0.001;
+public class UpdatableTest {
+    final double EPSILON = 0.001;
     static ArrayList<Firing> firingStrategies;
     static ArrayList<Movement> movementStrategies;
     static ArrayList<Shielding> shieldingStrategies;

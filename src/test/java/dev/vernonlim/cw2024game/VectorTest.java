@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class VectorTest {
-    static final double EPSILON = 0.001;
+public class VectorTest {
+    final double EPSILON = 0.001;
 
     @Test
     @DisplayName("Should make a new copy identical to the original in value, but as a separate object")
