@@ -313,18 +313,6 @@ This would allow for making other forms of `Input`-implementing classes, which w
 
 # Classes
 ## New Java Classes
-Location: `/`
-Location: `/managers`
-Location: `/screens`
-Location: `/config`
-Location: `/factories`
-Location: `/factories/interfaces`
-Location: `/overlays`
-Location: `/elements`
-Location: `/elements/actors`
-Location: `/elements/strategies`
-Location: `/assets`
-
 ### Miscellaneous
 #### Vector
 Location: `/`
