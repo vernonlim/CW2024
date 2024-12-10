@@ -917,7 +917,9 @@ root.setMaxWidth(Main.SCREEN_WIDTH);
 root.setClip(new Rectangle(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT));
 ```
 
-The original project used a `Group` for holding game elements. This is fundamentally incompatible with fixing the resolution of the game window, as far as I can tell, because `Group`s have no set size - they grow with their elements. A `Pane` is like a group, but it can control the position of its elements, along with having a fixed size. Setting the size to the desired screen height and width prevents it from growing beyond it as say, projectiles fly past the end of the screen. A rectangular clip mask makes projectiles not visible past the screen edges.
+The original project used a `Group` for holding game elements. This is fundamentally incompatible with fixing the resolution of the game window, as far as I can tell, because `Group`s have no set size - they grow with their elements. 
+
+A `Pane` is like a group, but it can control the position of its elements, along with having a fixed size. Setting the size to the desired screen height and width prevents it from growing beyond it as say, projectiles fly past the end of the screen. A rectangular clip mask makes projectiles not visible past the screen edges.
 
 Finally, additional overlays are added to the `StackPane` as containers, so they render on top of the main game content pane sitting at the bottom. This is the core of the overlay system.
 
@@ -937,9 +939,3 @@ With this setup, the existing letterboxing solution works flawlessly without any
 // ScreenParent.java
 SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
 ```
-
-
-
-
-
-
