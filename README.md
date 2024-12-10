@@ -582,7 +582,9 @@ Location: `/assets`
 This is a class that implements AssetLoader and inherits from CW2024AssetLoader. It loads assets on-demand, but then stores them in a map, and fetches assets if they are already present.
 
 ### Configs
-Classes used to bundle data together to pass to constructors. As these are just fancy data classes, they will just be listed below, along with some class relations. The naming pattern is {name}Config, where name is the class the config is meant for constructing.
+Classes used to bundle data together to pass to constructors. As these are just fancy data classes, they will be listed below with no further details, along with some class relations. The naming pattern is {name}Config, where {name} is the class the config is meant for constructing.
+
+Location (all): `/configs`
 
 (: indicates inheritance)
 - ElementConfig
@@ -597,6 +599,347 @@ Classes used to bundle data together to pass to constructors. As these are just 
 - ScreenConfig
 
 ## Modified Java Classes
+### Top Level
+#### Main
+Location: `/`
+
+The entry point of the program. 
+
+First, `SCREEN_HEIGHT` and `SCREEN_WIDTH` are now public instead of private, removing the need to pass them to methods. As the game now operates with fixed coordinates (and just scaling up/down using letterboxing), those two are not meant to change, meaning this change is fine conceptually. The target `FRAME_RATE` is also present for similar reasons - no point passing it as a parameter when it's (at the moment) meant to be fixed by the program itself. If there were plans to make a settings screen where these could be changed during the game or read from a file, a different approach would be needed.
+
+Second, the class no longer stores an instance of `Controller`, as that is instead stored within controller itself as a singleton and the program never returns to `start()`.
+
+Third, the class now also initializes the `AssetLoader` and `KeybindStore` to be used throughout the rest of the program.
+
+Finally, the exceptions have been cleaned up from the methods to reduce visual clutter, mainly by removing the use of reflection within the next class discussed.
+
+#### Controller
+Location: `/`
+
+The class roughly 'controlling' the flow of the program, loading Levels and displaying them on the Stage.
+
+First, the usage of `Observer` has been removed. While it's commonly used in JavaFX itself, it's been deprecated since Java 9, and is also an unnecessary complication in this case. In my opinion, the `Observer` pattern's main benefit is when there are potentially multiple `Observer`s, or different `Observer`s, for the `Observable`s, because then each `Observer` can add itself to the `Observable`'s list of `Observer`s to update. 
+
+In my current code, I instead have `Screen`s call the `Controller`'s `goToLevel` method directly, via getting a singleton instance of it. As there is only going to be one instance of `Controller`, this doesn't have a downside I am aware of, while removing all of the complication that comes with using `Observable`.
+
+Second, the `Controller` no longer uses reflection to load levels/screens. Reflection does have some benefits to do with flexibility - specifically, if used in a certain manner it could lead to adding new levels simply being making a new class (only one location needing changes), for example having `Screen` classes part of the game annotated with a custom annotation such as `@GameScreen`, and scanning the classpath to find all classes with that annotation.
+
+However, the usage of reflection in the original code doesn't carry any of the potential benefits. The levels are found via searching up their fully qualified class name with a string. This means that the `Controller` still doesn't know about what levels actually exist, and is looking for a hardcoded one with a certain name. 
+
+As such, I replaced the reflection code with a simple enum of available `Screen`s, `ScreenCode`, and a switch case within the `ScreenFactory` that matches the enum with the right `Level` class. This means that one gets compile-time verification that the level classes actually exist, instead of a runtime error from the reflection failing. While there *is* one more step to adding a level, as one has to route the level code to the right class instead of essentially the class path *being* the level code, the increased safety and resulting massive cleanup of exceptions is worth it in my opinion.
+
+Finally, the `catch` branch within the `update` method of the original code for creating an error popup has been modified into a separate, generic error popup, called from various places in the program for alerting the user of an error, and proceeding to exit the program upon closing the window.
+
+### Screens
+#### Level (formerly LevelParent)
+Location: `/screens`
+
+An abstract class containing shared behaviour for all game levels.
+
+First, the logic common to setting up JavaFX nodes has been abstracted out into a parent classed called `Screen`, as the new code has screens other than Levels, and of course this logic has itself been modified to achieve letterboxing as described previously.
+
+Second, `SCREEN_HEIGHT_ADJUSTMENT` has been removed, in favour of calculating boundaries based off of the `SCREEN_HEIGHT` directly, meaning that `SCREEN_HEIGHT` can be adjusted with the rest of the program adapting. Along with that, `MILLISECOND_DELAY`, `screenHeight`/`screenWidth` and `enemyMaximumYPosition` have all been removed, as their responsibilities have been delegated elsewhere. (`Main` for `MILLISECOND_DELAY` in the form of `FRAME_RATE`, similarly in `Main` for `screenHeight`/`screenWidth` and individual `Level`s for `enemyMaximumYPosition`).
+
+Third, all element creation is now handed off to factories, as opposed to being constructed directly within the `Level` class.
+
+Fourth, `Level` no longer controls user input along with the user character. User input is instead handled within `InputManager`, which then has its output passed to places that need user input (such as screens or actor strategies). Along with that, collision behaviour is now abstracted out to a `CollisionManager`, instead of being hardcoded into `Level`.
+
+Sixth, the update loop, `updateScene()`, now calculculates and passes `deltaTime` and `currentTime` to individual update methods, to facilitate the uncoupling of logic from framerate. These times are calculated from a virtual `Timer` that also lives in the class that increments a `virtualTime` field every millisecond, meaning that when logic should be paused like on the pause screen, the game's time can be paused. This would also allow for things like implementing a (pauseable) speedrun timer more easily.
+
+Seventh, `Level` no longer controls the spawning of projectiles. The original code polled entities each frame for a projectile to spawn, and added it to the projectile list when it didn't return null. This is quite a weird inversion of control, as conceptually entities should decide when they want to fire a projectile. Thus, projectile spawning is now handled within entities through a `ProjectileListener` callback passed to them, which adds the projectile to the projectile list, with entities deciding when to call it within themselves using a `Firing` strategy.
+
+Eighth, the `Level` now has handling for a separate pause overlay to the main gameplay overlay. This pause overlay uses real time to update as opposed to the virtual time mentioned in 'Sixth', as the virtual timer is paused when on this screen.
+
+#### LevelOne
+Location: `/screens`
+
+The first `Level` of the game.
+
+First, the `Level` no longer hard-codes the background image name, as that is now handled within the factory. This makes modifying it easier, as all the background image names are now modifiable within one place (the factory). The player initial health is also no longer hardcoded, instead being passed from the factory based on player character. The next level is also hard-coded in-line using an enum instead of the class named for reasons discussed earlier.
+
+Second, `initializeFriendlyUnits` is now completely gone from both this and the parent class. While it would be necessary in the case of having ally units alongside the player character, there were no plans for it, and so instead the user is simply initialized based on the passed `UserPlaneCode` within the parent constructor. Enemy units are also constructed using their corresponding factory.
+
+Third, to facilitate the `deltaTime` refactor, the enemy unit spawn emulates the original behaviour by only attempting to spawn an enemy every 50.0ms of time.
+
+Fourth, `goToNextLevel` now has the current `UserPlaneCode` passed, so the player's character choice is kept.
+
+Finally, the class no longer instantiates `LevelView` (now `GameplayOverlay`), as this is handled in the parent class as a universal overlay for all gameplay `Level`s.
+
+#### LevelTwo
+Location: `/screens`
+
+The second `Level` of the game.
+
+Points one, two and four from `LevelOne` apply. The logic for spawning the `Boss` doesn't need a refactor, so three doesn't.
+
+Point five, with the `LevelView` instantiation is different for `LevelTwo`, as `LevelViewLevelTwo` has been removed entirely. In the original code, that handled the showing and hiding of the `Boss`'s shield, but now the shield is tied to and handled by the `Boss` element itself.
+
+### Overlays
+#### GameplayOverlay (formerly LevelView)
+Location: `/overlays`
+
+Contains and manages the player's health display, along with the win and loss images.
+
+First, the win and loss images no longer have hardcoded arbitrary numbers as their position. Instead, they are centred on the screen as a whole. They, including the `HeartDisplay`, are also obviously constructed with factories.
+
+Second, the overlay itself is now wrapped in a container node, allowing the `HeartDisplay` to actually render above the player character and projectiles consistently.
+
+Third, it doesn't need to handle the adding/removal of the win/loss images to the node, because they now handle that themselves as `Elements`.
+
+#### LevelViewLevelTwo
+Location: removed
+
+Originally contained logic for managing the `Boss`'s shield, said logic has been moved to the boss itself.
+
+#### GameOverImage
+Location: removed
+
+The game over image is now a generic `Element` with a specific image created by an `OverlayFactory`.
+
+#### WinImage
+Location: removed
+
+The win image is now a generic `Element`, like the `GameOverImage`.
+
+#### ShieldImage
+Location: removed
+
+The shield image is now a generic `Element`, much like the above.
+
+### Elements and Actors
+#### HeartDisplay
+Location: `/elements`
+
+The player's health display at the top left.
+
+First, as with all element creation in the game, it now uses a factory for making the hearts. It has also been generalized to a `ContainerElement`, so making and adding a heart is just using a factory with the root set to the container, and then creating it. `HEART_IMAGE_NAME` is also no longer hardcoded given it's been moved to the factory.
+
+Second, the hearts are now removed from an internal linked list rather than the container directly. Once a heart is removed from the list, the `hide()` method inherited from `Element` works to remove it from the container.
+
+#### ActiveActor
+Location: `/elements/actors`
+
+Represents an `Element` able to be updated.
+
+First `IMAGE_LOCATION` base for images is no longer hardcoded here as an `AssetLoader` handles image loading. Similarly, all image-related code has been moved to `ImageElement`.
+
+Second, the movement related methods have been moved to `Element`. As a result, all `ActiveActor` does now is define `updateActor` (formerly `updatePosition`).
+
+#### Destructible
+Location: `/elements/actors`
+
+No changes have been made outside of formatting and Javadoc.
+
+#### ActiveActorDestructible
+Location: `/elements/actors`
+
+Represents an actor that can take damage and be destroyed.
+
+First, `updatePosition` and `updateActor` have been fused into one method. 
+
+Second, `setDestroyed` has been removed as having `destroy` access the field directly saves a method. Destroyed actors are always removed from the level the next frame, so having a set method is unnecessary as an actor will never be un-destroyed.
+
+Third, `ActiveActorDestructible` now holds a `Movement` strategy, a speed, a boolean field to determine whether it should be kept in bounds, and a default implementation for `updateActor` that updates and applies the `Movement` strategy. This means that all classes inheriting from `ActiveActorDestructible` now only need to pass a `Movement` strategy and call the default implementation for `updateActor` to get functional movement.
+
+#### FighterPlane
+Location: `/elements/actors`
+
+Represents a fighter plane, whether enemy or ally.
+
+First, `getProjectileXPosition` and `getProjectileYPosition` have both been removed, as projectiles are now always generated at the head of the `FighterPlane` by default. To allow for the new projectile firing model, it now has fields for a `ProjectileFactory`, `ProjectileListener` and `Firing` strategy. It also has a field for the proper Y offset for its projectiles, and 2 `AudioClip`s for sounds upon firing and death.
+
+Second, `updateActor` now has a default implementation calling the default movement code from `ActiveActorDestructible`, and adding code updating and interpreting the `Firing` strategy, to fire projectiles. This means that classes inheriting from it don't need to implement any special firing logic, only pass their own `Firing` strategy.
+
+#### EnemyPlane
+Location: `/elements/actors`
+
+Represents a non-boss enemy.
+
+This class has been completely pared down, as all of the logic it originally has has been moved up to `FighterPlane` or `ActiveActorDestructible`, or moved into individual strategies. It is now nothing except a concrete implementation of `FighterPlane`.
+
+#### UserPlane
+Location: `/elements/actors`
+
+Represents the player character.
+
+First, the individual movement methods, `moveUp` and `moveDown` have been removed, along with `isMoving` and `stop`. This is because of the movement being handled in `Movement` strategies, and being processed in `ActiveActorDestructible`.
+
+Second, it doesn't have the image tied to it, like the rest of the `Element`s, as that is handled in the factory. `INITIAL_X_POSITION`, `PROJECTILE_X_POSITION` and such are all also removed as instead the user spawns in at the middle-left of the screen, with projectiles spawning from its right bounds at an offset.
+
+Third, it now overrides `getCollisionBounds`, a method added to `ActiveActorDestructible` to encapsulate getting the collision bounds, to make its own hitbox/collision box a square instead of rectangle, making the gameplay feel a bit more fair.
+
+Finally, it overrides `updateActor` behaviour to ensure damage only happens every 500ms, and on the next frame of gameplay. This prevents the user from nearly instantly dying on collision with the `Boss`, and prevents some bugs with pausing.
+
+#### Boss
+Location: `/elements/actors`
+
+Represents the Boss of Level Two.
+
+Similar to the player and enemy planes, this class has been _significantly_ pared down as all of the logic has been moved to parent classes and strategies. Only the following remain:
+
+First, the boss class is now only responsible for managing the shield image, being the only class with a reference to it and updating its position every update cycle.
+
+Second, it has extra `AudioClip`s stored and played for taking damage (as it has plenty of health) and having its shield hit (being immune to damage).
+
+Third, it holds a `Shielding` strategy for determining whether it is currently shielded, and thus whether to show the shield image and prevent damage from being taken.
+
+All other logic has been moved to classes such as `BossMovement`.
+
+#### Projectile
+Location: `/elements/actors`
+
+Represents a projectile fired by an actor.
+
+Projectile has been turned from an abstract class with no implementation, to the only class used for projectiles in the game. 
+
+First, `Projectile` is no longer abstract. As such, it has implementations for all of its methods.
+
+Second, it simply has a property, `isAllyProjectile`, that determines whether it's an ally or enemy projectile.
+
+Third, it has default movement inherited from `ActiveActorDestructible`, with an additional check that if it reaches the edges of the screen, it destroys itself.
+
+Fourth, it has a `damage` property, so the damage of projectiles can be customized.
+
+As with all `Element`s, its image can be customized, so this is enough to create the 9 kinds of projectiles now present in-game.
+
+#### EnemyProjectile
+Location: removed
+
+See the entry for `Projectile` above.
+
+#### UserProjectile
+Location: removed
+
+See the entry for `Projectile` above.
+
+#### BossProjectile
+Location: removed
+
+See the entry for `Projectile` above.
 
 # Unexpected Problems
-## NixOS Troubles
+## JavaFX not being included in JREs
+I have encountered this issue before from trying to run another game written in JavaFX actually, but I forgot about it and was surprised. Modern JREs don't come bundled with JavaFX, and installing it as a library doesn't exactly work. As such, I had to install a JDK that comes with it bundled. Being on NixOS, I used the `shell.nix` file in the directory to accomplish this.
+```nix
+{ pkgs ? import <nixpkgs> {} }:
+  pkgs.mkShell {
+    nativeBuildInputs = [
+      pkgs.graphviz
+      pkgs.maven
+      (pkgs.zulu.override { enableJavaFX = true; })
+      pkgs.ffmpeg
+      pkgs.jdt-language-server
+    ];
+}
+```
+The core line there being the `enableJavaFX = true` override.
+
+## Testing JavaFX being difficult
+Writing unit tests for JavaFX went a bit weirdly. JavaFX requires all of its features to run on an application thread, which is meant to survive for the length of the program. That doesn't exactly mesh well with many separate unit tests.
+
+At first, I solved this via manually starting up the platform.
+```java
+@BeforeAll
+static void startup() {
+    Platform.startup(() -> {});
+}
+```
+
+This worked for running individual tests from IDEA. However, when running all tests at once through right clicking on test folder, or running `mvn test`, it failed due to the many test threads trying to start up the same `Platform` multiple times simultaneously.
+
+I spent quite some time attempting to fix this, attempting to somehow start up and then tear down the `Platform`, considering merging all tests into one big one that only starts up the `Platform` once... Eventually though, I landed on [TestFX](https://github.com/TestFX/TestFX).
+
+With `TestFX` added to the project, all I needed to do was have JavaFX tests inherit from `ApplicationTest`, and then they worked without issue... mostly. The console output constantly prints errors regarding `JavaFX` not being open for inspection, but other than that, the tests themselves with their object creation and assertions work fine.
+
+## Getting Letterboxing functioning
+As mentioned in the document earlier, I found an existing solution for letterboxing [here](https://stackoverflow.com/questions/16606162/javafx-fullscreen-resizing-elements-based-upon-screen-size). However, the integration of it into my codebase didn't go as smoothly as one might expect. No matter what I did, it didn't seem to work properly, and eventually I narrowed it down to my structure of nodes.
+
+It took many hours of experimentation and reading JavaFX documentation, including a period where I attempted to use Copilot to find the answer (that did not work and it just gaslit me). Eventually though, I figured out a solution. 
+
+```
+Group 
+StackPane
+  Pane (root, fixed size)
+    Enemies, etc
+  Pane (overlay, fixed size)
+    HeartDisplay
+```
+
+The above represents the graph structure I found that eventually worked as I wanted. Below is the code implementation of it within `ScreenParent`
+
+```java
+// initializing the main nodes
+this.root = new Pane();
+
+// VERY important - limits the size of the Pane Node used for drawing
+// This allows the StackPane to properly align it
+root.setMaxHeight(Main.SCREEN_HEIGHT);
+root.setMaxWidth(Main.SCREEN_WIDTH);
+root.setClip(new Rectangle(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT));
+
+// To align the root pane above
+this.stackPane = new StackPane(root);
+stackPane.setStyle("-fx-background-color: black;");
+
+// Keeps the "camera" of sorts fixed in place
+this.scene = new Scene(new Group(stackPane));
+
+// letterboxing
+SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+```
+
+Let's break this down starting from the end, being the top of the node hierarchy. Firstly, the scene *has* to focus on a group.
+
+```java
+this.scene = new Scene(new Group(stackPane));
+```
+
+I do believe this prevents it from following the `StackPane` around in a sense, but I do not know the exact reason this is required.
+Next, a `StackPane` has to be made to hold all of the elements.
+
+```java
+this.stackPane = new StackPane(root);
+stackPane.setStyle("-fx-background-color: black;");
+```
+
+A `StackPane` well, stacks child nodes on top of each other in-order. This means that children have proper layering. This `StackPane` is also what the `Scene` sees, so the background should be set to black to have it have the proper "letterboxing with black bars" look.
+
+Next, the node where the main game content (elements, backgrounds, so on) is drawn *has* to be a `Pane`.
+
+```java
+// initializing the main nodes
+this.root = new Pane();
+
+// VERY important - limits the size of the Pane Node used for drawing
+// This allows the StackPane to properly align it
+root.setMaxHeight(Main.SCREEN_HEIGHT);
+root.setMaxWidth(Main.SCREEN_WIDTH);
+root.setClip(new Rectangle(Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT));
+```
+
+The original project used a `Group` for holding game elements. This is fundamentally incompatible with fixing the resolution of the game window, as far as I can tell, because `Group`s have no set size - they grow with their elements. A `Pane` is like a group, but it can control the position of its elements, along with having a fixed size. Setting the size to the desired screen height and width prevents it from growing beyond it as say, projectiles fly past the end of the screen. A rectangular clip mask makes projectiles not visible past the screen edges.
+
+Finally, additional overlays are added to the `StackPane` as containers, so they render on top of the main game content pane sitting at the bottom. This is the core of the overlay system.
+
+```java
+// OverlayFactoryImpl.java 
+// 'root' is the StackPane here
+public GameplayOverlay createGameplayOverlay(int heartsToDisplay) {
+    OverlayConfig config = new OverlayConfig(root, this);
+
+    return new GameplayOverlay(config, heartsToDisplay);
+}
+```
+
+With this setup, the existing letterboxing solution works flawlessly without any modification. With the note that the *`StackPane`* is what should have its content transformed to match the new screen size, not the `Group` wrapping it. I do not know why this is the case.
+
+```java
+// ScreenParent.java
+SceneSizeChangeListener.letterbox(scene, stackPane, Main.SCREEN_WIDTH, Main.SCREEN_HEIGHT);
+```
+
+
+
+
+
+
