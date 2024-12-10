@@ -819,7 +819,7 @@ See the entry for `Projectile` above.
 
 # Unexpected Problems
 ## JavaFX not being included in JREs
-I have encountered this issue before from trying to run another game written in JavaFX actually, but I forgot about it and was surprised. Modern JREs don't come bundled with JavaFX, and installing it as a library doesn't exactly work. As such, I had to install a JDK that comes with it bundled. Being on NixOS, I used the `shell.nix` file in the directory to accomplish this.
+I have actually encountered this issue before from trying to run another game written in JavaFX, but I forgot about it and was surprised yet again. Modern JREs don't come bundled with JavaFX, and installing it as a library doesn't exactly work. As such, I had to install a JDK that comes with it bundled. Being on NixOS, I used the `shell.nix` file in the directory to accomplish this.
 ```nix
 { pkgs ? import <nixpkgs> {} }:
   pkgs.mkShell {
