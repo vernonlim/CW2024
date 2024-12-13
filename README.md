@@ -146,8 +146,8 @@ Both planes have different speeds, health and projectiles fired, along with diff
 | ---------- | -------------------------------- | ------------------------------- |
 | Health     | 5                                | 3                               | 
 | Movement   | 24 units/s                       | 30 units/s                      |
-| Fire       | bulllets + yellow balls          | yellow balls                    | 
-| Focus Fire | 2x fire rate, 60% movement speed | spread shot, 90% movement speed |
+| Fire       | Bullets, Round Bullets           | Round Bullets                   |
+| Focus Fire | 2x Fire Rate, 60% Movement Speed | Spread Shot, 90% Movement Speed |
 
 #### Focus Fire
 When holding Shift (by default), the player character enters "Focus Fire". This is intended to slow the player character down, while giving them a stronger attack.
