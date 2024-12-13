@@ -206,7 +206,7 @@ public abstract class Level extends ScreenParent implements Screen {
      * @return a Timer that increments virtualTime every millisecond
      */
     private Timer createTimer() {
-        Timer timer = new Timer(1, (ae) -> virtualTime += 1);
+        Timer timer = new Timer(15, (ae) -> virtualTime += 15);
         timer.start();
         return timer;
     }

@@ -35,7 +35,7 @@ public class Main extends Application {
      * <p>
      * The game uses a real-time based approach to simulation and so this value can be set to anything.
      */
-    public static final int FRAME_RATE = 60;
+    public static final int FRAME_RATE = 120;
     /**
      * The game's window title.
      */

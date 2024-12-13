@@ -107,14 +107,13 @@ public class KeybindStore {
             return getDefaultKeyCodeMap();
         }
 
-        String keybindsPath = keybindsURL.getFile();
-
         try {
-            Path path = Paths.get(keybindsPath);
+            Path path = Paths.get(keybindsURL.toURI());
             String contents = Files.readString(path);
 
             return parseStringAsKeyCodeMap(contents);
-        } catch (IOException e) {
+        } catch (Exception e) {
+            System.out.println("Failed to read keybinds, information: " + e.getMessage());
             return getDefaultKeyCodeMap();
         }
     }
