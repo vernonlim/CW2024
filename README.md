@@ -274,7 +274,7 @@ In another language, making a `Vector` data structure would have been the first 
 During the course of development, I noticed that over the lifecycle of the application, there was only ever one instance of Controller and one instance of Stage. As such, I turned Controller into a Singleton, storing a single instance of itself, and also having a static field for the Stage. This reduces the number of parameters needed to be passed to methods, as they can be replaced with direct references.
 
 #### Unit tests for core functionality
-While I didn't manage to implement more extensive integration tests of the game (mostly due to time limitations), There are tests present for some core functionality that the entire project relies on - namely tests for `Vector`, `Element` and `ImageElement`. These ensure that positions and locations are calculated correctly, that showing/hiding an element on a root node works as expected, and that methods for keeping sane values like the out of bounds checks function.
+While I didn't manage to implement more extensive integration tests of the game (mostly due to time limitations), There are tests present for some core functionality that the entire project relies on - namely tests for `Vector`, `Element` and `ImageElement`. These ensure that positions and locations are calculated correctly, that showing/hiding an element on a root node works as expected, and that methods for keeping sane values like the out of bounds checks function. I chose these for testing due to their importance, and the unlikelihood of their API changing during development.
 
 ## Implemented but Not Working Properly
 ### Gameplay
