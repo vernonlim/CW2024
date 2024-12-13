@@ -19,6 +19,8 @@ For rendering the PlantUML file, make sure you have:
 - GraphViz
 - The IDEA plugin for it (for in-editor rendering)
 
+If you have the Nix package manager, running `nix-shell` should get you most of these.
+
 ## Source Code
 If you don't already have the source code (from being the grader with the zip of the local project folder), download the source code by cloning the repository:
 ```shell
