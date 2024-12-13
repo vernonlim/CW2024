@@ -73,7 +73,7 @@ The menus can be navigated with the up and down arrows, and a button selected wi
 After a victory or loss, the pause menu is displayed, allowing the user to continue playing (by either replaying the level, or heading to the main menu).
 
 #### Pausing
-Of course, if there's a pause menu, there has to be pausing. The game can now be paused by pressing the 'Escape' key on the keyboard (by default). This pauses the game's virtual timer along with the Timeline, meaning actor simulation and animation is paused, but uses real time for navigating the pause screen to avoid it also freezing.
+The game can now be paused by pressing the 'Escape' key on the keyboard (by default). This pauses the game's virtual timer along with the Timeline, meaning actor simulation and animation is paused, but uses real time for navigating the pause screen to avoid it also freezing.
 
 The pause menu contains a button to head back to the main menu and a button to retry the current level. The retry button restarts the current level with the same player character already in use (the feature 2 headings below here).
 
@@ -135,17 +135,12 @@ There are now 2 different planes that the player can choose from on the Characte
 
 Both planes have different speeds, health and projectiles fired, along with different effects from triggering 'Focus Fire'.
 
-Regular Plane:
-Health     - 5
-Movement   - 24 units/second
-Fire       - a mix of the original bullets and yellow balls
-Focus Fire - doubles the fire rate, slows movement by 40%
-
-Green Plane:
-Health     - 3
-Movement   - 30 units/second
-Fire       - a mix of the original bullets and yellow balls
-Focus Fire - switches to spread shot, slows movement by 10%
+|            | Regular Plane                    | Green Plane                     |
+| ---------- | -------------------------------- | ------------------------------- |
+| Health     | 5                                | 3                               | 
+| Movement   | 24 units/s                       | 30 units/s                      |
+| Fire       | bulllets + yellow balls          | yellow balls                    | 
+| Focus Fire | 2x fire rate, 60% movement speed | spread shot, 90% movement speed |
 
 #### Focus Fire
 When holding Shift (by default), the player character enters "Focus Fire". This is intended to slow the player character down, while giving them a stronger attack.
@@ -176,7 +171,7 @@ However, there is now also support for overriding the bounds used for collision.
 
 ### Code
 #### Modular Actor behaviour using the Strategy Pattern
-Actor behaviours (state changes with time) are now modelled wih the Strategy Pattern. Each main action in the game, that being Movement, Firing and Shielding (for the boss) has its own interface, which Actors then get passed an instance of (to namedrop that specific concept, Dependency Injection). 
+Actor behaviours (state changes with time) are now modelled wih the Strategy Pattern. Each main action in the game, that being Movement, Firing and Shielding (for the boss) has its own interface, which Actors then get passed an instance of (to namedrop the specific concept, Dependency Injection). 
 
 What this means is that adding new behaviours to these Actors does not require modifying the Actors themselves. To create and implement a burst firing pattern for an enemy that shoots bullets in bursts, all that would be needed would be to make a class implementing `Firing`, with internal state tracking the time arguments passed into `updateStrategyState`, that produces such a behaviour. Then, this could be passed to any existing `FighterPlane` as its firing strategy without modification (in its factory for example) and it would work.
 
@@ -313,18 +308,6 @@ This would allow for making other forms of `Input`-implementing classes, which w
 
 # Classes
 ## New Java Classes
-Location: `/`
-Location: `/managers`
-Location: `/screens`
-Location: `/config`
-Location: `/factories`
-Location: `/factories/interfaces`
-Location: `/overlays`
-Location: `/elements`
-Location: `/elements/actors`
-Location: `/elements/strategies`
-Location: `/assets`
-
 ### Miscellaneous
 #### Vector
 Location: `/`
@@ -597,6 +580,29 @@ Location (all): `/configs`
 - OverlayConfig : ElementConfig
 - TextBoxConfig : ElementConfig
 - ScreenConfig
+
+### Tests
+These are all located within the `src/test/java/dev/vernonlim/cw2024game` root folder.
+
+#### VectorTest
+Location: `/`
+
+Unit tests for the `Vector` class. Tests whether operations like normalization work properly, as well as aspects of its method interface such as whether or not the `Vector` is copied.
+
+#### ElementTest
+Location: `/elements/strategies`
+
+Unit tests for the `Element` class. Tests core functionality central to all its children and thus the game, such as movement methods.
+
+#### ImageElementConfigTest
+Location: `/configs`
+
+Tests the `Image`-specific parts of `ImageElement`. These are also used heavily within the game, and are thus of high importance.
+
+#### AssetLoaderTest
+Location: `/assets`
+
+Tests all current `AssetLoader` implementations on whether `loadImage` and `loadSound` actually return the same instances of `Image`s and `AudioClip`s, as such is the core functionality of a loader.
 
 ## Modified Java Classes
 ### Top Level
