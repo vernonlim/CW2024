@@ -576,17 +576,18 @@ Classes used to bundle data together to pass to constructors. As these are just 
 
 Location (all): `/configs`
 
-(: indicates inheritance)
-- ElementConfig
-- ImageElementConfig : ElementConfig
-- ActiveActorDestructibleConfig : ImageElementConfig
-- FighterPlaneConfig : ActiveActorDestructibleConfig
-- ProjectileConfig : ActiveActorDestructibleConfig
-- BossConfig : FighterPlaneConfig
-- UserPlaneConfig : FighterPlaneConfig
-- OverlayConfig : ElementConfig
-- TextBoxConfig : ElementConfig
-- ScreenConfig
+| Config                        | Inherits From                 |
+| ----------------------------- | ----------------------------- |
+| ElementConfig                 |                               |
+| ImageElementConfig            | ElementConfig                 |
+| ActiveActorDestructibleConfig | ImageElementConfig            |
+| FighterPlaneConfig            | ActiveActorDestructibleConfig |
+| ProjectileConfig              | ActiveActorDestructibleConfig |
+| BossConfig                    | FighterPlaneConfig            |
+| UserPlaneConfig               | FighterPlaneConfig            |
+| OverlayConfig                 | ElementConfig                 |
+| TextBoxConfig                 | ElementConfig                 |
+| ScreenConfig                  |                               |
 
 ### Tests
 These are all located within the `src/test/java/dev/vernonlim/cw2024game` root folder.
