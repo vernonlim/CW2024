@@ -14,8 +14,13 @@ The following tools may also be of use:
 - Apache Maven or an IDE that comes bundled with it such as IntelliJ IDEA.
 - git
 
+For rendering the PlantUML file, make sure you have:
+- PlantUML itself
+- GraphViz
+- The IDEA plugin for it (for in-editor rendering)
+
 ## Source Code
-If you don't already have the source code (from being the grader), download the source code by cloning the repository:
+If you don't already have the source code (from being the grader with the zip of the local project folder), download the source code by cloning the repository:
 ```shell
 git clone https://github.com/vernonlim/CW2024.git
 cd CW2024
